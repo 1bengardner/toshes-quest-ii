@@ -1,0 +1,48 @@
+NAME	PRICE	ELEMENT	REQUIREMENT_VALUE	DEFENCE	REDUCTION
+Cassock	50	Physical	0	1	0
+Wool Gambeson	50	Physical	10	1	0
+Wool Doublet	100	Physical	15	2	0
+Leather Gambeson	150	Physical	15	4	0
+Leather Doublet	200	Physical	25	6	0
+Tunic	100	Physical	25	5	0
+Canvas Gambeson	300	Physical	20	7	0
+Canvas Doublet	300	Physical	35	9	0
+Magerobe	300	Physical	0	3	0
+Velvet Doublet	600	Physical	30	11	0
+Woodland Tunic	200	Physical	25	10	0
+Embroidered Cloths	500	Physical	0	5	0
+Brigandine	400	Physical	30	9	0
+Wizardmist Cloak	500	Water	0	0	30
+Eucalyptic Tunic	400	Physical	25	15	0
+Dark Robe	550	Elemental	0	3	10
+Bone Vest	750	Physical	50	13	0
+Sacredvine Cloak	700	Earth	0	3	30
+Leather Brigandine	950	Physical	40	15	0
+Elven Tunic	800	Physical	25	20	0
+Iron Cuirass	1500	Physical	55	20	0
+White Robe	1200	Elemental	0	3	17
+Bloodfire Cloak	1000	Fire	0	6	30
+Iron Hauberk	1200	Physical	40	18	0
+Steel Cuirass	3000	Physical	75	25	0
+Gilded Robe	2000	Elemental	0	3	20
+Steel Hauberk	2500	Physical	50	23	0
+Gold Cuirass	6000	Elemental	50	30	10
+Shadow Mail	4000	Elemental	35	20	15
+Gold Hauberk	6000	Elemental	35	28	10
+Glowing Mail	5000	Elemental	35	20	20
+Gemmed Habiliment	4000	Elemental	0	12	25
+Arcane Vestment	4000	Elemental	0	6	30
+Sentinel Plate	5000	Physical	90	33	10
+Gaia Suit	8000	Earth	55	35	35
+Frost Dragon Skin	8000	Water	55	35	35
+Dragon Skin	8000	Fire	55	35	35
+Prismatic Garb	8000	Elemental	55	25	25
+Guardian Plate	8000	Physical	90	38	20
+Moon Armour	5000	Elemental	15	10	10
+Cotton Shirt	30	Physical	0	0	0
+Greek Armour	1	Physical	30	15	0
+Greek Robe	1	Elemental	0	3	10
+Niplin's Breastplate	10000	Elemental	130	40	25
+Riplin's Breastplate	10000	Physical	150	40	25
+Riplin's Mageplate	10000	Physical	0	0	25
+Riplin's Greatvest	10000	Physical	25	40	0

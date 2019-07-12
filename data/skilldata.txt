@@ -1,0 +1,154 @@
+NAME	CATEGORY	PERMITTED_WEAPONS	EP_USED	MULTIPLIER	ELEMENT	USER_EFFECTS	TARGET_EFFECTS	TEXT	FLAG
+Attack	Damage	{"All"}	0	100	Physical	{}	{}	attacks	None
+Defend	Miscellaneous	{"All"}	0	0	Physical	{}	{}	is defending against the next attack	Defending
+Deep Thrust	Damage	{"Melee"}	5	150	Physical	{}	{}	deeply thrusts into	None
+Rumble Strike	Damage	{"Melee"}	10	200	Physical	{'hp': -20}	{}	strikes	None
+Helix Swing	Damage	{"Melee"}	10	175	Physical	{'cDamage': 10, 'accuracy': 2}	{}	swings in a helix at	None
+Shield Breaker	Damage	{"Melee"}	15	200	Physical	{}	{'bRate': -3}	bashes into	None
+Steadfast Slash	Accurate Damage	{"Sword", "Axe"}	20	250	Physical	{}	{}	unfalteringly slashes	None
+Carnivorous Blow	Life Steal Damage	{"Melee"}	15	10	Physical	{}	{}	is reinvigorated after savagely slashing	None
+Steel Twister	Multi-Hit Damage	{"Melee"}	25	4	Physical	{}	{}	spins wildly into	None
+Bloodrush Crush	Critical Damage	{"Club"}	20	250	Physical	{}	{}	furiously smashes	None
+Diamond Cutter	Damage	{"Melee"}	15	200	Physical	{}	{'defence': -10}	cuts through the armour of	None
+Aerial Assault	Reduced Accuracy Damage	{"Melee"}	25	300	Physical	{}	{}	leaps up high before unleashing a deadly strike on	None
+Expunging Lunge	No Defence Damage	{"Spear", "Sword"}	25	300	Physical	{}	{}	lunges into	None
+Reckless Rack	Reduced Accuracy Damage	{"Melee"}	40	500	Physical	{'cDamage': 10}	{}	recklessly demolishes	Recovering
+Battery Cage	Multi-Hit Damage	{"Melee"}	50	7	Physical	{}	{}	batters	None
+Bladedriver's Barbarity	Miscellaneous	{"Sword"}	40	0	Physical	{'cDamage': 50}	{}	unleashes the savagery of the sword	None
+Pummeler's Precision	Miscellaneous	{"Club"}	40	0	Physical	{'cRate': 2, 'accuracy': 3}	{}	channels the mastery of the mace	None
+Gashmaster's Grace	Miscellaneous	{"Axe"}	40	0	Physical	{'accuracy': 5, 'cDamage': 25}	{}	embraces the artfulness of the axe	None
+Impaler's Impulse	Miscellaneous	{"Spear"}	40	0	Physical	{'cRate': 2, 'cDamage': 25}	{}	harnesses the swiftness of the spear	None
+Seal Smash	Damage	{"Club"}	10	100	Ice	{'cDamage': 5}	{}	smashes	None
+Seal Sever	Damage	{"Axe"}	10	100	Ice	{'cDamage': 5}	{}	severs	None
+Seal Slice	Damage	{"Sword"}	10	100	Ice	{'cDamage': 5}	{}	slices	None
+Seal Stab	Damage	{"Spear"}	10	100	Ice	{'cDamage': 5}	{}	stabs	None
+Shark Smash	Damage	{"Club"}	10	100	Water	{'defence': 2}	{}	smashes	None
+Shark Sever	Damage	{"Axe"}	10	100	Water	{'defence': 2}	{}	severs	None
+Shark Slice	Damage	{"Sword"}	10	100	Water	{'defence': 2}	{}	slices	None
+Shark Stab	Damage	{"Spear"}	10	100	Water	{'defence': 2}	{}	stabs	None
+Salamander Smash	Damage	{"Club"}	10	100	Fire	{'earthReduction': 3, 'waterReduction': 3, 'fireReduction': 3}	{}	smashes	None
+Salamander Sever	Damage	{"Axe"}	10	100	Fire	{'earthReduction': 3, 'waterReduction': 3, 'fireReduction': 3}	{}	severs	None
+Salamander Slice	Damage	{"Sword"}	10	100	Fire	{'earthReduction': 3, 'waterReduction': 3, 'fireReduction': 3}	{}	slices	None
+Salamander Stab	Damage	{"Spear"}	10	100	Fire	{'earthReduction': 3, 'waterReduction': 3, 'fireReduction': 3}	{}	stabs	None
+Scorpion Smash	Damage	{"Club"}	10	100	Poison	{'cRate': 1}	{}	smashes	None
+Scorpion Sever	Damage	{"Axe"}	10	100	Poison	{'cRate': 1}	{}	severs	None
+Scorpion Slice	Damage	{"Sword"}	10	100	Poison	{'cRate': 1}	{}	slices	None
+Scorpion Stab	Damage	{"Spear"}	10	100	Poison	{'cRate': 1}	{}	stabs	None
+Scarab Smash	Damage	{"Club"}	10	100	Earth	{'maxHp': 10}	{}	smashes	None
+Scarab Sever	Damage	{"Axe"}	10	100	Earth	{'maxHp': 10}	{}	severs	None
+Scarab Slice	Damage	{"Sword"}	10	100	Earth	{'maxHp': 10}	{}	slices	None
+Scarab Stab	Damage	{"Spear"}	10	100	Earth	{'maxHp': 10}	{}	stabs	None
+Power Lob	Reduced Accuracy Damage	{"Bow"}	5	250	Physical	{}	{}	launches an arrow, landing on	None
+Rock Shot	Damage	{"Bow"}	5	80	Earth	{}	{}	fires a rock at	None
+Stiff Shot	Damage	{"Bow"}	10	200	Physical	{'hp': -20}	{}	stiffly shoots	None
+Flaming Arrow	Damage	{"Bow"}	10	100	Fire	{}	{}	shoots a flaming arrow at	None
+Sap Shot	Life Steal Damage	{"Bow"}	11	10	Physical	{}	{}	shoots an essence-sapping arrow at	None
+Bullseye Bolt	Accurate Damage	{"Bow"}	15	250	Physical	{}	{}	fires a steady shot at	None
+Freezing Arrow	Damage	{"Bow"}	10	100	Ice	{}	{}	shoots a freezing cold arrow at	None
+Piercing Quad	Multi-Hit Damage	{"Bow"}	15	4	Physical	{}	{'defence': -1}	fires a piercing arrow at	None
+Death Dart	Damage	{"Bow"}	30	400	Physical	{}	{}	shoots a deadly projectile at	None
+Venom Arrow	Damage	{"Bow"}	10	100	Poison	{}	{}	fires a poisonous arrow at	None
+Rapid Burst	Multi-Hit Damage	{"Bow"}	50	7	Physical	{}	{}	shoots rapidly at	None
+Fireball	Damage	{"Wand"}	10	150	Fire	{}	{}	casts Fireball on	None
+Mudslide	Damage	{"Wand"}	10	150	Earth	{}	{'accuracy': -1}	casts Mudslide on	None
+Icicles	Multi-Hit Damage	{"Wand"}	20	3	Ice	{}	{}	casts a shard of ice at	None
+Quicksand	Damage	{"Wand"}	20	200	Earth	{}	{'defence': -5}	casts Quicksand on	None
+Smoulder	Damage	{"Wand"}	20	200	Fire	{}	{'defence': -3}	casts Smoulder on	None
+Avalanche	Multi-Hit Damage	{"Wand"}	25	4	Earth	{}	{}	conjures a boulder to fall on	None
+Whirlpool	Damage	{"Wand"}	25	300	Water	{}	{}	casts Whirlpool on	None
+Hot Coals	Multi-Hit Damage	{"Wand"}	30	4	Fire	{}	{'hp': -5}	conjures a hot coal to burn	None
+Poison Cloud	Damage	{"Wand"}	30	0	Poison	{}	{}	casts Poison Cloud	None
+Melting Touch	Damage	{"Wand"}	30	300	Fire	{}	{'defence': -15}	casts Melting Touch on	None
+Floodtide	Damage	{"Wand"}	35	400	Water	{}	{}	casts Floodtide on	None
+Mist	Miscellaneous	{"Wand"}	35	0	Physical	{}	{'waterReduction': -20, 'accuracy': -5}	conjures a veil of mist	None
+Scorch	Damage	{"Wand"}	35	350	Fire	{}	{'hp': -25}	scorches	None
+Duststorm	Multi-Hit Damage	{"Wand"}	40	5	Earth	{}	{'accuracy': -1}	casts a gust of dust at	None
+Hailstorm	Multi-Hit Damage	{"Wand"}	45	6	Ice	{}	{'bRate': -1}	casts a shard of hail at	None
+Firestorm	Multi-Hit Damage	{"Wand"}	45	6	Fire	{}	{'defence': -1}	casts a ball of fire at	None
+Burning Mind	Miscellaneous	{"Wand"}	50	0	Physical	{'cRate': 2, 'defence': -5}	{'fireReduction': -20}	casts burning mind	None
+Asteroid	Damage	{"Wand"}	55	550	Earth	{}	{}	casts Asteroid on	None
+Torrent Funnel	Damage	{"Wand"}	55	575	Water	{}	{}	casts Torrent Funnel on	None
+Stone Skin	Miscellaneous	{"Wand"}	65	0	Physical	{'physicalReduction': 25}	{}	casts stone skin	Stone Skin3
+Immolation	Damage	{"Wand"}	65	650	Fire	{}	{}	casts Immolation on	None
+Venomblast	Damage	{"Wand"}	70	600	Poison	{}	{'cDamage': -5}	casts Venomblast on	None
+Blizzard	Multi-Hit Damage	{"Wand"}	70	8	Ice	{}	{}	casts a blast of icy wind at	None
+Eruption	Critical Damage	{"Wand"}	75	650	Fire	{}	{}	casts Eruption on	None
+Derecho	Multi-Hit Damage	{"Wand"}	80	9	Electricity	{}	{'accuracy': -1}	conjures a bolt of lightning on	None
+Stratosphere	Miscellaneous	{"Wand"}	90	0	Physical	{'defence': 8}	{'earthReduction': -30}	wields the power of the stratosphere	None
+Tsunami	Critical Damage	{"Wand"}	90	700	Water	{}	{}	casts Tsunami on	None
+Fumarole	Critical Damage	{"Wand"}	100	750	Earth	{}	{}	casts Fumarole on	None
+Cosmic Coincidence	Damage	{"Wand"}	100	750	Physical	{}	{'earthReduction': -5, 'waterReduction': -5, 'fireReduction': -5}	conjures a cosmic explosion on	Recovering
+Recover	Heal	{"All"}	15	25	Physical	{}	{}	recovers	None
+Restore	Percent Heal	{"All"}	50	25	Physical	{}	{}	restores	Recovering
+Reinvigorate	Percent Heal	{"All"}	125	50	Physical	{}	{}	reinvigorates	Recovering
+Revitalize	Percent Heal	{"All"}	250	100	Physical	{}	{}	revitalizes	Recovering
+Equip Item	Miscellaneous	{"All"}	0	0	Physical	{}	{}	swaps gear	Recovering
+Inner Zen	Miscellaneous	{"All"}	25	0	Physical	{'accuracy': 4, 'cRate': 2, 'cDamage': 20}	{}	focuses deeply	None
+Healing Glow	Magic Heal	{"Wand"}	20	500	Physical	{}	{}	casts Healing Glow	None
+Healing Light	Magic Heal	{"Wand"}	40	2000	Physical	{}	{}	casts a Healing Light	None
+Healing Ray	Magic Heal	{"Wand"}	80	5000	Physical	{}	{}	casts a Healing Ray	None
+Re-energize	Miscellaneous	{"Wand"}	50	0	Physical	{}	{}	begins to re-energize	Re-energizing
+Venom Strike	Damage	{"All"}	0	100	Poison	{}	{}	attacks	None
+Crush	Damage	{"All"}	0	150	Physical	{}	{}	crushes	None
+Zap	Damage	{"All"}	0	200	Electricity	{}	{}	zaps	None
+Bite	Life Steal Damage	{"All"}	0	50	Physical	{}	{}	bites	None
+Catch Breath	Miscellaneous	{"All"}	0	0	Physical	{}	{}	takes a time-out to catch his breath	None
+Fling Dung	Damage	{"All"}	0	50	Poison	{}	{}	flings dung at	None
+Thorns	Damage	{"All"}	0	150	Earth	{}	{}	summons thorns to attack	None
+Poison Ivy	Damage	{"Wand"}	30	0	Poison	{}	{}	summons poison ivy	None
+Fall Down	Miscellaneous	{"All"}	0	0	Physical	{'defence': 10}	{}	fall down	None
+Fire Claw	Damage	{"All"}	0	100	Fire	{}	{}	rakes a flaming claw through	None
+Soul Drain	Damage	{"All"}	0	150	Electricity	{'hp': 20}	{'ep': -20}	drains the soul of	None
+Skitter	Miscellaneous	{"All"}	0	0	Physical	{}	{'accuracy': -10}	skitters across the water	None
+Swoop	Critical Damage	{"All"}	0	100	Physical	{}	{'accuracy': -10}	swoops down to strike	None
+Rapid Stab	Multi-Hit Damage	{"Sword"}	0	2	Physical	{}	{}	rapidly stabs	None
+Deadly Stab	Critical Damage	{"Sword"}	0	100	Physical	{}	{}	precisely stabs	None
+Smoke Bomb	Miscellaneous	{"All"}	0	0	Physical	{}	{'accuracy': -15}	throws a smoke bomb	None
+Ice Ray	Damage	{"All"}	0	100	Ice	{}	{}	shoots an ice ray at	None
+Fire Ray	Damage	{"All"}	0	100	Fire	{}	{}	shoots a fire ray at	None
+Charge	Critical Damage	{"All"}	0	150	Physical	{}	{}	charges at	None
+Hide	Miscellaneous	{"All"}	0	0	Physical	{'physicalReduction': 100}	{}	hides in the shadows	Hiding
+Dive	Critical Damage	{"All"}	0	300	Physical	{}	{}	dives from the sky to strike	None
+Sting	Critical Damage	{"All"}	0	100	Poison	{}	{'ep': -5}	stings	None
+Blind	Damage	{"All"}	0	10	Fire	{}	{'accuracy': -50}	uses a piece of glass to reflect blinding sunlight into the eyes of	None
+Command Fang	Damage	{"All"}	0	125	Physical	{}	{'cRate': -2}	commands Fang to leap at	None
+Drain	Damage	{"All"}	0	0	Physical	{}	{'ep': -20}	drains	None
+Bolt	Damage	{"Wand"}	8	100	Electricity	{}	{}	casts Bolt on	None
+Strong Attack	Damage	{"All"}	0	200	Physical	{}	{}	attacks	None
+Sing	Damage	{"All"}	0	0	Electricity	{}	{'damage': -25, 'ep': -50, 'maxHp': -1}	sings to	None
+Crook Smash	Reduced Accuracy Damage	{"All"}	0	200	Earth	{}	{'bRate': -10}	smashes his shepherd's crook into	Recovering
+Rage	Miscellaneous	{"All"}	0	0	Physical	{'damage': 5, 'cRate': 10, 'cDamage': 25}	{}	becomes enraged	None
+Beat	Critical Damage	{"Club"}	0	100	Physical	{}	{}	beats	None
+Snatch	Life Steal Damage	{"All"}	0	3000	Physical	{}	{}	grabs some liver from	None
+Lock Eyes	Damage	{"All"}	0	0	Petrification	{}	{}	locks eyes with	None
+Aggression	Miscellaneous	{"All"}	0	0	Physical	{'damage': 50}	{}	takes an aggressive stance	Aggression
+Earth Affinity	Miscellaneous	{"All"}	0	0	Physical	{'earthReduction': 50}	{}	casts Earth Affinity	Earth Affinity
+Water Affinity	Miscellaneous	{"All"}	0	0	Physical	{'waterReduction': 50}	{}	casts Water Affinity	Water Affinity
+Fire Affinity	Miscellaneous	{"All"}	0	0	Physical	{'fireReduction': 50}	{}	casts Fire Affinity	Fire Affinity
+Grow Heads	Miscellaneous	{"All"}	0	0	Physical	{'maxHp': 20000, 'hp': 20000, 'accuracy': 8}	{}	grows two more heads	Recovering
+Poisonbreath	Reduced Accuracy Damage	{"All"}	0	300	Poison	{}	{'defence': -3}	breathes poisonous gas onto	None
+Home In	Damage	{"All"}	0	0	Physical	{'accuracy': 90, 'cRate': 90}	{}	homes in on	Homing
+Nimble Feet	Miscellaneous	{"All"}	0	0	Physical	{}	{}	bolts away	Escaping
+Golden Fur	Miscellaneous	{"All"}	0	0	Physical	{'bRate': 75, 'accuracy': 1}	{}	grows a coat of gold fur	Golden Fur
+Soul Siphon	Damage	{"All"}	0	0	Physical	{}	{'ep': -300}	siphons energy from	Recovering
+Sunder	Damage	{"All"}	0	200	Sunder	{}	{}	sunders	None
+Nero	Life Steal Damage	{"Sword"}	0	3000	Petrification	{'maxHp': -500}	{}	takes his Nero Blade and stabs	None
+Negletto1	Damage	{"Sword"}	0	100	Fire	{'defence': -50}	{}	uses his Negletto Blade to horizontally slash	None
+Negletto2	Damage	{"Sword"}	0	100	Ice	{'defence': -50}	{}	uses his Negletto Blade to vertically slash	None
+Negletto3	Damage	{"Sword"}	0	100	Electricity	{'defence': -50}	{}	uses his Negletto Blade to diagonally slash	None
+Nefando	Critical Damage	{"Sword"}	0	175	Physical	{'cDamage': 50}	{}	thrusts his Nefando Blade into	None
+Nefasto	Reduced Accuracy Damage	{"Sword"}	0	300	Physical	{'damage': -1}	{}	swings his Nefasto Blade at	None
+Stand Firm	Miscellaneous	{"All"}	0	0	Physical	{}	{}	stands firm	None
+Crumble No Damage	Miscellaneous	{"All"}	0	0	Physical	{'defence': -1}	{}	slowly crumbles	None
+Crumble Rocks	Damage	{"All"}	0	100	Earth	{'defence': -1}	{}	slowly crumbles, with a bundle of rocks falling on	None
+Spire	Critical Damage	{"All"}	0	150	Earth	{'hp': -100}	{}	has a spire break off of it that lands on	None
+Icicle	Critical Damage	{"All"}	0	200	Ice	{'defence': -3}	{}	crumbles and a large icicle falls, striking	None
+Molten Rocks	Multi-Hit Damage	{"All"}	0	3	Fire	{'hp': -100}	{}	breaks and a molten rock falls on	None
+Wind Up	Miscellaneous	{"All"}	0	0	Physical	{'defence': -1200, 'damage': 70, 'cRate': 100}	{}	winds up	Winding Up
+Silvio Defend	Miscellaneous	{"All"}	0	0	Physical	{'defence': 500}	{}	is parrying	Silvio Defending
+Crystal Explosion Earth	Critical Damage	{"All"}	0	200	Earth	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None
+Crystal Explosion Water	Critical Damage	{"All"}	0	200	Water	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None
+Crystal Explosion Fire	Critical Damage	{"All"}	0	200	Fire	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None
+Sleep	Miscellaneous	{"All"}	0	0	Physical	{}	{}	falls asleep	Sleeping
+Frostburn	Damage	{"All"}	0	200	Frostfire	{}	{}	casts Frostburn on	None
+Icebreath	Reduced Accuracy Damage	{"All"}	0	300	Freezing	{}	{'defence': -3}	breathes frost on	None

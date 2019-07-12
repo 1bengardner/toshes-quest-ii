@@ -1,0 +1,24 @@
+FOE	HERO
+Bring it.	Feel my wrath!
+Let's clash.	Haha! Now it's my turn!
+Prepare yourself, warrior.	Come here!
+Let the fight begin.	Let me show you what true power is!
+I can take you on.	Take a good look--it'll all be over soon!
+Brace yourself.	Do you know the definition of pain?
+You versus me. One on one.	Haven't you had enough?
+You're just another punk.	Taste this!
+I'll go easy on this young guy.	This is the end of your crusade!
+Fight me.	Don't you know who I am?
+My blade is sharp.	Do you really think you can take me on?
+This armour was forged with pride.	Haaaaaah!
+Draw your weapon.	Fight with all your might. You'll need it!
+Give me your best show.	Welcome to your first real duel!
+We shall fight until one surrenders.	Your final battle…how does it feel?
+An even match-up.	Prepare for defeat!
+It looks like I'm going to win this one, warrior.	*alternates between stomping both feet on the ground.*
+A duel for glory.	*lets out a battle cry.*
+Winner takes all.	*swings his weapon above his head.*
+My fame is on the line.	*holds his weapon to the sky.*
+Show me what you're made of.	*ushers the crowd away from you and gestures for a battle.*
+Let me test your mettle.	*points toward you.*
+We shall see who is more skilful.	*slams his weapon to the ground, making a deafening sound.*

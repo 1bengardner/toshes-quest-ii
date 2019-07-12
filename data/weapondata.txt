@@ -1,0 +1,58 @@
+NAME	PRICE	ELEMENT	REQUIREMENT_VALUE	POWER	REQUIREMENT_TYPE	CATEGORY	C_RATE	C_DAMAGE
+Stick	1	Physical	0	10	Strength	Club	10	200
+Small Dagger	20	Physical	0	13	Strength	Sword	2	200
+Rapier	50	Physical	10	15	Strength	Sword	6	200
+Cleaver	50	Physical	15	17	Strength	Axe	6	200
+Cudgel	100	Physical	15	20	Strength	Club	10	200
+Battle Axe	150	Physical	25	25	Strength	Axe	8	200
+Mace	200	Physical	25	25	Strength	Club	10	200
+Emerald Dagger	30	Earth	0	13	Strength	Sword	2	200
+Pine Bow	50	Physical	10	20	Dexterity	Bow	6	200
+Double Axe	250	Physical	30	30	Strength	Axe	6	200
+Flail	350	Physical	30	27	Strength	Club	12	200
+Long Sword	600	Physical	35	30	Strength	Sword	4	200
+Javelin	500	Physical	15	28	Strength	Spear	20	200
+Alder Bow	500	Physical	20	30	Dexterity	Bow	6.4	200
+Espadon	1200	Physical	40	40	Strength	Sword	4	200
+Flanged Mace	800	Physical	25	35	Strength	Club	10	200
+Yew Wand	1300	Physical	30	30	Wisdom	Wand	0.1	200
+Great Axe	1300	Physical	50	45	Strength	Axe	8	200
+Spear	800	Physical	30	42	Strength	Spear	8	200
+Birch Bow	1000	Physical	40	40	Dexterity	Bow	6.8	200
+Dark Dagger	200	Physical	10	18	Strength	Sword	2	200
+Wand of Kosovo	2400	Physical	50	50	Wisdom	Wand	0.1	200
+Heavy Mace	900	Physical	50	40	Strength	Club	10	200
+Fire Wand	1500	Fire	45	45	Wisdom	Wand	0.1	200
+Sacred Tomahawk	2400	Physical	65	50	Strength	Axe	6	200
+Pike	2500	Physical	75	60	Strength	Spear	8	200
+Oak Bow	2000	Physical	60	60	Dexterity	Bow	7.2	200
+Bloodmoon Sword	4000	Frostfire	45	60	Strength	Sword	4	300
+Shooting Star	7777	Physical	77	60	Wisdom	Wand	1	200
+Macedonian Mace	1500	Earth	50	55	Strength	Club	10	200
+Partisan	3000	Physical	85	65	Strength	Spear	8	200
+Merciless Dagger	1800	Physical	10	40	Strength	Sword	2	200
+Obsidian Crusher	3800	Physical	70	63	Strength	Club	10	200
+Misty Axe	3600	Water	50	64	Strength	Axe	6	200
+Asp Bow	4699	Physical	80	80	Dexterity	Bow	7.6	200
+Ash Bow	4000	Physical	80	80	Dexterity	Bow	7.6	200
+Silver Blade	5000	Physical	60	65	Strength	Sword	4	200
+Moaning Star	4699	Physical	65	66	Strength	Club	10	200
+Morning Star	4700	Physical	65	68	Strength	Club	10	200
+Wimpwood Wand	4699	Physical	70	66	Wisdom	Wand	0.1	200
+Impwood Wand	4800	Physical	70	70	Wisdom	Wand	0.1	200
+Bardiche	4700	Physical	90	76	Strength	Spear	8	200
+Giant Axe	4500	Physical	85	72	Strength	Axe	8	200
+Flametongue	5000	Fire	60	50	Strength	Sword	30	200
+Avadavra Wand	6000	Physical	80	80	Wisdom	Wand	0.1	200
+Mighty Flange	5000	Physical	65	70	Strength	Club	10	200
+Glaive	6000	Physical	95	80	Strength	Spear	8	200
+Eucalyptus Bow	8000	Physical	100	100	Dexterity	Bow	8	200
+Dagger of the River	7500	Water	10	75	Strength	Sword	2	200
+Ornate Halberd	7000	Physical	100	85	Strength	Spear	8	200
+Helm Splitter	7000	Physical	100	82	Strength	Axe	6	200
+Gyroscopic Flange	7000	Physical	100	75	Strength	Club	10	200
+Khabir's Shaft	70000	Physical	100	80	Wisdom	Wand	0.1	200
+J Bow	7000	Physical	100	105	Dexterity	Bow	6	200
+Golden Sun	7000	Physical	100	80	Strength	Sword	2	200
+Niplin's Greatsword	8000	Physical	130	70	Strength	Sword	10	300
+Fists	0	Physical	0	5	Strength	Club	2	200

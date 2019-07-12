@@ -1,0 +1,6 @@
+NAME	level	xp	xpTnl	maxHp	maxEp	strength	dexterity	wisdom	skills	equippedWeapon	equippedArmour	equippedShield
+Heinz	1	0	100	20	0	5	10	10	{}	Small Dagger	Cotton Shirt	Nothing
+Bert	1	0	100	80	0	10	10	10	{'Rumble Strike': 5}	Rapier	Cotton Shirt	Nothing
+Dragan	6	0	2000	200	0	30	15	10	{'Steadfast Slash': 5}	Long Sword	Canvas Doublet	Nothing
+Qendresa	16	0	28800	400	0	25	50	30	{'Defend': 7}	Espadon	Steel Cuirass	Oseku Shield
+Barrie	18	0	35020	440	0	25	10	80	{'Fireball': 4, 'Icicles': 2, 'Avalanche': 1, 'Command Fang': 5, 'Healing Light': 7}	Wand of Kosovo	Arcane Vestment	Force Gauntlets

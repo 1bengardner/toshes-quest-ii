@@ -1,0 +1,224 @@
+IDENTIFIER	NAME	IMAGE	LEVEL	hp	maxHp	damage	accuracy	cRate	cDamage	bRate	defence	earthReduction	waterReduction	fireReduction	physicalReduction	SKILLS	ITEMS	XP	EUROS	FLEEABLE	DEATH_HP	MUSIC	UNIQUE	LIVING
+Gigantic Crayons	Gigantic Crayons	Gigantic Crayons	1	9999	9999	0	999	0	0	50	0	0	0	0	0	{'Fall Down': 100}	{}	0	500	1	0	Crayon Battle	0	0
+Water Spider	Water Spider	Water Spider	1	40	40	2	90	10	200	0	0	0	50	0	0	{}	{}	5	0	1	0	None	0	1
+Small Jellyfish	Jellyfish	Small Jellyfish	1	30	30	3	90	10	200	0	0	0	50	0	0	{'Zap': 15}	{}	7	0	1	0	None	0	1
+Sea Goblin	Sea Goblin	Sea Goblin	1	40	40	4	90	10	200	0	0	0	50	0	0	{}	{}	8	0	1	0	None	0	1
+Crab	Crab	Crab	1	25	25	5	90	10	200	0	2	0	50	0	0	{}	{}	10	0	1	0	None	0	1
+Sean	Sean	Sean	2	500	500	2	90	10	200	0	0	0	0	0	0	{'Crush': 5, 'Catch Breath': 20}	{}	0	25	1	250	None	0	1
+Blood Carp	Blood Carp	Blood Carp	2	60	60	4	90	10	200	0	0	0	50	0	0	{'Bite': 20}	{}	15	0	1	0	None	0	1
+Goblin	Goblin	Goblin	2	65	65	4	80	10	200	0	2	0	0	0	0	{}	{'Cudgel': 7}	15	5	1	0	None	0	1
+Rumadan Man	Rumadan Man	Rumadan Man	2	100	100	5	90	10	200	0	1	0	0	0	0	{'Fling Dung': 8}	{'Wool Gambeson': 8}	20	5	1	0	None	0	1
+Kotor Crab	Kotor Crab	Kotor Crab	3	50	50	8	90	10	200	0	6	0	50	0	0	{}	{}	30	0	1	0	None	0	1
+Rumadan Warrior	Rumadan Warrior	Rumadan Warrior	3	100	100	11	90	4	200	0	2	0	0	0	0	{'Deep Thrust': 10}	{'Wool Doublet': 8, 'Long Sword': 3}	40	10	1	0	None	0	1
+Ent	Ent	Ent	3	120	120	7	90	10	200	5	4	50	75	-100	0	{'Thorns': 15, 'Poison Ivy': 2}	{}	45	5	1	0	None	0	0
+Lina1	Lina	Lina1	4	50	50	10	90	10	200	0	0	50	50	50	80	{'Bite': 75, 'Charge': 25}	{'Cassock': 25, 'Wool Gambeson': 20, 'Wool Doublet': 15, 'Leather Gambeson': 10, 'Leather Doublet': 8, 'Canvas Gambeson': 6, 'Canvas Doublet': 4, 'Magerobe': 2, 'Velvet Doublet': 1}	50	0	1	5	Important Battle	0	1
+Lina2	Lina	Lina2	4	50	50	5	90	10	200	0	0	50	50	50	80	{'Quicksand': 45, 'Smoulder': 45, 'Bite': 10}	{'Cassock': 27, 'Wool Gambeson': 22, 'Wool Doublet': 17, 'Leather Gambeson': 11, 'Leather Doublet': 9, 'Canvas Gambeson': 7, 'Canvas Doublet': 4, 'Magerobe': 2, 'Velvet Doublet': 1}	50	0	1	5	Important Battle	0	1
+Lina3	Fur Apparition	Lina3	40	500000	500000	50	999	0.1	200	0	0	50	50	50	80	{'Fumarole': 5, 'Eruption': 5, 'Quicksand': 20, 'Smoulder': 20, 'Golden Fur': 10, 'Healing Light': 10, 'Soul Siphon': 10, 'Bite': 10}	{'Steel Hauberk': 27, 'Steel Cuirass': 22, 'Gemmed Habiliment': 17, 'Shadow Mail': 11, 'Arcane Vestment': 9, 'Glowing Mail': 7, 'Sentinel Plate': 4, 'Guardian Plate': 2, 'Prismatic Garb': 1}	3700	0	1	5	Important Battle	0	1
+Vampire Bat	Vampire Bat	Vampire Bat	4	70	70	18	90	10	200	0	0	0	0	0	0	{'Bite': 50}	{}	55	0	1	0	None	0	1
+Skeleton	Skeleton	Skeleton	4	130	130	12	90	2	200	0	10	25	0	-100	0	{}	{'Dark Dagger': 5, 'Bone Vest': 2}	60	15	1	0	None	0	0
+Arcane Asp	Arcane Asp	Arcane Asp	4	90	90	16	999	0.1	200	0	0	50	25	-75	0	{'Fireball': 45, 'Quicksand': 15}	{'Jade Crystal': 6}	65	0	1	0	None	0	1
+Skeleton Mage1	Skeleton Mage	Skeleton Mage1	5	130	130	15	999	0.1	200	0	10	75	0	-100	0	{'Poison Cloud': 25}	{}	75	15	1	0	None	0	0
+Skeleton Mage2	Skeleton Mage	Skeleton Mage2	5	130	130	15	999	0.1	200	0	10	25	50	-100	0	{'Icicles': 25}	{'Wizardmist Cloak': 10}	75	15	1	0	None	0	0
+Goblin Ranger	Goblin Ranger	Goblin Ranger	5	160	160	15	90	6	200	0	12	0	0	0	0	{'Power Lob': 10}	{'Alder Bow': 10}	75	20	1	0	None	0	1
+Cave Orc	Cave Orc	Cave Orc	5	170	170	22	75	8	200	0	5	0	0	0	0	{'Rumble Strike': 5, 'Helix Swing': 10}	{'Great Axe': 5, 'Cudgel': 5}	80	25	1	0	None	0	1
+Mountain Goblin	Mountain Goblin	Mountain Goblin	6	160	160	17	80	10	200	5	22	50	0	-100	0	{'Bloodrush Crush': 5}	{'Mace': 5, 'Buckler': 10}	90	20	1	0	None	0	1
+Orc	Orc	Orc	6	210	210	20	70	6	200	0	18	0	0	0	0	{'Rumble Strike': 5, 'Helix Swing': 10, 'Shield Breaker': 3}	{'Great Axe': 5, 'Bone Vest': 5}	110	30	1	0	None	0	1
+Dr. Grabh	Dr. Grabh	Dr Grabh	6	100	100	22	90	20	200	0	11	0	0	0	0	{'Helix Swing': 10, 'Restore': 20}	{'Javelin': 50, 'Velvet Doublet': 50}	120	30	1	0	Important Battle	1	1
+Giant Seal1	Giant Seal	Giant Seal1	7	300	300	17	90	10	200	0	20	0	50	-100	0	{}	{}	140	0	1	0	None	0	1
+Moghi	Moghi	Moghi	7	380	380	14	90	10	200	0	20	50	0	-100	0	{'Rumble Strike': 25, 'Crush': 25}	{}	140	0	1	0	None	0	1
+Divelk	Divelk	Divelk	7	180	180	26	999	0.1	200	0	0	25	25	25	0	{'Mudslide': 30, 'Healing Glow': 15}	{}	150	30	1	0	None	0	1
+Giant Seal2	Frostflipper the Fierce	Giant Seal2	7	3000	3000	34	90	10	200	0	20	0	50	-100	0	{'Icicles': 20}	{}	1400	0	1	0	Important Battle	0	1
+Skeleton Soldier	Skeleton Soldier	Skeleton Soldier	8	280	280	34	60	8	200	8	45	25	0	-100	0	{'Deep Thrust': 8, 'Defend': 8}	{'Spear': 4, 'Tower Shield': 2, 'Iron Hauberk': 3}	190	40	1	0	None	0	0
+Skeleton Archer	Skeleton Archer	Skeleton Archer	8	280	280	29	90	8	200	0	30	25	0	-100	0	{'Sap Shot': 10, 'Piercing Quad': 15}	{'Birch Bow': 6, 'Iron Hauberk': 3}	190	40	1	0	None	0	0
+Golem	Golem	Golem	8	350	350	22	90	10	200	7	50	50	-100	50	0	{'Avalanche': 5, 'Rock Shot': 10}	{'Rock Shield': 4}	200	0	1	0	None	0	0
+Flaming Skeleton	Flaming Skeleton	Flaming Skeleton	9	300	300	19	70	6	200	0	15	0	-100	50	0	{'Scorch': 10}	{'Bone Vest': 7}	220	0	1	0	None	0	0
+Giant Water Spider	Giant Water Spider	Giant Water Spider1	9	400	400	20	90	10	200	0	0	0	50	0	0	{'Skitter': 20, 'Crush': 20}	{}	220	0	1	0	None	0	1
+Fire Sorceress	Fire Sorceress	Fire Sorceress	9	250	250	25	999	0.1	200	0	15	25	0	50	0	{'Fireball': 85, 'Healing Glow': 10}	{'Bloodfire Cloak': 7}	230	0	1	0	None	0	1
+Goblin Thug	Goblin Thug	Goblin Thug	9	280	280	33	80	8	200	0	17	0	0	0	0	{'Bloodrush Crush': 4, 'Rumble Strike': 12}	{}	230	40	1	0	None	0	1
+Unholy Crow	Unholy Crow	Unholy Crow	9	260	260	20	999	10	200	0	13	25	-75	50	0	{'Swoop': 10, 'Death Dart': 10, 'Hot Coals': 20, 'Avalanche': 30}	{'Garnet Fragment': 6}	240	0	1	0	None	0	1
+Sponge	Sponge	Sponge	10	660	660	0	0	0	0	0	0	-50	100	0	99	{}	{'Sponge Shield': 12}	0	0	1	0	None	0	0
+Earth Mage	Earth Mage	Earth Mage	10	300	300	17	999	0.1	200	0	14	50	25	0	0	{'Mudslide': 35, 'Quicksand': 30, 'Avalanche': 25, 'Healing Glow': 10}	{'Sacredvine Cloak': 12}	260	60	1	0	None	0	1
+Toxic Jellyfish	Toxic Jellyfish	Toxic Jellyfish	10	420	420	28	90	10	200	0	35	0	50	0	0	{'Zap': 15, 'Poison Cloud': 5}	{}	260	0	1	0	None	0	1
+Rebel Archer	Rebel Archer	Rebel Archer	10	450	450	32	100	2	200	0	20	0	0	0	0	{'Power Lob': 10, 'Smoke Bomb': 5, 'Stiff Shot': 15, 'Flaming Arrow': 10}	{'Oak Bow': 7}	270	30	1	0	None	0	1
+Fire Enchantress	Fire Enchantress	Fire Enchantress	10	330	330	22	999	0.1	200	0	12	25	0	50	0	{'Hot Coals': 20, 'Melting Touch': 15, 'Burning Mind': 10, 'Healing Glow': 15, 'Fireball': 40}	{}	280	0	1	0	None	0	1
+Wounded Swordfish	Wounded Swordfish	Swordfish	11	90	900	1	90	10	200	0	0	-100	50	0	0	{}	{}	32	0	1	0	None	0	1
+Rumadan Assassin	Rumadan Assassin	Rumadan Assassin	11	450	450	40	90	33	200	0	10	0	0	0	0	{'Rapid Stab': 25, 'Deadly Stab': 10, 'Deep Thrust': 10}	{'Merciless Dagger': 5}	310	110	1	0	None	0	1
+Rumadan Ruffian	Rumadan Ruffian	Rumadan Ruffian	11	600	600	35	80	10	200	5	25	0	0	0	0	{'Shield Breaker': 12, 'Bloodrush Crush': 5}	{}	310	50	1	0	None	0	1
+Barracuda	Barracuda	Barracuda	11	750	750	34	90	10	200	0	20	-100	50	999	0	{'Bite': 30}	{}	310	0	1	0	None	0	1
+Swordfish	Swordfish	Swordfish	11	900	900	20	90	10	200	0	25	-100	50	999	0	{'Expunging Lunge': 10}	{'Espadon': 2}	310	0	1	0	None	0	1
+Mystical Octopus	Mystical Octopus	Mystical Octopus	11	640	640	15	999	0.1	200	0	20	-75	50	999	0	{'Torrent Funnel': 5, 'Whirlpool': 80, 'Poison Cloud': 15}	{'Aquamarine Shard': 6}	340	0	1	0	None	0	1
+Sand Digger	Sand Digger	Sand Digger	12	800	800	32	90	10	200	1	20	50	-100	0	50	{'Bite': 10, 'Shield Breaker': 10}	{}	360	100	1	0	None	0	1
+Giant Shark1	Giant Shark	Giant Shark1	12	900	900	45	90	10	200	0	20	-100	50	999	0	{'Bite': 40}	{}	370	0	1	0	None	0	1
+Pestering Imp	Pestering Imp	Pestering Imp	12	250	250	13	90	10	200	0	0	95	90	90	75	{'Blind': 10, 'Smoke Bomb': 25, 'Aerial Assault': 30, 'Rock Shot': 30, 'Fling Dung': 5}	{'Radiant Barrier': 5}	400	2	1	0	None	0	1
+Giant Shark2	Tidetooth the Tough	Giant Shark2	12	9000	9000	45	90	10	200	0	80	-100	50	999	0	{'Bite': 40, 'Floodtide': 5}	{}	3700	0	1	0	Important Battle	0	1
+Rumadan Horseman	Rumadan Horseman	Rumadan Horseman	13	1200	1200	42	90	10	200	0	40	0	0	0	0	{'Charge': 20}	{'Pike': 4}	410	60	1	0	None	0	1
+Duelist	Duelist	Duelist	13	900	900	45	90	2	200	6	50	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 5, 'Deadly Stab': 5}	{'Steel Defender': 4}	440	70	1	0	None	0	1
+Border Guard	Rogue Guard	Border Guard	14	1000	1000	45	90	2	200	5	80	0	0	0	0	{'Rumble Strike': 20, 'Defend': 5}	{'Iron Cuirass': 10}	460	50	1	0	None	0	1
+Warlock	Warlock	Warlock	14	1000	1000	22	999	0.1	200	0	40	25	25	25	0	{'Soul Drain': 5, 'Fireball': 25, 'Mudslide': 25, 'Icicles': 25, 'Poison Cloud': 5, 'Quicksand': 15}	{'Gilded Robe': 5}	500	80	1	0	None	0	1
+Pot Apparition	Pot Apparition	Pot Apparition	14	1999	2000	20	90	33	200	0	0	50	-100	50	0	{'Reckless Rack': 2}	{}	500	0	1	0	Important Battle	0	0
+Drone Bee	Drone Bee	Drone Bee	14	60	60	40	90	10	200	0	0	25	100	-100	99	{'Sting': 5}	{'Syvre Leaf': 5}	500	0	1	0	None	0	1
+Mirage	Mirage	Mirage	15	10	10	0	100	0	200	0	0	0	0	0	0	{'Drain': 25}	{}	0	0	1	0	None	0	0
+White Knight	White Knight	White Knight	15	1000	1000	45	90	10	300	0	85	10	10	10	25	{'Deep Thrust': 10}	{'Steel Cuirass': 4}	530	100	1	0	None	0	1
+Gold Golem	Gold Golem	Gold Golem	15	1500	1500	22	90	10	200	7	150	0	0	0	50	{'Rumble Strike': 10, 'Duststorm': 5, 'Quicksand': 10}	{'Gold Ore': 3}	550	0	1	0	None	0	0
+Black Knight	Black Knight	Black Knight	16	1500	1500	45	90	2	200	7	85	0	0	0	0	{'Carnivorous Blow': 20, 'Charge': 10}	{'Force Gauntlets': 4}	580	50	1	0	None	0	1
+Rumadan Disciple	Rumadan Disciple	Rumadan Disciple	16	1400	1400	20	999	0.1	200	0	30	40	40	40	0	{'Poison Cloud': 5, 'Deadly Stab': 5, 'Healing Light': 20, 'Quicksand': 30, 'Duststorm': 15}	{'Gemmed Habiliment': 3}	590	80	1	0	None	0	1
+Guard Bee	Guard Bee	Guard Bee	16	120	120	45	90	10	200	10	150	25	100	-100	99	{'Sting': 5, 'Defend': 3}	{'Syvre Leaf': 10}	600	0	1	0	None	0	1
+Adurbid	Adurbid	Adurbid	16	1300	1300	45	90	6	200	0	40	50	-50	-50	10	{'Burning Mind': 10, 'Fireball': 5, 'Deep Thrust': 10}	{'White Robe': 12}	600	70	1	0	None	0	0
+Giant Salamander1	Giant Salamander	Giant Salamander1	17	1400	1400	52	90	10	200	0	20	0	-100	50	0	{}	{}	610	0	1	0	None	0	1
+Dust Dweller	Dust Dweller	Dust Dweller	17	1700	1700	33	90	10	200	3	120	50	0	-100	0	{'Steel Twister': 15, 'Helix Swing': 20, 'Quicksand': 5}	{}	620	0	1	0	None	0	1
+Possessed Guard	Possessed Guard	Possessed Guard	17	3000	3000	45	90	2	200	8	40	0	0	0	0	{'Rumble Strike': 20, 'Defend': 5, 'Expunging Lunge': 5}	{'Pike': 7, 'Partisan': 6, 'Shadow Mail': 3, 'Embossed Tower Shield': 7}	630	40	1	0	None	0	1
+Psion Sorcerer	Psion Sorcerer	Psion Sorcerer	17	1600	1600	20	999	0.1	200	0	50	40	25	25	0	{'Mudslide': 40, 'Avalanche': 12, 'Fireball': 6, 'Melting Touch': 12, 'Quicksand': 15, 'Reinvigorate': 5}	{'Arcane Vestment': 4}	640	80	1	0	None	0	1
+Giant Salamander2	Meltmaw the Magical	Giant Salamander2	17	14000	14000	52	90	10	200	0	20	50	0	100	0	{'Scorch': 5}	{}	6100	0	1	0	Important Battle	0	1
+Albanian Gladiator	Albanian Gladiator	Albanian Gladiator	18	1000	1000	34	90	4	200	5	90	0	0	0	0	{'Deep Thrust': 30, 'Rumble Strike': 40, 'Reckless Rack': 3, 'Helix Swing': 20}	{'Silver Blade': 2}	660	120	1	0	None	0	1
+Ancient Goblin	Ancient Goblin	Ancient Goblin	18	1600	1600	25	999	0.1	200	0	25	30	30	-40	0	{'Fireball': 30, 'Zap': 20, 'Bolt': 40, 'Healing Ray': 10}	{'Impwood Wand': 5}	660	90	1	0	None	0	1
+Psion Adept	Psion Adept	Psion Adept	18	2200	2200	36	999	0.1	200	0	50	40	40	40	0	{'Derecho': 1, 'Asteroid': 4, 'Avalanche': 20, 'Fireball': 6, 'Melting Touch': 20, 'Inner Zen': 10}	{'Arcane Vestment': 5}	680	90	1	0	None	0	1
+Shorc	Shorc	Shorc	18	2500	2500	40	90	10	200	20	150	75	0	0	50	{'Shield Breaker': 10}	{'Quake Defender': 5}	690	0	1	0	None	0	1
+Florc	Florc	Florc	18	2500	2500	58	80	12	200	0	0	50	0	0	10	{'Crush': 5, 'Bite': 10}	{'Obsidian Crusher': 8}	690	0	1	0	None	0	1
+Queen Bee	Queen Bee	Queen Bee	18	4000	4000	45	90	10	200	0	100	25	100	-50	25	{'Sting': 10}	{'Syvre Leaf': 20}	700	0	1	0	Important Battle	0	1
+Ferocious Fang	Ferocious Fang	Ferocious Fang	18	15000	15000	55	50	30	200	3	40	25	0	-25	10	{'Bite': 10, 'Charge': 10, 'Aerial Assault': 5}	{}	4000	0	1	1000	Important Battle	0	1
+Psionic Beast	Psionic Beast	Psionic Beast	18	25000	25000	15	25	0.1	200	15	150	100	75	75	50	{'Fumarole': 7, 'Eruption': 7, 'Healing Ray': 7, 'Reckless Rack': 7, 'Quicksand': 14, 'Melting Touch': 14}	{'Gaia Suit': 15}	5000	0	1	0	Important Battle	1	0
+Hermit	Hermit	Hermit	19	2000	2000	13	100	20	200	0	12	50	50	50	0	{'Fireball': 15, 'Icicles': 15, 'Bolt': 15, 'Floodtide': 25, 'Melting Touch': 25, 'Hailstorm': 3, 'Firestorm': 2}	{'Gemmed Habiliment': 7}	720	16	1	100	None	0	1
+Gritty Assailant	Gritty Assailant	Gritty Assailant	19	1500	1500	47	90	12	200	0	80	0	0	0	0	{'Rapid Stab': 20, 'Aerial Assault': 5, 'Smoke Bomb': 20}	{}	730	140	1	0	None	0	1
+Shadow Sniper	Shadow Sniper	Shadow Sniper	20	1800	1800	45	100	20	200	0	70	6	6	6	0	{'Venom Arrow': 7, 'Bullseye Bolt': 10, 'Death Dart': 3, 'Hide': 10}	{'Shadow Mail': 4, 'Ash Bow': 6}	800	100	1	0	None	0	1
+Rumadan Guru	Rumadan Guru	Rumadan Guru	20	1750	1750	25	999	0.1	200	0	30	60	60	60	0	{'Burning Mind': 15, 'Healing Ray': 25, 'Smoulder': 15, 'Duststorm': 15, 'Firestorm': 15, 'Quicksand': 15}	{'Glowing Barrier': 3}	800	100	1	0	None	0	1
+Shadow Hunter	Shadow Hunter	Shadow Hunter	21	1800	1800	42	90	4	200	5	80	6	6	6	0	{'Deadly Stab': 10, 'Steadfast Slash': 10, 'Diamond Cutter': 10, 'Hide': 10, 'Expunging Lunge': 10}	{'Shadow Mail': 4, 'Silver Blade': 3}	820	100	1	0	None	0	1
+Royal Knight	Royal Knight	Royal Knight	21	3000	3000	47	90	4	200	5	130	0	0	0	0	{'Deep Thrust': 12, 'Steadfast Slash': 6, 'Diamond Cutter': 8}	{'Steel Hauberk': 8, 'Silver Blade': 3}	840	150	1	0	None	0	1
+Royal Cryomancer	Royal Cryomancer	Royal Cryomancer	22	2800	2800	25	999	0.1	200	0	50	30	50	30	0	{'Icicles': 30, 'Hailstorm': 15}	{'Tidal Tower Shield': 5, 'Force Gauntlets': 5}	860	120	1	0	None	0	1
+Royal Pyromancer	Royal Pyromancer	Royal Pyromancer	22	2800	2800	25	999	0.1	200	0	50	30	30	50	0	{'Melting Touch': 30, 'Smoulder': 15}	{'Flame Guard': 5, 'Force Gauntlets': 5}	860	120	1	0	None	0	1
+Giant Scorpion1	Giant Scorpion	Giant Scorpion1	22	2000	2000	60	90	10	200	0	90	50	-50	-50	0	{'Sting': 10}	{}	870	0	1	0	None	0	1
+Giant Scorpion2	Poisonpinch the Piercing	Giant Scorpion2	22	20000	20000	60	90	20	200	0	90	50	-50	-50	0	{'Sting': 10, 'Venomblast': 5}	{}	8700	0	1	0	Important Battle	0	1
+Turbid Adurbid	Turbid Adurbid	Turbid Adurbid	22	2600	2600	45	90	6	200	0	60	50	-50	-50	10	{'Burning Mind': 10, 'Fireball': 5, 'Deep Thrust': 10, 'Venomblast': 10}	{'Glowing Mail': 4}	880	110	1	0	None	0	0
+Dark Asp	Dark Asp	Dark Asp	22	900	900	33	999	0.1	200	0	70	50	25	-75	0	{'Fireball': 35, 'Firestorm': 10, 'Quicksand': 15, 'Poison Cloud': 5, 'Venomblast': 10}	{}	900	0	1	0	None	0	1
+Skeleton Arcanist	Skeleton Arcanist	Skeleton Arcanist	23	2200	2200	10	999	0.1	200	0	100	50	50	50	0	{'Icicles': 20, 'Poison Cloud': 20, 'Duststorm': 10, 'Hailstorm': 10, 'Firestorm': 10, 'Healing Ray': 20, 'Asteroid': 10}	{'Shooting Star': 3}	910	100	1	0	None	0	0
+Flame Templar	Flame Templar	Flame Templar	23	3300	3300	36	999	0.1	200	0	140	6	6	6	10	{'Fireball': 15, 'Smoulder': 10, 'Expunging Lunge': 15}	{'Shadow Mail': 6, 'Bardiche': 3}	920	80	1	0	None	0	1
+Manticore	Manticore	Manticore	23	2200	2200	10	999	0.1	200	0	110	50	-100	50	0	{'Immolation': 40, 'Firestorm': 20, 'Venomblast': 15, 'Dive': 25}	{}	930	0	1	0	None	0	1
+Ninja	Ninja	Ninja	23	1800	1800	77	999	7.7	200	25	0	0	0	0	50	{'Smoke Bomb': 25, 'Rapid Stab': 10, 'Aerial Assault': 5, 'Hide': 5, 'Salamander Slice': 2, 'Salamander Stab': 1, 'Scorpion Slice': 1, 'Scorpion Stab': 2, 'Scarab Slice': 1, 'Scarab Stab': 1}	{'Dagger of the River': 3}	930	7	1	0	None	0	1
+Royal Sentinel	Royal Sentinel	Royal Sentinel	23	4500	4500	44	60	8	200	0	170	0	0	0	10	{'Deep Thrust': 20, 'Rumble Strike': 10}	{'Partisan': 10, 'Sentinel Plate': 5}	940	200	1	0	None	0	1
+General Octavius	General Octavius	General Octavius	23	2500	2500	45	90	4	200	10	300	25	25	25	0	{'Deep Thrust': 20, 'Reinvigorate': 10, 'Rumble Strike': 5, 'Fireball': 7, 'Icicles': 6}	{'Silver Blade': 50, 'Sentinel Plate': 50}	950	500	1	0	Important Battle	1	1
+Psilos	Psilos	Psilos	24	3000	3000	55	70	6	200	7	130	0	0	0	0	{'Flaming Arrow': 10, 'Piercing Quad': 10, 'Bullseye Bolt': 8, 'Stiff Shot': 8}	{'Fortified Kite Shield': 2, 'Ash Bow': 8}	1000	150	1	0	None	0	1
+Ekdromos	Ekdromos	Ekdromos	25	4000	4000	65	75	8	200	9	230	20	20	20	0	{'Deep Thrust': 20, 'Expunging Lunge': 8}	{'Fortified Kite Shield': 4, 'Glowing Mail': 4}	1100	200	1	0	None	0	1
+Greek Footman	Greek Footman	Greek Footman	25	5000	5000	60	90	4	200	7	150	0	0	0	0	{'Deep Thrust': 20, 'Carnivorous Blow': 20}	{'Greek Armour': 100}	1100	0	1	0	None	0	1
+Greek Mage	Greek Mage	Greek Mage	25	4000	4000	23	999	0.1	200	0	50	30	30	30	0	{'Icicles': 30, 'Whirlpool': 15, 'Floodtide': 10, 'Mist': 5, 'Fireball': 20, 'Mudslide': 20}	{'Greek Robe': 100}	1100	0	1	0	None	0	1
+Hoplite	Hoplite	Hoplite	26	6000	6000	70	80	8	200	11	300	0	0	0	0	{'Deep Thrust': 30, 'Helix Swing': 15, 'Shield Breaker': 10}	{'Fortified Kite Shield': 6, 'Bardiche': 8}	1200	250	1	0	None	0	1
+Giant Scarab1	Giant Scarab	Giant Scarab1	27	5000	5000	65	90	10	200	0	500	50	0	-100	0	{'Charge': 15}	{}	1300	0	1	0	None	0	1
+Giant Scarab2	Stoneshell the Spirited	Giant Scarab2	27	100000	100000	65	90	10	200	0	500	50	0	-100	0	{'Charge': 15, 'Fumarole': 5}	{}	13000	0	1	0	Important Battle	0	1
+Thessalonian Psilos	Thessalonian Psilos	Psilos	28	6000	6000	55	70	6	200	7	130	75	25	25	10	{'Flaming Arrow': 10, 'Piercing Quad': 10, 'Bullseye Bolt': 8, 'Stiff Shot': 8}	{'Eucalyptus Bow': 4}	1400	200	1	0	None	0	1
+Thessalonian Ekdromos	Thessalonian Ekdromos	Ekdromos	29	8000	8000	65	75	8	200	9	230	80	45	45	20	{'Deep Thrust': 20, 'Expunging Lunge': 8}	{'Glaive': 2}	1500	250	1	0	None	0	1
+Thessalonian Hoplite	Thessalonian Hoplite	Hoplite	29	12000	12000	70	80	8	200	11	300	75	25	25	20	{'Deep Thrust': 30, 'Helix Swing': 15, 'Shield Breaker': 10}	{'Titanium Shield': 1}	1500	300	1	0	None	0	1
+Phalanx Captain	Phalanx Captain	Phalanx Captain	30	30000	30000	70	90	4	200	11	350	75	25	25	20	{'Deep Thrust': 30, 'Helix Swing': 15, 'Steadfast Slash': 15, 'Restore': 10}	{'Guardian Plate': 25}	1700	600	1	0	Important Battle	1	1
+Greek Guardian	Greek Guardian	Greek Footman	29	10000	10000	70	90	4	200	7	200	0	0	0	25	{'Diamond Cutter': 15, 'Expunging Lunge': 10, 'Deep Thrust': 20}	{}	1500	300	1	0	None	0	1
+Golden Guardian	Golden Guardian	Golden Guardian	30	40000	40000	65	90	10	200	10	500	25	25	25	50	{'Healing Ray': 20, 'Reinvigorate': 5, 'Fireball': 5, 'Mudslide': 15, 'Deep Thrust': 15, 'Steadfast Slash': 15}	{'Guardian Plate': 1, 'Ornate Halberd': 1, 'Helm Splitter': 1, 'Gyroscopic Flange': 1, 'Khabir\'s Shaft': 1, 'J Bow': 1, 'Golden Sun': 1}	1700	400	1	0	None	0	1
+President of Macedonia	President of Macedonia	President of Macedonia	1	100	100	8	70	0	200	50	0	99	99	99	99	{'Defend': 100}	{'Macedonian Protector': 100}	1	0	0	10	Important Battle	1	1
+Marciano1	Marciano	Marciano1	1	100	100	10	90	4	200	0	0	0	0	0	0	{'Deep Thrust': 15, 'Steel Twister': 1}	{}	100	0	0	25	Rival Battle	0	1
+Venomvice the Blind	Venomvice the Blind	Giant Water Spider2	9	800	800	10	10	10	200	0	0	0	50	0	0	{'Venom Strike': 30, 'Crush': 20}	{}	50	0	0	0	Important Battle	0	1
+Pirate Kid	Pirate Kid	Pirate Kid	9	400	400	28	90	4	200	0	24	0	25	0	0	{}	{}	220	20	0	0	Mob Battle	0	1
+Buccaneer	Buccaneer	Buccaneer	10	500	500	37	80	10	200	0	28	0	25	0	0	{}	{}	260	100	0	0	Mob Battle	0	1
+Marciano2	Marciano	Marciano2	11	300	300	30	90	4	200	0	0	90	90	90	90	{'Deep Thrust': 15, 'Recover': 15, 'Steel Twister': 1}	{}	1000	0	0	75	Rival Battle	0	1
+Swashbuckler	Swashbuckler	Swashbuckler	11	530	530	44	90	4	200	3	34	0	25	0	0	{'Diamond Cutter': 10, 'Deep Thrust': 5, 'Expunging Lunge': 5}	{}	300	100	0	0	Mob Battle	0	1
+Pirate Lady	Pirate Lady	Pirate Lady	11	460	460	51	90	4	200	0	27	0	25	0	0	{'Steel Twister': 10}	{}	310	80	0	0	Mob Battle	0	1
+Skeleton Soldier Unfleeable	Hardbone Soldier	Skeleton Soldier	11	700	700	37	60	8	200	8	45	25	0	-100	0	{'Deep Thrust': 8, 'Defend': 8}	{}	330	40	0	0	Mob Battle	0	0
+Skeleton Archer Unfleeable	Hardbone Archer	Skeleton Archer	11	700	700	31	90	8	200	0	30	25	0	-100	0	{'Sap Shot': 10, 'Piercing Quad': 15}	{}	330	40	0	0	Mob Battle	0	0
+Ghost of Tomas	Ghost of Tomas	Ghost of Tomas	11	750	750	20	999	0.1	200	0	0	0	0	0	75	{'Soul Drain': 15, 'Reinvigorate': 15}	{}	1500	0	0	1	Tomas Battle	0	0
+Maximilian	Maximilian	Maximilian	11	500	500	18	999	0.1	200	5	17	66	-50	75	50	{'Fireball': 20, 'Smoulder': 30, 'Burning Mind': 20, 'Healing Light': 10}	{'Firebreath Shield': 50, 'Fire Wand': 50}	1000	500	0	0	Canonical Battle	1	1
+Skeleton Mage1 Unfleeable	Mad Skeleton Mage	Skeleton Mage1	12	400	400	15	999	0.1	200	0	35	75	0	-100	0	{'Poison Cloud': 20, 'Duststorm': 80}	{}	360	20	0	0	Mob Battle	0	0
+Skeleton Mage2 Unfleeable	Mad Skeleton Mage	Skeleton Mage2	12	400	400	15	999	0.1	200	0	35	25	50	-100	0	{'Icicles': 60, 'Hailstorm': 40}	{}	360	20	0	0	Mob Battle	0	0
+Light Gryphon	Light Gryphon	Light Gryphon	12	700	700	41	90	10	200	0	15	0	0	0	0	{'Swoop': 10, 'Healing Glow': 20, 'Steadfast Slash': 20, 'Fireball': 10}	{}	380	50	0	0	Mob Battle	0	1
+Dark Gryphon	Dark Gryphon	Dark Gryphon	12	800	800	41	90	10	200	0	65	0	0	0	0	{'Swoop': 10, 'Shield Breaker': 20, 'Fireball': 10}	{}	380	50	0	0	Mob Battle	0	1
+Magical Gryphon	Magical Gryphon	Magical Gryphon	12	600	600	26	999	0.1	200	0	20	0	0	0	0	{'Quicksand': 20, 'Fireball': 50, 'Swoop': 20, 'Hailstorm': 10}	{}	390	70	0	0	Mob Battle	0	1
+Mixed Gryphon	Mixed Gryphon	Mixed Gryphon	12	750	750	47	90	10	200	0	45	0	0	0	0	{'Swoop': 10, 'Healing Glow': 20, 'Crush': 20, 'Fireball': 10}	{}	390	50	0	0	Mob Battle	0	1
+Pirate Captain	Pirate Captain	Pirate Captain	13	770	770	63	90	4	200	0	50	0	25	0	0	{'Floodtide': 3, 'Steadfast Slash': 5, 'Expunging Lunge': 5}	{}	430	200	0	0	Important Battle	0	1
+Phoenix	Phoenix	Phoenix	13	900	900	47	999	0.1	200	0	30	0	-100	100	0	{'Fireball': 40, 'Smoulder': 20, 'Burning Mind': 5, 'Healing Glow': 10, 'Fire Claw': 5}	{}	440	70	0	0	Important Battle	0	1
+Skeleton Commander	Skeleton Commander	Skeleton Commander	13	850	850	60	80	10	200	0	70	25	0	-100	25	{'Duststorm': 5, 'Deep Thrust': 10}	{}	450	100	0	0	Important Battle	0	1
+Mad Scientist	Mad Scientist	Mad Scientist	14	850	850	25	999	0.1	200	0	10	25	25	25	25	{'Smoke Bomb': 10, 'Scorch': 15, 'Zap': 15, 'Poison Cloud': 10, 'Fire Ray': 25, 'Ice Ray': 25}	{'Magical Barrier': 5}	500	50	0	0	Important Battle	0	1
+Pespozeor	Pespozeor	Pespozeor	15	3000	3000	25	50	10	200	0	30	0	-100	50	0	{'Bite': 8, 'Crush': 3, 'Fire Claw': 10, 'Scorch': 10, 'Aerial Assault': 10}	{}	500	0	0	0	Guardian Battle	0	0
+Nameless Beast	Nameless Beast	Nameless Beast	15	9999	9999	37	60	10	200	10	120	15	15	15	33	{'Rumble Strike': 15, 'Crush': 30, 'Shield Breaker': 3}	{}	9999	0	0	0	Important Battle	0	1
+Marciano3	Marciano	Marciano3	16	400	400	90	80	10	200	0	0	90	90	90	90	{'Deep Thrust': 15, 'Restore': 15, 'Bloodrush Crush': 15, 'Steel Twister': 1}	{}	2000	0	0	100	Rival Battle	0	1
+Enraged Hermit	Enraged Hermit	Hermit	19	2000	2000	26	100	20	200	0	12	95	95	95	90	{'Fireball': 15, 'Icicles': 15, 'Bolt': 15, 'Floodtide': 25, 'Melting Touch': 25, 'Hailstorm': 3, 'Firestorm': 2}	{'Gemmed Habiliment': 7}	5000	250	0	0	Important Battle	0	1
+Jazidhu	Jazidhu	Jazidhu	20	1000	1000	25	25	10	200	0	1000	99	99	99	0	{'Aerial Assault': 10, 'Reckless Rack': 10, 'Diamond Cutter': 20}	{}	800	2000	0	0	Important Battle	0	1
+Greek Guard	Greek Guard	Greek Guard	20	5000	5000	51	90	2	200	7	110	50	0	0	75	{'Smoke Bomb': 10, 'Death Dart': 7, 'Steadfast Slash': 7, 'Helix Swing': 7, 'Deep Thrust': 15}	{'Misty Axe': 45, 'Fortified Kite Shield': 45, 'Silver Blade': 10}	10000	200	0	0	Canonical Battle	1	1
+Marciano4	Marciano	Marciano4	21	500	500	150	60	4	200	0	0	90	90	90	90	{'Deep Thrust': 15, 'Reinvigorate': 15, 'Aerial Assault': 15, 'Steel Twister': 1}	{}	5000	0	0	125	Rival Battle	0	1
+Rumadan Man Unfleeable	Rumadan Man	Rumadan Man	2	100	100	5	90	10	200	0	1	0	0	0	0	{'Fling Dung': 8}	{'Wool Gambeson': 8}	20	5	0	0	Mob Battle	0	1
+Rumadan Warrior Unfleeable	Rumadan Warrior	Rumadan Warrior	3	100	100	11	90	4	200	0	2	0	0	0	0	{'Deep Thrust': 10}	{'Wool Doublet': 8, 'Long Sword': 3}	40	10	0	0	Mob Battle	0	1
+Rumadan Assassin Unfleeable	Rumadan Assassin	Rumadan Assassin	11	450	450	40	90	33	200	0	10	0	0	0	0	{'Rapid Stab': 25, 'Deadly Stab': 10, 'Deep Thrust': 10}	{'Merciless Dagger': 5}	310	110	0	0	Mob Battle	0	1
+Rumadan Ruffian Unfleeable	Rumadan Ruffian	Rumadan Ruffian	11	600	600	35	80	10	200	5	25	0	0	0	0	{'Shield Breaker': 12, 'Bloodrush Crush': 5}	{}	310	50	0	0	Mob Battle	0	1
+Rumadan Disciple Unfleeable	Rumadan Disciple	Rumadan Disciple	16	1400	1400	20	999	0.1	200	0	30	40	40	40	0	{'Poison Cloud': 5, 'Deadly Stab': 5, 'Healing Light': 20, 'Quicksand': 30, 'Duststorm': 15}	{'Gemmed Habiliment': 3}	590	80	0	0	Mob Battle	0	1
+Rumadan Guru Unfleeable	Rumadan Guru	Rumadan Guru	20	1750	1750	25	999	0.1	200	0	30	60	60	60	0	{'Burning Mind': 15, 'Healing Ray': 25, 'Smoulder': 15, 'Duststorm': 15, 'Firestorm': 15, 'Quicksand': 15}	{'Glowing Barrier': 3}	800	100	0	0	Mob Battle	0	1
+Silvio Berlusconi1	Silvio Berlusconi	Silvio Berlusconi1	21	50000	50000	70	10	10	200	0	300	80	80	80	90	{}	{}	2500	0	0	25000	Important Battle	0	1
+Silvio Berlusconi2	Silvio Berlusconi	Silvio Berlusconi2	22	25000	50000	70	20	10	200	0	600	80	80	80	90	{}	{}	5000	0	0	12500	Important Battle	0	1
+Silvio Berlusconi3	Silvio Berlusconi	Silvio Berlusconi3	23	12500	50000	70	40	10	200	0	900	80	80	80	90	{}	{}	10000	0	0	6250	Canonical Battle	0	1
+Lesser Dragon	Lesser Dragon	Lesser Dragon	25	30000	30000	22	50	0.1	200	0	150	0	-50	75	0	{'Fireball': 40, 'Fire Claw': 30, 'Firestorm': 20, 'Immolation': 10}	{'Dragon Skin': 15}	7000	0	0	0	Important Battle	1	1
+Marciano5	Marciano	Marciano5	26	600	600	200	70	6	200	0	0	90	90	90	90	{'Deep Thrust': 15, 'Revitalize': 15, 'Reckless Rack': 15, 'Steel Twister': 1}	{}	10000	0	0	150	Rival Battle	0	1
+Greek Champion	Loukas	Greek Champion	30	25000	25000	75	80	10	200	0	400	75	50	50	25	{'Pummeler\'s Precision': 5, 'Bloodrush Crush': 5}	{'Mighty Flange': 15, 'Morning Star': 80}	20000	0	0	50	Canonical Battle	1	1
+Greek Hero1	Greek Hero1	Greek Hero1	30	22000	22000	50	50	10	200	10	300	0	0	0	10	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero2	Greek Hero2	Greek Hero2	30	20000	20000	60	60	4	200	3	250	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero3	Greek Hero3	Greek Hero3	30	25000	25000	70	20	8	300	1	270	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero4	Greek Hero4	Greek Hero4	30	18000	18000	40	50	10	200	5	250	25	25	25	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero5	Greek Hero5	Greek Hero5	30	30000	30000	60	40	10	200	5	260	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero6	Greek Hero6	Greek Hero6	30	19000	19000	80	30	20	300	1	200	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero7	Greek Hero7	Greek Hero7	30	16000	16000	60	70	4	200	7	220	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero8	Greek Hero8	Greek Hero8	30	21000	21000	55	50	4	200	2	150	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Hero9	Greek Hero9	Greek Hero9	30	15000	15000	60	50	40	200	3	100	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1
+Greek Duelist	Greek Duelist	Duelist	26	5000	5000	65	90	2	200	6	100	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 5, 'Deadly Stab': 5}	{}	1200	0	0	100	Mob Battle	0	1
+Greek Swordsman	Greek Swordsman	Greek Swordsman	27	6000	6000	70	90	2	200	0	160	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 10, 'Steel Twister': 10}	{}	1300	0	0	100	Mob Battle	0	1
+Greek Fighter	Greek Fighter	Greek Fighter	27	7000	7000	65	80	10	200	0	180	0	0	0	0	{'Rumble Strike': 30, 'Aerial Assault': 10}	{}	1300	0	0	100	Mob Battle	0	1
+Greek Gladiator	Greek Gladiator	Albanian Gladiator	28	8000	8000	60	90	4	200	5	150	0	0	0	0	{'Deep Thrust': 30, 'Rumble Strike': 40, 'Reckless Rack': 3, 'Helix Swing': 20}	{}	1400	0	0	100	Mob Battle	0	1
+Greek Knight	Greek Knight	Greek Knight	28	9000	9000	65	90	2	200	2	200	0	0	0	10	{'Defend': 20, 'Deep Thrust': 10, 'Steadfast Slash': 10, 'Helix Swing': 10}	{}	1400	0	0	100	Mob Battle	0	1
+The Bladedriver	The Bladedriver	The Bladedriver	33	55000	55000	70	90	4	200	10	400	66	66	66	10	{'Bladedriver\'s Barbarity': 5, 'Steadfast Slash': 5, 'Deep Thrust': 5, 'Scarab Slice': 10}	{}	20000	0	0	100	Canonical Battle	0	1
+The Gashmaster	The Gashmaster	The Gashmaster	33	40000	40000	80	70	6	200	0	200	33	100	33	10	{'Gashmaster\'s Grace': 5, 'Shield Breaker': 20, 'Diamond Cutter': 20, 'Seal Sever': 10}	{}	20000	0	0	100	Canonical Battle	0	1
+The Impaler	The Impaler	The Impaler	33	60000	60000	75	60	8	200	3	500	33	33	100	10	{'Impaler\'s Impulse': 5, 'Expunging Lunge': 5, 'Deep Thrust': 25, 'Salamander Stab': 10}	{}	20000	0	0	100	Canonical Battle	0	1
+The Pummeler	The Pummeler	The Pummeler	33	45000	45000	90	80	10	200	0	300	100	33	33	10	{'Pummeler\'s Precision': 5, 'Bloodrush Crush': 10, 'Helix Swing': 10, 'Shark Smash': 10}	{}	20000	0	0	100	Canonical Battle	0	1
+Vampire Bat Unfleeable	Vampire Bat	Vampire Bat	4	70	70	19	90	10	200	0	0	0	0	0	0	{'Bite': 50}	{}	55	0	0	0	Mob Battle	0	1
+Goblin Unfleeable	Goblin	Goblin	2	65	65	4	80	10	200	0	2	0	0	0	0	{}	{'Cudgel': 7}	15	5	0	0	Mob Battle	0	1
+Orc Unfleeable	Orc	Orc	6	210	210	20	70	6	200	0	18	0	0	0	0	{'Rumble Strike': 5, 'Helix Swing': 10, 'Shield Breaker': 3}	{'Great Axe': 5, 'Bone Vest': 5}	110	30	0	0	Mob Battle	0	1
+Moghi Unfleeable	Moghi	Moghi	7	380	380	14	90	10	200	0	20	50	0	-100	0	{'Rumble Strike': 25, 'Crush': 25}	{}	140	0	0	0	Mob Battle	0	1
+Unholy Crow Unfleeable	Unholy Crow	Unholy Crow	9	260	260	20	999	10	200	0	13	25	-75	50	0	{'Swoop': 10, 'Death Dart': 10, 'Hot Coals': 20, 'Avalanche': 30}	{'Garnet Fragment': 6}	240	0	0	0	Mob Battle	0	1
+Sand Digger Unfleeable	Sand Digger	Sand Digger	12	800	800	32	90	10	200	1	20	50	-100	0	50	{'Bite': 10, 'Shield Breaker': 10}	{}	360	100	0	0	Mob Battle	0	1
+Dust Dweller Unfleeable	Dust Dweller	Dust Dweller	17	1700	1700	33	90	10	200	3	120	50	0	-100	0	{'Steel Twister': 15, 'Helix Swing': 20, 'Quicksand': 5}	{}	620	0	0	0	Mob Battle	0	1
+Dark Asp Unfleeable	Dark Asp	Dark Asp	22	900	900	33	999	0.1	200	0	70	50	25	-75	0	{'Fireball': 35, 'Firestorm': 10, 'Quicksand': 15, 'Poison Cloud': 5, 'Venomblast': 10}	{}	900	0	0	0	Mob Battle	0	1
+Manticore Unfleeable	Manticore	Manticore	23	2200	2200	9	999	0.1	200	0	110	50	-100	50	0	{'Immolation': 40, 'Firestorm': 20, 'Venomblast': 15, 'Dive': 25}	{}	930	0	0	0	Mob Battle	0	1
+Ancient Goblin Unfleeable	Ancient Goblin	Ancient Goblin	18	1600	1600	25	999	0.1	200	0	25	30	30	-40	0	{'Fireball': 30, 'Zap': 20, 'Bolt': 40, 'Healing Ray': 10}	{'Impwood Wand': 5}	660	90	0	0	Mob Battle	0	1
+Skeleton Arcanist Unfleeable	Skeleton Arcanist	Skeleton Arcanist	23	2200	2200	10	999	0.1	200	0	100	50	50	50	0	{'Icicles': 20, 'Poison Cloud': 20, 'Duststorm': 10, 'Hailstorm': 10, 'Firestorm': 10, 'Healing Ray': 20, 'Asteroid': 10}	{'Shooting Star': 3}	910	100	0	0	Mob Battle	0	0
+Skeleton Mage2 Unfleeable	Skeleton Mage	Skeleton Mage2	5	130	130	15	999	0.1	200	0	10	25	50	-100	0	{'Icicles': 25}	{'Wizardmist Cloak': 10}	75	15	0	0	Mob Battle	0	0
+Death Commander	Death Commander	Death Commander	27	6000	6000	60	90	4	200	0	350	0	0	0	25	{'Charge': 20, 'Carnivorous Blow': 10, 'Deep Thrust': 10}	{'Mighty Flange': 10, 'Giant Axe': 10}	1300	0	0	0	Important Battle	0	0
+Nemean Lion	Nemean Lion	Nemean Lion	35	50000	50000	75	25	10	200	25	2000	75	50	80	0	{'Fire Claw': 20, 'Bite': 20, 'Charge': 20, 'Golden Fur': 10}	{}	9000	0	0	0	Important Battle	0	1
+Teumessian Fox	Teumessian Fox	Teumessian Fox	35	120000	120000	33	100	20	200	0	200	50	50	50	50	{'Charge': 30, 'Bite': 30, 'Nimble Feet': 10, 'Reinvigorate': 2}	{}	9000	0	0	0	Important Battle	0	1
+Stymphalian Bird	Stymphalian Bird	Stymphalian Bird	35	50000	50000	50	90	10	200	0	150	100	25	-25	50	{'Fling Dung': 10, 'Bite': 10, 'Deadly Stab': 5, 'Death Dart': 5, 'Dive': 5, 'Swoop': 5, 'Home In': 10}	{}	9000	0	0	0	Important Battle	0	1
+Hydra	Hydra	Hydra	34	70000	70000	10	20	10	200	0	300	50	75	-100	50	{'Floodtide': 50, 'Torrent Funnel': 20, 'Tsunami': 10, 'Poisonbreath': 15, 'Grow Heads': 5}	{}	8000	0	0	0	Important Battle	0	1
+Chimera	Chimera	Chimera	34	30000	30000	30	50	10	200	0	250	50	50	50	25	{'Immolation': 30, 'Hailstorm': 20, 'Venomblast': 20, 'Earth Affinity': 10, 'Water Affinity': 10, 'Fire Affinity': 10}	{}	8000	0	0	0	Important Battle	0	1
+Cerberus	Cerberus	Cerberus	34	30000	30000	50	50	10	200	20	200	25	25	50	25	{'Icicles': 15, 'Rumble Strike': 15, 'Crush': 10, 'Charge': 5, 'Expunging Lunge': 5, 'Defend': 10, 'Aggression': 30}	{}	8000	0	0	0	Important Battle	0	1
+Cychreides	Cychreides	Cychreides	33	25000	25000	50	50	10	200	0	250	25	-75	75	50	{'Fireball': 50, 'Firestorm': 25, 'Reckless Rack': 25}	{}	7000	0	0	0	Important Battle	0	1
+Skolopendra	Skolopendra	Skolopendra	33	25000	25000	70	25	10	200	0	200	0	100	-100	25	{'Crush': 50, 'Whirlpool': 20, 'Floodtide': 20, 'Torrent Funnel': 10}	{}	7000	0	0	0	Important Battle	0	1
+Pterripus	Pterripus	Pterripus	33	20000	20000	55	50	10	200	0	150	100	50	-25	0	{'Healing Light': 15, 'Healing Glow': 20, 'Bolt': 30, 'Derecho': 10, 'Charge': 5, 'Dive': 5}	{}	7000	0	0	0	Important Battle	0	1
+Gorgon	Gorgon	Gorgon	32	12000	12000	60	60	6	200	0	200	25	25	25	75	{'Power Lob': 20, 'Freezing Arrow': 20, 'Thorns': 15, 'Venom Arrow': 15, 'Lock Eyes': 20}	{}	6000	0	0	0	Important Battle	0	1
+Harpy	Harpy	Harpy	32	10000	10000	65	100	10	200	0	150	100	25	-75	0	{'Swoop': 10, 'Bolt': 10, 'Carnivorous Blow': 10, 'Fire Claw': 5, 'Blizzard': 10, 'Duststorm': 10, 'Snatch': 20}	{}	6000	0	0	0	Important Battle	0	1
+Minotaur	Minotaur	Minotaur	32	15000	15000	60	25	8	300	10	170	75	25	-75	25	{'Beat': 75, 'Battery Cage': 10, 'Avalanche': 15}	{}	6000	0	0	0	Important Battle	0	1
+Centaur	Centaur	Centaur	31	15000	15000	60	60	6	200	0	170	75	0	-100	0	{'Charge': 15, 'Flaming Arrow': 10, 'Rage': 5}	{}	5000	0	0	0	Important Battle	0	1
+Satyr	Satyr	Satyr	31	12000	12000	60	90	10	200	5	150	75	0	-100	0	{'Charge': 15, 'Steel Twister': 10, 'Crook Smash': 5}	{}	5000	0	0	0	Important Battle	0	1
+Siren	Siren	Siren	31	10000	10000	50	90	10	200	0	100	33	100	33	0	{'Soul Drain': 15, 'Whirlpool': 10, 'Sing': 5}	{}	5000	0	0	0	Important Battle	0	1
+Demon Tomas	Demon Tomas	Demon Tomas	35	30000	30000	90	999	0.1	200	0	500	100	50	200	50	{'Fireball': 25, 'Smoulder': 15, 'Soul Drain': 15, 'Reinvigorate': 15}	{}	30000	0	0	1	Tomas Battle	0	1
+Stone of Macedonia	Stone of Macedonia	Stone of Macedonia	35	999999	999999	25	50	10	200	0	0	0	0	0	0	{'Zap': 10, 'Strong Attack': 10, 'Soul Siphon': 5, 'Healing Ray': 5, 'Fire Ray': 5, 'Ice Ray': 5, 'Mudslide': 3, 'Fireball': 3, 'Icicles': 3, 'Quicksand': 2, 'Whirlpool': 2, 'Smoulder': 2, 'Avalanche': 1, 'Floodtide': 1, 'Scorch': 1, 'Rock Shot': 5, 'Flaming Arrow': 4, 'Freezing Arrow': 3, 'Venom Arrow': 2, 'Rapid Burst': 1, 'Sting': 3, 'Diamond Cutter': 3, 'Firestorm': 3, 'Torrent Funnel': 3, 'Reckless Rack': 3, 'Shark Smash': 3, 'Seal Stab': 3, 'Salamander Slice': 3, 'Scarab Sever': 3}	{}	30000	0	0	0	None	0	0
+Mysterious Summoner1	Furious Summoner	Summoner Black	36	70000	70000	40	150	10	200	5	600	25	25	25	100	{'Steadfast Slash': 3, 'Bloodrush Crush': 3, 'Helix Swing': 6, 'Shield Breaker': 5, 'Diamond Cutter': 5, 'Fireball': 14, 'Mudslide': 14, 'Strong Attack': 50}	{}	30000	0	0	2	Canonical Battle	0	1
+Mysterious Summoner2	Mysterious Summoner	Summoner White	36	70000	70000	30	999	0.1	200	0	700	75	75	75	50	{'Smoulder': 30, 'Quicksand': 20, 'Avalanche': 15, 'Hot Coals': 10, 'Duststorm': 6, 'Asteroid': 4, 'Eruption': 3, 'Derecho': 2, 'Healing Ray': 10}	{}	30000	0	0	2	Canonical Battle	0	1
+Silvio Berlusconi4	Silvio Berlusconi	Silvio Berlusconi4	37	50000	50000	70	80	10	200	0	1200	80	80	80	90	{'Nero': 5, 'Negletto1': 1, 'Negletto2': 1, 'Negletto3': 1, 'Nefando': 5, 'Nefasto': 5, 'Sunder': 10, 'Silvio Defend': 10, 'Battery Cage': 3, 'Smoke Bomb': 2, 'Wind Up': 1}	{}	99999	30000	0	0	Final Battle	0	1
+Pillar	Pillar	Pillar	1	100000	100000	20	100	10	200	0	0	50	999	99	0	{'Stand Firm': 30, 'Crumble No Damage': 30, 'Crumble Rocks': 10, 'Spire': 10, 'Icicle': 10, 'Molten Rocks': 10}	{}	0	0	0	0	Important Battle	0	0
+Hungry Bear	Ravenous Bear	Hungry Bear	20	2000	2000	50	90	10	200	0	0	25	100	999	0	{'Bite': 20}	{}	800	0	1	0	None	0	1
+Galijula Crab	Galijula Crab	Galijula Crab	4	75	75	15	90	10	200	0	8	0	50	999	0	{}	{}	60	0	1	0	None	0	1
+Ice Guardian	Ice Guardian	Ice Guardian	30	50000	50000	55	90	10	200	10	500	0	90	999	50	{'Healing Ray': 20, 'Reinvigorate': 5, 'Icicles': 5, 'Whirlpool': 15, 'Deep Thrust': 15, 'Steadfast Slash': 15}	{'Guardian Plate': 1, 'Ornate Halberd': 1, 'Helm Splitter': 1, 'Gyroscopic Flange': 1, 'Khabir\'s Shaft': 1, 'J Bow': 1, 'Golden Sun': 1}	1700	400	1	0	None	0	1
+Crystal Golem Red	Crystal Golem	Crystal Golem Red	15	1500	1500	22	90	10	200	0	200	0	0	100	100	{'Crystal Explosion Fire': 30, 'Rumble Strike': 10, 'Fireball': 15, 'Smoulder': 10, 'Firestorm': 5}	{'Garnet Fragment': 10}	550	0	1	0	None	0	0
+Crystal Golem Green	Crystal Golem	Crystal Golem Green	15	1500	1500	22	90	10	200	0	200	100	0	0	100	{'Crystal Explosion Earth': 30, 'Rumble Strike': 10, 'Mudslide': 15, 'Quicksand': 10, 'Duststorm': 5}	{'Jade Crystal': 10}	550	0	1	0	None	0	0
+Crystal Golem Blue	Crystal Golem	Crystal Golem Blue	15	1500	1500	22	90	10	200	0	200	0	100	0	100	{'Crystal Explosion Water': 30, 'Rumble Strike': 10, 'Icicles': 15, 'Whirlpool': 10, 'Hailstorm': 5}	{'Aquamarine Shard': 10}	550	0	1	0	None	0	0
+Wandering Giant	Wandering Giant	Wandering Giant	20	3000	3000	40	80	10	200	0	80	0	0	0	50	{'Rumble Strike': 25, 'Crush': 25, 'Shield Breaker': 25}	{'Macedonian Mace': 1}	800	200	1	300	None	0	1
+Horn Dog	Horn Dog	Horn Dog	21	2000	2000	38	90	10	200	0	0	0	75	-100	0	{'Charge': 20, 'Bite': 10}	{}	850	0	1	0	None	0	0
+Horn Beast	Horn Beast	Horn Beast	23	2500	2500	48	90	10	200	0	0	0	75	-100	0	{'Charge': 20, 'Soul Drain': 10}	{}	950	0	1	0	None	0	0
+Eyeless Yeti	Eyeless Yeti	Eyeless Yeti	24	8000	8000	80	10	10	200	0	100	0	100	-100	50	{'Battery Cage': 5, 'Shield Breaker': 5}	{}	1000	0	1	0	None	0	1
+Frost Dragon	Frost Dragon	Frost Dragon	26	20000	20000	20	50	0.1	200	0	200	0	100	-100	25	{'Icicles': 40, 'Hailstorm': 30, 'Dive': 20, 'Strong Attack': 10}	{'Frost Dragon Skin': 5}	1200	0	1	0	None	0	1
+Angry Eyeless Yeti	Angry Eyeless Yeti	Eyeless Yeti	24	8000	8000	160	10	10	200	0	100	0	100	-100	50	{'Bloodrush Crush': 5, 'Rage': 10, 'Aggression': 10, 'Reckless Rack': 5}	{}	2000	0	1	0	Important Battle	0	1
+Ice Spawn	Ice Spawn	Ice Spawn	25	5000	5000	40	90	10	200	0	120	25	100	-75	0	{'Blizzard': 10, 'Seal Smash': 30, 'Soul Drain': 10}	{}	1100	200	1	0	None	0	1
+Fire Imp	Fire Imp	Fire Imp	24	2000	2000	30	90	10	200	0	0	25	-75	125	0	{'Firestorm': 10, 'Fireball': 30, 'Burning Mind': 10}	{'Glowing Barrier': 5}	1000	0	1	0	None	0	1
+Hellhound	Hellhound	Hellhound	26	5000	5000	60	90	10	200	0	100	0	-100	100	0	{'Bite': 30, 'Smoulder': 10, 'Scorch': 10, 'Charge': 10}	{}	1200	0	1	0	None	0	1
+Fire Demon	Fire Demon	Fire Demon	27	8000	8000	70	90	4	200	0	150	0	-100	100	0	{'Fireball': 15, 'Scorch': 10, 'Carnivorous Blow': 15, 'Diamond Cutter': 15, 'Burning Mind': 10}	{'Flametongue': 10}	1300	0	1	0	None	0	1
+Greater Dragon	Greater Dragon	Greater Dragon	27	50000	50000	25	50	0.1	200	0	300	0	-50	100	25	{'Fireball': 30, 'Fire Claw': 20, 'Firestorm': 30, 'Immolation': 20}	{'Dragon Skin': 10}	3000	0	1	0	Important Battle	0	1
+Elder Dragon	Elder Dragon	Elder Dragon	31	70000	70000	28	50	0.1	200	0	450	25	-25	200	50	{'Fireball': 20, 'Fire Claw': 10, 'Firestorm': 40, 'Immolation': 30}	{'Dragon Skin': 30}	5000	0	1	0	Important Battle	0	1
+Vismurg	Vismurg	Vismurg	35	200000	200000	100	90	10	200	0	2000	100	0	50	0	{'Crush': 15, 'Avalanche': 10, 'Asteroid': 5, 'Aerial Assault': 3, 'Sleep': 3}	{'Gaia Suit': 75, 'Jade Ward': 25}	100000	0	0	0	Guardian Battle	1	0
+Aldreed	Aldreed	Aldreed	40	400000	400000	150	90	10	200	0	1000	50	100	0	0	{'Frostburn': 15, 'Hailstorm': 10, 'Icebreath': 5, 'Blizzard': 3, 'Mist': 1, 'Dive': 1}	{'Frost Dragon Skin': 75, 'Aquamarine Ward': 25}	200000	0	0	0	Guardian Battle	1	0
+Oukkar	Oukkar	Oukkar	45	800000	800000	200	90	10	200	0	2000	100	75	75	0	{'Bolt': 15, 'Dive': 5, 'Derecho': 3, 'Healing Light': 2, 'Eruption': 2, 'Duststorm': 2, 'Fumarole': 1, 'Blizzard': 1, 'Swoop': 1}	{'Prismatic Garb': 75, 'Garnet Ward': 25}	300000	0	0	0	Guardian Battle	1	0

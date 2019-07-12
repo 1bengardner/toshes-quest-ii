@@ -1,0 +1,21 @@
+NAME	PRICE	INFO
+Jade Crystal	500	This gem harnesses elemental power.
+Aquamarine Shard	500	This gem harnesses elemental power.
+Garnet Fragment	500	This gem harnesses elemental power.
+Gold Ore	500	This can be refined into a valuable metal.
+Gold Bar	2000	A lightweight metal with strong*resistive properties.
+Syvre Leaf	0	Be re-leafed.
+The Key to Macedonia	1	It is time to save your homeland.
+Key Mold	1	This can be used to smith a key.
+Letter from the Mayor	1	A letter that bears the signature*of the Herceg Novi mayor.
+Mysterious Parchment	1	Sunken Writings Opaquely Reveal*Death Fictitious Inside Soulless Hearts.
+Presidential Map	1	This map leads somewhere good.*That's what you hope.
+Greek Wall Blueprint	1	These drawings depict the layout*of the wall of Greece.
+Nutritious Mushroom	5000	Restores all HP.*Consumed when HP is below 50%.
+Delicious Mushroom	5000	Restores all EP.*Consumed when HP is below 50%.
+Big Mushroom	5000	Multiplies damage by 2.*Consumed when HP is below 50%.
+Jagged Mushroom	5000	Increases crit chance by 25%.*Consumed when HP is below 50%.
+Thick Mushroom	5000	Multiplies defence by 2.*Consumed when HP is below 50%.
+Magical Mushroom	5000	Increases all reductions by 15%.*Consumed when HP is below 50%.
+Macedonian Protector	0	Increases block chance while defending.
+Oracular Orb	0	A magical orb of great energy.

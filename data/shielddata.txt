@@ -1,0 +1,39 @@
+NAME	PRICE	ELEMENT	REQUIREMENT_VALUE	DEFENCE	REDUCTION	B_RATE
+Buckler	200	Physical	15	1	0	5
+Earthen Buckler	200	Earth	15	1	15	5
+Waterproof Buckler	200	Water	15	1	15	5
+Tempered Buckler	200	Fire	15	1	15	5
+Defender	600	Physical	20	5	0	6
+Studded Buckler	200	Physical	15	1	0	10
+Enchanted Gauntlets	600	Physical	10	5	0	0
+Tower Shield	1200	Physical	40	10	0	8
+Kite Shield	1700	Physical	35	15	0	7
+Power Gauntlets	1200	Physical	10	10	0	0
+Rock Shield	1500	Earth	50	10	15	7
+Reinforced Buckler	2100	Physical	45	20	0	5
+Sponge Shield	1500	Water	20	6	15	9
+Steel Defender	2800	Physical	60	25	0	6
+Force Gauntlets	3000	Physical	10	15	0	0
+Firebreath Shield	1500	Fire	45	14	15	5
+Embossed Tower Shield	3500	Physical	90	30	0	8
+Quake Defender	3500	Earth	60	25	25	6
+Rusty Tower Shield	3500	Physical	110	25	0	8
+Fortified Kite Shield	4200	Physical	80	35	0	7
+Tidal Tower Shield	3500	Water	90	30	25	8
+Flame Guard	3500	Fire	55	26	25	5
+Magical Barrier	1000	Elemental	0	0	20	0
+Radiant Barrier	2000	Elemental	0	0	30	0
+Glowing Barrier	4000	Elemental	0	0	35	0
+Luminescent Barrier	8000	Elemental	0	0	40	0
+Gold Shield	10000	Elemental	20	30	25	10
+Titanium Shield	8000	Physical	100	40	10	10
+Rusty Titanium Shield	8000	Physical	120	35	0	10
+Jade Ward	1000	Earth	0	0	70	0
+Aquamarine Ward	1000	Water	0	0	70	0
+Garnet Ward	1000	Fire	0	0	70	0
+Diamond Ward	1000	Elemental	0	0	50	0
+Nothing	0	Physical	0	0	0	0
+Skeleton Shield	2000	Earth	45	13	20	9
+Swash Buckler	2000	Water	20	16	20	5
+Gryphon Kite	2000	Fire	35	15	20	7
+Oseku Shield	0	Physical	300	30	25	7

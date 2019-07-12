@@ -1,0 +1,25 @@
+NAME	Multiplicative Stats	Stats
+Aegeus	1	{'bRate': 4}
+Agamemnon	1	{'accuracy': 2}
+Aquarius	0	{'waterReduction': 125}
+Cyrus	1	{'cRate': 3}
+Dionysios	0	{'SKILLS': {'Derecho': 4, 'Bolt': 31, 'Attack': 35}}
+Draco	0	{'SKILLS': {'Eruption': 2, 'Smoulder': 10, 'Fireball': 23, 'Attack': 35}}
+Dryas	0	{'SKILLS': {'Fumarole': 2, 'Quicksand': 10, 'Mudslide': 23, 'Attack': 35}}
+Eustathius	0	{'physicalReduction': 75}
+Helios	0	{'fireReduction': 125}
+Hyginus	1	{'maxHp': 2, 'hp': 2}
+Hyperion	1	{'cDamage': 3}
+Iason	0	{'SKILLS': {'Restore': 5, 'Attack': 65}}
+Lysias	0	{'damage': 20, 'cRate': 5, 'cDamage': 100, 'accuracy': -25, 'SKILLS': {'Reckless Rack': 5, 'Attack': 65}}
+Nereus	0	{'SKILLS': {'Tsunami': 2, 'Floodtide': 5, 'Whirlpool': 28, 'Attack': 35}}
+Odysseus	1	{'damage': 2}
+Pantaleon	0	{'earthReduction': 75, 'waterReduction': 75, 'fireReduction': 75}
+Petros	0	{'earthReduction': 125}
+Ptolemy	0	{'damage': 20, 'defence': 150}
+Pyrrhus	0	{'fireReduction': 75, 'SKILLS': {'Firestorm': 10, 'Attack': 60}}
+Sophus	0	{'SKILLS': {'Shield Breaker': 11, 'Diamond Cutter': 11, 'Expunging Lunge': 10, 'Battery Cage': 3, 'Attack': 35}}
+Tarasios	0	{'waterReduction': 75, 'SKILLS': {'Torrent Funnel': 10, 'Attack': 60}}
+Theron	0	{'SKILLS': {'Sap Shot': 10, 'Freezing Arrow': 10, 'Flaming Arrow': 10, 'Venom Arrow': 5, 'Attack': 35}}
+Tychon	1	{'cRate': 2, 'SKILLS': {'Stiff Shot': 10, 'Bullseye Bolt': 5, 'Attack': 55}}
+Zeno	0	{'earthReduction': 75, 'SKILLS': {'Asteroid': 10, 'Attack': 60}}
