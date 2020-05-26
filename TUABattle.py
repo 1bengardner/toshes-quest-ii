@@ -706,27 +706,6 @@ class Battle(object):
             flags.remove("Sleeping")
             flags.add("Sleeping Active")
             flags.add("Regenerating")
-            
-        if "Golden Fur" in flags:
-            pass
-        elif "Golden Fur Active" in flags:
-            self.text += target.NAME+"'s golden fur is shining brightly.\n"
-        elif "Golden Fur 2" in flags:
-            self.text += target.NAME+"'s golden fur is fading.\n"
-        elif "Golden Fur 3" in flags:
-            self.text += target.NAME+"'s fur returned to normal.\n"
-        if "Golden Fur 3" in flags:
-            target.bRate -= 75
-            flags.remove("Golden Fur 3")
-        if "Golden Fur 2" in flags:
-            flags.add("Golden Fur 3")
-            flags.remove("Golden Fur 2")
-        if "Golden Fur Active" in flags:
-            flags.add("Golden Fur 2")
-            flags.remove("Golden Fur Active")
-        if "Golden Fur" in flags:
-            flags.remove("Golden Fur")
-            flags.add("Golden Fur Active")
 
         # Affinity group
         if "Earth Affinity" in flags:
