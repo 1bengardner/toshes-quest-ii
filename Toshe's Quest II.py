@@ -657,8 +657,11 @@ class TopRightFrame:
         window.topFrame.topLeftFrame.updateVitalStats()
 
     def clickMarkMapButton(self, event=None):
-        main.markMap()
-        print "Map marked.\n"
+        if main.markMap():
+            output = "You add a mark to the map with your current location."
+        else:
+            output = "You remove your location marking from the map."
+        window.bottomFrame.bottomLeftFrame.insertOutput(output)
 
     def clickBuyButton(self):
         main.buy(self.v2.get())

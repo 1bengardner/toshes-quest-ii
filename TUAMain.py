@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 10, 2017
+Revised: May 26, 2020
 """
 
 
@@ -140,8 +140,10 @@ class Main:
         markedSpots = self.character.flags['Marked Areas'][self.currentArea.name]
         if (self.x, self.y) in markedSpots:
             markedSpots.remove((self.x, self.y))
+            return False
         else:
             markedSpots.add((self.x, self.y))
+            return True
 
     def printMap(self):
         area = self.currentArea.name
