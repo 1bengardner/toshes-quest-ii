@@ -547,7 +547,7 @@ class TopRightFrame:
                                    text="104", font=font2,
                                    fg=WHITE, activeforeground=WHITE, bg=DARKBEIGE,
                                    command=self.usePotion, compound=CENTER)
-        self.potionButton.grid(row=10, column=3, rowspan=2, columnspan=2, sticky=E, padx=32)
+        self.potionButton.grid(row=10, column=3, rowspan=2, columnspan=2, sticky=E, padx=3)
 
         self.mapButton = Button(self.otherStats,
                                 text="Mark/Unmark Map",
@@ -652,7 +652,8 @@ class TopRightFrame:
     def usePotion(self):
         main.character.hp += 50
         main.character.potions -= 1
-        window.bottomFrame.bottomLeftFrame.insertOutput("You consume a potion.")
+        message = "You consume a vial full of life fluid."
+        window.bottomFrame.bottomLeftFrame.insertOutput(message)
         self.updateOtherStats()
         window.topFrame.topLeftFrame.updateVitalStats()
 
