@@ -2,11 +2,12 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 11, 2017
+Revised: May 25, 2020
 """
 
 
 import random
+from TUAStatics import Static
 
 
 class EasternKosovo:
@@ -315,7 +316,7 @@ class EasternKosovo:
             self.menu = ["Enter the opening."]
         else:
             self.text = ("You see a tiny opening in the bushes that looks "+
-                         "like one that you could sneak into were you more "+
+                         "like one that you could sneak into, were you more "+
                          "dextrous.")
         return self.actions()
 
@@ -451,7 +452,8 @@ class EasternKosovo:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        self.c.flags['Ica 3'] = True
+        thisIca = "Ica 3"
+        self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 14
         self.text = None
@@ -469,20 +471,20 @@ class EasternKosovo:
             skill2 = "Bullseye Bolt"
             skillPrice1 = 500
             skillPrice2 = 1000
+        tunic = "Eucalyptic Tunic"
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Leave."]
-        if any(
-         ica in self.c.flags for ica in ["Ica 1", "Ica 2", "Ica 4", "Ica 5"]):
-            self.menu += ["Travel to next nook."]
+        if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
+            self.menu += ["Travel to the next nook."]
         if selectionIndex == 0:
             return self.actions({'skill': skill1,
                                  'cost': skillPrice1,
-                                 'items for sale': ["Eucalyptic Tunic"]+[None]*8})
+                                 'items for sale': [tunic]+[None]*8})
         elif selectionIndex == 1:
             return self.actions({'skill': skill2,
                                  'cost': skillPrice2,
-                                 'items for sale': ["Eucalyptic Tunic"]+[None]*8})
+                                 'items for sale': [tunic]+[None]*8})
         elif selectionIndex == 2:
             X = 7
             Y = 1
@@ -490,23 +492,10 @@ class EasternKosovo:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 3:
             self.c.flags['Nooking'] = True
-            if 'Ica 4' in self.c.flags:
-                X = 1
-                Y = 1
-                return self.actions({'area': "Greece",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 5' in self.c.flags:
-                pass
-            elif 'Ica 1' in self.c.flags:
-                X = 6
-                Y = 1
-                return self.actions({'area': "Herceg Fields",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 2' in self.c.flags:
-                X = 3
-                Y = 3
-                return self.actions({'area': "Mojkovac Summit",
-                                     'coordinates': (X, Y)})
+            i = Static.ICAS.index(thisIca)
+            nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
+                       if ica in self.c.flags][0]
+            return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
             self.text = (npc+" transports you to the next nook.")
             del self.c.flags['Nooking']
@@ -531,7 +520,7 @@ class EasternKosovo:
             self.text = ("You crawl through the bushes and find yourself "+
                          "in a dark, damp nook."+
                          "\n"+npc+": What do you seek today, friend?")
-        return self.actions({'items for sale': ["Eucalyptic Tunic"]+[None]*8})
+        return self.actions({'items for sale': [tunic]+[None]*8})
 
     def wizardEntrance(self, selectionIndex=None):
         self.view = "travel"

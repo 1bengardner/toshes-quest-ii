@@ -2,11 +2,12 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 11, 2017
+Revised: May 25, 2020
 """
 
 
 import random
+from TUAStatics import Static
 
 
 class FartooqHold:
@@ -177,7 +178,7 @@ class FartooqHold:
             self.menu = ["Enter the gap."]
         else:
             self.text = ("You come across a gap in the wall that "+
-                         "you could crouch into were you more "+
+                         "you could crouch into, were you more "+
                          "dextrous.")
         return self.actions()
     
@@ -435,9 +436,52 @@ class FartooqHold:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        self.view = "travel"
+        thisIca = "Ica 5"
+        self.c.flags[thisIca] = True
+        self.view = "store"
         self.imageIndex = 24
         self.text = None
         self.helpText = None
-        self.menu = []
-        return self.actions()
+        npc = "Ica"
+        skill1 = "Death Dart"
+        skillPrice1 = 5000
+        tunic = "Water Tunic"
+        self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
+                     "Leave."]
+        if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
+            self.menu += ["Travel to the next nook."]
+        if selectionIndex == 0:
+            return self.actions({'skill': skill1,
+                                 'cost': skillPrice1,
+                                 'items for sale': [tunic]+[None]*8})
+        elif selectionIndex == 1:
+            X = 1
+            Y = 9
+            return self.actions({'area': "Fartooq Hold",
+                                 'coordinates': (X, Y)})
+        elif selectionIndex == 2:
+            self.c.flags['Nooking'] = True
+            i = Static.ICAS.index(thisIca)
+            nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
+                       if ica in self.c.flags][0]
+            return self.actions(Static.ICA_DATA[nextIca])
+        elif "Nooking" in self.c.flags:
+            self.text = (npc+" transports you to the next nook.")
+            del self.c.flags['Nooking']
+        elif npc not in self.c.flags:
+            self.text = ("You crawl through the gap and find yourself "+
+                         "in a dark, damp nook. To your surprise, there's "+
+                         "someone else inside."+
+                         "\nWoman: Quick, get in here. It is not safe outside. "+
+                         "There are monsters."+
+                         "\nToshe: Yeah, I noticed. Who are you?"+
+                         "\n"+npc+": I am "+npc+". I take refuge in the "+
+                         "trees. I protect the peace and serenity of the "+
+                         "forest. I craft special tunics for use by fellow "+
+                         "archers. I can teach you the way of the bow.")
+            self.c.flags['Ica'] = True
+        else:
+            self.text = ("You crawl through the gap and find yourself "+
+                         "in a dark, damp nook."+
+                         "\n"+npc+": What do you seek today, archer?")
+        return self.actions({'items for sale': [tunic]+[None]*8})

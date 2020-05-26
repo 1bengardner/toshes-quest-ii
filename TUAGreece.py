@@ -2,11 +2,12 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: May 11, 2017
+Revised: May 25, 2020
 """
 
 
 import random
+from TUAStatics import Static
 
 
 class Greece:
@@ -417,7 +418,7 @@ class Greece:
             self.menu = ["Enter the hole."]
         else:
             self.text = ("You see a tiny hole in the wall that you "+
-                         "could possibly crawl into were you more "+
+                         "could possibly crawl into, were you more "+
                          "dextrous.")
         return self.actions()
 
@@ -444,7 +445,8 @@ class Greece:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        self.c.flags['Ica 4'] = True
+        thisIca = "Ica 4"
+        self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 19
         self.text = None
@@ -458,9 +460,8 @@ class Greece:
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Leave."]
-        if any(
-         ica in self.c.flags for ica in ["Ica 1", "Ica 2", "Ica 3", "Ica 5"]):
-            self.menu += ["Travel to next nook."]
+        if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
+            self.menu += ["Travel to the next nook."]
         if selectionIndex == 0:
             return self.actions({'skill': skill1,
                                  'cost': skillPrice1,
@@ -476,23 +477,10 @@ class Greece:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 3:
             self.c.flags['Nooking'] = True
-            if 'Ica 5' in self.c.flags:
-                pass
-            elif 'Ica 1' in self.c.flags:
-                X = 6
-                Y = 1
-                return self.actions({'area': "Herceg Fields",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 2' in self.c.flags:
-                X = 3
-                Y = 3
-                return self.actions({'area': "Mojkovac Summit",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 3' in self.c.flags:
-                X = 1
-                Y = 1
-                return self.actions({'area': "Eastern Kosovo",
-                                     'coordinates': (X, Y)})
+            i = Static.ICAS.index(thisIca)
+            nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
+                       if ica in self.c.flags][0]
+            return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
             self.text = (npc+" transports you to the next nook.")
             del self.c.flags['Nooking']

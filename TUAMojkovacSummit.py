@@ -2,8 +2,11 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: May 11, 2017
+Revised: May 25, 2020
 """
+
+
+from TUAStatics import Static
 
 
 class MojkovacSummit:
@@ -163,7 +166,7 @@ class MojkovacSummit:
             self.menu = ["Enter the passage."]
         else:
             self.text = ("You notice a small passage between the rocks where "+
-                         "you could probably fit through were you more "+
+                         "you could probably fit through, were you more "+
                          "dextrous.")
         return self.actions()
 
@@ -268,27 +271,31 @@ class MojkovacSummit:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        self.c.flags['Ica 2'] = True
+        thisIca = "Ica 2"
+        self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 12
         self.text = None
         self.helpText = None
-        self.menu = []
         npc = "Ica"
-        self.menu = ["Learn Stiff Shot (300 euros).",
-                     "Learn Flaming Arrow (200 euros).",
+        skill1 = "Stiff Shot"
+        skill2 = "Flaming Arrow"
+        skillPrice1 = 300
+        skillPrice2 = 200
+        tunic = "Woodland Tunic"
+        self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
+                     "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Leave."]
-        if any(
-         ica in self.c.flags for ica in ["Ica 1", "Ica 3", "Ica 4", "Ica 5"]):
-            self.menu += ["Travel to next nook."]
+        if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
+            self.menu += ["Travel to the next nook."]
         if selectionIndex == 0:
-            return self.actions({'skill': "Stiff Shot",
-                                 'cost': 300,
-                                 'items for sale': ["Woodland Tunic"]+[None]*8})
+            return self.actions({'skill': skill1,
+                                 'cost': skillPrice1,
+                                 'items for sale': [tunic]+[None]*8})
         elif selectionIndex == 1:
-            return self.actions({'skill': "Flaming Arrow",
-                                 'cost': 200,
-                                 'items for sale': ["Woodland Tunic"]+[None]*8})
+            return self.actions({'skill': skill2,
+                                 'cost': skillPrice2,
+                                 'items for sale': [tunic]+[None]*8})
         elif selectionIndex == 2:
             X = 3
             Y = 5
@@ -296,23 +303,10 @@ class MojkovacSummit:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 3:
             self.c.flags['Nooking'] = True
-            if 'Ica 3' in self.c.flags:
-                X = 1
-                Y = 1
-                return self.actions({'area': "Eastern Kosovo",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 4' in self.c.flags:
-                X = 1
-                Y = 1
-                return self.actions({'area': "Greece",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 5' in self.c.flags:
-                pass
-            elif 'Ica 1' in self.c.flags:
-                X = 6
-                Y = 1
-                return self.actions({'area': "Herceg Fields",
-                                     'coordinates': (X, Y)})
+            i = Static.ICAS.index(thisIca)
+            nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
+                       if ica in self.c.flags][0]
+            return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
             self.text = (npc+" transports you to the next nook.")
             del self.c.flags['Nooking']
@@ -332,7 +326,7 @@ class MojkovacSummit:
             self.text = ("You crawl through the rock passage and find yourself "+
                          "in a dark, damp nook."+
                          "\n"+npc+": What do you seek today, archer?")
-        return self.actions({'items for sale': ["Woodland Tunic"]+[None]*8})
+        return self.actions({'items for sale': [tunic]+[None]*8})
 
     def marciano(self, selectionIndex=None):
         self.view = "travel"

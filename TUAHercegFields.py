@@ -2,8 +2,11 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: May 11, 2017
+Revised: May 25, 2020
 """
+
+
+from TUAStatics import Static
 
 
 class HercegFields:
@@ -297,17 +300,14 @@ class HercegFields:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            X = 6
-            Y = 1
-            return self.actions({'area': "Herceg Fields",
-                                 'coordinates': (X, Y)})
+            return Static.ICA_DATA['Ica 1']
         if self.c.dexterity >= 15:
             self.text = ("You notice a small opening in the tree roots that "+
                          "you could squeeze through.")
             self.menu = ["Enter the tree."]
         else:
             self.text = ("You notice a small opening in the tree roots that "+
-                         "you might be able to squeeze through were you more "+
+                         "you might be able to squeeze through, were you more "+
                          "dextrous.")
         return self.actions()
 
@@ -320,27 +320,31 @@ class HercegFields:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        self.c.flags['Ica 1'] = True
+        thisIca = "Ica 1"
+        self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 19
         self.text = None
         self.helpText = None
-        self.menu = []
         npc = "Ica"
-        self.menu = ["Learn Power Lob (100 euros).",
-                     "Learn Rock Shot (200 euros).",
+        skill1 = "Power Lob"
+        skill2 = "Rock Shot"
+        skillPrice1 = 100
+        skillPrice2 = 200
+        tunic = "Tunic"
+        self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
+                     "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Leave."]
-        if any(
-         ica in self.c.flags for ica in ["Ica 2", "Ica 3", "Ica 4", "Ica 5"]):
-            self.menu += ["Travel to next nook."]
+        if any(ica in self.c.flags for ica in Static.ICAS):
+            self.menu += ["Travel to the next nook."]
         if selectionIndex == 0:
-            return self.actions({'skill': "Power Lob",
-                                 'cost': 100,
-                                 'items for sale': ["Tunic"]+[None]*8})
+            return self.actions({'skill': skill1,
+                                 'cost': skillPrice1,
+                                 'items for sale': [tunic]+[None]*8})
         elif selectionIndex == 1:
-            return self.actions({'skill': "Rock Shot",
-                                 'cost': 200,
-                                 'items for sale': ["Tunic"]+[None]*8})
+            return self.actions({'skill': skill2,
+                                 'cost': skillPrice2,
+                                 'items for sale': [tunic]+[None]*8})
         elif selectionIndex == 2:
             X = 6
             Y = 7
@@ -348,23 +352,10 @@ class HercegFields:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 3:
             self.c.flags['Nooking'] = True
-            if 'Ica 2' in self.c.flags:
-                X = 3
-                Y = 3
-                return self.actions({'area': "Mojkovac Summit",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 3' in self.c.flags:
-                X = 1
-                Y = 1
-                return self.actions({'area': "Eastern Kosovo",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 4' in self.c.flags:
-                X = 1
-                Y = 1
-                return self.actions({'area': "Greece",
-                                     'coordinates': (X, Y)})
-            elif 'Ica 5' in self.c.flags:
-                pass
+            i = Static.ICAS.index(thisIca)
+            nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
+                       if ica in self.c.flags][0]
+            return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
             self.text = (npc+" transports you to the next nook.")
             del self.c.flags['Nooking']
@@ -384,7 +375,7 @@ class HercegFields:
             self.text = ("You crawl through the tree roots and find yourself "+
                          "in a dark, damp nook."+
                          "\n"+npc+": What do you seek today, archer?")
-        return self.actions({'items for sale': ["Tunic"]+[None]*8})
+        return self.actions({'items for sale': [tunic]+[None]*8})
 
     def outpost(self, selectionIndex=None):
         self.view = "travel"
