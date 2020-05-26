@@ -1,5 +1,5 @@
 # Toshe Save File Converter
-# Updates 0.00/0.01 characters to 0.02
+# Updates 0.0-1.0 characters to 1.1
 
 import pickle
 
@@ -31,6 +31,9 @@ def update(gameFile):
     else:
         for mercenary in character.mercenaries:
             setattr(mercenary, "LIVING", 1)
+    if not hasattr(character, "potions"):
+        setattr(character, "potions", 0)
+        changed = True
             
     with open("saves\\"+fileName+".tq", "w") as gameFile:
         pickle.dump(character, gameFile)
@@ -44,7 +47,7 @@ def update(gameFile):
         
 try:
     print ("This program will update your character file from" +
-           " version 0.00 or later to 0.02.")
+           " version 0.0 or later to 1.1.")
     fileName = raw_input("What's the name of the character to update? ")
 
     try:

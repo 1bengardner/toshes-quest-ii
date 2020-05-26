@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: January 16, 2016
+Revised: May 26, 2020
 """
 
 
@@ -36,6 +36,7 @@ class Character(object):
         saves/loads.
     x: X coordinate of the character in the area. Used for game saves/loads.
     y: Y coordinate of the character in the area. Used for game saves/loads.
+    potions: Available potion count.
     """
 
     def __init__(self, name, level, xp, xpTnl, hp, maxHp, ep, maxEp, strength,
@@ -43,7 +44,7 @@ class Character(object):
                  items, equippedItemIndices,
                  equippedWeapon, equippedArmour, equippedShield,
                  blankWeapon, blankArmour, blankShield,
-                 statPoints, flags, area, x, y):
+                 statPoints, flags, area, x, y, potions=0):
         self.NAME = str(name)
         self.level = int(level)
         self.xp = int(xp)
@@ -71,6 +72,7 @@ class Character(object):
         self.area = area
         self.x = int(x)
         self.y = int(y)
+        self.potions = int(potions)
         self.LIVING = 1
         self.updateStats()
 

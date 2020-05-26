@@ -1,6 +1,6 @@
 Toshe's Quest II Changelog
 
-WIP 1.1: Added Galijula, added Fartooq Hold, added new enemies, introduced a new element, made minor fixes
+WIP 1.1: Added Galijula, added Fartooq Hold, added new enemies, introduced a new element, added potions, made minor fixes
 
 1.0: Main release; adjusted elemental damage reduction from defence, introduced a new miscellaneous item from President of Macedonia, modified items, made minor fixes
 

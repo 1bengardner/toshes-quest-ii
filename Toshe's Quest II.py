@@ -4,7 +4,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: February 13, 2018
+Revised: May 26, 2020
 """
 
  
@@ -531,7 +531,7 @@ class TopRightFrame:
                                                font=font2, bd=0,
                                                command=\
                                                self.toggleConfigLogMovement)
-        self.toggleMovementCheck.grid(row=10, columnspan=5, sticky=W)
+        self.toggleMovementCheck.grid(row=10, columnspan=4, sticky=W)
 
         self.automap = IntVar()
         self.automap.set(1)
@@ -541,7 +541,14 @@ class TopRightFrame:
                                               bg=DEFAULT_BG, font=font2, bd=0,
                                               command=\
                                               self.toggleConfigAutomapOn)
-        self.toggleAutomapCheck.grid(row=11, columnspan=5, sticky=W)
+        self.toggleAutomapCheck.grid(row=11, columnspan=4, sticky=W)
+
+        self.potionButton = Button(self.otherStats, image=potionImage,
+                                   text="104", font=font2,
+                                   fg=WHITE, activeforeground=WHITE, bg=DARKBEIGE,
+                                   command=self.usePotion, compound=CENTER)
+        self.potionButton.grid(row=10, column=3, rowspan=2, columnspan=2, sticky=E, padx=32)
+
         self.mapButton = Button(self.otherStats,
                                 text="Mark/Unmark Map",
                                 font=font2,
@@ -642,6 +649,13 @@ class TopRightFrame:
         main.character.statPoints -= 1
         self.updateOtherStats()
 
+    def usePotion(self):
+        main.character.hp += 50
+        main.character.potions -= 1
+        window.bottomFrame.bottomLeftFrame.insertOutput("You consume a potion.")
+        self.updateOtherStats()
+        window.topFrame.topLeftFrame.updateVitalStats()
+
     def clickMarkMapButton(self, event=None):
         main.markMap()
         print "Map marked.\n"
@@ -704,6 +718,11 @@ class TopRightFrame:
             self.strengthValueButton.config(state=DISABLED, relief=FLAT)
             self.dexterityValueButton.config(state=DISABLED, relief=FLAT)
             self.wisdomValueButton.config(state=DISABLED, relief=FLAT)
+        
+        state = NORMAL if c.potions > 0 else DISABLED
+        font = font4 if c.potions < 100 else font2
+        text = c.potions if c.potions > 0 else ""
+        self.potionButton.config(state=state, font=font, text=text)
 
     def updateEnemyStats(self):
         """Show the level, name, hp bar, and hp of the current enemy in the
@@ -1775,6 +1794,7 @@ tosheImage = PhotoImage(file="images\\other\\toshe.gif")
 gameOverImage = PhotoImage(file="images\\other\\gameover.gif")
 
 euroImage = PhotoImage(file="images\\icons\\euro.gif")
+potionImage = PhotoImage(file="images\\icons\\potion.gif")
 vBorderImage1 = PhotoImage(file="images\\other\\border21.gif")
 vBorderImage2 = PhotoImage(file="images\\other\\border22.gif")
 hBorderImage = PhotoImage(file="images\\other\\border3.gif")
