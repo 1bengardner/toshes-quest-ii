@@ -417,7 +417,7 @@ class EasternKosovo:
         elif self.c.hasMercenary("Barrie"):
             self.text = ("Barrie: I swear..." +
                          "\nBarrie sniffs the air rapidly." +
-                         "\nI smell delicious liquid gold nearby.")
+                         "\nBarrie: I smell delicious liquid gold nearby.")
             
         else:
             self.text = ("You see an oddly shaped tree that" +

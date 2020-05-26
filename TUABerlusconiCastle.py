@@ -2,7 +2,7 @@
 File: TUABerlusconiCastle.py
 Author: Ben Gardner
 Created: July 14, 2015
-Revised: May 11, 2017
+Revised: May 25, 2020
 """
 
 
@@ -350,7 +350,7 @@ class BerlusconiCastle:
             self.text = ("You enter a room with a pulled down lever" +
                          " protruding from the wall.")
         elif ( "Silvio Berlusconi2" not in self.c.flags['Kills']):
-            self.text = ("You enter a room with a pulled down" +
+            self.text = ("You enter a room with a" +
                          " lever in the corner." +
                          "\nToshe: Hmpf. A dead end.")
         elif "Berlusconi Lever Pulled" not in self.c.flags:
