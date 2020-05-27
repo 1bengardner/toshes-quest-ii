@@ -346,7 +346,7 @@ class Battle(object):
             if miss:
                 self.text += attacker.NAME+" missed!\n"
             elif blocked:
-                self.text += attacker.NAME+" was blocked!\n"
+                self.text += attacker.NAME+" was blocked by "+defender.NAME+"!\n"
                 if "Defending Active" in defenderFlags:
                     epBoost = 1 + int(damage ** 0.5 * 9)
                     defender.ep += epBoost
