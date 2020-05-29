@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 25, 2020
+Revised: May 28, 2020
 """
 
 
@@ -168,17 +168,14 @@ class FartooqHold:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            X = 1
-            Y = 7
-            return self.actions({'area': "Fartooq Hold",
-                                 'coordinates': (X, Y)})
+            return Static.ICA_DATA['Ica 6']
         if self.c.dexterity >= 75:
             self.text = ("You come across a gap in the wall that "+
                          "you could crouch into.")
             self.menu = ["Enter the gap."]
         else:
             self.text = ("You come across a gap in the wall that "+
-                         "you could crouch into, were you more "+
+                         "you could maybe crouch into, were you more "+
                          "dextrous.")
         return self.actions()
     

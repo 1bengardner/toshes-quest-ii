@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: May 25, 2020
+Revised: May 28, 2020
 """
 
 
@@ -408,17 +408,14 @@ class Greece:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            X = 1
-            Y = 1
-            return self.actions({'area': "Greece",
-                                 'coordinates': (X, Y)})
+            return Static.ICA_DATA['Ica 4']
         if self.c.dexterity >= 60:
             self.text = ("You see a tiny hole in the wall that "+
                          "you could crawl through.")
             self.menu = ["Enter the hole."]
         else:
             self.text = ("You see a tiny hole in the wall that you "+
-                         "could possibly crawl into, were you more "+
+                         "could possibly crawl through, were you more "+
                          "dextrous.")
         return self.actions()
 

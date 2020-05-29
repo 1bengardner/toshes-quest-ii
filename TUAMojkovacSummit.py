@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: May 25, 2020
+Revised: May 28, 2020
 """
 
 
@@ -156,10 +156,7 @@ class MojkovacSummit:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            X = 3
-            Y = 3
-            return self.actions({'area': "Mojkovac Summit",
-                                 'coordinates': (X, Y)})
+            return Static.ICA_DATA['Ica 2']
         if self.c.dexterity >= 30:
             self.text = ("You notice a small passage between the rocks where "+
                          "you could fit through.")

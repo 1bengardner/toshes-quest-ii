@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 25, 2020
+Revised: May 28, 2020
 """
 
 
@@ -306,10 +306,7 @@ class EasternKosovo:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            X = 1
-            Y = 1
-            return self.actions({'area': "Eastern Kosovo",
-                                 'coordinates': (X, Y)})
+            return Static.ICA_DATA['Ica 3']
         if self.c.dexterity >= 45:
             self.text = ("You see a tiny opening in the bushes that "+
                          "you could sneak into.")
