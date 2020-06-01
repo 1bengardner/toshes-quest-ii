@@ -56,6 +56,10 @@ from TUAThessaloniki import Thessaloniki
 from TUAGreekFortress import GreekFortress
 from TUAMacedonia import Macedonia
 from TUACredits import Credits
+from TUAGolemCavern1 import GolemCavern1
+from TUAGolemCavern2 import GolemCavern2
+from TUAGolemCavern3 import GolemCavern3
+from TUASimelliermPit import SimelliermPit
 from TUAGalijula import Galijula
 from TUAFartooqHold import FartooqHold
 
@@ -283,6 +287,10 @@ class Main:
                       'Greek Fortress': GreekFortress,
                       'Macedonia': Macedonia,
                       'Credits': Credits,
+                      'Golem Cavern: Floor 1': GolemCavern1,
+                      'Golem Cavern: Floor 2': GolemCavern2,
+                      'Golem Cavern: Floor 3': GolemCavern3,
+                      'Simellierm Pit': SimelliermPit,
                       'Galijula': Galijula,
                       'Fartooq Hold': FartooqHold}
 

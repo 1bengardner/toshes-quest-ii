@@ -2,7 +2,7 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: May 23, 2017
+Revised: May 31, 2020
 """
 
 
@@ -343,9 +343,9 @@ class HercegBluffs:
              "Moved Boulders" not in self.c.flags):
             self.c.flags['Moved Boulders'] = True
         elif selectionIndex == 0:
-            X = 4
-            Y = 17
-            return self.actions({'area': "Adriatic Sea",
+            X = 3
+            Y = 2
+            return self.actions({'area': "Golem Cavern: Floor 1",
                                  'coordinates': (X, Y)})            
             
         if "Moved Boulders" not in self.c.flags:
@@ -359,6 +359,12 @@ class HercegBluffs:
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Time to explore.")
             self.c.flags['Moved Boulders Aftermath'] = True
+        elif "Climbing Up" in self.c.flags:
+            self.c.flags['Golem Cavern Complete'] = True
+            del self.c.flags['Climbing Up']
+            self.imageIndex = 33
+            self.text = ("You climb up the vines to find yourself back at the" +
+                         " cave entrance.")
         elif "Golem Cavern Complete" not in self.c.flags:
             self.imageIndex = 34
             self.text = ("There is a magical force deep inside the cave.")

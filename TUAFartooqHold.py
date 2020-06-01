@@ -2,11 +2,10 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 28, 2020
+Revised: May 31, 2020
 """
 
 
-import random
 from TUAStatics import Static
 
 
@@ -402,7 +401,7 @@ class FartooqHold:
                          "\nA terrifying beast swoops down and perches on" +
                          " a peak above." +
                          "\nAldreed: Graaagh!!")
-            self.menu = ["Brace yourself."]
+            self.menu = ["Face Aldreed."]
         elif (self.c.hasItem("Oracular Orb")):
             self.menu = ["Place the orb upon the pedestal."]
         elif ("Placed Oracular Orb" in self.c.flags and

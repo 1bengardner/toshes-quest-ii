@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: May 25, 2020
+Created: May 31, 2020
 """
 
 
@@ -30,5 +30,5 @@ class Static:
         "Ica 6": {'area': "Fartooq Hold",
                   'coordinates': (1, 7)},
         "Ica 7": {'area': "Simellierm Pit",
-                  'coordinates': None}
+                  'coordinates': (1, 4)}
     }

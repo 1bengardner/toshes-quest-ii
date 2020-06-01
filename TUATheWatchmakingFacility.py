@@ -2,7 +2,7 @@
 File: TUATheWatchmakingFacility.py
 Author: Ben Gardner
 Created: August 24, 2013
-Revised: July 28, 2015
+Revised: May 31, 2020
 """
 
 
@@ -323,7 +323,7 @@ class TheWatchmakingFacility:
                          "\nPespozeor: Graaagh!!"+
                          "\nDragan: Have at thee!"+
                          "\nToshe: Oh fuck.")
-            self.menu = ["Brace yourself."]
+            self.menu = ["Face Pespozeor."]
             self.tempFlag = "Pespozeor 6"
 
         elif "Pespozeor Encounter" not in self.c.flags:
