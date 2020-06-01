@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 26, 2020
+Revised: May 29, 2020
 """
 
 
@@ -641,6 +641,13 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 "You leveled up! Allocate points by clicking the stat buttons "+
                 "at top right beside Strength, Dexterity or Wisdom.")
             self.character.flags['Level 2'] = True
+        elif ('Potions' not in self.character.flags
+              and self.character.potions > 0
+              and interfaceActions['view'] == "travel"):
+            interfaceActions['italic text'] = (
+                "You found a potion. Click the potion button to consume it "+
+                "to heal HP.")
+            self.character.flags['Potions'] = True
             
         if interfaceActions['view'] == "store":
             if "buyback" in interfaceActions:

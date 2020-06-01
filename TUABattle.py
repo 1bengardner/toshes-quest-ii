@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: May 26, 2020
+Revised: May 29, 2020
 """
 
 
@@ -925,7 +925,8 @@ class Battle(object):
             self.mainCharacter.euros += eurosGained
             self.text += ("You gain "+str(xpGained)+" XP.\n"+
                           "You gain "+str(eurosGained)+" euros.\n")
-            if eurosGained == 0 and self.enemy.LIVING and self.enemy.DEATH_HP <= 0 and self.roll() <= 10:
+            if ( eurosGained == 0 and self.enemy.LIVING
+                 and self.enemy.DEATH_HP <= 0 and self.roll() <= 10):
                 self.mainCharacter.potions += 1
                 self.text += ("You collect a hearty vial of life fluid.\n")
             if self.enemy.IDENTIFIER not in self.mainCharacter.flags['Kills']:
