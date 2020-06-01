@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: May 31, 2020
+Revised: June 1, 2020
 """
 
 
@@ -108,6 +108,17 @@ class SimelliermPit:
         self.text = None
         self.helpText = None
         self.menu = []
+        if "Simellierm Stairs" not in self.c.flags:
+            self.c.flags['Simellierm Stairs'] = True
+            self.text = ("You fall through the tunnel, landing in what" +
+                         " appears to be an underground knoll, with a" +
+                         " descending flight of stairs before you.")
+            if self.c.hasMercenary("Barrie"):
+                self.text += "\nBarrie: Wow..."
+            self.c.hp -= 20
+            self.text += "\nToshe: Ow..."
+            if self.c.hasMercenary("Qendresa"):
+                self.text += "\nQendresa: How unexpected!"
         return self.actions()
     
     def stairs(self, selectionIndex=None):
