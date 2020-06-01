@@ -4,7 +4,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 26, 2020
+Revised: May 31, 2020
 """
 
  
@@ -21,9 +21,9 @@ class Window:
     def __init__(self, master):
         gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
         gameFrame.grid()
-
-        gameFrame.bind_all('m', self.clickMapButton)
-        gameFrame.bind_all('M', self.clickMapButton)
+        
+        gameFrame.bind_all('<Control-m>', self.clickMapButton)
+        gameFrame.bind_all('<Control-M>', self.clickMapButton)
         
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
@@ -56,11 +56,9 @@ class Window:
         lootLabel.bind("<Button-1>", self.removeLootFrame)
         
         self.makeChildren(gameFrame)
-        
-        gameFrame.bind_all('<Control-m>',
-                           self.topFrame.topRightFrame.clickMarkMapButton)
-        gameFrame.bind_all('<Control-M>',
-                           self.topFrame.topRightFrame.clickMarkMapButton)
+
+        gameFrame.bind_all('m', self.topFrame.topRightFrame.clickMarkMapButton)
+        gameFrame.bind_all('M', self.topFrame.topRightFrame.clickMarkMapButton)
 
     def makeChildren(self, master):
         self.topFrame = TopFrame(master)
@@ -548,6 +546,8 @@ class TopRightFrame:
                                    fg=WHITE, activeforeground=WHITE, bg=DARKBEIGE,
                                    command=self.usePotion, compound=CENTER)
         self.potionButton.grid(row=10, column=3, rowspan=2, columnspan=2, sticky=E, padx=3)
+        self.potionButton.bind_all('p', self.usePotion)
+        self.potionButton.bind_all('P', self.usePotion)
 
         self.mapButton = Button(self.otherStats,
                                 text="Mark/Unmark Map",
