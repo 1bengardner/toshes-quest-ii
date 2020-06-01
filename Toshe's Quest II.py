@@ -649,13 +649,15 @@ class TopRightFrame:
         main.character.statPoints -= 1
         self.updateOtherStats()
 
-    def usePotion(self):
-        main.character.hp += 50
-        main.character.potions -= 1
-        message = "You consume a vial full of life fluid."
-        window.bottomFrame.bottomLeftFrame.insertOutput(message)
-        self.updateOtherStats()
-        window.topFrame.topLeftFrame.updateVitalStats()
+    def usePotion(self, event=None):
+        if (self.potionButton['state'] == NORMAL and
+            main.view in ("travel", "inventory")):
+            main.character.hp += 50
+            main.character.potions -= 1
+            message = "You consume a vial full of life fluid."
+            window.bottomFrame.bottomLeftFrame.insertOutput(message)
+            self.updateOtherStats()
+            window.topFrame.topLeftFrame.updateVitalStats()
 
     def clickMarkMapButton(self, event=None):
         if main.markMap():
@@ -1531,6 +1533,8 @@ def enableGameOverView():
     bottomFrame.okButton['state'] = DISABLED
     bottomFrame.okButton['command'] = root.destroy
     bottomFrame.centerButton['state'] = DISABLED
+    window.topFrame.topRightFrame.potionButton['state'] = DISABLED
+    
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
 
