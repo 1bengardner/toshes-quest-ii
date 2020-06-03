@@ -638,16 +638,19 @@ class TopRightFrame:
         main.character.strength += 1
         main.character.statPoints -= 1
         self.updateOtherStats()
+        window.topFrame.topLeftFrame.updateInventory()
 
     def increaseDexterity(self):
         main.character.dexterity += 1
         main.character.statPoints -= 1
         self.updateOtherStats()
+        window.topFrame.topLeftFrame.updateInventory()
 
     def increaseWisdom(self):
         main.character.wisdom += 1
         main.character.statPoints -= 1
         self.updateOtherStats()
+        window.topFrame.topLeftFrame.updateInventory()
 
     def usePotion(self, event=None):
         if (self.potionButton['state'] == NORMAL and
