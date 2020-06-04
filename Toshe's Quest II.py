@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #Toshe's Underwater Adventures 1.1
 
 """
@@ -13,6 +14,8 @@ import tkFont
 import tkMessageBox
 from TUAMain import Main
 from TUADialog import OpenFileDialog
+import random
+from datetime import datetime
 
 
 class Window:
@@ -20,7 +23,7 @@ class Window:
 
     def __init__(self, master):
         gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
-        gameFrame.grid()
+        gameFrame.grid(row=0)
         
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
@@ -35,10 +38,14 @@ class Window:
         self.lootFrame.grid(row=0)
         self.lootFrame.grid_remove()
         
-        levelUpLabel = Label(self.levelUpFrame, text="LEVEL UP!", font=font5,
-                             bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
-        levelUpLabel.grid()
-        levelUpLabel.bind("<Button-1>", self.removeLevelUpFrame)
+        self.powerUpFrame = Frame(master, bg=MYSTIC_BG, relief=RIDGE, bd=10)
+        self.powerUpFrame.grid(row=0)
+        self.powerUpFrame.grid_remove()
+        
+        self.levelUpLabel = Label(self.levelUpFrame, text="LEVEL UP!",
+                                  font=font5, bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
+        self.levelUpLabel.grid()
+        self.levelUpLabel.bind("<Button-1>", self.removeLevelUpFrame)
         
         self.mercenaryUpLabel = Label(self.mercenaryUpFrame,
                                  text="MERC. UP!",
@@ -51,6 +58,11 @@ class Window:
                           bg=LOOT_BG, fg=LOOT_FG)
         lootLabel.grid()
         lootLabel.bind("<Button-1>", self.removeLootFrame)
+        
+        self.powerUpLabel = Label(self.powerUpFrame, text="POWER UP!",
+                                  font=font5, bg=MYSTIC_BG, fg=MYSTIC_FG2)
+        self.powerUpLabel.grid()
+        self.powerUpLabel.bind("<Button-1>", self.removePowerUpFrame)
         
         self.makeChildren(gameFrame)
 
@@ -71,6 +83,8 @@ class Window:
     def removeLootFrame(self, event=None):
         self.lootFrame.grid_remove()
 
+    def removePowerUpFrame(self, event=None):
+        self.powerUpFrame.grid_remove()
 
 
 class TopFrame:
@@ -131,31 +145,40 @@ class TopLeftFrame:
         self.nameLabel = Label(self.vitalStats, text="Toshe", font=italicFont4,
                                fg=BLACK, bg=DEFAULT_BG)
         self.nameLabel.grid(row=0, column=0, columnspan=2)
-        self.xpBarLabel = Label(self.vitalStats, image=xpBars[6], bg=WHITE,
+        self.xpBarLabel = Label(self.vitalStats, image=xpBars[6], bg=YELLOW,
                                 relief=SUNKEN, bd=1, compound=CENTER,
-                                font=font8, fg=BLACK)
+                                font=font8, fg=WHITE)
         self.xpBarLabel.grid(row=1, columnspan=2)
-        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=LIGHTCYAN,
+        self.spBarLabel = Label(self.vitalStats, image=spBars[34],
+                                bg=DEFAULT_BG, relief=SUNKEN, bd=1)
+        self.spBarLabel.grid(row=3, columnspan=2)
+        self.spLabel = Label(self.vitalStats, text="80",
+                             bg=DEFAULT_BG, font=font1, bd=0)
+        self.spLabel.grid(row=4, sticky=W+N)
+        self.spWord = Label(self.vitalStats, text="Mystic 2", fg=MYSTIC_FG,
+                            bg=MYSTIC_BG, font=font1, relief=RIDGE)
+        self.spWord.grid(row=4, column=1, padx=1, ipadx=4, ipady=1, sticky=E)
+        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=BROWN,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
-        self.hpBarLabel = Label(self.vitalStats, image=hpBars[4], bg=DEFAULT_BG,
-                                relief=SUNKEN, bd=1)
-        self.hpBarLabel.grid(row=4, columnspan=2)
         self.hpWord = Label(self.vitalStats, text="HP",
                             bg=DEFAULT_BG, font=font1, bd=0)
-        self.hpWord.grid(row=3, column=0, sticky=W)
+        self.hpWord.grid(column=0, sticky=W)
         self.hpLabel = Label(self.vitalStats, text="100/100",
                                   bg=DEFAULT_BG, font=font1, bd=0)
-        self.hpLabel.grid(row=3, column=1, sticky=E)
+        self.hpLabel.grid(row=6, column=1, sticky=E)
+        self.hpBarLabel = Label(self.vitalStats, image=hpBars[4], bg=DEFAULT_BG,
+                                relief=SUNKEN, bd=1)
+        self.hpBarLabel.grid(columnspan=2)
         self.epBarLabel = Label(self.vitalStats, image=epBars[2], bg=DEFAULT_BG,
                                 relief=SUNKEN, bd=1)
-        self.epBarLabel.grid(row=5, columnspan=2)
+        self.epBarLabel.grid(row=8, columnspan=2)
         self.epWord = Label(self.vitalStats, text="EP",
                             bg=DEFAULT_BG, font=font1, bd=0)
-        self.epWord.grid(row=6, column=0, sticky=W)
+        self.epWord.grid(column=0, sticky=W)
         self.epLabel = Label(self.vitalStats, text="100/100",
                                   bg=DEFAULT_BG, font=font1, bd=0)
-        self.epLabel.grid(row=6, column=1, sticky=E)
+        self.epLabel.grid(row=9, column=1, sticky=E)
 
 
         self.inventory = LabelFrame(master, text="Inventory", font=font3,
@@ -245,7 +268,16 @@ class TopLeftFrame:
         else:
             self.xpBarLabel['image'] = xpBars[int(float(c.xp) / c.xpTnl *
                                                   (NUMBER_OF_BARS - 1))]
-        self.xpBarLabel['text'] = "%d/%d" % (c.xp, c.xpTnl)
+        self.xpBarLabel['text'] = "%d%%" % (100 * c.xp / c.xpTnl)
+        self.xpBarLabel['fg'] = WHITE if (100 * c.xp / c.xpTnl < 50) else NAVY
+        if hasattr(c, 'specialization'):
+            self.spWord['text'] = "%s %s" % (c.specialization, c.ub205e2nmzfwi)
+            if c.sp > c.spTnl:
+                self.spBarLabel['image'] = spBars[-1]
+            else:
+                self.spBarLabel['image'] = spBars[int(float(c.sp) / c.spTnl *
+                                                      (NUMBER_OF_BARS - 1))]
+            self.spLabel['text'] = c.sp
         if c.hp <= 0:
             self.hpBarLabel['image'] = hpBars[0]
         elif float(c.hp) < float(c.maxHp) / NUMBER_OF_BARS:
@@ -444,22 +476,27 @@ class TopCenterFrame:
 
     def openFile(self):
         d = OpenFileDialog(root, "Start Game")
+        if not hasattr(d, 'entryValue'):
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                "Come on. I promise not to bite.")
+            return
         try:
             self.loadFile(d.entryValue)
         except IOError:
             self.createFile(d.entryValue)
-##        except TypeError as error:
-##            window.bottomFrame.bottomLeftFrame.insertOutput(
-##                "There was an error loading the file (TypeError: "+str(error)+").")
-##        except EOFError as error:
-##            window.bottomFrame.bottomLeftFrame.insertOutput(
-##                "There was an error loading the file (EOFError: "+str(error)+").")
-##        except KeyError as error:
-##            window.bottomFrame.bottomLeftFrame.insertOutput(
-##                "There was an error loading the file (KeyError: "+str(error)+").")
-##        except AttributeError:
-##            window.bottomFrame.bottomLeftFrame.insertOutput(
-##                "C'mon, I won't bite.")
+        # except AttributeError:
+            # window.bottomFrame.bottomLeftFrame.insertOutput(
+                # d.entryValue +
+                # ", some vital information is missing from your file." +
+                # "\nPerhaps this can be remedied with a conversion.")
+        # except (EOFError, ValueError, KeyError, IndexError, ImportError):
+            # window.bottomFrame.bottomLeftFrame.insertOutput(
+                # d.entryValue +
+                # ", your file is completely garbled! This is quite unfortunate.")
+        # except ImportError:
+            # window.bottomFrame.bottomLeftFrame.insertOutput(
+                # "I cannot read this file at all! What language is this?")
+
 
     def saveFile(self):
         if tkMessageBox.askokcancel("Save Game", "Do you want to save?",
@@ -467,12 +504,12 @@ class TopCenterFrame:
             main.saveGame()
 
     def loadFile(self, name=None):
-        window.bottomFrame.bottomLeftFrame.clearOutputBox
         if not name:
             window.bottomFrame.bottomRightFrame.okButton['command'] = \
                 window.bottomFrame.bottomRightFrame.clickOkButton
             window.bottomFrame.bottomRightFrame.bindChoices()
             name = main.fileName
+        window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
         main.loadGame(name)
         window.topFrame.topRightFrame.logMovement.set(
             main.character.flags['Config']['Log Movement'])
@@ -483,6 +520,14 @@ class TopCenterFrame:
         interfaceActions = main.getInterfaceActions(justFought=True)
         updateInterface(interfaceActions)
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
+        if hasattr(main.character, 'specialization'):
+            window.topFrame.topLeftFrame.spWord.grid()
+            window.topFrame.topLeftFrame.spLabel.grid()
+            window.topFrame.topLeftFrame.spBarLabel.grid()
+        else:
+            window.topFrame.topLeftFrame.spWord.grid_remove()
+            window.topFrame.topLeftFrame.spLabel.grid_remove()
+            window.topFrame.topLeftFrame.spBarLabel.grid_remove()
         self.areaButton['command'] = self.saveFile
         self.mapButton.grid()
         root.title("Toshe's Quest II | "+name)
@@ -631,7 +676,7 @@ class TopRightFrame:
 
 
         self.weaponElementLabel = Label(self.otherStats, text="Water Weapon",
-                                        font=font2, bg=DEFAULT_BG,
+                                        font=font2, bg=WATER_COLOR,
                                         relief=GROOVE)
         self.weaponElementLabel.grid(row=9, columnspan=5, sticky=E+W, ipady=3)
 
@@ -650,7 +695,7 @@ class TopRightFrame:
                                    text="104", font=font2,
                                    fg=WHITE, activeforeground=WHITE, bg=DARKBEIGE,
                                    command=self.usePotion, compound=CENTER)
-        self.potionButton.grid(row=10, column=3, rowspan=2, columnspan=2, sticky=E, padx=3)
+        self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E)
         self.potionButton.bind_all('p', self.usePotion)
         self.potionButton.bind_all('P', self.usePotion)
 
@@ -685,7 +730,7 @@ class TopRightFrame:
         self.enemyLevelLabel = Label(self.enemyStats, text="17", font=font2,
                                      width=2, bg=DEFAULT_BG, relief=RIDGE)
         self.enemyLevelLabel.grid(row=0, column=1, padx=10, pady=10, sticky=E)
-        self.enemyImageLabel = Label(self.enemyStats, image=None, bg=RED,
+        self.enemyImageLabel = Label(self.enemyStats, image=None, bg=BROWN,
                                      relief=RIDGE, bd=4)
         self.enemyImageLabel.grid(columnspan=2, pady=20)
         self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[20],
@@ -796,9 +841,19 @@ class TopRightFrame:
             self.accuracyValueLabel['text'] = str(c.accuracy) + "%"
         
         if c.equippedWeapon.ELEMENT == "Physical":
+            self.weaponElementLabel['bg'] = DEFAULT_BG
             self.weaponElementLabel['relief'] = FLAT
             self.weaponElementLabel['text'] = ""
         else:
+            self.weaponElementLabel['bg'] = {
+                'Earth': EARTH_COLOR,
+                'Water': WATER_COLOR,
+                'Fire': FIRE_COLOR
+            }[c.equippedWeapon.ELEMENT] if c.equippedWeapon.ELEMENT in (
+                "Earth",
+                "Water",
+                "Fire"
+            ) else ENIGMATIC_COLOR
             self.weaponElementLabel['relief'] = GROOVE
             self.weaponElementLabel['text'] = (c.equippedWeapon.ELEMENT
                                                +" Weapon")
@@ -816,15 +871,21 @@ class TopRightFrame:
             self.statPointsLabel['text'] = (str(c.statPoints) +
                                             "\nStat Point%s"
                                             % pluralOrNah)
-            self.strengthValueButton.config(state=NORMAL, relief=RAISED)
-            self.dexterityValueButton.config(state=NORMAL, relief=RAISED)
-            self.wisdomValueButton.config(state=NORMAL, relief=RAISED)
+            self.strengthValueButton.config(state=NORMAL, relief=RAISED,
+                                            bg=BUTTON_BG, fg=BUTTON_FG)
+            self.dexterityValueButton.config(state=NORMAL, relief=RAISED,
+                                             bg=BUTTON_BG, fg=BUTTON_FG)
+            self.wisdomValueButton.config(state=NORMAL, relief=RAISED,
+                                          bg=BUTTON_BG, fg=BUTTON_FG)
         else:
             self.statPointsLabel['relief'] = FLAT
             self.statPointsLabel['text'] = ""
-            self.strengthValueButton.config(state=DISABLED, relief=FLAT)
-            self.dexterityValueButton.config(state=DISABLED, relief=FLAT)
-            self.wisdomValueButton.config(state=DISABLED, relief=FLAT)
+            self.strengthValueButton.config(state=DISABLED, relief=FLAT,
+                                            bg=DEFAULT_BG, fg=BLACK)
+            self.dexterityValueButton.config(state=DISABLED, relief=FLAT,
+                                             bg=DEFAULT_BG, fg=BLACK)
+            self.wisdomValueButton.config(state=DISABLED, relief=FLAT,
+                                          bg=DEFAULT_BG, fg=BLACK)
         
         state = NORMAL if c.potions > 0 else DISABLED
         font = font4 if c.potions < 100 else font2
@@ -887,8 +948,8 @@ class BottomLeftFrame:
         self.outputBox.tag_config("grey", foreground=GREY)
         self.outputBox.tag_config("highlight", foreground=BLACK)
         self.outputBox.insert(END,
-                              ("Welcome. Click on the turtle to "+
-                               "embark on your quest.\n"), "italicize")
+                              ("Welcome. Click on me to "+
+                               "embark on your quest."), "italicize")
         self.outputBox['state'] = DISABLED
         
         self.outputScrollbar = Scrollbar(master, bg=DEFAULT_BG,
@@ -901,11 +962,23 @@ class BottomLeftFrame:
                                    relief=FLAT, bd=0,
                                    command=self.clearOutputBox)
         self.borderButton.grid(row=0, column=2)
+        
+    def insertTimestamp(self, addSpacing=False):
+        self.outputBox['state'] = NORMAL
+        # timestamp = "It is {dt:%I}:{dt.minute} {dt:%p} on {dt:%A}, {dt:%B} {dt.day}, {dt.year}".format(
+        #     dt = datetime.now())
+        timestamp = ""
+        self.outputBox.insert(END,
+                              "%s❧ %s" % ("\n\n" if addSpacing else "", timestamp),
+                              ("grey", "highlight"))
+        self.outputBox.yview(END)
+        self.outputBox['state'] = DISABLED
 
     def clearOutputBox(self):
         self.outputBox['state'] = NORMAL
         self.outputBox.delete(0.0, END)
         self.outputBox['state'] = DISABLED
+        self.insertTimestamp()
 
     def insertOutput(self, text, formatTag=None):
         """Add a string of text to the output box."""
@@ -1465,7 +1538,17 @@ def updateInterface(updates):
         updates['text'] += "\nToshe has reached level "+str(
             main.character.level)+"!"
         window.levelUpFrame.grid()
+        window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
         root.after(4000, window.removeLevelUpFrame)
+
+    if hasattr(main.character, 'specialization'):
+        while main.character.hasSpecializedUp():
+            if not updates['text']:
+                updates['text'] = ""
+            updates['text'] += "\nToshe is now a %s rank %s!" % (
+                main.character.specialization, main.character.ub205e2nmzfwi)
+            window.powerUpFrame.grid()
+            root.after(3500, window.removePowerUpFrame)
 
     for mercenary in main.character.mercenaries:
         while mercenary.hasLeveledUp():
@@ -1745,47 +1828,56 @@ def hideSideFrames():
     rightFrame.store.grid_remove()
 
 
-def makeWindow(event=None):
-    global window
-    
-    temporaryFrame.grid_remove()
-    window = Window(root)
-    hideSideFrames()
-    main.initializeSound()
-
-
 def doNothing(event=None):
     pass
 
 
-def displayLoadingScreen(event=None):
-    global loading
-    global loadingProgressBar
-    
-    loading = Toplevel()
-    loading.title("Loading...")
-    loading.protocol('WM_DELETE_WINDOW', doNothing)
-    loading.overrideredirect(1)
-    loading.resizable(0, 0)
-    loadingProgressBar = Label(loading, relief=RIDGE, bd=3, bg=BROWN)
-    loadingProgressBar.grid()
+def displayLoadingScreen():
+    loadingText = random.choice([
+        "Blub blub.",
+        "Yaouw!",
+        "Let the adventure begin...",
+        "I have been waiting for you.",
+        "Please be patient. I am a little slow.",
+        "Let me get everything ready for you.",
+        "Greetings! Please dry your feet on the mat.",
+        "It seems as though my loading bar has become uncalibrated.",
+        "You caught me by surprise! Where did I leave my shell?",
+        "Brace yourself."])
+    loadingBar = Label(root, width=WINDOW_WIDTH, height=WINDOW_HEIGHT,
+                       bg=DEFAULT_BG, compound=BOTTOM, font=font1,
+                       text=loadingText)
+    loadingBar.grid(sticky=E)
+    loadingBar.grid_propagate(0)
+    return loadingBar
 
 
-def updateLoadingScreen(event=None):
-    global loading
-    
-    loadingProgressBar['image'] = epBars[
-        int(float(NUMBER_OF_BARS - 1) / fullProgress * loadProgress + 0.1)]
-    if int(loadProgress + 0.1) != fullProgress:
-        root.after(30, updateLoadingScreen)
+def updateLoadingScreen(loadingBar):
+    if loadProgress == 100:
+        loadingBar.destroy()
     else:
-        loading.destroy()
+        loadingBar['image'] = xpBars[
+            int(float(loadProgress) / FULL_PROGRESS * NUMBER_OF_BARS)]
+        root.after(30, updateLoadingScreen, loadingBar)
+        
+        
+def loadAssets():
+    def incrementProgress(complete=False):
+        global loadProgress
+        if complete:
+            loadProgress = FULL_PROGRESS
+        else:
+            loadProgress += float(FULL_PROGRESS) / assetsToLoad
+        root.update()
     
+    assetsToLoad = NUMBER_OF_BARS
+    assetsToLoad += len(main.weapons)
+    assetsToLoad += len(main.armour)
+    assetsToLoad += len(main.shields)
+    assetsToLoad += len(main.miscellaneousItems)
+    assetsToLoad += len(main.enemies)
+    assetsToLoad += len(main.areas)
     
-def loadAssets(event=None):
-    global loadProgress
-    
-    root.update()
     for i in range(1, NUMBER_OF_BARS):
         xpBars.append(PhotoImage(file="images\\bars\\xpbar"+
                                  str(i)+".gif"))
@@ -1793,30 +1885,9 @@ def loadAssets(event=None):
                                  str(NUMBER_OF_BARS - i - 1)+".gif"))
         epBars.append(PhotoImage(file="images\\bars\\epbar"+
                                  str(NUMBER_OF_BARS - i - 1)+".gif"))
-
-    loadProgress += 7
-    root.update()
-
-    for weaponName in main.weapons:
-        itemImages[main.weapons[weaponName].IMAGE_NAME] = (
-            PhotoImage(file="images\\weapons\\"+weaponName+".gif"))
-    for armourName in main.armour:
-        itemImages[main.armour[armourName].IMAGE_NAME] = (
-            PhotoImage(file="images\\armour\\"+armourName+".gif"))
-    for shieldName in main.shields:
-        itemImages[main.shields[shieldName].IMAGE_NAME] = (
-            PhotoImage(file="images\\shields\\"+shieldName+".gif"))
-    for itemName in main.miscellaneousItems:
-        itemImages[main.miscellaneousItems[itemName].IMAGE_NAME] = (
-            PhotoImage(file="images\\miscellaneous\\"+itemName+".gif"))
-    loadProgress += 3
-    root.update()
-
-    for enemyId in main.enemies:
-        enemyImages[enemyId] = (PhotoImage(file="images\\enemies\\"+
-                                           main.enemies[enemyId].IMAGE+".gif"))    
-    loadProgress += 10
-    root.update()
+        spBars.append(PhotoImage(file="images\\bars\\spbar"+
+                                 str(i)+".gif"))
+        incrementProgress()
     
     for area in main.areas.itervalues():
         areaImages[area.name] = []
@@ -1828,10 +1899,41 @@ def loadAssets(event=None):
                                                   "\\"+str(i)+".gif"))
             except TclError:
                 break
-        loadProgress += 80./len(main.areas)
-        root.update()
+        incrementProgress()
+
+    for enemyId in main.enemies:
+        enemyImages[enemyId] = (PhotoImage(file="images\\enemies\\"+
+                                           main.enemies[enemyId].IMAGE+".gif"))
+        incrementProgress()
+
+    for weaponName in main.weapons:
+        itemImages[main.weapons[weaponName].IMAGE_NAME] = (
+            PhotoImage(file="images\\weapons\\"+weaponName+".gif"))
+        incrementProgress()
+    for armourName in main.armour:
+        itemImages[main.armour[armourName].IMAGE_NAME] = (
+            PhotoImage(file="images\\armour\\"+armourName+".gif"))
+        incrementProgress()
+    for shieldName in main.shields:
+        itemImages[main.shields[shieldName].IMAGE_NAME] = (
+            PhotoImage(file="images\\shields\\"+shieldName+".gif"))
+        incrementProgress()
+    for itemName in main.miscellaneousItems:
+        itemImages[main.miscellaneousItems[itemName].IMAGE_NAME] = (
+            PhotoImage(file="images\\miscellaneous\\"+itemName+".gif"))
+        incrementProgress()
+        
+    incrementProgress(True)
     
-    root.after(1, makeWindow)
+    
+def loadGame(event=None):
+    updateLoadingScreen(displayLoadingScreen())
+    loadAssets()
+    
+    global window
+    window = Window(root)
+    hideSideFrames()
+    main.initializeSound()
 
 
 main = Main()
@@ -1848,17 +1950,24 @@ DARKBEIGE = "#d1c29d"
 BROWN = "#704F16"
 LIGHTBEIGE = "#f4ead2"
 RED = "#90000d"
-MAROON = "#510020"
 TOSHE_RED = "#d31524"
 CYAN = "#24828b"
 BLACK = "#000000"
 BLUE = "#0093DC"
 GREY = "#888888"
 LIGHTCYAN = "#7bb4b9"
-WHITE = "#ffffff"
 YELLOW = "#eec000"
+WHITE = "#f4f4f4"
+NAVY = "#000050"
+PURPLE = "#26065c"
+MAGENTA = "#de6ef1"
+LIGHTPURPLE = "#4f3c70"
 #GREEN = "#00ff00"
 #DARKGREEN = "#006400"
+EARTH_COLOR = "#b0ca90"
+WATER_COLOR = "#b0cbc7"
+FIRE_COLOR = "#e6ba90"
+ENIGMATIC_COLOR = "#e2afc9"
 
 DEFAULT_BG = BEIGE
 BUTTON_BG = DARKBEIGE
@@ -1870,6 +1979,9 @@ MERCENARY_UP_BG = YELLOW
 MERCENARY_UP_FG = BROWN
 LOOT_BG = DARKBEIGE
 LOOT_FG = BROWN
+MYSTIC_BG = PURPLE
+MYSTIC_FG = MAGENTA
+MYSTIC_FG2 = LIGHTPURPLE
 
 root = Tk()
 
@@ -1883,7 +1995,7 @@ italicFont4 = tkFont.Font(family="Garamond", size=14, slant="italic")
 font5 = tkFont.Font(family="Garamond", size=80, weight="bold")
 font6 = tkFont.Font(family="Garamond", size=18)
 font7 = tkFont.Font(family="Garamond", size=66, weight="bold")
-font8 = tkFont.Font(family="Garamond", size=14, weight="bold")
+font8 = tkFont.Font(family="Garamond", size=16, weight="bold")
 
 welcomeImage = PhotoImage(file="images\\other\\turtle.gif")
 tosheImage = PhotoImage(file="images\\other\\toshe.gif")
@@ -1913,12 +2025,12 @@ defaultImage = PhotoImage(file="images\\other\\default.gif")
 xpBars = []
 hpBars = []
 epBars = []
+spBars = []
 areaImages = {}
 itemImages = {}
 enemyImages = {}
-window = None
 loadProgress = 0
-fullProgress = 100
+FULL_PROGRESS = 100
 
 xpBars.append(PhotoImage(file="images\\bars\\xpbar"+
                          str(0)+".gif"))
@@ -1926,6 +2038,8 @@ hpBars.append(PhotoImage(file="images\\bars\\hpbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
 epBars.append(PhotoImage(file="images\\bars\\epbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
+spBars.append(PhotoImage(file="images\\bars\\spbar"+
+                         str(0)+".gif"))
         
 views = {'travel': enableTravelView,
          'battle': enableBattleView,
@@ -1938,10 +2052,6 @@ root.iconbitmap("images\\icons\\tq.ico")
 root.title("Toshe's Quest II")
 root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT))
 root.resizable(0, 0)
-temporaryFrame = Label(root, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
-temporaryFrame.grid(ipadx=406, ipady=308)
-root.after(0, displayLoadingScreen)
-root.after(0, updateLoadingScreen)
-root.after(0, loadAssets)
+root.after(0, loadGame)
 root.update()
 root.mainloop()

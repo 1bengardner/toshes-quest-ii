@@ -207,7 +207,8 @@ class Main:
                                     'Config': {'Log Movement': 1,
                                                'Automap On': 0}},
                                    self.areas['Adriatic Sea'],
-                                   STARTING_X, STARTING_Y)
+                                   STARTING_X, STARTING_Y,
+                                   0)
         self.currentArea = self.character.area(self.character)
         self.x = self.character.x
         self.y = self.character.y
@@ -435,7 +436,7 @@ class Main:
                  skills, euros, [], items, equippedItemIndices,
                  equippedWeapon, equippedArmour, equippedShield,
                  blankWeapon, blankArmour, blankShield,
-                 statPoints, flags, area, x, y)
+                 statPoints, flags, area, x, y, 0)
 
     def initializeSound(self):
         """Initialize sounds in the game and start the intro tune."""

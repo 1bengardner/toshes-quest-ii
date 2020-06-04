@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: May 29, 2020
+Revised: June 4, 2020
 """
 
 
@@ -932,6 +932,8 @@ class Battle(object):
             if self.enemy.IDENTIFIER not in self.mainCharacter.flags['Kills']:
                 self.mainCharacter.flags['Kills'][self.enemy.IDENTIFIER] = 0
             self.mainCharacter.flags['Kills'][self.enemy.IDENTIFIER] += 1
+            if hasattr(self.mainCharacter, 'specialization'):
+                self.mainCharacter.sp += 1
         elif (self.coliseumMode and
               self.mainCharacter.hp <= self.CHARACTER_DEATH_HP):
             self.text += "Toshe surrenders!"
