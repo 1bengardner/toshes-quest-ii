@@ -4,7 +4,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 31, 2020
+Revised: June 4, 2020
 """
 
  
@@ -21,9 +21,6 @@ class Window:
     def __init__(self, master):
         gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
         gameFrame.grid()
-        
-        gameFrame.bind_all('<Control-m>', self.clickMapButton)
-        gameFrame.bind_all('<Control-M>', self.clickMapButton)
         
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
@@ -57,9 +54,6 @@ class Window:
         
         self.makeChildren(gameFrame)
 
-        gameFrame.bind_all('m', self.topFrame.topRightFrame.clickMarkMapButton)
-        gameFrame.bind_all('M', self.topFrame.topRightFrame.clickMarkMapButton)
-
     def makeChildren(self, master):
         self.topFrame = TopFrame(master)
         self.bottomFrame = BottomFrame(master)
@@ -77,9 +71,6 @@ class Window:
     def removeLootFrame(self, event=None):
         self.lootFrame.grid_remove()
 
-    def clickMapButton(self, event=None):
-        if main.character is not None:
-            main.printMap()
 
 
 class TopFrame:
@@ -310,25 +301,145 @@ class TopLeftFrame:
 
         
 class TopCenterFrame:
-    """Displays title and area image."""
+    """Displays title, area image and map."""
 
     def __init__(self, master):
         frameD = Frame(master, width=348, height=FRAME_C_HEIGHT, bg=DEFAULT_BG)
         frameD.grid(row=0, column=1)
         frameD.grid_columnconfigure(0, weight=1)
+        frameD.grid_rowconfigure(0, weight=3)
         frameD.grid_rowconfigure(1, weight=1)
         frameD.grid_propagate(0)
         self.makeFrameElements(frameD)
 
     def makeFrameElements(self, master):
-        self.titleLabel = Label(master, text="\nToshe's Quest II", font=font6,
+        self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
-        self.titleLabel.grid()
+        self.titleLabel.grid(pady=6)
+        self.showMap = BooleanVar()
+        self.mapButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+                                     relief=SUNKEN, image=mapImage,
+                                     variable=self.showMap,
+                                     command=self.adjustMap)
+        self.mapButton.grid(row=0, padx=17, sticky=E)
+        self.mapButton.grid_remove()
         self.areaButton = Button(master, image=welcomeImage, bg=DEFAULT_BG,
                                  relief=RAISED, bd=6, command=self.openFile)
-        self.areaButton.grid()
+        self.areaButton.grid(row=1, sticky=N)
+        
+        MAP_PIXEL_LENGTH = 300
+        MAP_LENGTH = 15
+        CELL_OFFSET = 4
+        self.CENTER_CELL = (MAP_LENGTH / 2, MAP_LENGTH / 2)
+        self.cells = []
+        
+        self.map = Canvas(master, width=MAP_PIXEL_LENGTH,
+                          height=MAP_PIXEL_LENGTH,
+                          bg=TEXTBOX_BG,
+                          highlightbackground=DEFAULT_BG,
+                          relief=SUNKEN,
+                          bd=CELL_OFFSET-2)
+        self.map.bind("<Button-1>", self.markMap)
+        self.map.grid(row=1, sticky=N, pady=3)
+        self.map.grid_remove()
+        
+        for row in range(MAP_LENGTH):
+            self.cells.append([])
+            for col in range(MAP_LENGTH):
+                x0 = CELL_OFFSET + col * MAP_PIXEL_LENGTH / MAP_LENGTH
+                y0 = CELL_OFFSET + row * MAP_PIXEL_LENGTH / MAP_LENGTH
+                x1 = CELL_OFFSET + x0 + MAP_PIXEL_LENGTH / MAP_LENGTH
+                y1 = CELL_OFFSET + y0 + MAP_PIXEL_LENGTH / MAP_LENGTH
+                newCell = self.map.create_rectangle(x0, y0, x1, y1)
+                self.cells[-1].append(newCell)
+        
+        self.clearMap()
+        
+    def clearMap(self):
+        for cellRow in self.cells:
+            for cell in cellRow:
+                self.map.itemconfig(cell,
+                                    fill=TEXTBOX_BG, outline=BLACK, width=0,
+                                    dash=(), stipple='', activedash=(),
+                                    activeoutline=BLACK)
+        
+    def adjustMap(self, event=None):
+        main.character.flags['Config']['Automap On'] = self.showMap.get()
+        if self.showMap.get():
+            self.areaButton.grid_remove()
+            self.map.grid()
+        else:
+            self.areaButton.grid()
+            self.map.grid_remove()
+            
+    def updateMap(self):
+        def updateCell(row, col, y, x):
+            if (x < 0 or
+                y < 0 or
+                y >= len(main.currentArea.spots) or
+                x >= len(main.currentArea.spots[y]) or
+                row < 0 or
+                col < 0 or
+                row >= len(self.cells) or
+                col >= len(self.cells[row]) or
+                "dirty" not in self.map.gettags(self.cells[row][col])):
+                return False
+            
+            self.map.dtag(self.cells[row][col], "dirty")
+            
+            if (x, y) in spots:
+                config(self.cells[row][col], fill=YELLOW, width=1,
+                       activedash=(2, 4), activeoutline=CYAN)
+            elif (((x-1, y) in spots and
+                   (0 <= x-1 < len(areaSpots[0]))) or
+                  ((x, y-1) in spots and
+                   (0 <= y-1 < len(areaSpots))) or
+                  ((x+1, y) in spots and
+                   (0 <= x+1 < len(areaSpots[0]))) or
+                  ((x, y+1) in spots and
+                   (0 <= y+1 < len(areaSpots)))):
+                if areaSpots[y][x] is None:
+                    config(self.cells[row][col], fill=BLACK, width=0, stipple='gray50')
+                else:
+                    config(self.cells[row][col], fill=TEXTBOX_BG, width=1,
+                           dash=(1, 1))
+
+            if (x, y) in markedSpots:
+                config(self.cells[row][col], fill=CYAN, activeoutline=YELLOW)
+            if x == main.x and y == main.y:
+                config(self.cells[row][col], fill=TOSHE_RED)
+                
+            updateCell(row-1, col, y-1, x)
+            updateCell(row+1, col, y+1, x)
+            updateCell(row, col-1, y, x-1)
+            updateCell(row, col+1, y, x+1)
+            
+        self.clearMap()
+        
+        spots = main.character.flags['Discovered Areas'][main.currentArea.name]
+        markedSpots = main.character.flags['Marked Areas'][main.currentArea.name]
+        areaSpots = main.currentArea.spots
+        config = self.map.itemconfig
+        self.map.addtag_all("dirty")
+        updateCell(self.CENTER_CELL[0], self.CENTER_CELL[1], main.y, main.x)
+        for item in self.map.find_withtag("dirty"):
+            self.map.dtag(item, "dirty")
+            
+    def markMap(self, event=None):
+        if len(self.map.find_withtag(CURRENT)) != 1:
+            return
+
+        for i in range(len(self.cells)):
+            for j in range(len(self.cells[i])):
+                if (self.cells[i][j] == self.map.find_withtag(CURRENT)[0] and
+                    self.map.itemcget(self.cells[i][j], 'activedash')):
+                    marked = main.markMap((main.x + j - self.CENTER_CELL[0],
+                                           main.y + i - self.CENTER_CELL[1]))
+
+        self.updateMap()
 
     def changeTitle(self, newTitle):
+        self.titleLabel['font'] = font6 if len(newTitle) < 23 else font4
         self.titleLabel['text'] = newTitle
 
     def openFile(self):
@@ -363,14 +474,17 @@ class TopCenterFrame:
             window.bottomFrame.bottomRightFrame.bindChoices()
             name = main.fileName
         main.loadGame(name)
+        window.topFrame.topRightFrame.logMovement.set(
+            main.character.flags['Config']['Log Movement'])
+        if ( main.character.flags['Config']['Automap On']
+             and not window.topFrame.topCenterFrame.showMap.get()):
+            window.topFrame.topCenterFrame.mapButton.invoke()
+        window.topFrame.topCenterFrame.adjustMap()
         interfaceActions = main.getInterfaceActions(justFought=True)
         updateInterface(interfaceActions)
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
-        window.topFrame.topRightFrame.logMovement.set(
-            main.character.flags['Config']['Log Movement'])
-        window.topFrame.topRightFrame.automap.set(
-            main.character.flags['Config']['Automap On'])
+        self.mapButton.grid()
         root.title("Toshe's Quest II | "+name)
         
 
@@ -381,6 +495,7 @@ class TopCenterFrame:
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
         root.title("Toshe's Quest II | "+name)
+        self.mapButton.grid()
 
         
 class TopRightFrame:
@@ -531,16 +646,6 @@ class TopRightFrame:
                                                self.toggleConfigLogMovement)
         self.toggleMovementCheck.grid(row=10, columnspan=4, sticky=W)
 
-        self.automap = IntVar()
-        self.automap.set(1)
-        self.toggleAutomapCheck = Checkbutton(self.otherStats,
-                                              text="Show automap",
-                                              variable=self.automap,
-                                              bg=DEFAULT_BG, font=font2, bd=0,
-                                              command=\
-                                              self.toggleConfigAutomapOn)
-        self.toggleAutomapCheck.grid(row=11, columnspan=4, sticky=W)
-
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
                                    fg=WHITE, activeforeground=WHITE, bg=DARKBEIGE,
@@ -549,13 +654,13 @@ class TopRightFrame:
         self.potionButton.bind_all('p', self.usePotion)
         self.potionButton.bind_all('P', self.usePotion)
 
-        self.mapButton = Button(self.otherStats,
-                                text="Mark/Unmark Map",
-                                font=font2,
-                                fg=BUTTON_FG,
-                                bg=BUTTON_BG,
-                                command=self.clickMarkMapButton)
-        self.mapButton.grid(row=12, columnspan=5, sticky=E+W)
+        # self.markButton = Button(self.otherStats,
+                                # text="Mark/Unmark Map",
+                                # font=font2,
+                                # fg=BUTTON_FG,
+                                # bg=BUTTON_BG,
+                                # command=self.clickMarkMapButton)
+        # self.markButton.grid(row=11, columnspan=5, sticky=E+W)
 
         self.vBorderLabel1 = Label(self.otherStats, image=vBorderImage1,
                                   bg=DEFAULT_BG, bd=0)
@@ -662,13 +767,6 @@ class TopRightFrame:
             self.updateOtherStats()
             window.topFrame.topLeftFrame.updateVitalStats()
 
-    def clickMarkMapButton(self, event=None):
-        if main.markMap():
-            output = "You add a mark to the map with your current location."
-        else:
-            output = "You remove your location marking from the map."
-        window.bottomFrame.bottomLeftFrame.insertOutput(output)
-
     def clickBuyButton(self):
         main.buy(self.v2.get())
         window.topFrame.topLeftFrame.sellButton['state'] = DISABLED
@@ -771,16 +869,6 @@ class TopRightFrame:
         flag whether movement should be logged."""
         main.character.flags['Config']['Log Movement'] =\
             int(not main.character.flags['Config']['Log Movement'])
-
-    def toggleConfigAutomapOn(self, event=None):
-        """Toggle in the character
-        config flag whether the automap should be displayed."""
-        main.character.flags['Config']['Automap On'] =\
-            int(not main.character.flags['Config']['Automap On'])
-        if main.character.flags['Config']['Automap On']:
-            print "Automap on.\n"
-        else:
-            print "Automap off.\n"
 
 
 class BottomLeftFrame:
@@ -926,8 +1014,6 @@ class BottomRightFrame:
             if window.topFrame.topRightFrame.logMovement.get():
                 interfaceActions['text'] = \
                             self.updateText(interfaceActions, "forward")
-            if window.topFrame.topRightFrame.automap.get():
-                main.printMap()
             updateInterface(interfaceActions)
 
     def clickLeftButton(self, event=None):
@@ -936,8 +1022,6 @@ class BottomRightFrame:
             if window.topFrame.topRightFrame.logMovement.get():
                 interfaceActions['text'] = \
                             self.updateText(interfaceActions, "left")
-            if window.topFrame.topRightFrame.automap.get():
-                main.printMap()
             updateInterface(interfaceActions)
             
     def clickRightButton(self, event=None):
@@ -946,8 +1030,6 @@ class BottomRightFrame:
             if window.topFrame.topRightFrame.logMovement.get():
                 interfaceActions['text'] = \
                             self.updateText(interfaceActions, "right")
-            if window.topFrame.topRightFrame.automap.get():
-                main.printMap()
             updateInterface(interfaceActions)
 
     def clickDownButton(self, event=None):
@@ -956,8 +1038,6 @@ class BottomRightFrame:
             if window.topFrame.topRightFrame.logMovement.get():
                 interfaceActions['text'] = \
                             self.updateText(interfaceActions, "backward")
-            if window.topFrame.topRightFrame.automap.get():
-                main.printMap()
             updateInterface(interfaceActions)
 
     def clickInventoryButton(self, event=None):
@@ -1376,7 +1456,7 @@ def updateInterface(updates):
         flash()
 
     bottomLeftFrame.unhighlightOutputBox()
-    topCenterFrame.changeTitle("\n%s" % main.currentArea.name)
+    topCenterFrame.changeTitle(main.currentArea.name)
     views[updates['view']]()
             
     while main.character.hasLeveledUp():
@@ -1435,6 +1515,7 @@ def updateInterface(updates):
     if ('italic text' in updates) and (updates['italic text'] is not None):
         bottomLeftFrame.insertOutput(updates['italic text'], "italicize")
     topRightFrame.updateOtherStats()
+    topCenterFrame.updateMap()
         
 
 def enableTravelView():
@@ -1537,6 +1618,9 @@ def enableGameOverView():
     bottomFrame.okButton['command'] = root.destroy
     bottomFrame.centerButton['state'] = DISABLED
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
+    window.topFrame.topCenterFrame.areaButton.grid()
+    window.topFrame.topCenterFrame.map.grid_remove()
+    window.topFrame.topCenterFrame.mapButton.grid_remove()
     
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
@@ -1765,13 +1849,14 @@ BROWN = "#704F16"
 LIGHTBEIGE = "#f4ead2"
 RED = "#90000d"
 MAROON = "#510020"
+TOSHE_RED = "#d31524"
 CYAN = "#24828b"
 BLACK = "#000000"
 BLUE = "#0093DC"
 GREY = "#888888"
 LIGHTCYAN = "#7bb4b9"
-YELLOW = "#ffcc00"
 WHITE = "#ffffff"
+YELLOW = "#eec000"
 #GREEN = "#00ff00"
 #DARKGREEN = "#006400"
 
@@ -1806,6 +1891,7 @@ gameOverImage = PhotoImage(file="images\\other\\gameover.gif")
 
 euroImage = PhotoImage(file="images\\icons\\euro.gif")
 potionImage = PhotoImage(file="images\\icons\\potion.gif")
+mapImage = PhotoImage(file="images\\icons\\map.gif")
 vBorderImage1 = PhotoImage(file="images\\other\\border21.gif")
 vBorderImage2 = PhotoImage(file="images\\other\\border22.gif")
 hBorderImage = PhotoImage(file="images\\other\\border3.gif")

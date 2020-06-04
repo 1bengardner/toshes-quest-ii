@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 29, 2020
+Revised: June 4, 2020
 """
 
 
@@ -140,53 +140,22 @@ class Main:
         self.populateAreas()
         self.buyback = False
 
-    def markMap(self):
-        markedSpots = self.character.flags['Marked Areas'][self.currentArea.name]
-        if (self.x, self.y) in markedSpots:
-            markedSpots.remove((self.x, self.y))
+    def markMap(self, xy = None):
+        marked = self.character.flags['Marked Areas'][self.currentArea.name]
+        if xy is not None:
+            if (xy[0], xy[1]) in marked:
+                marked.remove((xy[0], xy[1]))
+                return False
+            else:
+                marked.add((xy[0], xy[1]))
+                return True
+        if (self.x, self.y) in marked:
+            marked.remove((self.x, self.y))
             return False
         else:
-            markedSpots.add((self.x, self.y))
+            marked.add((self.x, self.y))
             return True
 
-    def printMap(self):
-        area = self.currentArea.name
-        spots = self.character.flags['Discovered Areas'][area]
-        markedSpots = self.character.flags['Marked Areas'][area]
-        areaSpots = self.currentArea.spots
-        x = 0
-        y = 0
-        text = ""
-        print area + "\n"
-        for y in range(0, len(areaSpots)):
-            for x in range(0, len(areaSpots[0])):
-                if x == self.x and y == self.y:
-                    text += "T"
-                elif (x, y) in markedSpots:
-                    text += "x"
-                elif (x, y) in spots:
-                    text += "-"
-                elif (((x-1, y) in spots and
-                       (0 <= x-1 < len(areaSpots[0]))) or
-                      ((x, y-1) in spots and
-                       (0 <= y-1 < len(areaSpots))) or
-                      ((x+1, y) in spots and
-                       (0 <= x+1 < len(areaSpots[0]))) or
-                      ((x, y+1) in spots and
-                       (0 <= y+1 < len(areaSpots)))):
-                    if self.currentArea.spots[y][x] is None:
-                        text += "#"
-                    else:
-                        text += "?"
-                else:
-                    text += " "
-            text += "\n"
-        output = ""
-        for line in text.split("\n"):
-            line += "\n"
-            if line.strip() != "":
-                output += line
-        print output
 
     def modifyItemStat(self, item, modifier, value):
         if modifier in ('Big', 'Giant'):
@@ -236,7 +205,7 @@ class Main:
                                     'Discovered Areas': {},
                                     'Marked Areas': {},
                                     'Config': {'Log Movement': 1,
-                                               'Automap On': 1}},
+                                               'Automap On': 0}},
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y)
         self.currentArea = self.character.area(self.character)
