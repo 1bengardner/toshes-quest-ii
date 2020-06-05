@@ -693,7 +693,7 @@ class TopRightFrame:
 
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
-                                   fg=WHITE, activeforeground=WHITE, bg=DARKBEIGE,
+                                   fg=WHITE, activeforeground=WHITE, bg=BUTTON_BG,
                                    command=self.usePotion, compound=CENTER)
         self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E)
         self.potionButton.bind_all('p', self.usePotion)
