@@ -529,12 +529,13 @@ class TopCenterFrame:
         interfaceActions = main.getInterfaceActions(justFought=True)
         updateInterface(interfaceActions)
         
+        self.mapButton['state'] = NORMAL
+        self.mapButton.grid()
         window.topFrame.topRightFrame.logMovement.set(
             main.character.flags['Config']['Log Movement'])
-        if ( main.character.flags['Config']['Automap On'] !=
-             window.topFrame.topCenterFrame.showMap.get()):
-            window.topFrame.topCenterFrame.mapButton.invoke()
-        window.topFrame.topCenterFrame.updateMapVisibility()
+        if main.character.flags['Config']['Automap On'] != self.showMap.get():
+            self.mapButton.invoke()
+        self.updateMapVisibility()
         
         if hasattr(main.character, 'specialization'):
             window.topFrame.topLeftFrame.spWord.grid()
@@ -546,8 +547,6 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
-        self.mapButton['state'] = NORMAL
-        self.mapButton.grid()
         
         root.title("Toshe's Quest II | "+name)
         
