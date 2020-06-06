@@ -1880,11 +1880,11 @@ def displayLoadingScreen():
 
 
 def updateLoadingScreen(loadingBar):
-    if loadProgress == 100:
+    loadingBar['image'] = xpBars[
+        int(loadProgress / FULL_PROGRESS * (NUMBER_OF_BARS - 1))]
+    if loadProgress == FULL_PROGRESS:
         loadingBar.destroy()
     else:
-        loadingBar['image'] = xpBars[
-            int(float(loadProgress) / FULL_PROGRESS * NUMBER_OF_BARS)]
         root.after(30, updateLoadingScreen, loadingBar)
         
         
