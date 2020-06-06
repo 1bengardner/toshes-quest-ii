@@ -475,6 +475,7 @@ class TopCenterFrame:
                     main.markMap((main.x + j - self.CENTER_CELL[0],
                                   main.y + i - self.CENTER_CELL[1]))
                     self.updateMap()
+                    requireExitConfirmation(True)
                     return
 
     def changeTitle(self, newTitle):
@@ -509,6 +510,7 @@ class TopCenterFrame:
         if tkMessageBox.askokcancel("Save Game", "Do you want to save?",
                                     parent=root):
             main.saveGame()
+            requireExitConfirmation(False)
 
     def loadFile(self, name=None):
         if not name:
@@ -549,6 +551,8 @@ class TopCenterFrame:
         self.areaButton['command'] = self.saveFile
         
         root.title("Toshe's Quest II | "+name)
+        
+        requireExitConfirmation(False)
         
 class TopRightFrame:
     """Contains frames for other stats, enemy stats and store items
@@ -1601,6 +1605,7 @@ def updateInterface(updates):
     if ('map' in updates) and topCenterFrame.showMap.get():
         topCenterFrame.updateMap()
     topRightFrame.updateOtherStats()
+    requireExitConfirmation(True)
         
 
 def enableTravelView():
@@ -1829,8 +1834,27 @@ def hideSideFrames():
     rightFrame.store.grid_remove()
 
 
-def doNothing(event=None):
-    pass
+def close(event=None):
+    if requireExitConfirmation():
+        canSave = (window.topFrame.topCenterFrame.areaButton['state'] == NORMAL
+                   and main.view != "game over")
+        if canSave:
+            answer = tkMessageBox.askyesnocancel(
+                "Save and Exit",
+                "Do you want to save before you exit?",
+                parent=root)
+            if answer is None:
+                return
+            elif answer:
+                main.saveGame()
+        elif main.view != "game over":
+            if not tkMessageBox.askokcancel(
+                 "Quit",
+                 "Are you sure you want to quit?",
+                 parent=root):
+                return
+
+    root.destroy()
 
 
 def displayLoadingScreen():
@@ -1935,6 +1959,14 @@ def loadGame(event=None):
     window = Window(root)
     hideSideFrames()
     main.initializeSound()
+    
+    
+def requireExitConfirmation(yes=None):
+    global askToSave
+    if yes is None:
+        return askToSave
+    else:
+        askToSave = yes
 
 
 main = Main()
@@ -2050,6 +2082,8 @@ views = {'travel': enableTravelView,
          'battle over': enableBattleOverView,
          'game over': enableGameOverView}
 
+askToSave = False
+root.protocol('WM_DELETE_WINDOW', close)
 root.iconbitmap("images\\icons\\tq.ico")
 root.title("Toshe's Quest II")
 root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT))
