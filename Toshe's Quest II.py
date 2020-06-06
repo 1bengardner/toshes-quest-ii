@@ -549,6 +549,8 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
+        self.areaButton.bind_all("<Control-s>", lambda _: self.areaButton.invoke())
+        self.areaButton.bind_all("<Control-S>", lambda _: self.areaButton.invoke())
         
         root.title("Toshe's Quest II | "+name)
         
