@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 5, 2020
+Revised: June 6, 2020
 """
 
  
@@ -353,6 +353,8 @@ class TopCenterFrame:
                                      relief=SUNKEN, image=mapImage,
                                      variable=self.showMap,
                                      command=self.updateMapVisibility)
+        self.mapButton.bind_all("m", lambda _: self.mapButton.invoke())
+        self.mapButton.bind_all("M", lambda _: self.mapButton.invoke())
         self.mapButton.grid(row=0, padx=22, sticky=E)
         self.mapButton.grid_remove()
         self.areaButton = Button(master, image=welcomeImage, bg=DEFAULT_BG,
@@ -529,9 +531,9 @@ class TopCenterFrame:
         
         window.topFrame.topRightFrame.logMovement.set(
             main.character.flags['Config']['Log Movement'])
-        if ( main.character.flags['Config']['Automap On']
-             and not window.topFrame.topCenterFrame.showMap.get()):
-            window.topFrame.topCenterFrame.showMap.set(True)
+        if ( main.character.flags['Config']['Automap On'] !=
+             window.topFrame.topCenterFrame.showMap.get()):
+            window.topFrame.topCenterFrame.mapButton.invoke()
         window.topFrame.topCenterFrame.updateMapVisibility()
         
         if hasattr(main.character, 'specialization'):
@@ -544,6 +546,7 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
+        self.mapButton['state'] = NORMAL
         self.mapButton.grid()
         
         root.title("Toshe's Quest II | "+name)
@@ -1702,6 +1705,7 @@ def enableGameOverView():
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
     window.topFrame.topCenterFrame.areaButton.grid()
     window.topFrame.topCenterFrame.map.grid_remove()
+    window.topFrame.topCenterFrame.mapButton['state'] = DISABLED
     window.topFrame.topCenterFrame.mapButton.grid_remove()
     
     window.topFrame.topLeftFrame.updateVitalStats()
