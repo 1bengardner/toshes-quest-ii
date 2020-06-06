@@ -351,7 +351,7 @@ class TopCenterFrame:
         self.showMap = BooleanVar()
         self.mapButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
                                      relief=SUNKEN, image=mapImage,
-                                     variable=self.showMap,
+                                     variable=self.showMap, state=DISABLED,
                                      command=self.updateMapVisibility)
         self.mapButton.bind_all("m", lambda _: self.mapButton.invoke())
         self.mapButton.bind_all("M", lambda _: self.mapButton.invoke())
