@@ -269,7 +269,7 @@ class TopLeftFrame:
             self.xpBarLabel['image'] = xpBars[int(float(c.xp) / c.xpTnl *
                                                   (NUMBER_OF_BARS - 1))]
         self.xpBarLabel['text'] = "%d%%" % (100 * c.xp / c.xpTnl)
-        self.xpBarLabel['fg'] = WHITE if (100 * c.xp / c.xpTnl < 50) else NAVY
+        self.xpBarLabel['fg'] = WHITE if (100 * c.xp / c.xpTnl < 45) else NAVY
         if hasattr(c, 'specialization'):
             self.spWord['text'] = "%s %s" % (c.specialization, c.ub205e2nmzfwi)
             if c.sp > c.spTnl:
