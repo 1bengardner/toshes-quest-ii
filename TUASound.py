@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: December 30, 2015
+Revised: June 6, 2020
 """
 
 
@@ -45,7 +45,7 @@ class Sound:
         if songName:
             self.currentSong = songName
         mixer.music.load("audio\\%s.ogg" % self.currentSong)
-        mixer.music.play(-1, 0.05)
+        mixer.music.play(-1)
 
     def stopMusic(self):
         """Stop music playback."""
