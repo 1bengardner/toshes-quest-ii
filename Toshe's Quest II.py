@@ -514,17 +514,26 @@ class TopCenterFrame:
                 window.bottomFrame.bottomRightFrame.clickOkButton
             window.bottomFrame.bottomRightFrame.bindChoices()
             name = main.fileName
-        window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
         main.loadGame(name)
+        self.startGame(name)
+
+    def createFile(self, name):
+        main.startNewGame(name)
+        self.startGame(name)
+        
+    def startGame(self, name):
+        window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
+        
+        interfaceActions = main.getInterfaceActions(justFought=True)
+        updateInterface(interfaceActions)
+        
         window.topFrame.topRightFrame.logMovement.set(
             main.character.flags['Config']['Log Movement'])
         if ( main.character.flags['Config']['Automap On']
              and not window.topFrame.topCenterFrame.showMap.get()):
-        interfaceActions = main.getInterfaceActions(justFought=True)
-        updateInterface(interfaceActions)
             window.topFrame.topCenterFrame.showMap.set(True)
         window.topFrame.topCenterFrame.updateMapVisibility()
-        window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
+        
         if hasattr(main.character, 'specialization'):
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
@@ -533,20 +542,11 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spWord.grid_remove()
             window.topFrame.topLeftFrame.spLabel.grid_remove()
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
-        self.areaButton['command'] = self.saveFile
-        self.mapButton.grid()
-        root.title("Toshe's Quest II | "+name)
-        
-
-    def createFile(self, name):
-        main.startNewGame(name)
-        interfaceActions = main.getInterfaceActions(justFought=True)
-        updateInterface(interfaceActions)
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
-        root.title("Toshe's Quest II | "+name)
         self.mapButton.grid()
-
+        
+        root.title("Toshe's Quest II | "+name)
         
 class TopRightFrame:
     """Contains frames for other stats, enemy stats and store items
