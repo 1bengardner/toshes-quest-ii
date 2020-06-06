@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: December 31, 2015
+Revised: June 6, 2020
 """
 
 from Tkinter import *
@@ -28,6 +28,9 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
         self.entry.focus_set()
 
     def validate(self):
+        if self.entry.get() == "":
+            tkMessageBox.showerror(self.title(), "Please enter a name.")
+            return 0
         try:
             open("saves\\"+self.entry.get()+".tq")
             return 1
