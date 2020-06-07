@@ -14,6 +14,7 @@ import tkFont
 import tkMessageBox
 from TUAMain import Main
 from TUADialog import OpenFileDialog
+from TUAStatics import Static
 import random
 from datetime import datetime
 
@@ -428,11 +429,13 @@ class TopCenterFrame:
         
         self.clearMap()
         
-    def clearMap(self):
+    def clearMap(self, baseColor=None):
+        if baseColor is None:
+            baseColor = MAP_BG
         for cellRow in self.cells:
             for cell in cellRow:
                 self.map.itemconfig(cell,
-                                    fill=MAP_BG, outline=BLACK, width=0,
+                                    fill=baseColor, outline=BLACK, width=0,
                                     dash=(), stipple='', activedash=(),
                                     activeoutline=BLACK)
         
@@ -462,8 +465,8 @@ class TopCenterFrame:
             self.map.dtag(self.cells[row][col], "dirty")
             
             if (x, y) in spots:
-                config(self.cells[row][col], fill=YELLOW, width=1,
-                       activedash=(2, 4), activeoutline=CYAN)
+                config(self.cells[row][col], fill=spotColor, width=1,
+                       activedash=(2, 4), activeoutline=markColor)
             elif (((x-1, y) in spots and
                    (0 <= x-1 < len(areaSpots[0]))) or
                   ((x, y-1) in spots and
@@ -473,14 +476,15 @@ class TopCenterFrame:
                   ((x, y+1) in spots and
                    (0 <= y+1 < len(areaSpots)))):
                 if areaSpots[y][x] is None:
-                    config(self.cells[row][col], fill=MAP_BG, width=0,
+                    config(self.cells[row][col], fill=mapColor, width=0,
                            stipple='gray50')
                 else:
-                    config(self.cells[row][col], fill=BLACK, width=0,
+                    config(self.cells[row][col], fill=spotColor, width=0,
                            stipple='gray25')
 
             if (x, y) in markedSpots:
-                config(self.cells[row][col], fill=CYAN, activeoutline=YELLOW)
+                config(self.cells[row][col], fill=markColor,
+                       activeoutline=spotColor)
             if x == main.x and y == main.y:
                 if main.view in ("battle", "battle over"):
                     config(self.cells[row][col], fill=RED)
@@ -492,12 +496,27 @@ class TopCenterFrame:
             updateCell(row, col-1, y, x-1)
             updateCell(row, col+1, y, x+1)
         
+        markValue = -32
+        spotColor = MAP_BG
+        mapColor = MAP_BG
+        if main.currentArea.name in Static.AREA_COLORS:
+            spotColor = Static.AREA_COLORS[main.currentArea.name]['fg']
+            mapColor = Static.AREA_COLORS[main.currentArea.name]['bg']
+        markColor = "#"
+        for i in [1,3,5]:
+            newColorValue = int(spotColor[i:i+2], 16) + markValue
+            newHexColorValue = hex(max(0, min(255, (newColorValue))))[2:4]
+            if len(newHexColorValue) == 1:
+                newHexColorValue = "0" + newHexColorValue
+            markColor += newHexColorValue
+        
         spots = main.character.flags['Discovered Areas'][main.currentArea.name]
         markedSpots = main.character.flags['Marked Areas'][main.currentArea.name]
         areaSpots = main.currentArea.spots
         config = self.map.itemconfig
         
-        self.clearMap()
+        self.map['bg'] = mapColor
+        self.clearMap(mapColor)
         self.map.addtag_all("dirty")
         updateCell(self.CENTER_CELL[0], self.CENTER_CELL[1], main.y, main.x)
         for item in self.map.find_withtag("dirty"):
