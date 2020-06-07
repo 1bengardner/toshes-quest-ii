@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 6, 2020
+Revised: June 7, 2020
 """
 
  
@@ -42,6 +42,10 @@ class Window:
         self.powerUpFrame.grid(row=0)
         self.powerUpFrame.grid_remove()
         
+        self.newSkillFrame = Frame(master, bg=SKILL_BG, relief=RIDGE, bd=10)
+        self.newSkillFrame.grid(row=0)
+        self.newSkillFrame.grid_remove()
+        
         self.levelUpLabel = Label(self.levelUpFrame, text="LEVEL UP!",
                                   font=font5, bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
         self.levelUpLabel.grid()
@@ -64,6 +68,20 @@ class Window:
         self.powerUpLabel.grid()
         self.powerUpLabel.bind("<Button-1>", self.removePowerUpFrame)
         
+        self.newSkillLabelBottom = Label(self.newSkillFrame,
+                                         text="PUMMELER'S PRECISION!",
+                                         wraplength=WINDOW_WIDTH,
+                                         font=font7,
+                                         bg=SKILL_BG, fg=SKILL_FG)
+        self.newSkillLabelBottom.grid(row=0, rowspan=2, pady=16)
+        self.newSkillLabelBottom.bind("<Button-1>", self.removeNewSkillFrame)
+        self.newSkillLabelTop = Label(self.newSkillFrame,
+                                         text="New Skill",
+                                         font=font8,
+                                         bg=SKILL_BG, fg=SKILL_FG)
+        self.newSkillLabelTop.grid(row=0, sticky=N)
+        self.newSkillLabelTop.bind("<Button-1>", self.removeNewSkillFrame)
+        
         self.makeChildren(gameFrame)
 
     def makeChildren(self, master):
@@ -85,6 +103,14 @@ class Window:
 
     def removePowerUpFrame(self, event=None):
         self.powerUpFrame.grid_remove()
+        
+    def gridnewSkillFrame(self, skillName):
+        self.newSkillLabelBottom.config(text="%s!" % skillName.upper())
+        self.newSkillFrame.grid()
+        root.after(3000, window.removeNewSkillFrame)
+        
+    def removeNewSkillFrame(self, event=None):
+        self.newSkillFrame.grid_remove()
 
 
 class TopFrame:
@@ -1202,6 +1228,7 @@ class BottomRightFrame:
         selection = int(self.menuBox.curselection()[0])
         main.character.forgetSkill(main.character.skills[selection])
         main.character.learnSkill(main.tempSkill)
+        window.gridnewSkillFrame(main.tempSkill.NAME)
         main.character.euros -= main.tempCost
         self.clickCancelForgetButton()
 
@@ -1588,9 +1615,11 @@ def updateInterface(updates):
         enableDropItemView()
     elif ('overloaded' in updates) and (updates['overloaded'] == "skills"):
         enableForgetSkillView()
-    if (('item' in updates) and (updates['item'] is not None)):
+    if 'new skill' in updates:
+        window.gridnewSkillFrame(updates['skill'])
+    if ('item' in updates) and (updates['item'] is not None):
         window.lootFrame.grid()
-        root.after(2500, window.removeLootFrame)
+        root.after(2500, window.removeLootFrame)   
     if 'save' in updates and updates['save'] is not None:
         main.saveGame()
         if not updates['text']:
@@ -1997,8 +2026,8 @@ NAVY = "#000050"
 PURPLE = "#26065c"
 MAGENTA = "#de6ef1"
 LIGHTPURPLE = "#4f3c70"
-#GREEN = "#00ff00"
-#DARKGREEN = "#006400"
+ORANGE = "#f8b681"
+DARKORANGE = "#a33c00"
 EARTH_COLOR = "#b0ca90"
 WATER_COLOR = "#b0cbc7"
 FIRE_COLOR = "#e6ba90"
@@ -2018,6 +2047,8 @@ LOOT_FG = BROWN
 MYSTIC_BG = PURPLE
 MYSTIC_FG = MAGENTA
 MYSTIC_FG2 = LIGHTPURPLE
+SKILL_BG = ORANGE
+SKILL_FG = DARKORANGE
 
 root = Tk()
 
