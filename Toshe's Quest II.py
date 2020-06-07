@@ -87,6 +87,10 @@ class Window:
     def makeChildren(self, master):
         self.topFrame = TopFrame(master)
         self.bottomFrame = BottomFrame(master)
+        
+    def gridLevelUpFrame(self):
+        self.levelUpFrame.grid()
+        root.after(4000, window.removeLevelUpFrame)
 
     def removeLevelUpFrame(self, event=None):
         self.levelUpFrame.grid_remove()
@@ -94,12 +98,21 @@ class Window:
     def gridMercenaryUpFrame(self, name):
         self.mercenaryUpLabel.config(text="%s UP!" % name.upper())
         self.mercenaryUpFrame.grid()
+        root.after(3000, window.removeMercenaryUpFrame)
 
     def removeMercenaryUpFrame(self, event=None):
         self.mercenaryUpFrame.grid_remove()
+        
+    def gridLootFrame(self):
+        self.lootFrame.grid()
+        root.after(2500, window.removeLootFrame)
 
     def removeLootFrame(self, event=None):
         self.lootFrame.grid_remove()
+        
+    def gridPowerUpFrame(self):
+        self.powerUpFrame.grid()
+        root.after(3500, window.removePowerUpFrame)
 
     def removePowerUpFrame(self, event=None):
         self.powerUpFrame.grid_remove()
@@ -1571,9 +1584,8 @@ def updateInterface(updates):
             updates['text'] = ""
         updates['text'] += "\nToshe has reached level "+str(
             main.character.level)+"!"
-        window.levelUpFrame.grid()
+        window.gridLevelUpFrame()
         window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
-        root.after(4000, window.removeLevelUpFrame)
 
     if hasattr(main.character, 'specialization'):
         while main.character.hasSpecializedUp():
@@ -1581,8 +1593,7 @@ def updateInterface(updates):
                 updates['text'] = ""
             updates['text'] += "\nToshe is now a %s rank %s!" % (
                 main.character.specialization, main.character.ub205e2nmzfwi)
-            window.powerUpFrame.grid()
-            root.after(3500, window.removePowerUpFrame)
+            window.gridPowerUpFrame()
 
     for mercenary in main.character.mercenaries:
         while mercenary.hasLeveledUp():
@@ -1591,7 +1602,6 @@ def updateInterface(updates):
             updates['text'] += "\n%s has reached level %s!" % (mercenary.NAME,
                                                                mercenary.level)
             window.gridMercenaryUpFrame(mercenary.NAME)
-            root.after(3000, window.removeMercenaryUpFrame)
             
     if ('game over' == updates['view']):
         if not updates['text']:
@@ -1618,8 +1628,7 @@ def updateInterface(updates):
     if 'new skill' in updates:
         window.gridnewSkillFrame(updates['skill'])
     if ('item' in updates) and (updates['item'] is not None):
-        window.lootFrame.grid()
-        root.after(2500, window.removeLootFrame)   
+        window.gridLootFrame()
     if 'save' in updates and updates['save'] is not None:
         main.saveGame()
         if not updates['text']:
