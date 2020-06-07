@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 4, 2020
+Revised: June 7, 2020
 """
 
 
@@ -548,6 +548,7 @@ class Main:
             else:
                 interfaceActions['text'] += ("\nYou learned "+skill.NAME+"!")
             self.character.euros -= interfaceActions['cost']
+            interfaceActions['new skill'] = True
 
         if 'enemies' in interfaceActions:
             enemyIdentifier = self.selectRandomElement(
