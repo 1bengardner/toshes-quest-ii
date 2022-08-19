@@ -1261,6 +1261,7 @@ class BottomRightFrame:
         main.character.forgetSkill(main.character.skills[selection])
         main.character.learnSkill(main.tempSkill)
         window.gridnewSkillFrame(main.tempSkill.NAME)
+        main.sound.playSound(main.sound.sounds['New Skill'])
         main.character.euros -= main.tempCost
         self.clickCancelForgetButton()
 
