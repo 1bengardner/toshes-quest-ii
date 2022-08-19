@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 6, 2020
+Revised: August 18, 2022
 """
 
 
@@ -13,6 +13,7 @@ class Sound:
     """Plays music."""
     
     def __init__(self):
+        self.path = "audio\\%s.ogg"
         self.songs = {"Intro Theme": "Daring Feat",
                       "Game Over Theme": "Overcast",
                       "Wizard Theme": "Buddha",
@@ -26,6 +27,14 @@ class Sound:
                       "Riplin Battle": "Grandpa's Grandpa",
                       "Crayon Battle": "RUF"
                       }
+        self.sounds = {"Level Up": "FX-Dream",
+                       "Deal Damage": "FX-Hit",
+                       "Take Damage": "FX-Struck",
+                       "Get Item": "FX-Collect",
+                       "Mercenary Up": "FX-Discover",
+                       "New Skill": "FX-Discover",
+                       "Kill": "FX-Activate"
+                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
         self.currentSong = None
@@ -44,7 +53,7 @@ class Sound:
         """Play the specified song. If none specified, play the current song."""
         if songName:
             self.currentSong = songName
-        mixer.music.load("audio\\%s.ogg" % self.currentSong)
+        mixer.music.load(self.path % self.currentSong)
         mixer.music.play(-1)
 
     def stopMusic(self):
@@ -55,7 +64,7 @@ class Sound:
         """Queue a song to play."""
         if songName:
             self.currentSong = songName
-        mixer.music.queue("audio\\%s.ogg" % self.currentSong)
+        mixer.music.queue(self.path % self.currentSong)
 
     def isPlaying(self):
         """Determine whether music is playing."""
@@ -65,3 +74,6 @@ class Sound:
         """Determine whether music should start immediately."""
         if not self.isPlaying():
             return True
+            
+    def playSound(self, soundName):
+        mixer.Sound(self.path % soundName).play()

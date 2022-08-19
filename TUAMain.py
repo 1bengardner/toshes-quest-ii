@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 7, 2020
+Revised: August 19, 2022
 """
 
 
@@ -110,13 +110,13 @@ class Main:
                     'Fiery',
                     'Sturdy',
                     'Exotic',
-                    'Guard\'s'],
+                    'Heavy'],
                 2: [
                     'Gaian',
                     'Glacial',
                     'Molten',
                     'Robust',
-                    'Sentinel\'s'],}
+                    'Massive'],}
         self.itemModifiers = {  # Category: Level: ModName
             'Sword': weaponModifiers,
             'Club': weaponModifiers,
@@ -172,7 +172,7 @@ class Main:
             item.FIRE_REDUCTION += value
         elif modifier in ('Sturdy', 'Robust'):
             item.DEFENCE += value
-        elif modifier in ('Guard\'s', 'Sentinel\'s'):
+        elif modifier in ('Heavy', 'Massive'):
             item.B_RATE += value / 2
 
     def loadGame(self, fileName):
@@ -549,6 +549,7 @@ class Main:
                 interfaceActions['text'] += ("\nYou learned "+skill.NAME+"!")
             self.character.euros -= interfaceActions['cost']
             interfaceActions['new skill'] = True
+            self.sound.playSound(self.sound.sounds['New Skill'])
 
         if 'enemies' in interfaceActions:
             enemyIdentifier = self.selectRandomElement(
@@ -805,22 +806,24 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
              self.items[interfaceActions['item']].CATEGORY == "Miscellaneous"):
             randomize = False
             
-        if 'item' in interfaceActions and self.character.hasRoom():
+        if 'item' in interfaceActions:
             item = deepcopy(self.items[interfaceActions['item']])
             if randomize:
-                item = self.randomizeItem(item)
-            self.character.addItem(item)
-        elif 'item' in interfaceActions and not self.character.hasRoom():
-            self.tempItem = deepcopy(self.items[interfaceActions['item']])
-            if randomize:
-                self.tempItem = self.randomizeItem(self.tempItem)
-            interfaceActions['overloaded'] = "items"
-            interfaceActions['text'] += ("\nYou are carrying too much! "+
-                                         "Choose an item to drop.")
+                item, modifier = self.randomizeItem(item)
+                if modifier is not None:
+                    interfaceActions['text'] += ("\nToshe: It looks %s!" % modifier.lower())
+            if self.character.hasRoom():
+                self.character.addItem(item)
+            else:
+                self.tempItem = item
+                interfaceActions['overloaded'] = "items"
+                interfaceActions['text'] += ("\nYou are carrying too much! "+
+                                             "Choose an item to drop.")
+            self.sound.playSound(self.sound.sounds['Get Item'])
 
     def randomizeItem(self, item):
         if self.roll(100) > 25:
-            return item
+            return item, None
         level = 1
         levelRoll = self.roll(10000)
         if levelRoll < item.PRICE:
@@ -829,7 +832,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         value = (self.roll(3) + 1) * level
         self.modifyItemStat(item, modifier, value)
         item.NAME = "%s %s" % (modifier, item.NAME)
-        return item
+        return item, modifier
 
     def initializeDefaultBattle(self):
         """Initialize the battle attribute to prevent glitches that occur

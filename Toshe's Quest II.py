@@ -1605,6 +1605,7 @@ def updateInterface(updates):
             main.character.level)+"!"
         window.gridLevelUpFrame()
         window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
+        main.sound.playSound(main.sound.sounds['Level Up'])
 
     if hasattr(main.character, 'specialization'):
         while main.character.hasSpecializedUp():
@@ -1621,6 +1622,7 @@ def updateInterface(updates):
             updates['text'] += "\n%s has reached level %s!" % (mercenary.NAME,
                                                                mercenary.level)
             window.gridMercenaryUpFrame(mercenary.NAME)
+            main.sound.playSound(main.sound.sounds['Mercenary Up'])
             
     if ('game over' == updates['view']):
         if not updates['text']:
