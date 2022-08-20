@@ -23,8 +23,8 @@ class Window:
     """Contains the game window."""
 
     def __init__(self, master):
-        gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
-        gameFrame.grid(row=0)
+        self.gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
+        self.gameFrame.grid(row=0)
         
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
@@ -83,7 +83,7 @@ class Window:
         self.newSkillLabelTop.grid(row=0, sticky=N)
         self.newSkillLabelTop.bind("<Button-1>", self.removeNewSkillFrame)
         
-        self.makeChildren(gameFrame)
+        self.makeChildren(self.gameFrame)
 
     def makeChildren(self, master):
         self.topFrame = TopFrame(master)
@@ -393,13 +393,13 @@ class TopCenterFrame:
                                      relief=SUNKEN, image=sfxImage,
                                      variable=self.playSfx,
                                      command=main.sound.muteSfx)
-        self.sfxButton.grid(row=0, padx=16, sticky=W)
+        self.sfxButton.grid(row=0, padx=40, sticky=W)
         self.playMusic = BooleanVar(value=True)
         self.musicButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
                                      relief=SUNKEN, image=musicImage,
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
-        self.musicButton.grid(row=0, padx=40, sticky=W)
+        self.musicButton.grid(row=0, padx=16, sticky=W)
         self.showMap = BooleanVar()
         self.mapButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
                                      relief=SUNKEN, image=mapImage,
@@ -1606,6 +1606,33 @@ def updateInterface(updates):
     # Flash must occur before battle view is shown and area button is disabled
     if ('flash' in updates):
         flash()
+        
+    if ('image index' in updates) and (updates['image index'] is not None):
+        areaName = main.currentArea.name
+        if len(areaImages[areaName]) == 0:
+            def incrementProgress(complete=False):
+                global loadProgress
+                if complete:
+                    loadProgress = FULL_PROGRESS
+                else:
+                    loadProgress += float(FULL_PROGRESS) / worstCaseAssetCount
+                root.update()
+            enableLoadingView()
+            updateLoadingScreen(displayLoadingScreen())
+            worstCaseAssetCount = 99
+            for i in range(0, worstCaseAssetCount):
+                try:
+                    areaImages[areaName].append(PhotoImage(
+                        file="images\\areas\\"+areaName+"\\"+str(i)+".gif"
+                    ))
+                    incrementProgress()
+                except TclError:
+                    incrementProgress(True)
+                    break
+            window.bottomFrame.bottomRightFrame.bindChoices()
+            window.gameFrame.grid()
+        topCenterFrame.areaButton['image'] =\
+            areaImages[areaName][updates['image index']]
 
     bottomLeftFrame.unhighlightOutputBox()
     topCenterFrame.changeTitle(main.currentArea.name)
@@ -1649,9 +1676,6 @@ def updateInterface(updates):
                                               is not None):
         bottomRightFrame.enableDirectionButtons(
             updates['enabled directions'])
-    if ('image index' in updates) and (updates['image index'] is not None):
-        topCenterFrame.areaButton['image'] =\
-            areaImages[main.currentArea.name][updates['image index']]
     if ('menu' in updates) and (updates['menu'] is not None):
         bottomRightFrame.modifyMenu(updates['menu'])
         bottomRightFrame.okButton['state'] = DISABLED
@@ -1788,6 +1812,27 @@ def enableGameOverView():
     
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
+
+
+def enableLoadingView():
+    window.gameFrame.grid_remove()
+    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
+    bottomFrame = window.bottomFrame.bottomRightFrame
+    bottomFrame.upButton['state'] = DISABLED
+    bottomFrame.leftButton['state'] = DISABLED
+    bottomFrame.rightButton['state'] = DISABLED
+    bottomFrame.downButton['state'] = DISABLED
+    bottomFrame.centerButton['state'] = DISABLED
+    bottomFrame.attackButton['state'] = DISABLED
+    bottomFrame.defendButton['state'] = DISABLED
+    bottomFrame.fleeButton['state'] = DISABLED
+    bottomFrame.skillButton['state'] = DISABLED
+    bottomFrame.okButton['state'] = DISABLED
+    bottomFrame.centerButton['state'] = DISABLED
+    bottomFrame.menuBox.unbind_all('1')
+    bottomFrame.menuBox.unbind_all('2')
+    bottomFrame.menuBox.unbind_all('3')
+    bottomFrame.menuBox.unbind_all('4')
 
 
 def enableInventoryView():
@@ -1932,6 +1977,8 @@ def close(event=None):
 
 
 def displayLoadingScreen():
+    global loadProgress
+    loadProgress = 0
     loadingText = random.choice([
         "Blub blub.",
         "Yaouw!",
@@ -1975,7 +2022,7 @@ def loadAssets():
     assetsToLoad += len(main.shields)
     assetsToLoad += len(main.miscellaneousItems)
     assetsToLoad += len(main.enemies)
-    assetsToLoad += len(main.areas)
+    # assetsToLoad += len(main.areas)
     
     for i in range(1, NUMBER_OF_BARS):
         xpBars.append(PhotoImage(file="images\\bars\\xpbar"+
@@ -1990,15 +2037,6 @@ def loadAssets():
     
     for area in main.areas.itervalues():
         areaImages[area.name] = []
-        while 1:
-            try:
-                for i in range(0, 99):
-                    areaImages[area.name].append(PhotoImage
-                                                 (file="images\\areas\\"+area.name+
-                                                  "\\"+str(i)+".gif"))
-            except TclError:
-                break
-        incrementProgress()
 
     for enemyId in main.enemies:
         enemyImages[enemyId] = (PhotoImage(file="images\\enemies\\"+
@@ -2141,7 +2179,6 @@ spBars = []
 areaImages = {}
 itemImages = {}
 enemyImages = {}
-loadProgress = 0
 FULL_PROGRESS = 100
 
 xpBars.append(PhotoImage(file="images\\bars\\xpbar"+

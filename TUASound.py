@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 19, 2022
+Revised: August 20, 2022
 """
 
 
@@ -83,6 +83,8 @@ class Sound:
             
     def muteSfx(self):
         self.sfxMuted = not self.sfxMuted
+        if not self.sfxMuted:
+            self.playSound("FX-Hit")
         
     def muteMusic(self):
         mixer.music.set_volume((mixer.music.get_volume() + 1) % 2)
