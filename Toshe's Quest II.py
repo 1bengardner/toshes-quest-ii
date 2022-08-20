@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 7, 2020
+Revised: August 20, 2022
 """
 
  
@@ -388,6 +388,18 @@ class TopCenterFrame:
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(pady=6)
+        self.playSfx = BooleanVar(value=True)
+        self.sfxButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+                                     relief=SUNKEN, image=sfxImage,
+                                     variable=self.playSfx,
+                                     command=main.sound.muteSfx)
+        self.sfxButton.grid(row=0, padx=16, sticky=W)
+        self.playMusic = BooleanVar(value=True)
+        self.musicButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+                                     relief=SUNKEN, image=musicImage,
+                                     variable=self.playMusic,
+                                     command=main.sound.muteMusic)
+        self.musicButton.grid(row=0, padx=40, sticky=W)
         self.showMap = BooleanVar()
         self.mapButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
                                      relief=SUNKEN, image=mapImage,
@@ -959,7 +971,7 @@ class TopRightFrame:
                                           bg=DEFAULT_BG, fg=BLACK)
         
         state = NORMAL if c.potions > 0 else DISABLED
-        font = font4 if c.potions < 100 else font2
+        font = font3 if c.potions < 100 else font1
         text = c.potions if c.potions > 0 else ""
         self.potionButton.config(state=state, font=font, text=text)
 
@@ -2020,7 +2032,7 @@ def loadGame(event=None):
     global window
     window = Window(root)
     hideSideFrames()
-    main.initializeSound()
+    main.sound.playMusic(main.sound.songs['Intro Theme'])
     
     
 def requireExitConfirmation(yes=None):
@@ -2101,6 +2113,8 @@ gameOverImage = PhotoImage(file="images\\other\\gameover.gif")
 
 euroImage = PhotoImage(file="images\\icons\\euro.gif")
 potionImage = PhotoImage(file="images\\icons\\potion.gif")
+sfxImage = PhotoImage(file="images\\icons\\sfx.gif")
+musicImage = PhotoImage(file="images\\icons\\music.gif")
 mapImage = PhotoImage(file="images\\icons\\map.gif")
 vBorderImage1 = PhotoImage(file="images\\other\\border21.gif")
 vBorderImage2 = PhotoImage(file="images\\other\\border22.gif")

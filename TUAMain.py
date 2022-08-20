@@ -139,6 +139,7 @@ class Main:
         self.populateMercenaries()
         self.populateAreas()
         self.buyback = False
+        self.sound = Sound()
 
     def markMap(self, xy = None):
         marked = self.character.flags['Marked Areas'][self.currentArea.name]
@@ -437,11 +438,6 @@ class Main:
                  equippedWeapon, equippedArmour, equippedShield,
                  blankWeapon, blankArmour, blankShield,
                  statPoints, flags, area, x, y, 0)
-
-    def initializeSound(self):
-        """Initialize sounds in the game and start the intro tune."""
-        self.sound = Sound()
-        self.sound.playMusic(self.sound.songs['Intro Theme'])
 
     def move(self, direction):
         """Move character in the specified direction in the area.

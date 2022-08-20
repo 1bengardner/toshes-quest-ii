@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 18, 2022
+Revised: August 19, 2022
 """
 
 
@@ -39,6 +39,8 @@ class Sound:
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
         self.currentSong = None
         self.previousSong = None    # For returning to the previous song after an event
+        self.sfxMuted = False
+        mixer.music.set_volume(1)
 
     def isNewSong(self, songName):
         """Check if the given song is different from the current one."""
@@ -76,4 +78,11 @@ class Sound:
             return True
             
     def playSound(self, soundName):
-        mixer.Sound(self.path % soundName).play()
+        if not self.sfxMuted:
+            mixer.Sound(self.path % soundName).play()
+            
+    def muteSfx(self):
+        self.sfxMuted = not self.sfxMuted
+        
+    def muteMusic(self):
+        mixer.music.set_volume((mixer.music.get_volume() + 1) % 2)
