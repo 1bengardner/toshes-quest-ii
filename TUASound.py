@@ -41,6 +41,10 @@ class Sound:
                        "Kill": "FX-Activate",
                        "Dead": "FX-Dead",
                        "Move": "FX-Step",
+                       "Inventory": "FX-Switch",
+                       "Return": "FX-Toss",
+                       "Equip": "FX-Equip",
+                       "Increase Stat": "FX-Upgrade",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)

@@ -280,6 +280,7 @@ class TopLeftFrame:
             interfaceActions = main.equipItem()
             window.bottomFrame.bottomRightFrame.clickBackButton()
             updateInterface(interfaceActions)
+        main.sound.playSound(main.sound.sounds['Equip'])
         
     def clickSellButton(self):
         main.sell(self.v1.get())
@@ -870,18 +871,21 @@ class TopRightFrame:
     def increaseStrength(self):
         main.character.strength += 1
         main.character.statPoints -= 1
+        main.sound.playSound(main.sound.sounds['Increase Stat'])
         self.updateOtherStats()
         window.topFrame.topLeftFrame.updateInventory()
 
     def increaseDexterity(self):
         main.character.dexterity += 1
         main.character.statPoints -= 1
+        main.sound.playSound(main.sound.sounds['Increase Stat'])
         self.updateOtherStats()
         window.topFrame.topLeftFrame.updateInventory()
 
     def increaseWisdom(self):
         main.character.wisdom += 1
         main.character.statPoints -= 1
+        main.sound.playSound(main.sound.sounds['Increase Stat'])
         self.updateOtherStats()
         window.topFrame.topLeftFrame.updateInventory()
 
@@ -1205,6 +1209,7 @@ class BottomRightFrame:
             self.okButton['state'] = DISABLED
             self.disableMenuBox()
             enableInventoryView()
+            main.sound.playSound(main.sound.sounds['Inventory'])
 
     def clickBackButton(self, event=None):
         if self.centerButton['state'] == NORMAL:
@@ -1216,6 +1221,7 @@ class BottomRightFrame:
             self.enableMenuBox()
             self.okButton['state'] = self.lastOkButtonState
             views[main.view]()
+            main.sound.playSound(main.sound.sounds['Return'])
 
     def clickCancelDropButton(self):
         self.centerButton.config(image=inventoryImage,
