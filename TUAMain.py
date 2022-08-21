@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 19, 2022
+Revised: August 20, 2022
 """
 
 
@@ -735,37 +735,36 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def attack(self):
         interfaceActions = self.battle.attack(self.skills['Attack'])
-        self.collectItem(interfaceActions, True)
-        self.view = interfaceActions['view']
-        self.updateMusic(interfaceActions['view'])
+        self.updateBattleVariables(interfaceActions)
         return interfaceActions
     
     def defend(self):
         interfaceActions = self.battle.attack(self.skills['Defend'])
-        self.collectItem(interfaceActions, True)
-        self.view = interfaceActions['view']
-        self.updateMusic(interfaceActions['view'])
+        self.updateBattleVariables(interfaceActions)
         return interfaceActions
 
     def flee(self):
         interfaceActions = self.battle.flee()
-        self.view = interfaceActions['view']
-        self.updateMusic(interfaceActions['view'])
+        self.updateBattleVariables(interfaceActions)
         return interfaceActions
 
     def useSkill(self, skill):
         interfaceActions = self.battle.attack(skill)
-        self.collectItem(interfaceActions, True)
-        self.view = interfaceActions['view']
-        self.updateMusic(interfaceActions['view'])
+        self.updateBattleVariables(interfaceActions)
         return interfaceActions
 
     def equipItem(self):
         interfaceActions = self.battle.attack(self.skills['Equip Item'])
+        self.updateBattleVariables(interfaceActions)
+        return interfaceActions
+        
+    def updateBattleVariables(self, interfaceActions):
         self.collectItem(interfaceActions, True)
         self.view = interfaceActions['view']
         self.updateMusic(interfaceActions['view'])
-        return interfaceActions        
+        if 'sounds' in interfaceActions:
+            for sound in interfaceActions['sounds']:
+                self.sound.playSound(self.sound.sounds[sound])
 
     def addMercenary(self, interfaceActions):
         if 'mercenary' in interfaceActions:

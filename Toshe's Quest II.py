@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 20, 2022
+Revised: August 21, 2022
 """
 
  
@@ -1170,6 +1170,7 @@ class BottomRightFrame:
             interfaceActions['text'] = \
                         self.updateText(interfaceActions, movementDirection)
         interfaceActions['map'] = True
+        main.sound.playSound(main.sound.sounds['Move'])
         updateInterface(interfaceActions)
 
     def clickUpButton(self, event=None):

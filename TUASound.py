@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 20, 2022
+Revised: August 21, 2022
 """
 
 
@@ -26,15 +26,22 @@ class Sound:
                       "Final Battle": "Grandpa's Gardens",
                       "Riplin Battle": "Grandpa's Grandpa",
                       "Crayon Battle": "RUF"
-                      }
+                     }
         self.sounds = {"Level Up": "FX-Dream",
-                       "Deal Damage": "FX-Hit",
-                       "Take Damage": "FX-Struck",
                        "Get Item": "FX-Collect",
                        "Mercenary Up": "FX-Discover",
                        "New Skill": "FX-Discover",
-                       "Kill": "FX-Activate"
-                       }
+                       "Deal Damage": "FX-Hit",
+                       "Take Damage": "FX-Struck",
+                       "Heal": "FX-Rise",
+                       "Critical Strike": "FX-Critical",
+                       "Critical Injury": "FX-Injured",
+                       "Block": "FX-Brush",
+                       "Flee": "FX-Flee",
+                       "Kill": "FX-Activate",
+                       "Dead": "FX-Dead",
+                       "Move": "FX-Step",
+                      }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
         self.currentSong = None
