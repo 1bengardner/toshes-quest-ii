@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 28, 2020
+Revised: August 22, 2022
 """
 
 
@@ -593,7 +593,7 @@ class EasternKosovo:
         self.helpText = None
         if "Eastern Kosovo" not in self.c.flags:
             self.text = ("Toshe: There's a lot of rogue knights patrolling this" +
-                         "place. I better watch my step.")
+                         " place. I better watch my step.")
             self.c.flags['Eastern Kosovo'] = True
         return self.actions()
 
