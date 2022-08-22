@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 21, 2022
+Revised: August 22, 2022
 """
 
 
@@ -11,6 +11,8 @@ from pygame import mixer
 
 class Sound:
     """Plays music."""
+    
+    MUSIC_VOLUME = 0.75
     
     def __init__(self):
         self.path = "audio\\%s.ogg"
@@ -45,6 +47,8 @@ class Sound:
                        "Inventory": "FX-Switch",
                        "Return": "FX-Toss",
                        "Equip": "FX-Equip",
+                       "Buy": "FX-Collect",
+                       "Sell": "FX-Sell",
                        "Increase Stat": "FX-Upgrade",
                        "Save": "FX-Activate",
                        "Load": "FX-Switch",
@@ -54,7 +58,7 @@ class Sound:
         self.currentSong = None
         self.previousSong = None    # For returning to the previous song after an event
         self.sfxMuted = False
-        mixer.music.set_volume(1)
+        mixer.music.set_volume(Sound.MUSIC_VOLUME)
 
     def isNewSong(self, songName):
         """Check if the given song is different from the current one."""
@@ -101,4 +105,4 @@ class Sound:
             self.playSound("FX-Hit")
         
     def muteMusic(self):
-        mixer.music.set_volume((mixer.music.get_volume() + 1) % 2)
+        mixer.music.set_volume(0 if mixer.music.get_volume() > 0 else Sound.MUSIC_VOLUME)
