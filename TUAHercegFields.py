@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: May 25, 2020
+Revised: August 22, 2022
 """
 
 
@@ -335,7 +335,7 @@ class HercegFields:
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Leave."]
-        if any(ica in self.c.flags for ica in Static.ICAS):
+        if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
             self.menu += ["Travel to the next nook."]
         if selectionIndex == 0:
             return self.actions({'skill': skill1,
