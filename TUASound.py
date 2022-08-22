@@ -41,6 +41,7 @@ class Sound:
                        "Kill": "FX-Activate",
                        "Dead": "FX-Dead",
                        "Move": "FX-Step",
+                       "Select": "FX-Select",
                        "Inventory": "FX-Switch",
                        "Return": "FX-Toss",
                        "Equip": "FX-Equip",

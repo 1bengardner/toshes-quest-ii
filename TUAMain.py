@@ -62,6 +62,8 @@ from TUAGolemCavern3 import GolemCavern3
 from TUASimelliermPit import SimelliermPit
 from TUAGalijula import Galijula
 from TUAFartooqHold import FartooqHold
+from TUAYaouwVolcano import YaouwVolcano
+from TUADuneHotsPeak import DuneHotsPeak
 
 
 class Main:
@@ -265,7 +267,9 @@ class Main:
                       'Golem Cavern: Floor 3': GolemCavern3,
                       'Simellierm Pit': SimelliermPit,
                       'Galijula': Galijula,
-                      'Fartooq Hold': FartooqHold}
+                      'Fartooq Hold': FartooqHold,
+                      'Yaouw Volcano': YaouwVolcano,
+                      'Dune Hots Peak': DuneHotsPeak}
 
     def populateWeapons(self):
         with open("data\\weapondata.txt", "r") as weaponFile:
@@ -463,6 +467,7 @@ class Main:
 
         Add temporary flags to the character."""
         self.addFlags()
+        self.sound.playSound(self.sound.sounds['Select'])
         return self.getInterfaceActions(selectionIndex)
 
     def getInterfaceActions(self, selectionIndex=None, justFought=False):
