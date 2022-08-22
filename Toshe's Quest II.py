@@ -386,21 +386,21 @@ class TopCenterFrame:
         self.makeFrameElements(frameD)
 
     def makeFrameElements(self, master):
-        self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
-                                bg=DEFAULT_BG, bd=0)
-        self.titleLabel.grid(pady=6)
-        self.playSfx = BooleanVar(value=True)
-        self.sfxButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
-                                     relief=SUNKEN, image=sfxImage,
-                                     variable=self.playSfx,
-                                     command=main.sound.muteSfx)
-        self.sfxButton.grid(row=0, padx=40, sticky=W)
         self.playMusic = BooleanVar(value=True)
         self.musicButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
                                      relief=SUNKEN, image=musicImage,
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
         self.musicButton.grid(row=0, padx=16, sticky=W)
+        self.playSfx = BooleanVar(value=True)
+        self.sfxButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+                                     relief=SUNKEN, image=sfxImage,
+                                     variable=self.playSfx,
+                                     command=main.sound.muteSfx)
+        self.sfxButton.grid(row=0, padx=40, sticky=W)
+        self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
+                                bg=DEFAULT_BG, bd=0)
+        self.titleLabel.grid(row=0, pady=6)
         self.showMap = BooleanVar()
         self.mapButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
                                      relief=SUNKEN, image=mapImage,

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 20, 2022
+Revised: August 21, 2022
 """
 
 
@@ -185,6 +185,7 @@ class Main:
             self.x = self.character.x
             self.y = self.character.y
             self.initializeDefaultBattle()
+        self.sound.playSound(self.sound.sounds['Load'])
 
     def startNewGame(self, fileName):
         """Create a new character and record it in a savefile."""
@@ -222,6 +223,7 @@ class Main:
         self.character.y = self.y
         with open("saves\\"+self.fileName+".tq", "w") as gameFile:
             pickle.dump(self.character, gameFile)
+        self.sound.playSound(self.sound.sounds['Save'])
 
     def populateAreas(self):
         self.areas = {'Adriatic Sea': AdriaticSea,

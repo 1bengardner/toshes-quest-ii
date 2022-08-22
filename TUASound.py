@@ -45,6 +45,8 @@ class Sound:
                        "Return": "FX-Toss",
                        "Equip": "FX-Equip",
                        "Increase Stat": "FX-Upgrade",
+                       "Save": "FX-Activate",
+                       "Load": "FX-Switch",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
