@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 21, 2022
+Revised: August 22, 2022
 """
 
  
@@ -1341,6 +1341,7 @@ class BottomRightFrame:
                 interfaceActions['text'] = "\n"+interfaceActions['text'].strip()
             interfaceActions['map'] = True
             updateInterface(interfaceActions)
+            main.sound.playSound(main.sound.sounds['Select Option'])
 
     def enableDirectionButtons(self, enabledDirections):
         """Set the state of specified direction buttons to NORMAL."""        
@@ -1497,6 +1498,8 @@ def displayItemStats():
 
     frame.dropButton['state'] = NORMAL
 
+    main.sound.playSound(main.sound.sounds['Select Item'])
+
 
 def displayStoreItemStats():
     """Display the stats of the selected item in the Store frame."""
@@ -1577,6 +1580,8 @@ def displayStoreItemStats():
         frame.buyButton['state'] = DISABLED
     else:
         frame.buyButton['state'] = NORMAL
+
+    main.sound.playSound(main.sound.sounds['Select Item'])
 
 
 def clearItemStats(frame, store):

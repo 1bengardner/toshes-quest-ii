@@ -467,7 +467,7 @@ class Main:
 
         Add temporary flags to the character."""
         self.addFlags()
-        self.sound.playSound(self.sound.sounds['Select'])
+        self.sound.playSound(self.sound.sounds['Select Option'])
         return self.getInterfaceActions(selectionIndex)
 
     def getInterfaceActions(self, selectionIndex=None, justFought=False):

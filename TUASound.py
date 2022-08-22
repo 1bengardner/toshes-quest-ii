@@ -12,7 +12,7 @@ from pygame import mixer
 class Sound:
     """Plays music."""
     
-    MUSIC_VOLUME = 0.75
+    MUSIC_VOLUME = 0.7
     
     def __init__(self):
         self.path = "audio\\%s.ogg"
@@ -43,9 +43,10 @@ class Sound:
                        "Kill": "FX-Activate",
                        "Dead": "FX-Dead",
                        "Move": "FX-Step",
-                       "Select": "FX-Select",
+                       "Select Option": "FX-Select",
                        "Inventory": "FX-Switch",
                        "Return": "FX-Toss",
+                       "Select Item": "FX-Touch",
                        "Equip": "FX-Equip",
                        "Buy": "FX-Collect",
                        "Sell": "FX-Sell",
@@ -100,9 +101,12 @@ class Sound:
             mixer.Sound(self.path % soundName).play()
             
     def muteSfx(self):
-        self.sfxMuted = not self.sfxMuted
-        if not self.sfxMuted:
-            self.playSound("FX-Hit")
+        if self.sfxMuted:
+            self.sfxMuted = False
+            self.playSound("FX-Activate")
+        else:
+            self.playSound("FX-Toss")
+            self.sfxMuted = True
         
     def muteMusic(self):
         mixer.music.set_volume(0 if mixer.music.get_volume() > 0 else Sound.MUSIC_VOLUME)
