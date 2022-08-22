@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: August 21, 2022
+Revised: August 22, 2022
 """
 
 
@@ -471,12 +471,12 @@ class Battle(object):
                         self.sounds.append("Take Damage")
                 elif healing is not None and int(healing) > 0 and attacker == self.mainCharacter:
                     self.sounds.append("Heal")
-                if critical:
+                if (damage is not None and int(damage) > 0 or healing is not None and int(healing) > 0) and critical:
                     if attacker == self.mainCharacter:
                         self.sounds.append("Critical Strike")
                     elif defender == self.mainCharacter:
                         self.sounds.append("Critical Injury")
-            if blocked and defender == self.mainCharacter:
+            if blocked and not miss and defender == self.mainCharacter:
                 self.sounds.append("Block")
 
         # Do actions associated with flags attached to the attacker
