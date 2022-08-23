@@ -42,6 +42,7 @@ class Sound:
                        "Flee": "FX-Flee",
                        "Kill": "FX-Activate",
                        "Dead": "FX-Dead",
+                       "Drink": "FX-Bubble",
                        "Move": "FX-Step",
                        "Select Option": "FX-Select",
                        "Inventory": "FX-Switch",

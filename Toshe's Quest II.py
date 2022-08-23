@@ -898,6 +898,7 @@ class TopRightFrame:
             window.bottomFrame.bottomLeftFrame.insertOutput(message)
             self.updateOtherStats()
             window.topFrame.topLeftFrame.updateVitalStats()
+            main.sound.playSound(main.sound.sounds['Drink'])
 
     def clickBuyButton(self):
         main.buy(self.v2.get())
