@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 23, 2022
+Revised: September 7, 2022
 """
 
  
@@ -890,8 +890,7 @@ class TopRightFrame:
         window.topFrame.topLeftFrame.updateInventory()
 
     def usePotion(self, event=None):
-        if (self.potionButton['state'] == NORMAL and
-            main.view in ("travel", "inventory")):
+        if (self.potionButton['state'] == NORMAL):
             main.character.hp += 50
             main.character.potions -= 1
             message = "You consume a vial full of life fluid."
@@ -975,7 +974,8 @@ class TopRightFrame:
             self.wisdomValueButton.config(state=DISABLED, relief=FLAT,
                                           bg=DEFAULT_BG, fg=BLACK)
         
-        state = NORMAL if c.potions > 0 else DISABLED
+        state = NORMAL if c.potions > 0 and (
+            main.view in ("travel", "inventory")) else DISABLED
         font = font3 if c.potions < 100 else font1
         text = c.potions if c.potions > 0 else ""
         self.potionButton.config(state=state, font=font, text=text)
@@ -1980,7 +1980,7 @@ def close(event=None):
         if canSave:
             answer = tkMessageBox.askyesnocancel(
                 "Save and Exit",
-                "Do you want to save before you exit?",
+                "Do you want to save the game?",
                 parent=root)
             if answer is None:
                 return
@@ -1988,8 +1988,8 @@ def close(event=None):
                 main.saveGame()
         elif main.view != "game over":
             if not tkMessageBox.askokcancel(
-                 "Quit",
-                 "Are you sure you want to quit?",
+                 "Warning",
+                 "You can't save right now. Are you sure you want to quit?",
                  parent=root):
                 return
 
