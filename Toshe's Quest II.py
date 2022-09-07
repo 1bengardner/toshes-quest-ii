@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 22, 2022
+Revised: August 23, 2022
 """
 
  
@@ -1599,9 +1599,16 @@ def clearItemStats(frame, store):
 
 
 def flash():
-    topCenterFrame = window.topFrame.topCenterFrame
+    frame = window.topFrame.topCenterFrame
+    if frame.showMap.get():
+        frame.map.grid_remove()
+        frame.areaButton.grid()
+        root.update()
     for i in range(0, 6):
-        topCenterFrame.areaButton.flash()
+        frame.areaButton.flash()
+    if frame.showMap.get():
+        frame.areaButton.grid_remove()
+        frame.map.grid()
 
 
 def updateInterface(updates):
