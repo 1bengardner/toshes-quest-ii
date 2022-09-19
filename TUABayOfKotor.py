@@ -2,7 +2,7 @@
 File: TUABayOfKotor.py
 Author: Ben Gardner
 Created: May 17, 2013
-Revised: January 5, 2016
+Revised: September 18, 2022
 """
 
 
@@ -330,15 +330,16 @@ class BayOfKotor:
         elif "All Tomas Writings Found" in self.c.flags:
             self.text += ("\"Travel east through the Black Mountain to "+
                           "Western Kosovo and you will uncover the truth.\"")
-        elif "Writings" in self.c.flags and "Secret Lab" in self.c.flags:
+        elif "Writings" in self.c.flags and "Ghost of Tomas" in self.c.flags and "Secret Lab" in self.c.flags:
             self.text += ("\"Find all of the lost documents to gain access "+
                           "to a secret hideout.\"")
-        elif "Secret Lab" in self.c.flags:
+        elif "Secret Lab" in self.c.flags and "Ghost of Tomas" in self.c.flags:
             self.text += ("\"Use the message on Tomas's tombstone to find "+
-                          "out the passcode.\"")
+                          "out his guard's passcode.\"")
         elif "Ghost of Tomas" in self.c.flags:
             self.text += ("\"Decrypt the writing on Tomas's tombstone to "+
-                          "discover what's guarding his prized possessions.\"")
+                          "discover what's guarding his prized possessions in "+
+                          "Western Kosovo.\"")
         elif "The Watchmaking Facility Complete" in self.c.flags:
             self.text += ("\"Bury the body. You will find a lost "+
                           "relative in the cemetery south of Mojkovac "+
