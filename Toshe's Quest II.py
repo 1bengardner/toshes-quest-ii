@@ -455,8 +455,6 @@ class TopCenterFrame:
     def updateMapVisibility(self, event=None):
         main.character.flags['Config']['Automap On'] = self.showMap.get()
         if self.showMap.get():
-            self.areaButton.grid_remove()
-            self.map.grid()
             self.updateMap()
         else:
             self.areaButton.grid()
@@ -477,7 +475,12 @@ class TopCenterFrame:
             
             self.map.dtag(self.cells[row][col], "dirty")
             
-            if (x, y) in spots:
+            if (x, y) in spots and (
+                0 <= x-1 < len(areaSpots[0]) and areaSpots[y][x-1] or
+                0 <= y-1 < len(areaSpots) and areaSpots[y-1][x] or
+                0 <= x+1 < len(areaSpots[0]) and areaSpots[y][x+1] or
+                0 <= y+1 < len(areaSpots) and areaSpots[y+1][x]
+                ):
                 config(self.cells[row][col], fill=spotColor, width=1,
                        activedash=(2, 4), activeoutline=markColor)
             elif (((x-1, y) in spots and
@@ -509,6 +512,26 @@ class TopCenterFrame:
             updateCell(row, col-1, y, x-1)
             updateCell(row, col+1, y, x+1)
         
+        # Set up var nicknames
+        areaSpots = main.currentArea.spots
+        spots = main.character.flags['Discovered Areas'][main.currentArea.name]
+        markedSpots = main.character.flags['Marked Areas'][main.currentArea.name]
+        config = self.map.itemconfig
+        # Early return if in an enclosed space
+        if not (
+            0 <= main.x-1 < len(areaSpots[0]) and areaSpots[main.y][main.x-1] or
+            0 <= main.y-1 < len(areaSpots) and areaSpots[main.y-1][main.x] or
+            0 <= main.x+1 < len(areaSpots[0]) and areaSpots[main.y][main.x+1] or
+            0 <= main.y+1 < len(areaSpots) and areaSpots[main.y+1][main.x]
+            ):
+            self.areaButton.grid()
+            self.map.grid_remove()
+            return
+        else:
+            self.areaButton.grid_remove()
+            self.map.grid()
+        
+        # Set up colors
         markValue = -32
         spotColor = MAP_BG
         mapColor = MAP_BG
@@ -522,12 +545,6 @@ class TopCenterFrame:
             if len(newHexColorValue) == 1:
                 newHexColorValue = "0" + newHexColorValue
             markColor += newHexColorValue
-        
-        spots = main.character.flags['Discovered Areas'][main.currentArea.name]
-        markedSpots = main.character.flags['Marked Areas'][main.currentArea.name]
-        areaSpots = main.currentArea.spots
-        config = self.map.itemconfig
-        
         self.map['bg'] = mapColor
         self.clearMap(mapColor)
         self.map.addtag_all("dirty")
@@ -547,6 +564,7 @@ class TopCenterFrame:
                                   main.y + i - self.CENTER_CELL[1]))
                     self.updateMap()
                     requireExitConfirmation(True)
+                    main.sound.playSound(main.sound.sounds['Mark Map'])
                     return
 
     def changeTitle(self, newTitle):
