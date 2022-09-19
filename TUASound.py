@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 22, 2022
+Revised: September 19, 2022
 """
 
 
@@ -54,6 +54,8 @@ class Sound:
                        "Increase Stat": "FX-Upgrade",
                        "Save": "FX-Activate",
                        "Load": "FX-Switch",
+                       "Low HP": "FX-Alert",
+                       "Mark Map": "FX-Touch",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
@@ -97,9 +99,9 @@ class Sound:
         if not self.isPlaying():
             return True
             
-    def playSound(self, soundName):
-        if not self.sfxMuted:
-            mixer.Sound(self.path % soundName).play()
+    def playSound(self, soundName, count=1):
+        if not self.sfxMuted and count > 0:
+            mixer.Sound(self.path % soundName).play(loops=count - 1)
             
     def muteSfx(self):
         if self.sfxMuted:

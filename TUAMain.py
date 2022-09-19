@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 22, 2022
+Revised: September 19, 2022
 """
 
 
@@ -10,6 +10,7 @@ import pickle
 from copy import deepcopy
 from random import randint
 from random import choice
+from collections import Counter
 
 from TUAWeapon import Weapon
 from TUAArmour import Armour
@@ -770,8 +771,11 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         self.view = interfaceActions['view']
         self.updateMusic(interfaceActions['view'])
         if 'sounds' in interfaceActions:
+            soundCount = Counter()
             for sound in interfaceActions['sounds']:
-                self.sound.playSound(self.sound.sounds[sound])
+                soundCount[sound] += 1
+            for sound in soundCount:
+                self.sound.playSound(self.sound.sounds[sound], soundCount[sound])
 
     def addMercenary(self, interfaceActions):
         if 'mercenary' in interfaceActions:

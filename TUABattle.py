@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: August 22, 2022
+Revised: September 19, 2022
 """
 
 
@@ -35,7 +35,6 @@ class Battle(object):
             self.charactersFlags[character.NAME] = set()
 
         # HP Alerts to indicate when low HP text should be displayed
-        self.hpAlert0 = True
         self.hpAlert1 = False
         self.hpAlert2 = False
         self.hpAlert3 = False
@@ -806,24 +805,25 @@ class Battle(object):
             self.hpAlert3 = True
             self.hpAlert2 = True
             self.hpAlert1 = True
-            self.hpAlert0 = False
+            self.sounds.append("Low HP")
+            self.sounds.append("Low HP")
+            self.sounds.append("Low HP")
 
         elif (self.mainCharacter.hp < self.mainCharacter.maxHp/10) and\
              not self.hpAlert2:
             self.text += "Toshe: My heart..."
             self.hpAlert2 = True
             self.hpAlert1 = True
-            self.hpAlert0 = False
+            self.sounds.append("Low HP")
+            self.sounds.append("Low HP")
 
-        elif (self.mainCharacter.hp < self.mainCharacter.maxHp/5) and\
+        elif (self.mainCharacter.hp < self.mainCharacter.maxHp/4) and\
              not self.hpAlert1:
             self.text += "Toshe: I'm in pain!"
             self.hpAlert1 = True
-            self.hpAlert0 = False
+            self.sounds.append("Low HP")
 
-        elif (self.mainCharacter.hp > self.mainCharacter.maxHp/5) and\
-             not self.hpAlert0:
-            self.hpAlert0 = True
+        elif (self.mainCharacter.hp >= self.mainCharacter.maxHp/4):
             self.hpAlert1 = False
             self.hpAlert2 = False
             self.hpAlert3 = False
