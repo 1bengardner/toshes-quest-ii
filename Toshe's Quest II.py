@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: September 7, 2022
+Revised: September 19, 2022
 """
 
  
@@ -1417,20 +1417,25 @@ def displayItemStats():
     
     frame.itemValueLabel['text'] = "Worth "+str(item.SELL_PRICE)+" Euros"
     
-    if item.CATEGORY == "Miscellaneous" and "*" not in item.INFORMATION:
-        frame.itemRequirementLabel['text'] = item.INFORMATION
-    elif item.CATEGORY == "Miscellaneous" and "*" in item.INFORMATION:
-        frame.itemRequirementLabel['text'] = item.INFORMATION.split("*")[0]
+    if item.CATEGORY == "Miscellaneous":
+        frame.itemRequirementLabel['font'] = italicFont1
+        if "*" not in item.INFORMATION:
+            frame.itemRequirementLabel['text'] = item.INFORMATION
+        elif "*" in item.INFORMATION:
+            frame.itemRequirementLabel['text'] = item.INFORMATION.split("*")[0]
     else:
+        frame.itemRequirementLabel['font'] = font1
         frame.itemRequirementLabel['text'] = ("Requires",
                                               item.REQUIREMENT_VALUE,
                                               item.REQUIREMENT_TYPE)
 
+    frame.itemQualityLabel['font'] = font1
     if item.CATEGORY == "Armour" or item.CATEGORY == "Shield":
         frame.itemQualityLabel['text'] = item.DEFENCE, "Defence"
     elif item.CATEGORY == "Miscellaneous" and "*" not in item.INFORMATION:
         frame.itemQualityLabel['text'] = ""
-    elif item.CATEGORY == "Miscellaneous" and "*" in item.INFORMATION:        
+    elif item.CATEGORY == "Miscellaneous" and "*" in item.INFORMATION:
+        frame.itemQualityLabel['font'] = italicFont1
         frame.itemQualityLabel['text'] = item.INFORMATION.split("*")[1]
     else:
         frame.itemQualityLabel['text'] = item.POWER, "Power"
@@ -2155,6 +2160,7 @@ root = Tk()
 
 # Initialize variables
 font1 = tkFont.Font(family="Garamond", size=10)
+italicFont1 = tkFont.Font(family="Garamond", size=10, slant="italic")
 font2 = tkFont.Font(family="Garamond", size=11)
 italicFont2 = tkFont.Font(family="Garamond", size=11, slant="italic", weight="bold")
 font3 = tkFont.Font(family="Garamond", size=12, weight="bold")
