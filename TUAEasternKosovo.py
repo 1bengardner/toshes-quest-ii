@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: August 22, 2022
+Revised: September 18, 2022
 """
 
 
@@ -591,6 +591,7 @@ class EasternKosovo:
         self.imageIndex = 0
         self.text = None
         self.helpText = None
+        self.menu = []
         if "Eastern Kosovo" not in self.c.flags:
             self.text = ("Toshe: There's a lot of rogue knights patrolling this" +
                          " place. I better watch my step.")
