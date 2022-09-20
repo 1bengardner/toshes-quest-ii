@@ -995,7 +995,7 @@ class TopRightFrame:
         state = NORMAL if c.potions > 0 and (
             main.view in ("travel", "inventory")) else DISABLED
         font = font3 if c.potions < 100 else font1
-        text = c.potions if c.potions > 0 else ""
+        text = c.potions if c.potions > 0 else " "
         self.potionButton.config(state=state, font=font, text=text)
 
     def updateEnemyStats(self):
@@ -1189,9 +1189,9 @@ class BottomRightFrame:
         
     def move(self, arrowDirection, movementDirection):
         interfaceActions = main.move(arrowDirection)
-        if window.topFrame.topRightFrame.logMovement.get():
-            interfaceActions['text'] = \
-                        self.updateText(interfaceActions, movementDirection)
+        #if window.topFrame.topRightFrame.logMovement.get():
+        #    interfaceActions['text'] = \
+        #                self.updateText(interfaceActions, movementDirection)
         interfaceActions['map'] = True
         main.sound.playSound(main.sound.sounds['Move'])
         updateInterface(interfaceActions)
