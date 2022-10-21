@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: September 19, 2022
+Revised: October 21, 2022
 """
 
  
@@ -572,6 +572,7 @@ class TopCenterFrame:
         self.titleLabel['text'] = newTitle
 
     def openFile(self):
+        main.sound.playSound(main.sound.sounds['Open Dialog'])
         d = OpenFileDialog(root, "Start Game")
         if not hasattr(d, 'entryValue'):
             window.bottomFrame.bottomLeftFrame.insertOutput(
@@ -581,21 +582,22 @@ class TopCenterFrame:
             self.loadFile(d.entryValue)
         except IOError:
             self.createFile(d.entryValue)
-        # except AttributeError:
-            # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # d.entryValue +
-                # ", some vital information is missing from your file." +
-                # "\nPerhaps this can be remedied with a conversion.")
-        # except (EOFError, ValueError, KeyError, IndexError, ImportError):
-            # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # d.entryValue +
-                # ", your file is completely garbled! This is quite unfortunate.")
-        # except ImportError:
-            # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # "I cannot read this file at all! What language is this?")
+        except AttributeError:
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                d.entryValue +
+                ", some vital information is missing from your file." +
+                "\nPerhaps this can be remedied with a conversion.")
+        except (EOFError, ValueError, KeyError, IndexError, ImportError):
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                d.entryValue +
+                ", your file is completely garbled! This is quite unfortunate.")
+        except ImportError:
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                "I cannot read this file at all! What language is this?")
 
 
     def saveFile(self):
+        main.sound.playSound(main.sound.sounds['Open Dialog'])
         if tkMessageBox.askokcancel("Save Game", "Do you want to save?",
                                     parent=root):
             main.saveGame()
@@ -2000,6 +2002,7 @@ def close(event=None):
     if requireExitConfirmation():
         canSave = (window.topFrame.topCenterFrame.areaButton['state'] == NORMAL
                    and main.view != "game over")
+        main.sound.playSound(main.sound.sounds['Open Dialog'])
         if canSave:
             answer = tkMessageBox.askyesnocancel(
                 "Save and Exit",

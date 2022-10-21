@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: September 19, 2022
+Revised: October 21, 2022
 """
 
 
@@ -56,6 +56,7 @@ class Sound:
                        "Load": "FX-Switch",
                        "Low HP": "FX-Alert",
                        "Mark Map": "FX-Touch",
+                       "Open Dialog": "FX-Select"
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
