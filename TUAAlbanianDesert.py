@@ -2,11 +2,12 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: December 31, 2015
+Revised: October 21, 2022
 """
 
 
 import random
+from TUAStatics import Static
 
 
 class AlbanianDesert:
@@ -48,6 +49,7 @@ class AlbanianDesert:
         upRt = self.upRight
         upLt = self.upLeft
         dnRt = self.downRight
+        nooE = self.nookEntrance
         dnLt = self.downLeft
         down = self.down
         left = self.left
@@ -69,6 +71,8 @@ class AlbanianDesert:
         cast = self.castle
         wal1 = self.wall1
         wal2 = self.wall2
+        geys = self.geyser
+        paca = None if "Oukkar" in self.c.flags['Kills'] or "Plugged Geyser" not in self.c.flags else self.alpaca
         
         
         self.spots = [
@@ -97,9 +101,9 @@ class AlbanianDesert:
             [None, None, None, None, upRt, nml2, None, None, None, None, None, None],
             [None, None, None, None, None, upRt, cast, notU, notU, left, None, None],
             [None, None, None, None, None, None, None, notL, notR, None, None, None],
-            [None, None, None, None, dnRt, notU, notU, nml3, nml2, dnLt, None, None],
-            [None, None, None, None, notL, watD, watD, nml2, nml1, gld3, dnLt, None],
-            [None, None, None, dnRt, watR, None, None, watL, nml2, nml3, upLt, None],
+            [None, None, None, None, nooE, notU, notU, nml3, nml2, dnLt, None, None],
+            [None, None, paca, None, notL, watD, watD, nml2, nml1, gld3, dnLt, None],
+            [None, None, geys, notU, watR, None, None, watL, nml2, nml3, upLt, None],
             [None, None, None, upRt, watR, None, None, watL, nml3, upLt, None, None],
             [None, None, None, None, notL, watU, watU, wel2, notR, None, None, None],
             [None, None, None, None, notL, nml2, nml3, nml2, nml1, dnLt, None, None],
@@ -178,6 +182,7 @@ class AlbanianDesert:
                            upRt: e,
                            upLt: e,
                            dnRt: e,
+                           nooE: e,
                            dnLt: e,
                            down: e,
                            left: e,
@@ -198,7 +203,9 @@ class AlbanianDesert:
                            wel2: {},
                            cast: {},
                            wal1: {},
-                           wal2: {}
+                           wal2: {},
+                           geys: {},
+                           paca: {}
                            }
     
     def movementActions(self):
@@ -373,6 +380,25 @@ class AlbanianDesert:
         self.text = None
         self.helpText = None
         self.menu = []
+        return self.actions()
+
+    def nookEntrance(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 0
+        self.text = None
+        self.helpText = None
+        self.menu = []
+            
+        if selectionIndex == 0:
+            return Static.ICA_DATA['Ica 5']
+        if "Oukkar" in self.c.flags['Kills'] and self.c.dexterity >= 75:
+            self.text = ("\nYou spot a hidden passage up into the dune "+
+                         "that appears to be accessible.")
+            self.menu = ["Enter the dune."]
+        else:
+            self.text = ("\nYou spot a passage up into the dune "+
+                         "that looks like it may be accessible, were you more "+
+                         "dextrous.")
         return self.actions()
 
     def downLeft(self, selectionIndex=None):
@@ -697,4 +723,80 @@ class AlbanianDesert:
             self.menu = ["Hit the crack."]
         elif "Greek Wall Hole" in self.c.flags:
             self.menu = ["Enter the wall."]
+        return self.actions()
+        
+    def geyser(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 30
+        self.text = None
+        self.helpText = None
+        self.menu = []
+        
+        if selectionIndex == 0:
+            self.c.flags['Plugged Geyser'] = True
+            X = 2
+            Y = 27
+            return self.actions({'area': "Albanian Desert",
+                                 'coordinates': (X, Y)})
+        elif "Plugged Geyser" not in self.c.flags:
+            self.text = ("There is a large geyser blocking the way." +
+                         " The pressure" +
+                         " is too strong to be stopped by physical means.")
+        elif "Plugged Geyser Aftermath" not in self.c.flags:
+            self.imageIndex = 31
+            self.text = ("You form a layer of ice atop the geyser.")
+            if self.c.hasMercenary("Barrie"):
+                self.text += ("\nBarrie: Way to stay coolheaded...in a" +
+                              " heated situation.")
+            if self.c.hasMercenary("Qendresa"):
+                self.text += ("\nQendresa: Yaouw!")
+                if self.c.hasMercenary("Barrie"):
+                    self.text += ("\nBarrie: That's a funny noise.")
+                    self.text += ("\nQendresa: No, in the distance." +
+                                  "\nQendresa points to a volcano in the distance.")
+            self.c.flags['Plugged Geyser Aftermath'] = True
+        elif "Oukkar" not in self.c.flags['Kills']:
+            self.imageIndex = 31
+            self.text = ("There is a magical force far ahead.")
+        elif "Niplin" not in self.c.flags['Kills']:
+            self.imageIndex = 32
+            if "Volcano Aftermath" not in self.c.flags:
+                self.c.flags['Volcano Aftermath'] = True
+                self.text = ("You slide down the mountain. The volcano collapses behind you.")
+            else:
+                self.text = ("The hot sun still shines mightily.")
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += ("\nQendresa: Come, let us continue our quest.")
+        else:
+            self.imageIndex = 33
+            self.text = ("You stare into the horizon in wonder.")
+            if self.c.hasMercenary("Qendresa"):
+                self.text += random.choice(
+                    ["\nQendresa: We have certainly come a long way.",
+                     "\nQendresa: What are you thinking about?",
+                     "\nQendresa: Yaouw once stood here."]
+                )
+
+        if ( "Hailstorm" in [skill.NAME for skill in self.c.skills] and
+             "Plugged Geyser" not in self.c.flags):
+            self.menu = ["Cast Hailstorm."]
+            
+        return self.actions()
+        
+    def alpaca(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 34
+        self.text = None
+        self.helpText = None
+        self.menu = []
+        if selectionIndex == 0:
+            X = 6
+            Y = 9
+            return self.actions({'area': "Yaouw Volcano",
+                                 'coordinates': (X, Y)})
+        if "Oukkar" not in self.c.flags['Kills']:
+            self.text = ("Alpaca: Wehh..." +
+                         "\nIt looks like there is transportation" +
+                         " conveniently waiting for you.")
+            self.menu = ["Ride the alpaca up to the volcano."]
         return self.actions()

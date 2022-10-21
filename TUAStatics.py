@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: June 7, 2020
+Created: October 21, 2022
 """
 
 
@@ -26,7 +26,7 @@ class Static:
         "Ica 4": {'area': "Greece",
                   'coordinates': (1, 1)},
         "Ica 5": {'area': "Dune Hots Peak",
-                  'coordinates': None},
+                  'coordinates': (1, 10)},
         "Ica 6": {'area': "Fartooq Hold",
                   'coordinates': (1, 7)},
         "Ica 7": {'area': "Simellierm Pit",
@@ -43,7 +43,7 @@ class Static:
         TOWN_PATH = "#e1b311"
         HERCEG_WALL = "#f8ebbe"
         DIRT_PATH = "#7d501f"
-        IGALO_WALL = "#e9cff5"
+        IGALO_WALL = "#c5bfe1"
         PLAINS = "#9bec88"
         FOREST = "#4cba32"
         LIT_PATH = "#fceb5a"
@@ -54,7 +54,7 @@ class Static:
         LAB_WALL = "#baa4b6"
         ROCK_WALL = "#d7c9a8"
         PEC_WALL = ROCK_WALL
-        PRISTINA_WALL = "#f8d5f8"
+        PRISTINA_WALL = "#f2dbf2"
         TRAF_CAFE_PATH = "#e5198e"
         TRAF_CAFE_WALL = "#f5cfe2"
         STONE_PATH = "#626258"
@@ -180,5 +180,11 @@ class Static:
             "bg": HexColors.WATER},
         "Fartooq Hold": {
             "fg": HexColors.ICE_PATH,
-            "bg": HexColors.ICE_WALL}
+            "bg": HexColors.ICE_WALL},
+        "Yaouw Volcano": {
+            "fg": HexColors.FIRE_PATH,
+            "bg": HexColors.DARKNESS},
+        "Dune Hot's Peak": {
+            "fg": HexColors.ALBANIAN_DUNES,
+            "bg": HexColors.STONE_MOUNTAIN}
     }
