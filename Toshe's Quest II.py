@@ -568,7 +568,7 @@ class TopCenterFrame:
                     return
 
     def changeTitle(self, newTitle):
-        self.titleLabel['font'] = font6 if len(newTitle) < 23 else font4
+        self.titleLabel['font'] = font6 if len(newTitle) < 21 else font4
         self.titleLabel['text'] = newTitle
 
     def openFile(self):
