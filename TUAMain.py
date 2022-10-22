@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: September 19, 2022
+Revised: October 21, 2022
 """
 
 
@@ -564,6 +564,7 @@ class Main:
             self.currentArea = self.areas[interfaceActions['area']](
                 self.character)
             self.x, self.y = interfaceActions['coordinates']
+            self.sound.playSound(self.sound.sounds['Warp'])
             return self.getInterfaceActions()
         elif interfaceActions['view'] == "battle":
             interfaceActions['menu'] = None

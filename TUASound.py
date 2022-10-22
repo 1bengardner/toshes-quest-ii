@@ -56,6 +56,7 @@ class Sound:
                        "Load": "FX-Switch",
                        "Low HP": "FX-Alert",
                        "Mark Map": "FX-Touch",
+                       "Warp": "FX-Thud",
                        "Open Dialog": "FX-Select"
                       }
         
