@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: September 19, 2022
+Revised: October 21, 2022
 """
 
 
@@ -357,8 +357,17 @@ class Battle(object):
                                   " from blocking.\n") % (defender.NAME,
                                                           epBoost)
             else:
+                bruhMoment = False
                 if critical:
                     if damage:
+                        if ( self.mainCharacter.hasItem("Brummo Mint") and
+                             attacker == self.mainCharacter and
+                             skill.NAME == "Attack" and
+                             not self.enemy.UNIQUE):
+                            bruhMoment = True
+                            damage = defender.hp
+                            self.mainCharacter.removeItem(
+                                self.mainCharacter.indexOfItem("Brummo Mint"))
                         self.text += "Critical strike! "
                     elif healing:
                         self.text += "Critical heal! "
@@ -378,6 +387,9 @@ class Battle(object):
                                   ", healing "+str(int(healing))+" HP.\n")
                 else:
                     self.text += (attacker.NAME+" "+skill.TEXT+".\n")
+                    
+                if bruhMoment:
+                    self.text += ("\nToshe: That was a Brummo Mint.\n")
 
                 for stat, value in skill.USER_EFFECTS.items():                        
                     if value >= 0:
