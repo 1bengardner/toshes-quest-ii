@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: September 18, 2022
+Revised: October 21, 2022
 """
 
 
@@ -39,10 +39,6 @@ class EasternKosovo:
         wrp4 = self.pristina3
         wrp5 = self.pristina4
         wrp6 = self.pristina5
-        wrp7 = self.nigel1
-        wrp8 = self.nigel2
-        wrp9 = self.nigel3
-        wr10 = self.nigel4
         nml1 = self.normal1
         nml2 = self.normal2
         mtns = self.mountains
@@ -75,9 +71,9 @@ class EasternKosovo:
             [None, None, notL, nml1, tree, nml1, nml2, nml1, dung, nml1, wrp3, None, None, None],
             [None, wrp1, safe, nml2, nml1, nml2, wizE, nml2, nml1, nml2, wrp4, None, None, None],
             [None, None, notL, nml1, nml2, tree, nml2, nml1, tree, nml1, wrp5, None, None, None],
-            [None, None, upRt, notD, notD, nml2, nml1, nml2, nml1, upLt, None, wrp8, None, None],
-            [None, None, None, None, None, upRt, nml2, nml1, upLt, None, wrp7, wizr, wrp9, None],
-            [None, None, None, None, None, None, upRt, upLt, None, None, None, wr10, None, None],
+            [None, None, upRt, notD, notD, nml2, nml1, nml2, nml1, upLt, None, None, None, None],
+            [None, None, None, None, None, upRt, nml2, nml1, upLt, None, None, wizr, None, None],
+            [None, None, None, None, None, None, upRt, upLt, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None, None, None, None, None, None, None]
             ]
 
@@ -94,10 +90,6 @@ class EasternKosovo:
                            wrp4: {},
                            wrp5: {},
                            wrp6: {},
-                           wrp7: {},
-                           wrp8: {},
-                           wrp9: {},
-                           wr10: {},
                            nml1: e,
                            nml2: e,
                            mtns: e,
@@ -172,30 +164,6 @@ class EasternKosovo:
         X = 5
         Y = 5
         return self.actions({'area': "Pristina",
-                             'coordinates': (X, Y)})
-
-    def nigel1(self, selectionIndex=None):
-        X = 5
-        Y = 7
-        return self.actions({'area': "Eastern Kosovo",
-                             'coordinates': (X, Y)})
-
-    def nigel2(self, selectionIndex=None):
-        X = 6
-        Y = 6
-        return self.actions({'area': "Eastern Kosovo",
-                             'coordinates': (X, Y)})
-
-    def nigel3(self, selectionIndex=None):
-        X = 7
-        Y = 7
-        return self.actions({'area': "Eastern Kosovo",
-                             'coordinates': (X, Y)})
-
-    def nigel4(self, selectionIndex=None):
-        X = 6
-        Y = 8
-        return self.actions({'area': "Eastern Kosovo",
                              'coordinates': (X, Y)})
     
     def normal1(self, selectionIndex=None):
