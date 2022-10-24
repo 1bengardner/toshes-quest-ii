@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: October 21, 2022
+Revised: October 23, 2022
 """
 
  
@@ -617,7 +617,14 @@ class TopCenterFrame:
         self.startGame(name)
         
     def startGame(self, name):
+        stateChanged = False
+        
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
+        
+        interfaceActions = main.getLoginEvents()
+        if interfaceActions is not None:
+            updateInterface(interfaceActions)
+            stateChanged = True
         
         interfaceActions = main.getInterfaceActions(justFought=True)
         updateInterface(interfaceActions)
@@ -645,7 +652,7 @@ class TopCenterFrame:
         
         root.title("Toshe's Quest II | "+name)
         
-        requireExitConfirmation(False)
+        requireExitConfirmation(stateChanged)
         
 class TopRightFrame:
     """Contains frames for other stats, enemy stats and store items
@@ -786,14 +793,16 @@ class TopRightFrame:
 
         self.logMovement = IntVar()
         self.logMovement.set(1)
-        self.toggleMovementCheck = Checkbutton(self.otherStats,
-                                               text="Log movement",
-                                               variable=self.logMovement,
-                                               bg=DEFAULT_BG,
-                                               font=font2, bd=0,
-                                               command=\
-                                               self.toggleConfigLogMovement)
-        self.toggleMovementCheck.grid(row=10, columnspan=4, sticky=W)
+
+        # !toggleMovementCheck Deprecated 
+        # self.toggleMovementCheck = Checkbutton(self.otherStats,
+                                               # text="Log movement",
+                                               # variable=self.logMovement,
+                                               # bg=DEFAULT_BG,
+                                               # font=font2, bd=0,
+                                               # command=\
+                                               # self.toggleConfigLogMovement)
+        # self.toggleMovementCheck.grid(row=10, columnspan=4, sticky=W)
 
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
@@ -803,12 +812,13 @@ class TopRightFrame:
         self.potionButton.bind_all('p', self.usePotion)
         self.potionButton.bind_all('P', self.usePotion)
 
+        # !markButton Deprecated
         # self.markButton = Button(self.otherStats,
-                                # text="Mark/Unmark Map",
-                                # font=font2,
-                                # fg=BUTTON_FG,
-                                # bg=BUTTON_BG,
-                                # command=self.clickMarkMapButton)
+                                 # text="Mark/Unmark Map",
+                                 # font=font2,
+                                 # fg=BUTTON_FG,
+                                 # bg=BUTTON_BG,
+                                 # command=self.clickMarkMapButton)
         # self.markButton.grid(row=11, columnspan=5, sticky=E+W)
 
         self.vBorderLabel1 = Label(self.otherStats, image=vBorderImage1,
@@ -1073,9 +1083,13 @@ class BottomLeftFrame:
         
     def insertTimestamp(self, addSpacing=False):
         self.outputBox['state'] = NORMAL
-        # timestamp = "It is {dt:%I}:{dt.minute} {dt:%p} on {dt:%A}, {dt:%B} {dt.day}, {dt.year}".format(
-        #     dt = datetime.now())
-        timestamp = ""
+        timestamp = "{dt:%I}:{dt.minute} {dt:%p} - {greeting}".format(
+            dt = datetime.now(),
+            greeting = random.choice([
+                "Let the quest begin.",
+                "Brace yourself.",
+                "Smell those scents of adventure."
+            ]))
         self.outputBox.insert(END,
                               "%s❧ %s" % ("\n\n" if addSpacing else "", timestamp),
                               ("grey", "highlight"))
@@ -1732,6 +1746,7 @@ def updateInterface(updates):
         window.gridnewSkillFrame(updates['skill'])
     if ('item' in updates) and (updates['item'] is not None):
         window.gridLootFrame()
+        main.sound.playSound(main.sound.sounds['Get Item'])
     if 'save' in updates and updates['save'] is not None:
         main.saveGame()
         if not updates['text']:

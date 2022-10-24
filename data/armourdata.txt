@@ -50,3 +50,4 @@ Earth Tunic	5000	Earth	25	20	30
 Water Tunic	5000	Water	25	20	30
 Fire Tunic	5000	Fire	25	20	30
 Beast Hide	8000	Physical	50	25	25
+Ugly Disguise	1225	Fire	12	25	-100

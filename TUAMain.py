@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: October 21, 2022
+Revised: October 23, 2022
 """
 
 
@@ -11,6 +11,7 @@ from copy import deepcopy
 from random import randint
 from random import choice
 from collections import Counter
+from datetime import date
 
 from TUAWeapon import Weapon
 from TUAArmour import Armour
@@ -471,6 +472,31 @@ class Main:
         self.sound.playSound(self.sound.sounds['Select Option'])
         return self.getInterfaceActions(selectionIndex)
 
+    def getLoginEvents(self):
+        isChristmasSeason = (
+            date.today().month == 12 and
+            date.today().day > 10 or
+            date.today().month == 1 and
+            date.today().day < 9)
+        year = date.today().year
+        if date.today().month == 1:
+            year -= 1
+        if ( isChristmasSeason and
+             self.character.hasRoom() and
+             "Christmas %i" % year not in self.character.flags):
+            itemText = "You get an Ugly Disguise."
+            rewardText = "Thank you for playing during this holiday season!"
+            interfaceActions = {
+                'view': "travel",
+                'image index': 0,
+                'menu': [],
+                'text': itemText,
+                'italic text': rewardText,
+                'item': "Ugly Disguise"}
+            self.collectItem(interfaceActions)
+            self.character.flags["Christmas %i" % year] = True
+            return interfaceActions
+        
     def getInterfaceActions(self, selectionIndex=None, justFought=False):
         """Retrieve the interface actions from the current spot.
 
@@ -828,7 +854,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 interfaceActions['overloaded'] = "items"
                 interfaceActions['text'] += ("\nYou are carrying too much! "+
                                              "Choose an item to drop.")
-            self.sound.playSound(self.sound.sounds['Get Item'])
 
     def randomizeItem(self, item):
         if self.roll(100) > 25:
