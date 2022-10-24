@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: October 21, 2022
+Revised: October 23, 2022
 """
 
 
@@ -26,7 +26,7 @@ class Sound:
                       "Tomas Battle": "Escape Route",
                       "Guardian Battle": "Space Traveller",
                       "Final Battle": "Grandpa's Gardens",
-                      "Riplin Battle": "Grandpa's Grandpa",
+                      "Niplin Battle": "Niplin",
                       "Crayon Battle": "RUF"
                      }
         self.sounds = {"Level Up": "FX-Dream",
