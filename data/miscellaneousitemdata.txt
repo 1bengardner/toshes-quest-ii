@@ -19,3 +19,4 @@ Thick Mushroom	5000	Multiplies defence by 2.*Consumed when HP is below 50%.
 Magical Mushroom	5000	Increases all reductions by 15%.*Consumed when HP is below 50%.
 Macedonian Protector	0	Increases block chance while defending.
 Oracular Orb	0	A magical orb of great energy.
+Ominous Orb	0	This orb can be fused with its*user to combine potentials.
