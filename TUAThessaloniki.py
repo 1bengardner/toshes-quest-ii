@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: January 3, 2016
+Revised: October 23, 2022
 """
 
 
@@ -39,12 +39,13 @@ class Thessaloniki:
         pth1 = self.path1
         pth2 = self.path2
         gate = self.gate
+        dist = self.palaceInTheDistance
         lair = self.lairOfTheMagi
         
         
         self.spots = [
             [None, None, None, None, None, None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None, None, None, lair, None, None],
+            [None, lair, None, None, None, None, None, None, None, None, dist, None, None],
             [None, None, None, None, None, None, gate, None, None, None, notL, dnLt, None],
             [None, None, None, None, None, None, pth2, None, dnRt, notU, nml2, upLt, None],
             [None, None, None, None, None, dnRt, pth1, notU, nml1, nml2, notR, None, None],
@@ -75,6 +76,7 @@ class Thessaloniki:
                            pth1: e,
                            pth2: e,
                            gate: {},
+                           dist: e,
                            lair: {}
                            }
     
@@ -309,9 +311,24 @@ class Thessaloniki:
                 
         return self.actions()
 
+    def palaceInTheDistance(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 25
+        self.text = None
+        self.helpText = None
+        self.menu = []
+        if selectionIndex == 0:
+            X = 1
+            Y = 1
+            return self.actions({'area': "Thessaloniki",
+                                 'coordinates': (X, Y)})
+        self.text = "You see a grand palace in the distance."
+        self.menu = ["Hike up to the palace."]
+        return self.actions()
+
     def lairOfTheMagi(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 0
+        self.imageIndex = 16
         self.text = None
         self.helpText = None
         self.menu = []

@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: April 19, 2016
+Revised: October 23, 2022
 """
 
 
@@ -298,7 +298,12 @@ class Igalo:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = choice(["Pavle: That cathedral down the road there has "+
+        if "Niplin" in self.c.flags['Kills']:
+            self.text = ("Pavle: Look, the cathedral gates have opened up!"+
+                         "\nVuk: I wonder why.")
+        else:
+            self.text = choice([
+                            "Pavle: That cathedral down the road there has "+
                             "been closed off for quite a while."+
                             "\nVuk: It's going to take some real magic to "+
                             "get that place open again.",
@@ -418,7 +423,14 @@ class Igalo:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("The entrance to the cathedral is fenced off.")
+        if selectionIndex == 0:
+            self.text = "NOT YET IMPLEMENTED"
+            return self.actions()
+        if "Niplin" in self.c.flags['Kills']:
+            self.imageIndex = 19
+            self.menu = ["Enter the cathedral."]
+        else:
+            self.text = ("The entrance to the cathedral is fenced off.")
         return self.actions()
 
     def archway3(self, selectionIndex=None):
@@ -516,55 +528,6 @@ class Igalo:
                                  self.knownCreatures[
                                      (self.creaturePage-1) * 3
                                      + selectionIndex]['Description'])
-##        if selectionIndex == 0:
-##            self.text = ("Toshe: Tell me about goblins."+
-##                         "\nMarija: "+
-##                         "\nToshe: I hate those fuckers.")
-##        elif selectionIndex == 1 and 'Moghi' in self.c.flags['Kills']:
-##            kills = self.c.flags['Kills']['Moghi']
-##            self.text = ("Toshe: Tell me about moghis."+
-##                         "\nMarija: The moghi is a large and peaceful beast. "+
-##                         "It will protect "+
-##                         "its young by any means. It inhabits dry and "+
-##                         "mountainous regions. It is thought to have "+
-##                         "originated in Ethiopia. In recent times, moghis "+
-##                         "have become much more aggressive, sometimes "+
-##                         "attacking anything in sight."+
-##                         "\nToshe: I've killed %s of those things." % kills+
-##                         "\nMarija: Nice work.")
-##        elif 'Divelk' in self.c.flags['Kills'] and (selectionIndex == 1 or
-##                (selectionIndex == 2 and 'Moghi' in self.c.flags['Kills'])):
-##            kills = self.c.flags['Kills']['Divelk']
-##            if kills > 1:
-##                monster = "divelks"
-##            else:
-##                monster = "divelk"
-##            self.text = ("Toshe: Tell me about divelks."+
-##                         "\nMarija: Divelks. They are strange beings. Though "+
-##                         "similar in appearance to goblins, they are not to "+
-##                         "be trifled with. Research dictates that they are an "+
-##                         "ancient race with great magical knowledge. Oddly, "+
-##                         "they have only been spotted in Europe within the "+
-##                         "last year, and natively in Montenegro! For whatever "+
-##                         "reason, they have decided to settle in The Bluffs."+
-##                         "\nToshe: I already battled "+
-##                         "%s %s. And won!" % (kills, monster)+
-##                         "\nMarija: Impressive.")
-##        elif selectionIndex == 1 or selectionIndex == 2 or selectionIndex == 3:
-##            kills = self.c.flags['Kills']['Golem']
-##            if kills > 1:
-##                monster = "golems"
-##            else:
-##                monster = "golem"
-##            self.text = ("Toshe: Tell me about golems."+
-##                         "\nMarija: Hmm, golems. Those are massive things "+
-##                         "that cause destruction wherever they roam, and "+
-##                         "where they roam nobody knows. All that is known "+
-##                         "is that where there are rocks, there may be golems."+
-##                         "\nToshe: I killed %s %s." % (kills, monster)+
-##                         "\nMarija: Did you count every single one?"+
-##                         "\nToshe: I keep count of all my kills...isn't that "+
-##                         "normal?")
         elif 'Marija' not in self.c.flags:
             self.creaturePage = 1
             self.text = ("Marija: Hello. I'm Marija. I'm the town historian. "+
@@ -702,7 +665,17 @@ class Igalo:
         self.text = None
         self.helpText = None
         self.menu = []
-        if selectionIndex == 0:
+        if selectionIndex == 0 and "Niplin" in self.c.flags['Kills']:
+            self.text = ("Toshe: What happened to the Cathedral of Magic?"+
+                         "\nKnight: The archmages have returned to the cathedral. They are welcoming all those apprentices who seek to enrich their knowledge of the arcane.")
+        elif selectionIndex == 1 and "Niplin" in self.c.flags['Kills']:
+            self.text = ("Toshe: Why was magic outlawed?"+
+                         "\nKnight: When people began casting spells with "+
+                         "iniquity, the fate of Igalo was in jeopardy "+
+                         "without the wisdom of the archmages. "+
+                         "The mayor was forced to pass a law making "+
+                         "all forms of magic illegal. However, with the return of the archmages, the law has been abolished.")
+        elif selectionIndex == 0:
             self.text = ("Toshe: What happened to the Cathedral of Magic?"+
                          "\nKnight: Igalo was once a thriving magic town. "+
                          "Magicians then began using magic with malicious "+
@@ -719,6 +692,9 @@ class Igalo:
                          "The mayor was forced to pass a law making "+
                          "all forms of magic illegal. Our citizens cannot "+
                          "be given the privilege of such a great power.")
+        elif selectionIndex == 2 and "Niplin" in self.c.flags['Kills']:
+            self.text = ("Toshe: What's our current mission?"+
+                         "\nKnight: Now that Niplin is dead, we can focus on building our defences. For such a mighty warrior as yourself, you may find virtuosity in Mount Olympus.")
         elif selectionIndex == 2 and "Radoman Information 1" in self.c.flags:
             self.text = ("Toshe: What's our current mission?"+
                          "\nKnight: You must be Toshe. We are to"+
