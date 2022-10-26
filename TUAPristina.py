@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: October 25, 2022
+Revised: October 26, 2022
 """
 
 
@@ -981,7 +981,6 @@ class Pristina:
             return self.actions({'enemy': "Marciano3"})            
         if "Marciano3" not in self.c.flags['Kills']:
             self.c.flags['New Song'] = "Drat"
-            self.tempFlag = {'New Song': self.audio}
             self.text = ("Marciano: Last time I did not prepare" +
                          " properly. This time I will finish you." +
                          "\nToshe: How do you just pop out of" +

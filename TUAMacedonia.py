@@ -177,6 +177,7 @@ class Macedonia(object):
                 self.menu = ["Ask Tomas why he is here."]
                 
             else:
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Macedonia Monster Spawn"
                 self.text = ("Toshe: What the fuck are you still doing here," +
                              " anyway?" +
@@ -207,6 +208,7 @@ class Macedonia(object):
                 self.c.flags['Macedonia Monster Kills'] += 1
                 return self.actions({'enemy': self.monsters.pop()})
             else:
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Mythical Monster Spawn"
                 self.text = ("Toshe: These monsters won't stop me!" +
                              "\nTomas Tam: These monsters won't stop, that's" +
@@ -236,6 +238,7 @@ class Macedonia(object):
             
             elif (self.c.flags['Mythical Monster Kills'] == 1 and
                   "Mythical Banter 1" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Mythical Banter 1"
                 self.text = ("Toshe: I've never seen anything like that" +
                              " one before." +
@@ -259,6 +262,7 @@ class Macedonia(object):
             
             elif (self.c.flags['Mythical Monster Kills'] == 2 and
                   "Mythical Banter 2" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Mythical Banter 2"
                 self.text = ("Toshe: There's more?" +
                              "\nTomas Tam: Ancient Greece was known for" +
@@ -283,6 +287,7 @@ class Macedonia(object):
 
             elif (self.c.flags['Mythical Monster Kills'] == 3 and
                   "Mythical Banter 3" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Mythical Banter 3"
                 self.text = ("Toshe: These monsters are pretty tough!" +
                              "\nTomas Tam: The most powerful to roam" +
@@ -310,6 +315,7 @@ class Macedonia(object):
             
             elif (self.c.flags['Mythical Monster Kills'] == 4 and
                   "Mythical Banter 4" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Mythical Banter 4"
                 self.text = ("Toshe: Ok..." +
                              "\nYou pause to catch your breath." +
@@ -405,6 +411,7 @@ class Macedonia(object):
                 self.menu = ["Continue."]
             elif (self.c.flags['Mythical Monster Kills'] == 5 and
                   "Post Stone Banter 2" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Post Stone Banter 2"
                 self.text = ("Toshe: Wow. I made a pretty big mess." +
                              "\nHigh up in the clear sky above, you see an" +
@@ -423,6 +430,7 @@ class Macedonia(object):
             
             elif (self.c.flags['Mythical Monster Kills'] == 6 and
                   "Post Stone Banter 3" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Post Stone Banter 3"
                 self.text = ("Toshe: How is this possible? How are there" +
                              " still monsters being created? Damn it!" +
@@ -444,6 +452,7 @@ class Macedonia(object):
             elif (self.c.flags['Mythical Monster Kills'] == 7 and
                   "Post Stone Banter 4" not in self.c.flags):
                 self.tempFlag = "Post Stone Banter 4"
+                self.c.flags['New Song'] = "Drat"
                 self.text = ("Toshe: Now I don't even have Tomas" +
                              " to tell me what" +
                              " a dumbass I am. That fucker tricked me! I" +
@@ -462,6 +471,7 @@ class Macedonia(object):
             
             elif (self.c.flags['Mythical Monster Kills'] == 8 and
                   "Post Stone Banter 5" not in self.c.flags):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Post Stone Banter 5"
                 self.text = ("Toshe: Fuck. Fuck me." +
                              "\nYou hopelessly embrace the next approaching" +
@@ -476,6 +486,7 @@ class Macedonia(object):
             elif (self.c.flags['Mythical Monster Kills'] == 9 and
                   "Post Stone Banter 6" not in self.c.flags):
                 self.tempFlag = "Post Stone Banter 6"
+                self.c.flags['New Song'] = "Drat"
                 self.text = ("Toshe: Alright. I have to stop these monsters" +
                              " from being created. Where are they coming" +
                              " from?" +
@@ -559,6 +570,7 @@ class Macedonia(object):
             elif ("Silvio Macedonia 1" not in self.c.flags and
                   (selectionIndex == 1 or
                    "Silvio Macedonia 1-1" in self.c.flags)):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Silvio Macedonia Complete"
                 self.c.flags['Silvio Macedonia 1-1'] = True
                 self.text = ("Toshe: I'm going to dispose of you like I" +
@@ -591,6 +603,7 @@ class Macedonia(object):
             elif ("Silvio Macedonia 2" not in self.c.flags and
                   (selectionIndex == 1 or
                    "Silvio Macedonia 2-1" in self.c.flags)):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Silvio Macedonia Complete"
                 self.c.flags['Silvio Macedonia 2-1'] = True
                 self.text = ("Toshe: I'm going to destroy you, you prick." +

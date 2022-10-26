@@ -2,7 +2,7 @@
 File: TUATheSecretLaboratory.py
 Author: Ben Gardner
 Created: September 8, 2013
-Revised: December 23, 2015
+Revised: October 26, 2022
 """
 
 
@@ -382,6 +382,7 @@ class TheSecretLaboratory:
             return self.actions({'enemy': "Nameless Beast",
                                  'mercenaries': self.c.mercenaries})
         elif 'Secret Lab Boss' not in self.c.flags:
+            self.c.flags['New Song'] = "Drat"
             self.text = ("You approach the keyboard and quickly press the "+
                          "power button."+
                          "\nThe floor shakes as the glass from the tube is "+

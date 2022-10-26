@@ -3,7 +3,7 @@
 File: TUAGalijula.py
 Author: Ben Gardner
 Created: April 22, 2016
-Revised: May 11, 2017
+Revised: October 25, 2022
 """
 
 
@@ -406,6 +406,7 @@ class Galijula:
             return self.actions({'area': "Galijula",
                                  'coordinates': (X, Y)})
         elif selectionIndex == 0 and "Avalanche Wait" not in self.c.flags:
+            self.c.flags['New Song'] = "Drat"
             self.text = ("You wait and watch as the snow rushes down the" +
                          " slope." +
                          "\nYou hear a war cry echo throughout the sky." +

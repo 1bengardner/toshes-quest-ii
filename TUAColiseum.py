@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: May 11, 2017
+Revised: October 25, 2022
 """
 
 
@@ -288,9 +288,9 @@ class Coliseum:
                 self.championSkill = self.championSkills[enemy]
                 if enemy == self.champions[0]:
                     self.text = ("Champion: Warrior, that was a spectacle" +
-                                 " to behold. Now it is our turn to paint" +
+                                 " to behold. Now it is my turn to paint" +
                                  " a picture for the ages. The canvas, this" +
-                                 " arena; the brushes, our weapons. The" +
+                                 " arena; the brush, my weapon. The" +
                                  " paint...")
                 elif enemy == self.champions[1]:
                     self.text = ("Champion: You've come far, warrior." +

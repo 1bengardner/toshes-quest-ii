@@ -2,7 +2,7 @@
 File: TUARumadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: October 25, 2022
+Revised: October 26, 2022
 """
 
 
@@ -568,7 +568,6 @@ class RumadanVillage:
             return self.actions({'enemy': "Marciano4"})            
         if "Marciano4" not in self.c.flags['Kills']:
             self.c.flags['New Song'] = "Drat"
-            self.tempFlag = {'New Song': self.audio}
             self.text = ("Marciano: I've been waiting. This feud shall" +
                          " end now. Your blood shall spill upon these sands."
                          "\nToshe: Were you just waiting in this village the" +

@@ -2,7 +2,7 @@
 File: TUAOldRuins.py
 Author: Ben Gardner
 Created: June 28, 2015
-Revised: April 22, 2016
+Revised: October 26, 2022
 """
 
 
@@ -349,6 +349,7 @@ class OldRuins:
             self.tempFlag = "President 3"
 
         elif "President 4" not in self.c.flags:
+            self.c.flags['New Song'] = "Drat"
             self.text = ("President: Ugh..." +
                          "\nGuard: Haha! Now don't you feel silly?" +
                          " You've completed your task. Now I must" +

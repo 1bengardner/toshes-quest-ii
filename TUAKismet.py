@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: October 25, 2022
+Revised: October 26, 2022
 """
 
 from random import choice
@@ -145,7 +145,6 @@ class Kismet:
 
         elif 'Kismet Chat 5' not in self.c.flags:
             self.c.flags['New Song'] = "Drat"
-            self.tempFlag = {'New Song': self.audio}
             self.text = ""
             self.menu = ["Brace yourself."]
             self.tempFlag = "Kismet Chat 5"

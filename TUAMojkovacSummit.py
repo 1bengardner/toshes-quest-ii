@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: October 25, 2022
+Revised: October 26, 2022
 """
 
 
@@ -342,7 +342,6 @@ class MojkovacSummit:
                                  'coordinates': (X, Y)})
         
         self.c.flags['New Song'] = "Drat"
-        self.tempFlag = {'New Song': self.audio}
         self.text = (npc+": We meet again. This time, we fight to the death."+
                      "\nToshe: Where the hell did you come from?"+
                      "\nMarciano: Silence!"+

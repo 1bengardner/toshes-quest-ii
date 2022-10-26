@@ -2,7 +2,7 @@
 File: TUAGreekFortress.py
 Author: Ben Gardner
 Created: August 22, 2015
-Revised: May 11, 2017
+Revised: October 26, 2022
 """
 
 
@@ -337,6 +337,7 @@ class GreekFortress:
             self.tempFlag = "Conversion 1"
 
         elif "Conversion 2" not in self.c.flags:
+            self.c.flags['New Song'] = "Drat"
             if selectionIndex == 0:
                 self.text = ("Escort: It's great to have you join us--" +
                              "\nLoukas: Hermes! His cape!" +

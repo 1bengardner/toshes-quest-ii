@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: October 21, 2022
+Revised: October 25, 2022
 """
 
 import random
@@ -358,6 +358,8 @@ class DuneHotsPeak:
         
         if selectionIndex == 0:
             if "Thunderous Crack" not in self.c.flags:
+                self.c.flags['New Song'] = "Drat"
+                self.tempFlag = {'New Song': self.audio}
                 self.imageIndex = 3
                 self.c.flags['Thunderous Crack'] = True
                 self.text = "You lay back and relax, pleased to have a rare moment without dust in your face.\n...\nYou awaken to a thunderous crack! Opening your eyes, you see the sky has turned black."

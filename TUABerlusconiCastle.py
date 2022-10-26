@@ -2,7 +2,7 @@
 File: TUABerlusconiCastle.py
 Author: Ben Gardner
 Created: July 14, 2015
-Revised: May 25, 2020
+Revised: October 25, 2022
 """
 
 
@@ -595,6 +595,7 @@ class BerlusconiCastle:
             return self.actions({'area': "Berlusconi Castle",
                                  'coordinates': (X, Y)})
 
+        self.c.flags['New Song'] = "Drat"
         self.menu = ["Brace yourself."]
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: Welcome to my castle." % npc +
@@ -650,6 +651,7 @@ class BerlusconiCastle:
             return self.actions({'area': "Berlusconi Castle",
                                  'coordinates': (X, Y)})
 
+        self.c.flags['New Song'] = "Drat"
         self.menu = ["Brace yourself."]
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: Well, look who's still here!" % npc +
@@ -699,6 +701,7 @@ class BerlusconiCastle:
             return self.actions({'area': "Berlusconi Castle",
                                  'coordinates': (X, Y)})
 
+        self.c.flags['New Song'] = "Drat"
         self.menu = ["Brace yourself."]
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: You're a persistent one. Hahaha!" % npc +

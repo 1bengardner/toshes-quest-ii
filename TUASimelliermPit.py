@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: June 1, 2020
+Revised: October 26, 2022
 """
 
 
@@ -157,6 +157,8 @@ class SimelliermPit:
             return self.actions({'enemy': "Vismurg",
                                  'mercenaries': self.c.mercenaries})
         elif selectionIndex == 0:
+            self.c.flags['New Song'] = "Drat"
+            self.tempFlag = {'New Song': self.audio}
             self.c.flags['Simellierm Waterfall'] = True
             self.text = ("As you pass underneath the flowing water, you feel" +
                          " the entire cavern quake. Before your eyes adjust" +

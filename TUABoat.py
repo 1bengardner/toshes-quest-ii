@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: January 9, 2016
+Revised: October 25, 2022
 """
 
 
@@ -72,6 +72,7 @@ class Boat:
             self.tempFlag = "Boat Chat 1"
             
         elif "Boat Chat 2" not in self.c.flags:
+            self.c.flags['New Song'] = "Drat"
             self.text = ""
             if selectionIndex == 0:
                 self.text = ("Toshe: Yeah, I fucking fell in."+
