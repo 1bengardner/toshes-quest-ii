@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: October 24, 2022
+Revised: October 25, 2022
 """
 
  
@@ -806,8 +806,9 @@ class TopRightFrame:
 
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
-                                   fg=WHITE, activeforeground=WHITE, bg=BUTTON_BG,
-                                   command=self.usePotion, compound=CENTER)
+                                   fg=WHITE, activeforeground=WHITE,
+                                   bg=BUTTON_BG, command=self.usePotion,
+                                   compound=CENTER, state=DISABLED)
         self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E)
         self.potionButton.bind_all('p', self.usePotion)
         self.potionButton.bind_all('P', self.usePotion)
