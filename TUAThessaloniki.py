@@ -376,13 +376,13 @@ class Thessaloniki:
                 self.text = "You see a palace across the river with two lit beacons: green and blue."
             elif "Oukkar" in self.c.flags['Kills']:
                 self.imageIndex = 19
-                self.text = "You see a palace across the river with a lit beacon: red."
+                self.text = "You see a palace across the river with a lit red beacon."
             elif "Aldreed" in self.c.flags['Kills']:
                 self.imageIndex = 18
-                self.text = "You see a palace across the river with a lit beacon: blue."
+                self.text = "You see a palace across the river with a lit blue beacon."
             elif "Vismurg" in self.c.flags['Kills']:
                 self.imageIndex = 17
-                self.text = "You see a palace across the river with a lit beacon: green."
+                self.text = "You see a palace across the river with a lit green beacon."
             else:
                 self.text = "You see a palace across the river with three unlit beacons."
             
