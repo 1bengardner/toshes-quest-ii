@@ -57,7 +57,7 @@ class Sound:
                        "Low HP": "FX-Alert",
                        "Mark Map": "FX-Touch",
                        "Warp": "FX-Thud",
-                       "Open Dialog": "FX-Select"
+                       "Open Dialog": "FX-Touch",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
