@@ -2,7 +2,7 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: May 31, 2020
+Revised: October 25, 2022
 """
 
 
@@ -349,6 +349,7 @@ class HercegBluffs:
                                  'coordinates': (X, Y)})            
             
         if "Moved Boulders" not in self.c.flags:
+            self.c.flags['Vismurg Entrance Found'] = True
             self.text = ("There is a large cave in the mountainside. The "+
                          "opening is closed in, and it doesn't look like just "+
                          "human strength could move the rocks away.")

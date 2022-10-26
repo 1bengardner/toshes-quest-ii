@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: October 23, 2022
+Revised: October 25, 2022
 """
 
 
@@ -76,7 +76,7 @@ class Thessaloniki:
                            pth1: e,
                            pth2: e,
                            gate: {},
-                           dist: e,
+                           dist: {},
                            lair: {}
                            }
     
@@ -331,5 +331,104 @@ class Thessaloniki:
         self.imageIndex = 16
         self.text = None
         self.helpText = None
-        self.menu = []
+        self.menu = [
+            "Stare into the river.",
+            "Head back."
+        ]
+        
+        if selectionIndex == 1:
+            X = 10
+            Y = 1
+            return self.actions({'area': "Thessaloniki",
+                                 'coordinates': (X, Y)})
+        
+        if "Niplin" in self.c.flags['Kills']:
+            self.imageIndex = 24
+            self.text = "You see Niplin's hallowed lair across the river."
+            if self.c.hasMercenary("Qendresa"):
+                self.text += "\nQendresa: The archmages have been freed."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: Yeah, thanks to us kicking evil butt! We don't have to go back there again."
+            elif self.c.hasMercenary("Barrie"):
+                self.text += "\nBarrie: We kicked Niplin's butt."
+            else:
+                self.text += "\nToshe: The world is a better place now."
+        elif False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed", "Vismurg"]]:
+            self.menu = ["Enter the palace."]
+            self.imageIndex = 23
+            self.text = "You see an illuminated palace across the river with a bridge leading to it."
+            if "All Beacons Lit" not in self.c.flags:
+                self.c.flags['All Beacons Lit'] = True
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: We did it! Let's get our groove on."
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += "\nQendresa: The three beasts must have acted as magical guardians to this structure."
+                self.text += "\nToshe: Yes! We can get in now."
+        else:
+            if False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed"]]:
+                self.imageIndex = 22
+                self.text = "You see a palace across the river with two lit beacons: blue and red."
+            elif False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Vismurg"]]:
+                self.imageIndex = 21
+                self.text = "You see a palace across the river with two lit beacons: green and red."
+            elif False not in [boss in self.c.flags['Kills'] for boss in ["Aldreed", "Vismurg"]]:
+                self.imageIndex = 20
+                self.text = "You see a palace across the river with two lit beacons: green and blue."
+            elif "Oukkar" in self.c.flags['Kills']:
+                self.imageIndex = 19
+                self.text = "You see a palace across the river with a lit beacon: red."
+            elif "Aldreed" in self.c.flags['Kills']:
+                self.imageIndex = 18
+                self.text = "You see a palace across the river with a lit beacon: blue."
+            elif "Vismurg" in self.c.flags['Kills']:
+                self.imageIndex = 17
+                self.text = "You see a palace across the river with a lit beacon: green."
+            else:
+                self.text = "You see a palace across the river with three unlit beacons."
+            
+            self.text += "\nToshe: I feel like something is missing."
+            if self.c.hasMercenary("Barrie"):
+                if "Vismurg" not in self.c.flags['Kills']:
+                    if 'Vismurg Entrance Found' not in self.c.flags:
+                        self.text += "\nBarrie looks to be deep in thought."
+                        self.text += "\nBarrie: I have a feeling something is amok inside the Bluffs."
+                        self.text += "\nToshe: What do you mean inside?"
+                        self.text += "\nBarrie: Seriously, we gotta head back to Herceg."
+                        self.text += "\nToshe: If you say."
+                    elif "Avalanche" not in [skill.NAME for skill in self.c.skills]:
+                        self.text += "\nBarrie taps his foot, thinking."
+                        self.text += "\nBarrie: There's a powerful force here. Remember the boulders in Herceg Bluffs? You need a spell to blast those. That's my intel."
+                    else:
+                        self.text += "\nBarrie: What if you used Avalanche on the Herceg mountains?"
+                elif "Aldreed" not in self.c.flags['Kills']:
+                    if 'Aldreed Entrance Found' not in self.c.flags:
+                        self.text += "\nBarrie is pacing."
+                        self.text += "\nBarrie: Ok, we should go for a deep, long swim."
+                        self.text += "\nToshe: I'm trying to enter that palace, and you want to swim? What's wrong with you?"
+                        self.text += "\nBarrie: There must be something in the water."
+                    elif "Melting Touch" not in [skill.NAME for skill in self.c.skills]:
+                        self.text += "\nBarrie scratches his nose."
+                        self.text += "\nBarrie: Let's explore: there's that frozen passage down in the sea. What could melt that? Magic. That's what."
+                    else:
+                        self.text += "\nBarrie: You have the touch. Use it. To melt ice."
+                elif "Oukkar" not in self.c.flags['Kills']:
+                    if 'Oukkar Entrance Found' not in self.c.flags:
+                        self.text += "\nBarrie: Oukkay, just one more beacon to light! Don't call me Seuss; just go where it's bright!"
+                        self.text += "\nToshe: That was lame as fuck."
+                        self.text += "\nBarrie: If you'd rather, I can show you where the sun don't shine."
+                    elif "Hailstorm" not in [skill.NAME for skill in self.c.skills]:
+                        self.text += "\nBarrie: We gotta light that last beacon. But how?"
+                        self.text += "\nToshe: There's something with that geyser in the desert."
+                        self.text += "\nBarrie: True, true. We know fire melts ice. But what could chill and clog a steaming geyser?"
+                    else:
+                        self.text += "\nBarrie: Hail thee!"
+                        self.text += "\nQendresa bows."
+                        self.text += "\nToshe: What did I do?"
+                        self.text += "\nBarrie: It's what you're about to do, friend. Call upon your storm and lead us to sandy victory!"
+            elif self.c.hasMercenary("Qendresa"):
+                self.text += "\nQendresa: It seems that a mage-like force is obstructing us. Bear with me...perhaps we can combat magic with magic? Pristina is brimming with wizardry. We may be able to find help there."
+
+        if selectionIndex == 0:
+            self.text = "You see your reflection."
+
         return self.actions()

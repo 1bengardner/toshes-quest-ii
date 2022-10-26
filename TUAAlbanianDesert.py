@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: October 21, 2022
+Revised: October 25, 2022
 """
 
 
@@ -739,6 +739,7 @@ class AlbanianDesert:
             return self.actions({'area': "Albanian Desert",
                                  'coordinates': (X, Y)})
         elif "Plugged Geyser" not in self.c.flags:
+            self.c.flags['Oukkar Entrance Found'] = True
             self.text = ("There is a large geyser blocking the way." +
                          " The pressure" +
                          " is too strong to be stopped by physical means.")
