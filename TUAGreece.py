@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: May 28, 2020
+Revised: October 25, 2022
 """
 
 
@@ -541,6 +541,8 @@ class Greece:
             self.view = "battle"
             return self.actions({'enemy': "Marciano5"})            
         if "Marciano5" not in self.c.flags['Kills']:
+            self.c.flags['New Song'] = "Drat"
+            self.tempFlag = {'New Song': self.audio}
             self.text = ("Marciano: This is the end, my friend."
                          "\nToshe: ...That's it? At least you rhymed this time." +
                          "\nMarciano: Silence!" +
