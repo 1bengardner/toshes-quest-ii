@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: December 30, 2015
+Revised: October 25, 2022
 """
 
 
@@ -39,6 +39,7 @@ class Macedonia(object):
             "Skeleton Arcanist Unfleeable",
             "Skeleton Mage2 Unfleeable"
             ]
+        random.shuffle(self.monsters)
 
         self._mythicalMonsters = [
             "Nemean Lion",
@@ -204,7 +205,7 @@ class Macedonia(object):
             if self.c.flags['Macedonia Monster Kills'] < 10:
                 self.view = "battle"
                 self.c.flags['Macedonia Monster Kills'] += 1
-                return self.actions({'enemy': random.choice(self.monsters)})
+                return self.actions({'enemy': self.monsters.pop()})
             else:
                 self.tempFlag = "Mythical Monster Spawn"
                 self.text = ("Toshe: These monsters won't stop me!" +
