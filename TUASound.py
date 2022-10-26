@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: October 23, 2022
+Revised: October 25, 2022
 """
 
 
@@ -80,6 +80,7 @@ class Sound:
         """Play the specified song. If none specified, play the current song."""
         if songName:
             self.currentSong = songName
+        mixer.music.stop()
         mixer.music.load(self.path % self.currentSong)
         mixer.music.play(-1)
 
