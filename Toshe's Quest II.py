@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: October 23, 2022
+Revised: October 24, 2022
 """
 
  
@@ -1736,6 +1736,8 @@ def updateInterface(updates):
         bottomRightFrame.enableDirectionButtons(
             updates['enabled directions'])
     if ('menu' in updates) and (updates['menu'] is not None):
+        if len(updates['menu']) > 0:
+            main.sound.playSound(main.sound.sounds['Menu'])
         bottomRightFrame.modifyMenu(updates['menu'])
         bottomRightFrame.okButton['state'] = DISABLED
     if ('overloaded' in updates) and (updates['overloaded'] == "items"):

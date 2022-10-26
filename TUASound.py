@@ -58,6 +58,7 @@ class Sound:
                        "Mark Map": "FX-Touch",
                        "Warp": "FX-Thud",
                        "Open Dialog": "FX-Touch",
+                       "Menu": "FX-Cluck"
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
