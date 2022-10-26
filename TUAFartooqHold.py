@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 31, 2020
+Revised: October 26, 2022
 """
 
 
@@ -392,6 +392,8 @@ class FartooqHold:
             self.c.flags['Mountaintop'] = True
         if ( selectionIndex == 0 and
              self.c.hasItem("Oracular Orb")):
+            self.c.flags['New Song'] = "Drat"
+            self.tempFlag = {'New Song': self.audio}
             self.imageIndex = 22
             self.c.removeItem(self.c.indexOfItem("Oracular Orb"))
             self.c.flags['Placed Oracular Orb'] = True
