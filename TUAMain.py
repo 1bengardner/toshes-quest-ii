@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: October 23, 2022
+Revised: October 27, 2022
 """
 
 
@@ -66,6 +66,7 @@ from TUAGalijula import Galijula
 from TUAFartooqHold import FartooqHold
 from TUAYaouwVolcano import YaouwVolcano
 from TUADuneHotsPeak import DuneHotsPeak
+from TUALairOfTheMagi import LairOfTheMagi
 
 
 class Main:
@@ -271,7 +272,8 @@ class Main:
                       'Galijula': Galijula,
                       'Fartooq Hold': FartooqHold,
                       'Yaouw Volcano': YaouwVolcano,
-                      'Dune Hots Peak': DuneHotsPeak}
+                      'Dune Hots Peak': DuneHotsPeak,
+                      'Lair of the Magi': LairOfTheMagi}
 
     def populateWeapons(self):
         with open("data\\weapondata.txt", "r") as weaponFile:

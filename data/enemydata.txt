@@ -227,3 +227,16 @@ Aldreed	Aldreed	Aldreed	40	400000	400000	150	90	10	200	0	1000	50	100	0	0	{'Frost
 Oukkar	Oukkar	Oukkar	45	800000	800000	200	90	10	200	0	1000	100	75	75	0	{'Bolt': 15, 'Dive': 5, 'Derecho': 3, 'Healing Light': 2, 'Eruption': 2, 'Duststorm': 2, 'Fumarole': 1, 'Blizzard': 1, 'Swoop': 1}	{'Prismatic Garb': 75, 'Garnet Ward': 25}	300000	0	0	0	Guardian Battle	1	0
 Final Pespozeor	Pespozeor	Pespozeor	50	1600000	1600000	250	90	10	200	0	3000	50	0	100	25	{'Bite': 8, 'Crush': 3, 'Fire Claw': 10, 'Scorch': 10, 'Firestorm': 5, 'Eruption': 5}	{'Beast Hide': 100}	500000	0	0	0	Guardian Battle	1	0
 Duner	Duner	Duner	60	1000000	1000000	400	70	1	200	25	5000	99	90	95	98	{'Quicksand': 4, 'Duststorm': 2, 'Battery Cage': 6}	{}	-1	0	1	0	Game Over Theme	0	1
+Henchman	Henchman	Henchman	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	0	1
+Arcane Sorcerer	Arcane Sorcerer	Arcane Sorcerer	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	0	1
+Death Warrior	Death Warrior	Death Warrior	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	1	0
+Death Magus	Death Magus	Death Magus	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	2	0
+Fire Zealot	Fire Zealot	Fire Zealot	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	3	1
+Abomination	Abomination	Abomination	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	4	1
+Conjurer	Conjurer	Conjurer	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	5	1
+Conjured Demon	Conjured Demon	Conjured Demon	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	6	1
+Undead Magus	Undead Magus	Undead Magus	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	7	0
+Magus Wraith	Magus Wraith	Magus Wraith	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	8	0
+Time Wizard	Time Wizard	Time Wizard	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	9	1
+Touin DePenk	Touin DePenk	Touin DePenk	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	2	Important Battle	1	1
+Wonnen Daztinque	Wonnen Daztinque	Wonnen Daztinque	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	1	Important Battle	1	1
