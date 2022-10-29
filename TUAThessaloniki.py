@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: October 25, 2022
+Revised: October 29, 2022
 """
 
 
@@ -354,7 +354,10 @@ class Thessaloniki:
             else:
                 self.text += "\nToshe: The world is a better place now."
         elif False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed", "Vismurg"]]:
-            self.menu = ["Enter the palace."]
+            self.menu = [
+                "Enter the palace.",
+                "Head back."
+            ]
             self.imageIndex = 23
             self.text = "You see an illuminated palace across the river with a bridge leading to it."
             if "All Beacons Lit" not in self.c.flags:
@@ -429,6 +432,12 @@ class Thessaloniki:
                 self.text += "\nQendresa: It seems that a mage-like force is obstructing us. Bear with me...perhaps we can combat magic with magic? Pristina is brimming with wizardry. We may be able to find help there."
 
         if selectionIndex == 0:
-            self.text = "You see your reflection."
+            if "All Beacons Lit" in self.c.flags:
+                X = 5
+                Y = 19
+                return self.actions({'area': "Lair of the Magi",
+                                     'coordinates': (X, Y)})
+            else:
+                self.text = "You see your reflection."
 
         return self.actions()

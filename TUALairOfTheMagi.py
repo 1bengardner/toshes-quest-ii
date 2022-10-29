@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: October 27, 2022
+Revised: October 29, 2022
 """
 
 
@@ -49,5 +49,24 @@ class LairOfTheMagi:
             [None, None, None, None, None, plch, None, None, None, None, None],
             [None, None, None, None, None, None, None, None, None, None, None]]
 
-        self.encounters = {wrp1: plch,
+        self.encounters = {plch: {},
         }
+
+    def movementActions(self):
+        pass
+
+    def actions(self, newActions=None):
+        actions = {'view': self.view,
+                   'image index': self.imageIndex,
+                   'text': self.text,
+                   'menu': self.menu,
+                   'italic text': self.helpText}
+        if newActions:
+            actions.update(newActions)
+        return actions
+
+    def placeholder(self, selectionIndex=None):
+        self.view = "travel"
+        self.menu = []
+        
+        return self.actions()
