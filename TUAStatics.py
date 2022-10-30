@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: October 21, 2022
+Created: October 30, 2022
 """
 
 
@@ -39,8 +39,8 @@ class Static:
         WOOD = "#ca7c37"
         WATER = "#b6dfff"
         SAND_PATH = "#f7f38d"
-        SKY = "#dceeee"
-        TOWN_PATH = "#e1b311"
+        SKY = "#dcedee"
+        TOWN_PATH = "#e2c86b"
         HERCEG_WALL = "#f8ebbe"
         DIRT_PATH = "#7d501f"
         IGALO_WALL = "#c5bfe1"
@@ -50,7 +50,7 @@ class Static:
         DARKNESS = "#3c3c3c"
         STONE_MOUNTAIN = "#d1d8d6"
         FIRE_PATH = "#ff6826"
-        FIRE_WALL = "#711d00"
+        BURNT_WALL = "#5f392d"
         LAB_WALL = "#baa4b6"
         ROCK_WALL = "#d7c9a8"
         PEC_WALL = ROCK_WALL
@@ -66,8 +66,10 @@ class Static:
         MEADOW = "#59ea37"
         ATHENS_WALL = "#f3d3b9"
         MACEDONIA = "#a5aae6"
-        ICE_PATH = "#ffffff"
-        ICE_WALL = "#ffffff"
+        ICE = "#ffffff"
+        THIN_ICE = "#f0f8ff"
+        LAIR = "#747799"
+        
     
     AREA_COLORS = {
         "Adriatic Sea": {
@@ -105,7 +107,7 @@ class Static:
             "bg": HexColors.FOREST},
         "The Watchmaking Facility": {
             "fg": HexColors.WOOD,
-            "bg": HexColors.FIRE_WALL},
+            "bg": HexColors.BURNT_WALL},
         "Cemetery": {
             "fg": HexColors.STONE_MOUNTAIN,
             "bg": HexColors.FOREST},
@@ -176,15 +178,18 @@ class Static:
             "fg": HexColors.FOREST,
             "bg": HexColors.DARKNESS},
         "Galijula": {
-            "fg": HexColors.ICE_PATH,
+            "fg": HexColors.ICE,
             "bg": HexColors.WATER},
         "Fartooq Hold": {
-            "fg": HexColors.ICE_PATH,
-            "bg": HexColors.ICE_WALL},
+            "fg": HexColors.THIN_ICE,
+            "bg": HexColors.ICE},
         "Yaouw Volcano": {
             "fg": HexColors.FIRE_PATH,
             "bg": HexColors.DARKNESS},
         "Dune Hot's Peak": {
             "fg": HexColors.ALBANIAN_DUNES,
-            "bg": HexColors.STONE_MOUNTAIN}
+            "bg": HexColors.STONE_MOUNTAIN},
+        "Lair of the Magi": {
+            "fg": HexColors.LAIR,
+            "bg": HexColors.DARKNESS},
     }
