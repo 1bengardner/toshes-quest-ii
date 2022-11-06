@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: October 21, 2022
+Revised: November 4, 2022
 """
 
 
@@ -996,7 +996,7 @@ class Battle(object):
         probabilities.
         """
         if fixed:
-            random.seed(self.mainCharacter.seed2)
+            random.seed(self.mainCharacter.seed2 + self.enemy.IDENTIFIER)
         randomNumber = self.roll()
         chanceCounter = 0
         for element in probabilities:
