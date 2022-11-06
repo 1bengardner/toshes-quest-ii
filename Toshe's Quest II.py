@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 5, 2022
+Revised: November 6, 2022
 """
 
  
@@ -17,6 +17,7 @@ from TUADialog import OpenFileDialog
 from TUAStatics import Static
 import random
 from datetime import datetime
+import pickle
 
 
 class Window:
@@ -397,6 +398,15 @@ class TopCenterFrame:
                                      relief=SUNKEN, image=sfxImage,
                                      variable=self.playSfx,
                                      command=main.sound.muteSfx)
+        try:
+            with open("preferences.tqp", "r") as preferencesFile:
+                preferences = pickle.load(preferencesFile)
+                if not preferences.musicOn:
+                    self.musicButton.invoke()
+                if not preferences.sfxOn:
+                    self.sfxButton.invoke()
+        except IOError:
+            pass
         self.sfxButton.grid(row=0, padx=40, sticky=W)
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)

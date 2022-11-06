@@ -2,11 +2,14 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: October 25, 2022
+Revised: November 5, 2022
 """
 
 
+import pickle
 from pygame import mixer
+
+from TUAPreferences import Preferences
 
 
 class Sound:
@@ -18,7 +21,6 @@ class Sound:
         self.path = "audio\\%s.ogg"
         self.songs = {"Intro Theme": "Daring Feat",
                       "Game Over Theme": "Overcast",
-                      "Wizard Theme": "Buddha",
                       "Mob Battle": "Mosquitoes",
                       "Important Battle": "Dungeon Escape",
                       "Canonical Battle": "Fearless Fighter",
@@ -114,6 +116,15 @@ class Sound:
         else:
             self.playSound("FX-Toss")
             self.sfxMuted = True
+        self.writePreferences()
         
     def muteMusic(self):
         mixer.music.set_volume(0 if mixer.music.get_volume() > 0 else Sound.MUSIC_VOLUME)
+        self.writePreferences()
+        
+    def writePreferences(self):
+        with open("preferences.tqp", "w") as config:
+            preferences = Preferences()
+            preferences.musicOn = mixer.music.get_volume() > 0
+            preferences.sfxOn = not self.sfxMuted
+            pickle.dump(preferences, config)
