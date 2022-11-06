@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: October 27, 2022
+Revised: November 5, 2022
 """
 
 
@@ -802,7 +802,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if 'sounds' in interfaceActions:
             soundCount = Counter()
             for sound in interfaceActions['sounds']:
-                soundCount[sound] += 1
+                if "Critical" in sound: # Don't stack critical sounds
+                    soundCount[sound] = 1
+                else:
+                    soundCount[sound] += 1
             for sound in soundCount:
                 self.sound.playSound(self.sound.sounds[sound], soundCount[sound])
 
