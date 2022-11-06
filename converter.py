@@ -7,17 +7,16 @@ changed = False
 
 def update(gameFile):
     character = pickle.load(gameFile)
-    if ( "Config" not in character.flags or
-         "Automap On" not in character.flags['Config']):
-        character.flags['Config'] = dict()
-        character.flags['Config']['Log Movement'] = 1
-        character.flags['Config']['Automap On'] = 1
-        changed = True
     if "Discovered Areas" not in character.flags:
         character.flags['Discovered Areas'] = {}
         changed = True
     if "Marked Areas" not in character.flags:
         character.flags['Marked Areas'] = {}
+        changed = True
+    if ( "Config" not in character.flags or
+         "Automap On" not in character.flags['Config']):
+        character.flags['Config'] = dict()
+        character.flags['Config']['Automap On'] = 1
         changed = True
     for area in character.flags['Discovered Areas']:
         if area not in character.flags['Marked Areas']:

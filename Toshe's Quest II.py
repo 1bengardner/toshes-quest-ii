@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: October 25, 2022
+Revised: November 5, 2022
 """
 
  
@@ -631,8 +631,6 @@ class TopCenterFrame:
         
         self.mapButton['state'] = NORMAL
         self.mapButton.grid()
-        window.topFrame.topRightFrame.logMovement.set(
-            main.character.flags['Config']['Log Movement'])
         if main.character.flags['Config']['Automap On'] != self.showMap.get():
             self.mapButton.invoke()
         self.updateMapVisibility()
@@ -791,19 +789,6 @@ class TopRightFrame:
                                         relief=GROOVE)
         self.weaponElementLabel.grid(row=9, columnspan=5, sticky=E+W, ipady=3)
 
-        self.logMovement = IntVar()
-        self.logMovement.set(1)
-
-        # !toggleMovementCheck Deprecated 
-        # self.toggleMovementCheck = Checkbutton(self.otherStats,
-                                               # text="Log movement",
-                                               # variable=self.logMovement,
-                                               # bg=DEFAULT_BG,
-                                               # font=font2, bd=0,
-                                               # command=\
-                                               # self.toggleConfigLogMovement)
-        # self.toggleMovementCheck.grid(row=10, columnspan=4, sticky=W)
-
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
                                    fg=WHITE, activeforeground=WHITE,
@@ -812,15 +797,6 @@ class TopRightFrame:
         self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E)
         self.potionButton.bind_all('p', self.usePotion)
         self.potionButton.bind_all('P', self.usePotion)
-
-        # !markButton Deprecated
-        # self.markButton = Button(self.otherStats,
-                                 # text="Mark/Unmark Map",
-                                 # font=font2,
-                                 # fg=BUTTON_FG,
-                                 # bg=BUTTON_BG,
-                                 # command=self.clickMarkMapButton)
-        # self.markButton.grid(row=11, columnspan=5, sticky=E+W)
 
         self.vBorderLabel1 = Label(self.otherStats, image=vBorderImage1,
                                   bg=DEFAULT_BG, bd=0)
@@ -1044,12 +1020,6 @@ class TopRightFrame:
                     self.storeButtons[i*3+j].config(image=itemImage,
                                                     state=NORMAL)
 
-    def toggleConfigLogMovement(self, event=None):
-        """Toggle in the character config
-        flag whether movement should be logged."""
-        main.character.flags['Config']['Log Movement'] =\
-            int(not main.character.flags['Config']['Log Movement'])
-
 
 class BottomLeftFrame:
     """Contains an output box with scrollbar."""
@@ -1206,9 +1176,6 @@ class BottomRightFrame:
         
     def move(self, arrowDirection, movementDirection):
         interfaceActions = main.move(arrowDirection)
-        #if window.topFrame.topRightFrame.logMovement.get():
-        #    interfaceActions['text'] = \
-        #                self.updateText(interfaceActions, movementDirection)
         interfaceActions['map'] = True
         main.sound.playSound(main.sound.sounds['Move'])
         updateInterface(interfaceActions)
@@ -1412,14 +1379,6 @@ class BottomRightFrame:
         if menuItems:
             for i in menuItems:
                 self.menuBox.insert(END, i)
-
-    def updateText(self, actions, direction):
-        movementPhrase = "You %s %s." % (main.currentArea.movementVerb,
-                                         direction)
-        if 'text' in actions and actions['text']:
-            textWithMovement = movementPhrase+"\n"+actions['text']
-            return textWithMovement
-        return movementPhrase
 
 
 def makeItemButtons(master, var, inStore):

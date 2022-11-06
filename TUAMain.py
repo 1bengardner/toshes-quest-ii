@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 5, 2022
+Revised: November 6, 2022
 """
 
 
@@ -211,8 +211,7 @@ class Main:
                                    {'Kills': {},
                                     'Discovered Areas': {},
                                     'Marked Areas': {},
-                                    'Config': {'Log Movement': 1,
-                                               'Automap On': 0}},
+                                    'Config': {'Automap On': 0}},
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y,
                                    0)
