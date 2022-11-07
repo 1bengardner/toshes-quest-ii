@@ -720,9 +720,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         elif (self.sound.isInstantPlay(self.currentArea.audio) or
               "New Song" in self.character.flags):
             if "New Song" in self.character.flags:
-                self.currentArea.audio = self.character.flags['New Song']
+                newSong = self.character.flags['New Song']
                 del self.character.flags['New Song']
-            newSong = self.currentArea.audio
+            else:
+                newSong = self.currentArea.audio
             self.sound.playMusic(newSong)
         # New area
         elif (currentView != "battle" and
