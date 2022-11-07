@@ -1,3 +1,4 @@
 *.pyc
 ~$*
 saves/*.tq
+*.tqp
