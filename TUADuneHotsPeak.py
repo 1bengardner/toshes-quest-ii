@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: October 25, 2022
+Revised: November 6, 2022
 """
 
 import random
@@ -364,7 +364,8 @@ class DuneHotsPeak:
                 self.c.flags['Thunderous Crack'] = True
                 self.text = "You lay back and relax, pleased to have a rare moment without dust in your face.\n...\nYou awaken to a thunderous crack! Opening your eyes, you see the sky has turned black."
                 self.text += "\nAn electrical tornado forms. From it emerges a birdlike monstrosity."
-                self.menu = ["Brace yourself."]
+                self.text += "\nOukkar: Graaagh!!"
+                self.menu = ["Face Oukkar."]
             elif "Oukkar" not in self.c.flags['Kills']:
                 self.imageIndex = 4
                 self.view = "battle"
