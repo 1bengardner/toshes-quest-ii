@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 6, 2022
+Revised: November 7, 2022
 """
 
  
@@ -1278,24 +1278,27 @@ class BottomRightFrame:
             updateInterface(interfaceActions)
 
     def clickOkButton(self):
-        selection = int(self.menuBox.curselection()[0])
-        interfaceActions = main.select(selection)
-        interfaceActions['map'] = True
-        updateInterface(interfaceActions)
+        if self.okButton['state'] == NORMAL:
+            selection = int(self.menuBox.curselection()[0])
+            interfaceActions = main.select(selection)
+            interfaceActions['map'] = True
+            updateInterface(interfaceActions)
 
     def clickSkillButton(self):
-        selection = int(self.menuBox.curselection()[0])
-        interfaceActions = main.useSkill(main.character.skills[selection])
-        updateInterface(interfaceActions)
+        if self.skillButton['state'] == NORMAL:
+            selection = int(self.menuBox.curselection()[0])
+            interfaceActions = main.useSkill(main.character.skills[selection])
+            updateInterface(interfaceActions)
 
     def clickForgetButton(self):
-        selection = int(self.menuBox.curselection()[0])
-        main.character.forgetSkill(main.character.skills[selection])
-        main.character.learnSkill(main.tempSkill)
-        window.gridnewSkillFrame(main.tempSkill.NAME)
-        main.sound.playSound(main.sound.sounds['New Skill'])
-        main.character.euros -= main.tempCost
-        self.clickCancelForgetButton()
+        if self.okButton['state'] == NORMAL:
+            selection = int(self.menuBox.curselection()[0])
+            main.character.forgetSkill(main.character.skills[selection])
+            main.character.learnSkill(main.tempSkill)
+            window.gridnewSkillFrame(main.tempSkill.NAME)
+            main.sound.playSound(main.sound.sounds['New Skill'])
+            main.character.euros -= main.tempCost
+            self.clickCancelForgetButton()
 
     def enableMenuBox(self):
         self.menuBox.bind('<<ListboxSelect>>', self.enableOkButton)
@@ -1321,10 +1324,10 @@ class BottomRightFrame:
     def selectChoice(self, event=None):
         if self.menuBox['state'] != DISABLED:
             tempSelection = self.menuBox.curselection()
-            for i in range(0, 4):
-                self.menuBox.selection_clear(i)
+            self.menuBox.selection_clear(0, 'end')
             self.menuBox.selection_set(int(event.char)-1)
             if self.menuSelectionIsValid():
+                self.okButton['state'] = NORMAL
                 self.clickOkButton()
             elif bool(tempSelection):
                 self.menuBox.selection_set(int(tempSelection[0]))
@@ -1332,10 +1335,10 @@ class BottomRightFrame:
     def selectSkill(self, event=None):
         if self.menuBox['state'] != DISABLED:
             tempSelection = self.menuBox.curselection()
-            for i in range(0, 4):
-                self.menuBox.selection_clear(i)
+            self.menuBox.selection_clear(0, 'end')
             self.menuBox.selection_set(int(event.char)-1)
             if self.menuSelectionIsValid():
+                self.skillButton['state'] = NORMAL
                 self.clickSkillButton()
             elif bool(tempSelection):
                 self.menuBox.selection_set(int(tempSelection[0]))
@@ -1782,6 +1785,7 @@ def enableBattleView():
     bottomFrame.leftButton['state'] = DISABLED
     bottomFrame.rightButton['state'] = DISABLED
     bottomFrame.downButton['state'] = DISABLED
+    bottomFrame.okButton['state'] = DISABLED
     bottomFrame.upButton.grid_remove()
     bottomFrame.leftButton.grid_remove()
     bottomFrame.rightButton.grid_remove()
@@ -1813,6 +1817,7 @@ def enableBattleOverView():
     frame.attackButton['state'] = DISABLED
     frame.defendButton['state'] = DISABLED
     frame.fleeButton['state'] = DISABLED
+    frame.skillButton['state'] = DISABLED
     frame.skillButton.grid_remove()
     frame.menuBox.bind_all('1', frame.endBattle)
     frame.modifyMenu(["Proceed."])
@@ -1830,6 +1835,7 @@ def enableGameOverView():
     bottomFrame.attackButton['state'] = DISABLED
     bottomFrame.defendButton['state'] = DISABLED
     bottomFrame.fleeButton['state'] = DISABLED
+    bottomFrame.skillButton['state'] = DISABLED
     bottomFrame.skillButton.grid_remove()
     bottomFrame.menuBox.unbind_all('1')
     bottomFrame.okButton.grid()
