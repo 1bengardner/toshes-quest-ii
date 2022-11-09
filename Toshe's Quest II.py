@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 7, 2022
+Revised: November 8, 2022
 """
 
  
@@ -1616,7 +1616,7 @@ def flash():
         frame.map.grid_remove()
         frame.areaButton.grid()
         root.update()
-    for i in range(0, 6):
+    for i in range(0, 5):
         frame.areaButton.flash()
     if frame.showMap.get():
         frame.areaButton.grid_remove()

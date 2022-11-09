@@ -51,3 +51,5 @@ Water Tunic	5000	Water	25	20	30
 Fire Tunic	5000	Fire	25	20	30
 Beast Hide	8000	Physical	50	25	25
 Ugly Disguise	1225	Fire	12	25	-100
+Shamanic Robes	8000	Physical	0	6	15
+Dark Plate	8000	Elemental	90	38	20

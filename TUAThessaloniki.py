@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: October 29, 2022
+Revised: November 8, 2022
 """
 
 
@@ -344,15 +344,35 @@ class Thessaloniki:
         
         if "Niplin" in self.c.flags['Kills']:
             self.imageIndex = 24
-            self.text = "You see Niplin's hallowed lair across the river."
-            if self.c.hasMercenary("Qendresa"):
-                self.text += "\nQendresa: The archmages have been freed."
-                if self.c.hasMercenary("Barrie"):
-                    self.text += "\nBarrie: Yeah, thanks to us kicking evil butt! We don't have to go back there again."
-            elif self.c.hasMercenary("Barrie"):
-                self.text += "\nBarrie: We kicked Niplin's butt."
-            else:
-                self.text += "\nToshe: The world is a better place now."
+            if selectionIndex is None:
+                if "Gargoyle Trip" not in self.c.flags:
+                    self.c.flags['Gargoyle Trip'] = True
+                    self.text = "Gargoyle: Hmph. Thou arens't quarrelling? Odd. Let us assist thees."
+                    if self.c.hasMercenary("Qendresa"):
+                        self.text += "\nQendresa: Yes, please! Ah!"
+                    if self.c.hasMercenary("Qendresa") and self.c.hasMercenary("Barrie"):
+                        self.text += "\nThe gargoyle grabs you and Qendresa with its claws. The two of you manage to snag and carry Barrie with one hand each, just in time before taking off."
+                    elif self.c.hasMercenary("Qendresa") or self.c.hasMercenary("Barrie"):
+                        teammate = "Qendresa" if self.c.hasMercenary("Qendresa") else "Barrie"
+                        self.text += "\nThe gargoyle lifts you and %s, swiftly flying away." % teammate
+                    self.text += "\nYou land softly in the Thessalonian Highlands, and the gargoyle departs."
+                else:
+                    self.text = "You see Niplin's hallowed lair across the river."
+                    if self.c.hasMercenary("Qendresa") and (not self.c.hasMercenary("Barrie") or "Easy there tiger" in self.c.flags):
+                        self.text += "\nQendresa: The archmages have been freed."
+                        if self.c.hasMercenary("Barrie"):
+                            self.text += "\nBarrie: Yeah, thanks to us kicking evil butt! We don't have to go back there again."
+                    elif self.c.hasMercenary("Barrie"):
+                        self.text += "\nBarrie: We kicked Niplin's butt."
+                        if "Easy there tiger" not in self.c.flags and self.c.hasMercenary("Qendresa"):
+                            self.c.flags['Easy there tiger'] = True
+                            self.text += "\nQendresa: We kicked Riplin's butt!"
+                            self.text += "\nBarrie: We ripped Riplin's butt!"
+                            self.text += "\nQendresa: We nipped Niplin's nut!"
+                            self.text += "\nBarrie: Easy there, tiger."
+                            self.text += "\nFang growls softly."
+                    else:
+                        self.text += "\nToshe: The world is a better place now."
         elif False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed", "Vismurg"]]:
             self.menu = [
                 "Enter the palace.",
@@ -432,7 +452,7 @@ class Thessaloniki:
                 self.text += "\nQendresa: It seems that a mage-like force is obstructing us. Bear with me...perhaps we can combat magic with magic? Pristina is brimming with wizardry. We may be able to find help there."
 
         if selectionIndex == 0:
-            if "All Beacons Lit" in self.c.flags:
+            if "Niplin" not in self.c.flags['Kills'] and "All Beacons Lit" in self.c.flags:
                 X = 5
                 Y = 19
                 return self.actions({'area': "Lair of the Magi",

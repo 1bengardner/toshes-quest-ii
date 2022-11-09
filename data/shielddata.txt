@@ -37,3 +37,4 @@ Skeleton Shield	2000	Earth	45	13	20	9
 Swash Buckler	2000	Water	20	16	20	5
 Gryphon Kite	2000	Fire	35	15	20	7
 Oseku Shield	0	Physical	300	30	25	7
+Skull Shield	7000	Physical	45	10	20	9

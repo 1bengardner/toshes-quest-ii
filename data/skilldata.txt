@@ -152,3 +152,4 @@ Crystal Explosion Fire	Critical Damage	{"All"}	0	200	Fire	{'physicalReduction': 
 Sleep	Miscellaneous	{"All"}	0	0	Physical	{}	{}	falls asleep	Sleeping
 Frostburn	Damage	{"All"}	0	200	Frostfire	{}	{}	casts Frostburn on	None
 Icebreath	Reduced Accuracy Damage	{"All"}	0	300	Freezing	{}	{'defence': -3}	breathes frost on	None
+Temporal Shift	XP Damage	{"All"}	0	100	Physical	{}	{}	casts Temporal Shift on	None

@@ -728,7 +728,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         # New area
         elif (currentView != "battle" and
               currentView != "battle over" and
-              self.currentArea.audio and
               self.sound.isNewSong(self.currentArea.audio)):
             newSong = self.currentArea.audio
             self.sound.fadeoutMusic(2000)

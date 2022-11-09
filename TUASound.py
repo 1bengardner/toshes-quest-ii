@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 5, 2022
+Revised: November 8, 2022
 """
 
 
@@ -78,13 +78,13 @@ class Sound:
         """Fade out the current song."""
         mixer.music.fadeout(fadeoutTime)
 
-    def playMusic(self, songName=None):
-        """Play the specified song. If none specified, play the current song."""
+    def playMusic(self, songName):
+        """Play the specified song."""
+        mixer.music.stop()
         if songName:
             self.currentSong = songName
-        mixer.music.stop()
-        mixer.music.load(self.path % self.currentSong)
-        mixer.music.play(-1)
+            mixer.music.load(self.path % self.currentSong)
+            mixer.music.play(-1)
 
     def stopMusic(self):
         """Stop music playback."""
@@ -94,7 +94,7 @@ class Sound:
         """Queue a song to play."""
         if songName:
             self.currentSong = songName
-        mixer.music.queue(self.path % self.currentSong)
+            mixer.music.queue(self.path % self.currentSong)
 
     def isPlaying(self):
         """Determine whether music is playing."""
