@@ -2,13 +2,13 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: October 25, 2022
+Revised: November 11, 2022
 """
 
 
 class HercegBluffs:
 
-    name = "Herceg Bluffs"
+    name = "Billowing Bluffs"
     audio = "Groundhog"
 
     def __init__(self, character):

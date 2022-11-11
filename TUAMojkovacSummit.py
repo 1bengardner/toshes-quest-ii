@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: October 26, 2022
+Revised: November 11, 2022
 """
 
 
@@ -11,7 +11,7 @@ from TUAStatics import Static
 
 class MojkovacSummit:
 
-    name = "Mojkovac Summit"
+    name = "Summit of Presage"
     audio = "Fortune Cookie"
 
     def __init__(self, character):

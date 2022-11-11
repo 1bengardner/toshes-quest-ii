@@ -87,19 +87,19 @@ class Static:
         "Herceg Novi": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.HERCEG_WALL},
-        "Herceg Bluffs": {
+        "Billowing Bluffs": {
             "fg": HexColors.DIRT_PATH,
             "bg": HexColors.SKY},
         "Igalo": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.IGALO_WALL},
-        "Herceg Fields": {
+        "Frolicking Fields": {
             "fg": HexColors.PLAINS,
             "bg": HexColors.FOREST},
         "Black Mountain": {
             "fg": HexColors.LIT_PATH,
             "bg": HexColors.DARKNESS},
-        "Mojkovac Summit": {
+        "Summit of Presage": {
             "fg": HexColors.FOREST,
             "bg": HexColors.SKY},
         "Mojkovac Valley": {
