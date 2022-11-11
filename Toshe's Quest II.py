@@ -1868,8 +1868,11 @@ def enableGameOverView():
     bottomFrame.okButton.grid()
     bottomFrame.okButton['state'] = DISABLED
     bottomFrame.okButton['command'] = selectGameOverOption
-    bottomFrame.bindChoices()
     bottomFrame.centerButton['state'] = DISABLED
+    bottomFrame.menuBox.unbind_all('1')
+    bottomFrame.menuBox.unbind_all('2')
+    bottomFrame.menuBox.unbind_all('3')
+    bottomFrame.menuBox.unbind_all('4')
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
     window.topFrame.topCenterFrame.areaButton.grid()
     window.topFrame.topCenterFrame.map.grid_remove()
