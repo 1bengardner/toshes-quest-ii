@@ -145,6 +145,15 @@ class Main:
         self.populateAreas()
         self.buyback = False
         self.sound = Sound()
+        self.towns = set([
+            "Herceg Novi",
+            "Igalo",
+            "Mojkovac Valley",
+            "Pec",
+            "Pristina",
+            "Rumadan Village",
+            "Athens",
+        ])
 
     def markMap(self, xy = None):
         marked = self.character.flags['Marked Areas'][self.currentArea.name]
@@ -186,10 +195,7 @@ class Main:
         self.fileName = fileName
         with open("saves\\"+self.fileName+".tq", "r") as gameFile:
             self.character = pickle.load(gameFile)
-            self.currentArea = self.character.area(self.character)
-            self.x = self.character.x
-            self.y = self.character.y
-            self.initializeDefaultBattle()
+        self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
 
     def startNewGame(self, fileName):
@@ -215,16 +221,22 @@ class Main:
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y,
                                    0)
+        self.initGame()
+        self.saveGame()
+
+    def initGame(self):
         self.currentArea = self.character.area(self.character)
         self.x = self.character.x
         self.y = self.character.y
-        self.saveGame()
         self.initializeDefaultBattle()
 
-    def saveGame(self):
+    def saveLocation(self):
         self.character.area = self.currentArea.__class__
         self.character.x = self.x
         self.character.y = self.y
+
+    def saveGame(self):
+        self.saveLocation()
         with open("saves\\"+self.fileName+".tq", "w") as gameFile:
             pickle.dump(self.character, gameFile)
         self.sound.playSound(self.sound.sounds['Save'])
@@ -592,6 +604,7 @@ class Main:
                 self.character)
             self.x, self.y = interfaceActions['coordinates']
             self.sound.playSound(self.sound.sounds['Warp'])
+            self.updateCheckpoint(interfaceActions['area'])
             return self.getInterfaceActions()
         elif interfaceActions['view'] == "battle":
             interfaceActions['menu'] = None
@@ -702,6 +715,12 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             self.enabledDirections.add("right")
         if self.currentArea.spots[self.y + 1][self.x]:
             self.enabledDirections.add("down")
+
+    def updateCheckpoint(self, areaName):
+        if areaName in self.towns:
+            self.saveLocation()
+            self.character.checkpoint = None
+            self.character.checkpoint = deepcopy(self.character)
 
     def updateMusic(self, currentView):
         """Update the current song playing to match area music appropriately."""

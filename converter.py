@@ -34,7 +34,9 @@ def update(gameFile, path):
         for mercenary in character.mercenaries:
             setattr(mercenary, "potions", 0)
         changed = True
-            
+    if not hasattr(character, "checkpoint"):
+        setattr(character, "checkpoint", None)
+        changed = True
     with open(path, "w") as gameFile:
         pickle.dump(character, gameFile)
         

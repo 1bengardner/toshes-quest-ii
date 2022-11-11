@@ -18,6 +18,7 @@ from TUAStatics import Static
 import random
 from datetime import datetime
 import pickle
+from copy import deepcopy
 
 
 class Window:
@@ -621,6 +622,17 @@ class TopCenterFrame:
             name = main.fileName
         main.loadGame(name)
         self.startGame(name)
+
+    def restoreFile(self):
+        window.bottomFrame.bottomRightFrame.okButton['command'] = \
+            window.bottomFrame.bottomRightFrame.clickOkButton
+        window.bottomFrame.bottomRightFrame.bindChoices()
+        name = main.fileName
+        main.character = main.character.checkpoint
+        main.character.checkpoint = deepcopy(main.character)
+        main.initGame()
+        self.startGame(name)
+        
 
     def createFile(self, name):
         main.startNewGame(name)
@@ -1328,7 +1340,7 @@ class BottomRightFrame:
             self.menuBox.selection_set(int(event.char)-1)
             if self.menuSelectionIsValid():
                 self.okButton['state'] = NORMAL
-                self.clickOkButton()
+                self.okButton.invoke()
             elif bool(tempSelection):
                 self.menuBox.selection_set(int(tempSelection[0]))
 
@@ -1339,7 +1351,7 @@ class BottomRightFrame:
             self.menuBox.selection_set(int(event.char)-1)
             if self.menuSelectionIsValid():
                 self.skillButton['state'] = NORMAL
-                self.clickSkillButton()
+                self.skillButton.invoke()
             elif bool(tempSelection):
                 self.menuBox.selection_set(int(tempSelection[0]))
 
@@ -1701,7 +1713,9 @@ def updateInterface(updates):
             updates['text'] = ""
         updates['enabled directions'] = []
         updates['text'] += ("\nToshe has died.\nToshe's quest ends here.")
-        updates['menu'] = ["Exit."]
+        updates['menu'] = ["Restart from last save."]
+        if main.character.checkpoint:
+            updates['menu'].append("Restart in town.")
         updates['italic text'] = None
         updates['image index'] = None
     if ('enabled directions' in updates) and (updates['enabled directions']
@@ -1835,6 +1849,12 @@ def enableBattleOverView():
 
 
 def enableGameOverView():
+    def selectGameOverOption(event=None):
+        [
+            topFrame.loadFile,
+            topFrame.restoreFile,
+        ][int(bottomFrame.menuBox.curselection()[0])]()
+
     topFrame = window.topFrame.topCenterFrame
     topFrame.areaButton.config(state=NORMAL, image=gameOverImage,
                                command=topFrame.loadFile)
@@ -1845,10 +1865,10 @@ def enableGameOverView():
     bottomFrame.fleeButton['state'] = DISABLED
     bottomFrame.skillButton['state'] = DISABLED
     bottomFrame.skillButton.grid_remove()
-    bottomFrame.menuBox.unbind_all('1')
     bottomFrame.okButton.grid()
     bottomFrame.okButton['state'] = DISABLED
-    bottomFrame.okButton['command'] = root.destroy
+    bottomFrame.okButton['command'] = selectGameOverOption
+    bottomFrame.bindChoices()
     bottomFrame.centerButton['state'] = DISABLED
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
     window.topFrame.topCenterFrame.areaButton.grid()
@@ -2257,7 +2277,7 @@ askToSave = False
 root.protocol('WM_DELETE_WINDOW', close)
 root.iconbitmap("images\\icons\\tq.ico")
 root.title("Toshe's Quest II")
-root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT))
+root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT)+"+"+str(root.winfo_screenwidth()/2-WINDOW_WIDTH/2)+"+"+str(root.winfo_screenheight()/2-WINDOW_HEIGHT/2))
 root.resizable(0, 0)
 root.after(0, loadGame)
 root.update()
