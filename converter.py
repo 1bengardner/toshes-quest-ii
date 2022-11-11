@@ -49,11 +49,11 @@ if __name__ == "__main__":
         try:
             path = "saves\\"+fileName+".tq"
             with open(path, "r") as gameFile:
-                update(gameFile, path)
+                changed = update(gameFile, path)
         except:
             path = "saves\\"+fileName+".toshe"
             with open(path, "r") as gameFile:
-                update(gameFile, fileName)
+                changed = update(gameFile, fileName)
         print
         if changed == "error":
             raw_input(fileName+" could not be updated. The file format is probably too old.")
