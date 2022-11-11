@@ -54,7 +54,7 @@ class Static:
         LAB_WALL = "#baa4b6"
         ROCK_WALL = "#d7c9a8"
         PEC_WALL = ROCK_WALL
-        PRISTINA_WALL = "#f2dbf2"
+        PRISTINA_WALL = "#ede4ed"
         TRAF_CAFE_PATH = "#e5198e"
         TRAF_CAFE_WALL = "#f5cfe2"
         STONE_PATH = "#626258"
