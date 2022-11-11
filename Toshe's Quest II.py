@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 8, 2022
+Revised: November 11, 2022
 """
 
  
@@ -1236,7 +1236,7 @@ class BottomRightFrame:
             views[main.view]()
             main.sound.playSound(main.sound.sounds['Return'])
 
-    def clickCancelDropButton(self):
+    def clickCancelDropButton(self, event=None):
         self.centerButton.config(image=inventoryImage,
                                  command=self.clickInventoryButton)
         self.centerButton.bind_all('i', self.clickInventoryButton)
@@ -1249,7 +1249,7 @@ class BottomRightFrame:
         self.enableMenuBox()
         views[main.view]()
 
-    def clickCancelForgetButton(self):
+    def clickCancelForgetButton(self, event=None):
         self.centerButton.config(image=inventoryImage,
                                  command=self.clickInventoryButton)  
         self.okButton['command'] = self.clickOkButton
@@ -1761,6 +1761,9 @@ def enableTravelView():
     bottomFrame.centerButton.grid(pady=0)
     bottomFrame.centerButton.bind_all('i', bottomFrame.clickInventoryButton)
     bottomFrame.centerButton.bind_all('I', bottomFrame.clickInventoryButton)
+    bottomFrame.centerButton.unbind_all('x')
+    bottomFrame.centerButton.unbind_all('X')
+    bottomFrame.centerButton.unbind_all('<BackSpace>')
     bottomFrame.okButton.grid()
     bottomFrame.attackButton.grid_remove()
     bottomFrame.defendButton.grid_remove()
@@ -1796,6 +1799,11 @@ def enableBattleView():
     bottomFrame.defendButton['state'] = NORMAL
     bottomFrame.fleeButton['state'] = NORMAL
     bottomFrame.centerButton.grid(pady=(0, 34))
+    bottomFrame.centerButton.bind_all('i', bottomFrame.clickInventoryButton)
+    bottomFrame.centerButton.bind_all('I', bottomFrame.clickInventoryButton)
+    bottomFrame.centerButton.unbind_all('x')
+    bottomFrame.centerButton.unbind_all('X')
+    bottomFrame.centerButton.unbind_all('<BackSpace>')
     bottomFrame.attackButton.grid()
     bottomFrame.defendButton.grid()
     bottomFrame.fleeButton.grid()
@@ -1942,6 +1950,9 @@ def enableDropItemView():
                                     command=bottomFrame.clickCancelDropButton)
     bottomFrame.centerButton.unbind_all('i')
     bottomFrame.centerButton.unbind_all('I')
+    bottomFrame.centerButton.bind_all('x', bottomFrame.clickCancelDropButton)
+    bottomFrame.centerButton.bind_all('X', bottomFrame.clickCancelDropButton)
+    bottomFrame.centerButton.bind_all('<BackSpace>', bottomFrame.clickCancelDropButton)
     bottomFrame.centerButton.grid(pady=34)
     bottomFrame.upButton['state'] = DISABLED
     bottomFrame.leftButton['state'] = DISABLED
@@ -1968,6 +1979,11 @@ def enableForgetSkillView():
     bottomFrame.leftButton['state'] = DISABLED
     bottomFrame.centerButton.config(state=NORMAL, image=backImage,
                                     command=bottomFrame.clickCancelForgetButton)
+    bottomFrame.centerButton.unbind_all('i')
+    bottomFrame.centerButton.unbind_all('I')
+    bottomFrame.centerButton.bind_all('x', bottomFrame.clickCancelForgetButton)
+    bottomFrame.centerButton.bind_all('X', bottomFrame.clickCancelForgetButton)
+    bottomFrame.centerButton.bind_all('<BackSpace>', bottomFrame.clickCancelForgetButton)
     bottomFrame.rightButton['state'] = DISABLED
     bottomFrame.downButton['state'] = DISABLED
     bottomFrame.tempMenu = list(bottomFrame.menuBox.get(0, END))
