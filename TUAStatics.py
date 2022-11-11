@@ -62,7 +62,7 @@ class Static:
         ALBANIAN_PATH = "#e98a1a"
         ALBANIAN_DUNES = "#e8d0b4"
         CASTLE_PATH = "#db6e3f"
-        CASTLE_WALL = "#f6cc84"
+        CASTLE_WALL = "#8f8875"
         MEADOW = "#59ea37"
         ATHENS_WALL = "#f3d3b9"
         MACEDONIA = "#a5aae6"
