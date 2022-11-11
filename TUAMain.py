@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 6, 2022
+Revised: November 11, 2022
 """
 
 
@@ -827,9 +827,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 self.character.flags['Buyback Items'].remove(None)
                 self.store.remove(None)
             else:
-                del self.character.flags['Buyback Items'][
-                    len(self.character.flags['Buyback Items']) - 1]
-                del self.store[len(self.store) - 1]
+                del self.character.flags['Buyback Items'][-1]
+                del self.store[-1]
             self.character.flags['Buyback Items'].insert(
                 0,
                 self.character.items[itemIndex])

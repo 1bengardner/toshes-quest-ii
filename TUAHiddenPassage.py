@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: May 11, 2017
+Revised: November 11, 2022
 """
 
 
@@ -35,6 +35,7 @@ class HiddenPassage:
         tun2 = self.tunnel2
         ent2 = self.entrance2
         wrp2 = self.greece
+        wrp3 = self.toMerchant
         mrch = self.merchant
         
         
@@ -45,7 +46,7 @@ class HiddenPassage:
             [None, tun1, None, None, None, None, None],
             [None, bend, gann, splt, toys, None, None],
             [None, None, None, glow, None, None, None],
-            [None, None, None, tun2, mrch, None, None],
+            [None, None, None, tun2, wrp3, None, None],
             [None, None, None, ent2, None, None, None],
             [None, None, None, wrp2, None, None, None],
             [None, None, None, None, None, None, None]]
@@ -57,6 +58,7 @@ class HiddenPassage:
              
         self.encounters = {wrp1: {},
                            wrp2: {},
+                           wrp3: {},
                            ent1: {},
                            tun1: e,
                            bend: e,
@@ -92,6 +94,12 @@ class HiddenPassage:
         X = 1
         Y = 7
         return self.actions({'area': "Greece",
+                             'coordinates': (X, Y)})
+
+    def toMerchant(self, selectionIndex=None):
+        X = 3
+        Y = 1
+        return self.actions({'area': "Hidden Passage",
                              'coordinates': (X, Y)})
 
     def entrance1(self, selectionIndex=None):
@@ -297,6 +305,11 @@ class HiddenPassage:
         self.text = None
         self.helpText = None
         self.menu = []
+        if selectionIndex == 0:
+            X = 3
+            Y = 6
+            return self.actions({'area': "Hidden Passage",
+                                 'coordinates': (X, Y)})
         npc = "Merchant"
         if "Buyback Items" not in self.c.flags:
             self.c.flags['Buyback Items'] = [None]*9
@@ -306,6 +319,6 @@ class HiddenPassage:
              "Macedonia? Exit the tunnel, then go east and slightly north" +
              " until you reach the highlands.",
              "I'll buy and sell most anything."])
-        
+        self.menu = ["Return to the tunnel."]
         return self.actions({'items for sale': self.c.flags['Buyback Items'],
                              'buyback': True})
