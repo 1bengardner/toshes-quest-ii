@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: December 31, 2015
+Revised: November 12, 2022
 """
 
 
@@ -95,15 +95,15 @@ class MojkovacValley:
         npc = "Ryfil the Kid"
         if "Ryfil the Kid" not in self.c.flags:
             self.text = (npc+": Hey, A'm Ryfil; Ry fa' sha't. But evrywan "+
-                         "just calls me \"Ryfil the Kid\" fa' sam reason. "+
-                         "Prabably because I'm the anly kid in Majkavac!")
+                         "just calls me \"Ryfil the Kid\" fa' sam reasan. "+
+                         "Prabably bacause A'm the anly kid in Makavass!")
             self.c.flags['Ryfil the Kid'] = True
         else:
             self.text = npc+": "+choice(
                 ["That ald watchmakin' buildin' is ten times "+
                  "alder than me. And naw look!",
                  "If ya go turn back arand ya can see tomstans. Spooky.",
-                 "Majkavac was a big city befare. Evil villians took aver and "+
+                 "Makavass was a big city befare. Evil villens took aver and "+
                  "naw it's just a valley.",
                  "It's nat safe to go atside the valley. There's green "+
                  "gablins and angry man-eatin' animals an the summit...and "+
