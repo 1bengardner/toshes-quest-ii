@@ -2,7 +2,7 @@
 File: TUARumadanHideout.py
 Author: Ben Gardner
 Created: July 12, 2015
-Revised: October 15, 2015
+Revised: November 12, 2022
 """
 
 
@@ -51,6 +51,8 @@ class RumadanHideout:
     def entrance(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 0
+        if "Oseku Shield" in self.c.flags:
+            self.imageIndex = 1
         self.text = None
         self.helpText = None
         self.menu = []
