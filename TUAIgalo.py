@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: October 23, 2022
+Revised: November 12, 2022
 """
 
 
@@ -424,8 +424,10 @@ class Igalo:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            self.text = "NOT YET IMPLEMENTED"
-            return self.actions()
+            X = 2
+            Y = 3
+            return self.actions({'area': "Igalo Cathedral",
+                                 'coordinates': (X, Y)})
         if "Niplin" in self.c.flags['Kills']:
             self.imageIndex = 19
             self.menu = ["Enter the cathedral."]
@@ -443,8 +445,9 @@ class Igalo:
             self.text = "You break a pot.\n"
             if randint(0, 333) == 333:
                 self.view = "battle"
-                self.text += ("\nToshe: Uh oh. That sounded bad.")               
-                return self.actions({'enemy': "Pot Apparition"})
+                self.text += ("Toshe: Uh oh. That sounded bad.")               
+                return self.actions({'enemy': "Pot Apparition",
+                                     'flash': True})
             else:
                 self.text += choice([
                     "Toshe: That was fun.",

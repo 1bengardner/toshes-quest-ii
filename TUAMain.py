@@ -67,6 +67,7 @@ from TUAFartooqHold import FartooqHold
 from TUAYaouwVolcano import YaouwVolcano
 from TUADuneHotsPeak import DuneHotsPeak
 from TUALairOfTheMagi import LairOfTheMagi
+from TUAIgaloCathedral import IgaloCathedral
 
 
 class Main:
@@ -284,7 +285,9 @@ class Main:
                       'Fartooq Hold': FartooqHold,
                       'Yaouw Volcano': YaouwVolcano,
                       'Dune Hots Peak': DuneHotsPeak,
-                      'Lair of the Magi': LairOfTheMagi}
+                      'Lair of the Magi': LairOfTheMagi,
+                      'Igalo Cathedral': IgaloCathedral,
+                      }
 
     def populateWeapons(self):
         with open("data\\weapondata.txt", "r") as weaponFile:
