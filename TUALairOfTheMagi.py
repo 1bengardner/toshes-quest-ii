@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: November 8, 2022
+Revised: November 12, 2022
 """
 
 
@@ -883,7 +883,7 @@ class LairOfTheMagi:
             self.text += "\nRiplin: ...I underestimated you."
             self.text += "\nAn ominous orb rolls out from Riplin's unfurled glove."
             self.text += "\nRiplin: This orb contains my power. Use it."
-            self.text += "\nYou find an Ominous Orb!"
+            self.text += "\nYou find the Ominous Orb!"
             self.menu = [
                 "Take Riplin's armour.",
                 "Explore the throne room."
