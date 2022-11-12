@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 8, 2022
+Revised: November 12, 2022
 """
 
 
@@ -49,6 +49,7 @@ class Sound:
                        "Select Option": "FX-Select",
                        "Inventory": "FX-Switch",
                        "Return": "FX-Toss",
+                       "Cancel": "FX-Toss",
                        "Select Item": "FX-Touch",
                        "Equip": "FX-Equip",
                        "Buy": "FX-Collect",
