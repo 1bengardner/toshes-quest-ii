@@ -1260,6 +1260,7 @@ class BottomRightFrame:
         self.downButton.grid_remove()
         self.enableMenuBox()
         views[main.view]()
+        main.sound.playSound(main.sound.sounds['Cancel'])
 
     def clickCancelForgetButton(self, event=None):
         self.centerButton.config(image=inventoryImage,
@@ -1273,6 +1274,7 @@ class BottomRightFrame:
         self.modifyMenu(self.tempMenu)
         self.bindChoices()
         views[main.view]()
+        main.sound.playSound(main.sound.sounds['Cancel'])
 
     def clickAttackButton(self, event=None):
         if self.attackButton['state'] == NORMAL:
@@ -1970,7 +1972,7 @@ def enableDropItemView():
     bottomFrame.attackButton.grid_remove()
     bottomFrame.defendButton.grid_remove()
     bottomFrame.fleeButton.grid_remove()
-    bottomFrame.centerButton.config(state=NORMAL, image=backImage,
+    bottomFrame.centerButton.config(state=NORMAL, image=cancelImage,
                                     command=bottomFrame.clickCancelDropButton)
     bottomFrame.centerButton.unbind_all('i')
     bottomFrame.centerButton.unbind_all('I')
@@ -2001,7 +2003,7 @@ def enableForgetSkillView():
     bottomFrame.lastDownButtonState = bottomFrame.downButton['state']
     bottomFrame.upButton['state'] = DISABLED
     bottomFrame.leftButton['state'] = DISABLED
-    bottomFrame.centerButton.config(state=NORMAL, image=backImage,
+    bottomFrame.centerButton.config(state=NORMAL, image=cancelImage,
                                     command=bottomFrame.clickCancelForgetButton)
     bottomFrame.centerButton.unbind_all('i')
     bottomFrame.centerButton.unbind_all('I')
@@ -2245,6 +2247,7 @@ rightImage = PhotoImage(file="images\\icons\\right.gif")
 downImage = PhotoImage(file="images\\icons\\down.gif")
 inventoryImage = PhotoImage(file="images\\icons\\inventory.gif")
 backImage = PhotoImage(file="images\\icons\\back.gif")
+cancelImage = PhotoImage(file="images\\icons\\cancel.gif")
 attackImage = PhotoImage(file="images\\icons\\attack.gif")
 defendImage = PhotoImage(file="images\\icons\\defend.gif")
 fleeImage = PhotoImage(file="images\\icons\\flee.gif")
