@@ -51,7 +51,7 @@ class RumadanHideout:
     def entrance(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 0
-        if "Oseku Shield" in self.c.flags:
+        if "Oseku Shield" in self.c.flags and self.c.hasMercenary("Barrie"):
             self.imageIndex = 1
         self.text = None
         self.helpText = None
