@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 11, 2022
+Revised: November 12, 2022
 """
 
  
@@ -1310,6 +1310,7 @@ class BottomRightFrame:
             window.gridnewSkillFrame(main.tempSkill.NAME)
             main.sound.playSound(main.sound.sounds['New Skill'])
             main.character.euros -= main.tempCost
+            window.topFrame.topRightFrame.updateOtherStats()
             self.clickCancelForgetButton()
 
     def enableMenuBox(self):
