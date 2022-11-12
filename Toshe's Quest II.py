@@ -632,7 +632,7 @@ class TopCenterFrame:
         main.character.checkpoint = deepcopy(main.character)
         main.initGame()
         self.startGame(name)
-        
+        main.sound.playSound(main.sound.sounds['Load'])
 
     def createFile(self, name):
         main.startNewGame(name)
