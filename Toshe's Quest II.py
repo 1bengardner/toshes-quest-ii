@@ -245,6 +245,8 @@ class TopLeftFrame:
                         if 0.8 < wis / dex < 1.25:
                             return "Trainee Druid"
                         return "Trainee Mage"
+                    elif dex >= 25:
+                        return "Trainee Archer"
                     else:
                         return "Trainee"
 
