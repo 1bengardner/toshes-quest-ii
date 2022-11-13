@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: November 12, 2022
+Created: November 13, 2022
 """
 
 
@@ -38,7 +38,7 @@ class Static:
         DEEP_WATER = "#185294"
         WOOD = "#ca7c37"
         WATER = "#b6dfff"
-        SAND_PATH = "#f7f38d"
+        SAND_PATH = "#deca64"
         SKY = "#dcedee"
         TOWN_PATH = "#e2c86b"
         HERCEG_WALL = "#f8ebbe"
