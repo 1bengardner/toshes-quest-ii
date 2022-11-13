@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: November 11, 2022
+Created: November 12, 2022
 """
 
 
@@ -51,7 +51,7 @@ class Static:
         STONE_MOUNTAIN = "#d1d8d6"
         FIRE_PATH = "#ff6826"
         BURNT_WALL = "#5f392d"
-        LAB_WALL = "#baa4b6"
+        LAB_PATH = "#f2f1e1"
         ROCK_WALL = "#d7c9a8"
         PEC_WALL = ROCK_WALL
         PRISTINA_WALL = "#ede4ed"
@@ -118,8 +118,8 @@ class Static:
             "fg": HexColors.DIRT_PATH,
             "bg": HexColors.ROCK_WALL},
         "The Secret Laboratory": {
-            "fg": HexColors.LIT_PATH,
-            "bg": HexColors.LAB_WALL},
+            "fg": HexColors.LAB_PATH,
+            "bg": HexColors.DARKNESS},
         "Pec": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.PEC_WALL},
