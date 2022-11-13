@@ -2,19 +2,22 @@
 File: TUAPreferences.py
 Author: Ben Gardner
 Created: November 5, 2022
-Revised: November 12, 2022
+Revised: November 13, 2022
 """
 
 from collections import OrderedDict
 
-class Max6LastUpdatedOrderedDict(OrderedDict):
-    'Store items in the order the keys were last added'
+class LastUpdatedOrderedDictWithLimit(OrderedDict):
+    '''Store items up to LIMIT in the order the keys were last added.
+    Items are evicted in FIFO sequence.'''
+
+    LIMIT = 6
 
     def __setitem__(self, key, value):
         if key in self:
             del self[key]
         OrderedDict.__setitem__(self, key, value)
-        while len(self) > 6:
+        while len(self) > self.LIMIT:
             del self[self.items()[0][0]]
 
 class Preferences:
@@ -22,4 +25,4 @@ class Preferences:
     def __init__(self):
         self.musicOn = True
         self.sfxOn = True
-        self.recentCharacters = Max6LastUpdatedOrderedDict()
+        self.recentCharacters = LastUpdatedOrderedDictWithLimit()

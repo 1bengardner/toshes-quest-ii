@@ -186,7 +186,7 @@ class TopLeftFrame:
             text=("No recent games."+
                 "\nClick the turtle to start one."))
 
-        MAX_FILES_TO_SHOW = 6
+        MAX_FILES_TO_SHOW = 5
         try:
             with open("preferences.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
@@ -198,7 +198,8 @@ class TopLeftFrame:
                     break
                 name, character = recentCharacters.popitem()
                 gameDetailFrame = Frame(self.recentGames,
-                    bg=DEFAULT_BG,)
+                    bg=DEFAULT_BG,
+                    pady=6,)
                 gameDetailFrame.columnconfigure(1, weight=1)
                 portrait = Label(gameDetailFrame,
                     bg=DEFAULT_BG,
