@@ -224,7 +224,7 @@ class TopLeftFrame:
                     if str >= 50:
                         if dex >= 50:
                             if wis >= 50:
-                                return "Captain"
+                                return "Protean"
                             return "Ranger"
                         elif wis >= 50:
                             return "Monk"
