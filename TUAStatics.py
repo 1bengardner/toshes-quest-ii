@@ -38,7 +38,7 @@ class Static:
         DEEP_WATER = "#185294"
         WOOD = "#ca7c37"
         WATER = "#b6dfff"
-        SAND_PATH = "#deca64"
+        SAND_PATH = "#f5dbab"
         SKY = "#dcedee"
         TOWN_PATH = "#e2c86b"
         HERCEG_WALL = "#f8ebbe"
