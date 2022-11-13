@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 12, 2022
+Revised: November 13, 2022
 """
 
  
@@ -982,24 +982,22 @@ class TopRightFrame:
 
     def increaseStrength(self):
         main.character.strength += 1
-        main.character.statPoints -= 1
-        main.sound.playSound(main.sound.sounds['Increase Stat'])
-        self.updateOtherStats()
-        window.topFrame.topLeftFrame.updateInventory()
+        self.useStatPoint()
 
     def increaseDexterity(self):
         main.character.dexterity += 1
-        main.character.statPoints -= 1
-        main.sound.playSound(main.sound.sounds['Increase Stat'])
-        self.updateOtherStats()
-        window.topFrame.topLeftFrame.updateInventory()
+        self.useStatPoint()
 
     def increaseWisdom(self):
         main.character.wisdom += 1
+        self.useStatPoint()
+
+    def useStatPoint(self):
         main.character.statPoints -= 1
         main.sound.playSound(main.sound.sounds['Increase Stat'])
         self.updateOtherStats()
         window.topFrame.topLeftFrame.updateInventory()
+        requireExitConfirmation(True)
 
     def usePotion(self, event=None):
         if (self.potionButton['state'] == NORMAL):
