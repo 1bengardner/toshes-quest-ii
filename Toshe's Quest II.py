@@ -1855,7 +1855,9 @@ def updateInterface(updates):
             bottomLeftFrame.insertOutput(updates['text'])
     if ('italic text' in updates) and (updates['italic text'] is not None):
         bottomLeftFrame.insertOutput(updates['italic text'], "italicize")
-    if ('map' in updates) and topCenterFrame.showMap.get():
+    if ('map' in updates and
+         topCenterFrame.showMap.get() and
+         'game over' != updates['view']):
         topCenterFrame.updateMap()
     topRightFrame.updateOtherStats()
     requireExitConfirmation(True)
