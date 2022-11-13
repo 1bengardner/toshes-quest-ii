@@ -490,13 +490,13 @@ class TopCenterFrame:
 
     def makeFrameElements(self, master):
         self.playMusic = BooleanVar(value=True)
-        self.musicButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+        self.musicButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=musicImage,
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
         self.musicButton.grid(row=0, padx=16, sticky=W)
         self.playSfx = BooleanVar(value=True)
-        self.sfxButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+        self.sfxButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=sfxImage,
                                      variable=self.playSfx,
                                      command=main.sound.muteSfx)
@@ -514,7 +514,7 @@ class TopCenterFrame:
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(row=0, pady=6)
         self.showMap = BooleanVar()
-        self.mapButton = Checkbutton(master, indicatoron=False, bg=DEFAULT_BG,
+        self.mapButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=mapImage,
                                      variable=self.showMap, state=DISABLED,
                                      command=self.updateMapVisibility)
