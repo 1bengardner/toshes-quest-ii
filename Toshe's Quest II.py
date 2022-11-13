@@ -171,6 +171,9 @@ class TopLeftFrame:
         self.makeIntroFrameElements(frameC)
 
     def makeIntroFrameElements(self, master):
+        self.makeRecentGamesFrame(master)
+
+    def makeRecentGamesFrame(self, master):
         self.recentGames = LabelFrame(master, text="Recent Games", font=font3,
                                  width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
                                  bg=DEFAULT_BG)
@@ -186,16 +189,16 @@ class TopLeftFrame:
             text=("No recent games."+
                 "\nClick the turtle to start one."))
 
-        MAX_FILES_TO_SHOW = 5
         try:
             with open("recent_games.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
-                if len(recentCharacters) == 0:
-                    noRecentGames.grid(sticky=EW)
 
+            if len(recentCharacters) == 0:
+                noRecentGames.grid(sticky=EW)
+                return
+
+            MAX_FILES_TO_SHOW = 5
             for i in range(0, MAX_FILES_TO_SHOW):
-                if len(recentCharacters) == 0:
-                    break
                 name, character = recentCharacters.popitem()
                 gameDetailFrame = Frame(self.recentGames,
                     bg=DEFAULT_BG,
@@ -1160,7 +1163,7 @@ class BottomLeftFrame:
         self.outputBox.tag_config("highlight", foreground=BLACK)
         self.outputBox.insert(END,
                               ("Welcome. Click on me to "+
-                               "embark on your quest."), "italicize")
+                               "embark on a quest."), "italicize")
         self.outputBox['state'] = DISABLED
         
         self.outputScrollbar = Scrollbar(master, bg=DEFAULT_BG,
