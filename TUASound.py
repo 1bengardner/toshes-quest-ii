@@ -126,8 +126,12 @@ class Sound:
         self.writePreferences()
         
     def writePreferences(self):
-        with open("preferences.tqp", "w") as config:
+        try:
+            with open("preferences.tqp", "r") as existingPreferences:
+                preferences = pickle.load(existingPreferences)
+        except IOError:
             preferences = Preferences()
-            preferences.musicOn = mixer.music.get_volume() > 0
-            preferences.sfxOn = not self.sfxMuted
-            pickle.dump(preferences, config)
+        preferences.musicOn = mixer.music.get_volume() > 0
+        preferences.sfxOn = not self.sfxMuted
+        with open("preferences.tqp", "w") as preferencesFile:
+            pickle.dump(preferences, preferencesFile)

@@ -168,6 +168,84 @@ class TopLeftFrame:
         frameC.grid()
         frameC.grid_propagate(0)
         self.makeFrameElements(frameC)
+        self.makeIntroFrameElements(frameC)
+
+    def makeIntroFrameElements(self, master):
+        recentGames = LabelFrame(master, text="Recent Games", font=font3,
+                                 width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
+                                 bg=DEFAULT_BG)
+        recentGames.grid()
+        recentGames.grid_propagate(0)
+        recentGames.columnconfigure(0, weight=1)
+
+        noRecentGames = Label(recentGames,
+            bg=DEFAULT_BG,
+            font=font2,
+            justify=LEFT,
+            anchor=W,
+            text=("No recent games."+
+                "\nClick the turtle to start one."))
+
+        MAX_FILES_TO_SHOW = 6
+        try:
+            with open("preferences.tqp", "r") as preferencesFile:
+                recentCharacters = pickle.load(preferencesFile).recentCharacters
+                if len(recentCharacters) == 0:
+                    noRecentGames.grid(sticky=EW)
+
+            for i in range(0, MAX_FILES_TO_SHOW):
+                if len(recentCharacters) == 0:
+                    break
+                name, character = recentCharacters.popitem()
+                gameDetailFrame = Frame(recentGames,
+                    bg=DEFAULT_BG,)
+                gameDetailFrame.columnconfigure(1, weight=1)
+                portrait = Label(gameDetailFrame,
+                    bg=DEFAULT_BG,
+                    image=itemImages[character.equippedWeapon.IMAGE_NAME],)
+                portrait.grid(row=0, column=0)
+                gameInfo = Button(gameDetailFrame,
+                    bg=BUTTON_BG,
+                    fg=BUTTON_FG,
+                    font=font2,
+                    justify=LEFT,
+                    anchor=W,)
+                gameInfo.grid(row=0, column=1, padx=(0, 4), sticky=EW)
+
+                def getTitle(character):
+                    if character.strength >= 50:
+                        if character.dexterity >= 50:
+                            if character.wisdom >= 50:
+                                return "Captain"
+                            return "Ranger"
+                        elif character.wisdom >= 50:
+                            return "Monk"
+                        return "Warrior"
+                    elif character.dexterity >= 50:
+                        if character.wisdom >= 50:
+                            return "Druid"
+                        return "Archer"
+                    elif character.wisdom >= 50:
+                        return "Mage"
+                    else:
+                        return "Adventurer"
+
+                MAX_LINE_LENGTH = 24
+                lines = [
+                    name,
+                    "%s ❦ %s" % (character.level, getTitle(character)),
+                    character.area.name,
+                ]
+                try:
+                    for i, line in enumerate(lines):
+                        if len(line) > MAX_LINE_LENGTH:
+                            lines[i] = "%s..." % line[:MAX_LINE_LENGTH-1]
+                    gameInfo['text'] = "\n".join(lines)
+                    gameDetailFrame.grid(sticky=EW)
+                except UnicodeDecodeError:
+                    continue
+        except IOError:
+            noRecentGames.grid(sticky=EW)
 
     def makeFrameElements(self, master):
         """Creates labelframes for vital stats and inventory.
@@ -2022,7 +2100,7 @@ def enableForgetSkillView():
     bottomFrame.menuBox.unbind_all('4')
 
 
-def hideSideFrames():
+def hideSideGameFrames():
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
     leftFrame.vitalStats.grid_remove()
@@ -2149,7 +2227,7 @@ def loadGame(event=None):
     
     global window
     window = Window(root)
-    hideSideFrames()
+    hideSideGameFrames()
     main.sound.playMusic(main.sound.songs['Intro Theme'])
     
     

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 11, 2022
+Revised: November 12, 2022
 """
 
 
@@ -241,6 +241,17 @@ class Main:
         with open("saves\\"+self.fileName+".tq", "w") as gameFile:
             pickle.dump(self.character, gameFile)
         self.sound.playSound(self.sound.sounds['Save'])
+        self.writeGameToPreferences()
+
+    def writeGameToPreferences(self):
+        try:
+            with open("preferences.tqp", "r") as existingPreferences:
+                preferences = pickle.load(existingPreferences)
+        except IOError:
+            preferences = Preferences()
+        preferences.recentCharacters[self.fileName.capitalize()] = self.character
+        with open("preferences.tqp", "w") as preferencesFile:
+            pickle.dump(preferences, preferencesFile)
 
     def populateAreas(self):
         self.areas = {'Adriatic Sea': AdriaticSea,
