@@ -219,7 +219,7 @@ class Main:
                                    {'Kills': {},
                                     'Discovered Areas': {},
                                     'Marked Areas': {},
-                                    'Config': {'Automap On': 0}},
+                                    'Config': {'Automap On': 1}},
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y,
                                    0)
