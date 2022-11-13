@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: October 25, 2022
+Revised: November 13, 2022
 """
 
 
@@ -226,7 +226,9 @@ class Boat:
             else:
                 if self.c.flags['Boat Hours'] == 1:
                     self.text = ("Bert: "+str(self.c.flags['Boat Hours'])+
-                             " hour 'til we're there!")
+                             " hour 'til we're there!"+
+                             " Make sure you're rested and healthy-looking for"+
+                             " the ship so they let us on.")
                 elif self.c.flags['Boat Hours'] == 0:
                     X = 1
                     Y = 3
