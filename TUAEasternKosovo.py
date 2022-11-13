@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: November 12, 2022
+Revised: November 13, 2022
 """
 
 
@@ -196,7 +196,8 @@ class EasternKosovo:
             self.c.flags['In Battle'] = True
             self.view = "battle"
             return self.actions({'enemy': "General Octavius",
-                                 'mercenaries': self.c.mercenaries})
+                                 'mercenaries': self.c.mercenaries,
+                                 'flash': True,})
         if "In Battle" in self.c.flags:
             del self.c.flags['In Battle']
         return self.actions()
