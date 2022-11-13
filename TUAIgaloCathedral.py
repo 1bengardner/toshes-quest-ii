@@ -2,7 +2,7 @@
 File: TUAIgaloCathedral.py
 Author: Ben Gardner
 Created: November 8, 2022
-Revised: November 12, 2022
+Revised: November 13, 2022
 """
 
 from random import randint
@@ -132,6 +132,8 @@ class IgaloCathedral:
         if "Halvar" not in self.c.flags or self.roll() > 50:
             self.text = "%s strokes his beard tentacles slowly.\nHalvar: The wax within my...rather eloquent beard has a strength that rivals even earth magic. Perhaps my conjured rocks are the only thing in this universe that are as hard. Peculiar." % ("Halvar" if "Halvar" in self.c.flags else "The earth archmage")
             self.c.flags['Halvar'] = True
+        elif not self.hasGainedPowerOf("Giant Scarab2") and not self.hasGainedPowerOf("Giant Scorpion2"):
+            self.text = "Halvar: There exist two special techniques that I can only teach to those whom wield the power of great earthen critters."
         else:
             self.text = "Halvar: It is scientifically proven that lightning may strike twice. In the case of my Derecho, it is magically proven that it will strike nine times. Intriguing, yes?"
         
@@ -166,6 +168,8 @@ class IgaloCathedral:
         if "Niles" not in self.c.flags or self.roll() > 50:
             self.c.flags['Niles'] = True
             self.text = "Niles: I am a wizard. Not Santa Claus."
+        elif not self.hasGainedPowerOf("Giant Seal2") and not self.hasGainedPowerOf("Giant Shark2"):
+            self.text = "Niles: Once you have slain and absorbed the power of a great water beast, you may learn my final spell."
         else:
             self.text = "Niles: A fresh bath will cleanse the soul. A strong Tsunami will surely kill you."
         
@@ -200,6 +204,12 @@ class IgaloCathedral:
         if "Aiden" not in self.c.flags or self.roll() > 50:
             self.c.flags['Aiden'] = True
             self.text = "Aiden: Greetings, mage. I hail from the United States. My cosplay group told me to come check this place out."
+        elif not self.hasGainedPowerOf("Giant Salamander2"):
+            self.text = "Aiden: Return to me after you conquer the amphibious fire beast."
+            self.text += "\nToshe: Wait...what fire beast?"
+            self.text += "\nAiden: Its name is Meltmaw the Magical. It is located somewhere in Eastern Kosovo."
+            self.text += "\nToshe: Are you making this up?"
+            self.text += "\nAiden: I am one-hundred percent serious. After you gain its power, I shall bestow mighty knowledge within you."
         else:
             self.text = "Aiden: Why, yes. My armour is one-hundred percent authentic. Its defence value is zero with absolutely no resistances whatsoever. However, it is authentic."
         
