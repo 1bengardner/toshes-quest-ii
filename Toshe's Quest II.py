@@ -719,7 +719,7 @@ class TopCenterFrame:
     def startGame(self, name):
         stateChanged = False
         
-        window.topFrame.topLeftFrame.recentGames.grid_remove()
+        hideSideIntroFrames()
         
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
         
@@ -2110,6 +2110,12 @@ def hideSideGameFrames():
     rightFrame.otherStats.grid_remove()
     rightFrame.enemyStats.grid_remove()
     rightFrame.store.grid_remove()
+
+
+def hideSideIntroFrames():
+    leftFrame = window.topFrame.topLeftFrame
+    rightFrame = window.topFrame.topRightFrame
+    leftFrame.recentGames.grid_remove()
 
 
 def close(event=None):
