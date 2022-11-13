@@ -190,7 +190,7 @@ class TopLeftFrame:
                 "\nClick the turtle to start one."))
 
         try:
-            with open("recent_games.tqp", "r") as preferencesFile:
+            with open("prefs\\recent_games.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
 
             if len(recentCharacters) == 0:
@@ -501,7 +501,7 @@ class TopCenterFrame:
                                      variable=self.playSfx,
                                      command=main.sound.muteSfx)
         try:
-            with open("preferences.tqp", "r") as preferencesFile:
+            with open("prefs\\preferences.tqp", "r") as preferencesFile:
                 preferences = pickle.load(preferencesFile)
                 if not preferences.musicOn:
                     self.musicButton.invoke()

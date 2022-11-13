@@ -246,12 +246,12 @@ class Main:
 
     def writeGameToPreferences(self):
         try:
-            with open("recent_games.tqp", "r") as existingPreferences:
+            with open("prefs\\recent_games.tqp", "r") as existingPreferences:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
         preferences.recentCharacters[self.fileName.capitalize()] = self.character
-        with open("recent_games.tqp", "w") as preferencesFile:
+        with open("prefs\\recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
 
     def populateAreas(self):
