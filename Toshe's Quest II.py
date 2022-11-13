@@ -214,22 +214,38 @@ class TopLeftFrame:
                 gameInfo.grid(row=0, column=1, padx=(0, 4), sticky=EW)
 
                 def getTitle(character):
-                    if character.strength >= 50:
-                        if character.dexterity >= 50:
-                            if character.wisdom >= 50:
+                    str = character.strength
+                    dex = character.dexterity
+                    wis = character.wisdom
+                    if str >= 50:
+                        if dex >= 50:
+                            if wis >= 50:
                                 return "Captain"
                             return "Ranger"
-                        elif character.wisdom >= 50:
+                        elif wis >= 50:
                             return "Monk"
                         return "Warrior"
-                    elif character.dexterity >= 50:
-                        if character.wisdom >= 50:
+                    elif dex >= 50:
+                        if wis >= 50:
                             return "Druid"
                         return "Archer"
-                    elif character.wisdom >= 50:
+                    elif wis >= 50:
                         return "Mage"
-                    else:
+                    elif (str >= 25 and dex >= 25 and wis >= 25 and
+                          max(str, dex, wis) / min(str, dex, wis) < 1.25):
                         return "Adventurer"
+                    elif str >= 25:
+                        if 0.8 < str / dex < 1.25:
+                            return "Trainee Ranger"
+                        elif 0.8 < str / wis < 1.25:
+                            return "Trainee Monk"
+                        return "Trainee Warrior"
+                    elif wis >= 25:
+                        if 0.8 < wis / dex < 1.25:
+                            return "Trainee Druid"
+                        return "Trainee Mage"
+                    else:
+                        return "Trainee"
 
                 MAX_LINE_LENGTH = 24
                 lines = [
