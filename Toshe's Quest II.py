@@ -209,7 +209,8 @@ class TopLeftFrame:
                     fg=BUTTON_FG,
                     font=font2,
                     justify=LEFT,
-                    anchor=W,)
+                    anchor=W,
+                    command=lambda n=name: window.topFrame.topCenterFrame.tryToLoadFile(n),)
                 gameInfo.grid(row=0, column=1, padx=(0, 4), sticky=EW)
 
                 def getTitle(character):
@@ -660,6 +661,13 @@ class TopCenterFrame:
         self.titleLabel['font'] = font6 if len(newTitle) < 21 else font4
         self.titleLabel['text'] = newTitle
 
+    def saveFile(self):
+        main.sound.playSound(main.sound.sounds['Open Dialog'])
+        if tkMessageBox.askokcancel("Save Game", "Do you want to save?",
+                                    parent=root):
+            main.saveGame()
+            requireExitConfirmation(False)
+
     def openFile(self):
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         d = OpenFileDialog(root, "Start Game")
@@ -667,30 +675,25 @@ class TopCenterFrame:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 "Come on. I promise not to bite.")
             return
+        tryToLoadFile(self, d.entryValue)
+
+    def tryToLoadFile(self, name):
         try:
-            self.loadFile(d.entryValue)
+            self.loadFile(name)
         except IOError:
-            self.createFile(d.entryValue)
+            self.createFile(name)
         except AttributeError:
             window.bottomFrame.bottomLeftFrame.insertOutput(
-                d.entryValue +
+                name +
                 ", some vital information is missing from your file." +
                 "\nPerhaps this can be remedied with a conversion.")
         except (EOFError, ValueError, KeyError, IndexError, ImportError):
             window.bottomFrame.bottomLeftFrame.insertOutput(
-                d.entryValue +
+                name +
                 ", your file is completely garbled! This is quite unfortunate.")
         except ImportError:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 "I cannot read this file at all! What language is this?")
-
-
-    def saveFile(self):
-        main.sound.playSound(main.sound.sounds['Open Dialog'])
-        if tkMessageBox.askokcancel("Save Game", "Do you want to save?",
-                                    parent=root):
-            main.saveGame()
-            requireExitConfirmation(False)
 
     def loadFile(self, name=None):
         if not name:
