@@ -198,7 +198,7 @@ class TopLeftFrame:
                 return
 
             MAX_FILES_TO_SHOW = 5
-            for i in range(0, MAX_FILES_TO_SHOW):
+            for i in range(0, min(len(recentCharacters), MAX_FILES_TO_SHOW)):
                 name, character = recentCharacters.popitem()
                 gameDetailFrame = Frame(self.recentGames,
                     bg=DEFAULT_BG,
