@@ -188,7 +188,7 @@ class TopLeftFrame:
 
         MAX_FILES_TO_SHOW = 5
         try:
-            with open("preferences.tqp", "r") as preferencesFile:
+            with open("recent_games.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
                 if len(recentCharacters) == 0:
                     noRecentGames.grid(sticky=EW)

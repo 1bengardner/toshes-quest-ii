@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 12, 2022
+Revised: November 13, 2022
 """
 
 
@@ -23,6 +23,7 @@ from TUACharacter import Character
 from TUABattle import Battle
 
 from TUASound import Sound
+from TUAPreferences import Preferences
 
 from TUAAdriaticSea import AdriaticSea
 from TUABoat import Boat
@@ -245,12 +246,12 @@ class Main:
 
     def writeGameToPreferences(self):
         try:
-            with open("preferences.tqp", "r") as existingPreferences:
+            with open("recent_games.tqp", "r") as existingPreferences:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
         preferences.recentCharacters[self.fileName.capitalize()] = self.character
-        with open("preferences.tqp", "w") as preferencesFile:
+        with open("recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
 
     def populateAreas(self):
