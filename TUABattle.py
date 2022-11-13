@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: November 4, 2022
+Revised: November 12, 2022
 """
 
 
@@ -477,7 +477,12 @@ class Battle(object):
             if not (miss or blocked):
                 if damage is not None and int(damage) > 0:
                     if attacker == self.mainCharacter:
-                        self.sounds.append("Deal Damage")
+                        if attacker.equippedWeapon.CATEGORY == "Wand":
+                            self.sounds.append("Wand Attack")
+                        elif attacker.equippedWeapon.CATEGORY == "Bow":
+                            self.sounds.append("Bow Attack")
+                        else:
+                            self.sounds.append("Deal Damage")
                     elif defender == self.mainCharacter:
                         self.sounds.append("Take Damage")
                 elif healing is not None and int(healing) > 0 and attacker == self.mainCharacter:

@@ -36,6 +36,8 @@ class Sound:
                        "Mercenary Up": "FX-Discover",
                        "New Skill": "FX-Discover",
                        "Deal Damage": "FX-Hit",
+                       "Wand Attack": "FX-Cast",
+                       "Bow Attack": "FX-Shoot",
                        "Take Damage": "FX-Struck",
                        "Heal": "FX-Rise",
                        "Critical Strike": "FX-Critical",
