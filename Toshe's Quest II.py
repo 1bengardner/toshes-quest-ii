@@ -171,14 +171,14 @@ class TopLeftFrame:
         self.makeIntroFrameElements(frameC)
 
     def makeIntroFrameElements(self, master):
-        recentGames = LabelFrame(master, text="Recent Games", font=font3,
+        self.recentGames = LabelFrame(master, text="Recent Games", font=font3,
                                  width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
                                  bg=DEFAULT_BG)
-        recentGames.grid()
-        recentGames.grid_propagate(0)
-        recentGames.columnconfigure(0, weight=1)
+        self.recentGames.grid()
+        self.recentGames.grid_propagate(0)
+        self.recentGames.columnconfigure(0, weight=1)
 
-        noRecentGames = Label(recentGames,
+        noRecentGames = Label(self.recentGames,
             bg=DEFAULT_BG,
             font=font2,
             justify=LEFT,
@@ -197,7 +197,7 @@ class TopLeftFrame:
                 if len(recentCharacters) == 0:
                     break
                 name, character = recentCharacters.popitem()
-                gameDetailFrame = Frame(recentGames,
+                gameDetailFrame = Frame(self.recentGames,
                     bg=DEFAULT_BG,)
                 gameDetailFrame.columnconfigure(1, weight=1)
                 portrait = Label(gameDetailFrame,
@@ -718,6 +718,8 @@ class TopCenterFrame:
         
     def startGame(self, name):
         stateChanged = False
+        
+        window.topFrame.topLeftFrame.recentGames.grid_remove()
         
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
         
