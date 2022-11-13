@@ -1935,7 +1935,6 @@ def enableStoreView():
     rightFrame.otherStats.grid_remove()
     rightFrame.enemyStats.grid_remove()
     rightFrame.store.grid()
-    leftFrame.updateInventory()
     rightFrame.updateStore()
 
     leftFrame.equipButton.grid_remove()

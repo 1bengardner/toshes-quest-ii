@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: October 21, 2022
+Revised: November 12, 2022
 """
 
 
@@ -112,6 +112,8 @@ class EasternKosovo:
                            pth2: e,
                            gate: {}
                            }
+
+        self.nookNpc = None
 
     def setTreeEvent(self):
         self.c.flags['Tree Roll'] = random.randint(1, 100)
@@ -423,15 +425,17 @@ class EasternKosovo:
         self.imageIndex = 14
         self.text = None
         self.helpText = None
-        if random.randint(1, 100) == 100:
+        if self.nookNpc is None and random.randint(1, 100) == 100 or self.nookNpc == "Old Nigel":
             self.imageIndex = 15
             npc = "Old Nigel"
+            self.nookNpc = "Old Nigel"
             skill1 = "Fling Dung"
             skill2 = "Smoke Bomb"
             skillPrice1 = 20000
             skillPrice2 = 100000
         else:
             npc = "Ica"
+            self.nookNpc = "Ica"
             skill1 = "Sap Shot"
             skill2 = "Bullseye Bolt"
             skillPrice1 = 500

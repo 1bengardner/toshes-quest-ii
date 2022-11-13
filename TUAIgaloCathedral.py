@@ -36,6 +36,8 @@ class IgaloCathedral:
         ]
         
         self.encounters = None
+        
+        self.venomblastOrDerecho = None
     
     def movementActions(self):
         pass
@@ -53,7 +55,7 @@ class IgaloCathedral:
     def roll(self, numberOfSides=100):
         return randint(1, numberOfSides)
     
-    def hasKilledAnimal(self, animal):
+    def hasGainedPowerOf(self, animal):
         return "Animal Powers" in self.c.flags and animal in self.c.flags['Animal Powers']
     
     def entrance(self, selectionIndex=None):
@@ -105,12 +107,14 @@ class IgaloCathedral:
             ("Stone Skin", 5000),
             ("Asteroid", 10000),
         ]
-        if self.hasKilledAnimal("Giant Scarab2"):
-            if self.hasKilledAnimal("Giant Scorpion2") and self.roll() > 50:
+        if self.hasGainedPowerOf("Giant Scarab2"):
+            if self.venomblastOrDerecho == "Venomblast" or self.venomblastOrDerecho is None and self.hasGainedPowerOf("Giant Scorpion2") and self.roll() > 50:
                 skills.append(("Venomblast", 30000))
+                self.venomblastOrDerecho = "Venomblast"
             else:
                 skills.append(("Derecho", 50000))
-        elif self.hasKilledAnimal("Giant Scorpion2"):
+                self.venomblastOrDerecho = "Derecho"
+        elif self.hasGainedPowerOf("Giant Scorpion2"):
             skills.append(("Venomblast", 30000))
         
         self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1]) for skill in skills]
@@ -144,7 +148,7 @@ class IgaloCathedral:
             ("Torrent Funnel", 15000),
             ("Blizzard", 30000),
         ]
-        if self.hasKilledAnimal("Giant Seal2") or self.hasKilledAnimal("Giant Shark2"):
+        if self.hasGainedPowerOf("Giant Seal2") or self.hasGainedPowerOf("Giant Shark2"):
             skills.append(("Tsunami", 60000))
         
         self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1]) for skill in skills]
@@ -178,7 +182,7 @@ class IgaloCathedral:
             ("Burning Mind", 2500),
             ("Immolation", 25000),
         ]
-        if self.hasKilledAnimal("Giant Seal2") or self.hasKilledAnimal("Giant Shark2"):
+        if self.hasGainedPowerOf("Giant Salamander2"):
             skills.append(("Eruption", 45000))
         
         self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1]) for skill in skills]
