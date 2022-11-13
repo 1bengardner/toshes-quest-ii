@@ -691,7 +691,7 @@ class TopCenterFrame:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 "Come on. I promise not to bite.")
             return
-        tryToLoadFile(self, d.entryValue)
+        self.tryToLoadFile(d.entryValue)
 
     def tryToLoadFile(self, name):
         try:
