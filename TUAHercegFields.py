@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: November 11, 2022
+Revised: November 13, 2022
 """
 
 
@@ -256,7 +256,8 @@ class HercegFields:
             self.c.flags['In Battle'] = True
             self.view = "battle"
             return self.actions({'enemy': "Dr. Grabh",
-                                 'mercenaries': self.c.mercenaries})
+                                 'mercenaries': self.c.mercenaries,
+                                 'flash': True,})
         if "In Battle" in self.c.flags:
             del self.c.flags['In Battle']
         return self.actions()
