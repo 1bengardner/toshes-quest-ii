@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: October 26, 2022
+Revised: November 14, 2022
 """
 
 
@@ -105,6 +105,9 @@ class FartooqHold:
         if newActions:
             actions.update(newActions)
         return actions
+    
+    def hasGainedPowerOf(self, animal):
+        return "Animal Powers" in self.c.flags and animal in self.c.flags['Animal Powers']
     
     def galijula(self, selectionIndex=None):
         X = 4
@@ -444,20 +447,22 @@ class FartooqHold:
         skill1 = "Death Dart"
         skillPrice1 = 5000
         tunic = "Water Tunic"
-        self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
-                     "Leave."]
+        self.menu = ["Leave."]
+        ableToLearn = self.hasGainedPowerOf("Giant Seal2") or self.hasGainedPowerOf("Giant Shark2")
+        if ableToLearn:
+            self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1)] + self.menu
         if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
             self.menu += ["Travel to the next nook."]
-        if selectionIndex == 0:
+        if selectionIndex == 0 and ableToLearn:
             return self.actions({'skill': skill1,
                                  'cost': skillPrice1,
                                  'items for sale': [tunic]+[None]*8})
-        elif selectionIndex == 1:
+        elif selectionIndex == 1 and ableToLearn or selectionIndex == 0:
             X = 1
             Y = 9
             return self.actions({'area': "Fartooq Hold",
                                  'coordinates': (X, Y)})
-        elif selectionIndex == 2:
+        elif selectionIndex == 2 and ableToLearn or selectionIndex == 1:
             self.c.flags['Nooking'] = True
             i = Static.ICAS.index(thisIca)
             nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
@@ -478,6 +483,8 @@ class FartooqHold:
                          "forest. I craft special tunics for use by fellow "+
                          "archers. I can teach you the way of the bow.")
             self.c.flags['Ica'] = True
+        elif not ableToLearn:
+            self.text = "\n"+npc+": Archer, you must make peace with an aquatic beast. Then, I can teach you a devastating technique in this keep."
         else:
             self.text = ("You crawl through the gap and find yourself "+
                          "in a dark, damp nook."+

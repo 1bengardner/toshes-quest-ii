@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: October 26, 2022
+Revised: November 14, 2022
 """
 
 
@@ -75,6 +75,9 @@ class SimelliermPit:
             actions.update(newActions)
         return actions
     
+    def hasGainedPowerOf(self, animal):
+        return "Animal Powers" in self.c.flags and animal in self.c.flags['Animal Powers']
+    
     def freshAir(self, selectionIndex=None):
         if selectionIndex == 0:
             self.c.flags['Climbing Up'] = True
@@ -100,7 +103,6 @@ class SimelliermPit:
         else:
             self.text = "You come to an exit in the form of a tunnel of vines."
         return self.actions()
-        
     
     def entrance(self, selectionIndex=None):
         self.view = "travel"
@@ -250,20 +252,22 @@ class SimelliermPit:
         skill1 = "Venom Arrow"
         skillPrice1 = 5000
         tunic = "Earth Tunic"
-        self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
-                     "Leave."]
+        self.menu = ["Leave."]
+        ableToLearn = self.hasGainedPowerOf("Giant Scarab2") or self.hasGainedPowerOf("Giant Scorpion2")
+        if ableToLearn:
+            self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1)] + self.menu
         if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
             self.menu += ["Travel to the next nook."]
-        if selectionIndex == 0:
+        if selectionIndex == 0 and ableToLearn:
             return self.actions({'skill': skill1,
                                  'cost': skillPrice1,
                                  'items for sale': [tunic]+[None]*8})
-        elif selectionIndex == 1:
+        elif selectionIndex == 1 and ableToLearn or selectionIndex == 0:
             X = 1
             Y = 2
             return self.actions({'area': "Simellierm Pit",
                                  'coordinates': (X, Y)})
-        elif selectionIndex == 2:
+        elif selectionIndex == 2 and ableToLearn or selectionIndex == 1:
             self.c.flags['Nooking'] = True
             i = Static.ICAS.index(thisIca)
             nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
@@ -284,6 +288,8 @@ class SimelliermPit:
                          "forest. I craft special tunics for use by fellow "+
                          "archers. I can teach you the way of the bow.")
             self.c.flags['Ica'] = True
+        elif not ableToLearn:
+            self.text = "\n"+npc+": Archer, you must lay claim to where an earthen arthropod once trod. Then, in this pit, I can show you how to deliver a stinging hit."
         else:
             self.text = ("You crawl through the gap and find yourself "+
                          "in a dark, damp nook."+

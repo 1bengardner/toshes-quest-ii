@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: November 6, 2022
+Revised: November 14, 2022
 """
 
 import random
@@ -76,6 +76,9 @@ class DuneHotsPeak:
         
     def roll(self):
         return random.randint(1, 100)
+
+    def hasGainedPowerOf(self, animal):
+        return "Animal Powers" in self.c.flags and animal in self.c.flags['Animal Powers']
 
     def entrance(self, selectionIndex=None):
         self.view = "travel"
@@ -309,20 +312,22 @@ class DuneHotsPeak:
         skill1 = "Rapid Burst"
         skillPrice1 = 5000
         tunic = "Fire Tunic"
-        self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
-                     "Leave."]
+        self.menu = ["Leave."]
+        ableToLearn = self.hasGainedPowerOf("Giant Salamander2")
+        if ableToLearn:
+            self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1)] + self.menu
         if any(ica != thisIca and ica in self.c.flags for ica in Static.ICAS):
             self.menu += ["Travel to the next nook."]
-        if selectionIndex == 0:
+        if selectionIndex == 0 and ableToLearn:
             return self.actions({'skill': skill1,
                                  'cost': skillPrice1,
                                  'items for sale': [tunic]+[None]*8})
-        elif selectionIndex == 1:
+        elif selectionIndex == 1 and ableToLearn or selectionIndex == 0:
             X = 3
             Y = 2
             return self.actions({'area': "Dune Hots Peak",
                                  'coordinates': (X, Y)})
-        elif selectionIndex == 2:
+        elif selectionIndex == 2 and ableToLearn or selectionIndex == 1:
             self.c.flags['Nooking'] = True
             i = Static.ICAS.index(thisIca)
             nextIca = [ica for ica in Static.ICAS[i+1:] + Static.ICAS[:i]
@@ -343,6 +348,8 @@ class DuneHotsPeak:
                          "forest. I craft special tunics for use by fellow "+
                          "archers. I can teach you the way of the bow.")
             self.c.flags['Ica'] = True
+        elif not ableToLearn:
+            self.text = "\n"+npc+": Archer, you must clean the land of a flaming amphibian. Then, what I can teach you in this dune will be a boon."
         else:
             self.text = ("You crawl through the gap and find yourself "+
                          "in a dark, damp nook."+
