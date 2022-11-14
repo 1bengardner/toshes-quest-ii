@@ -15,9 +15,11 @@ def updateChangedAreaNames(character):
     ]
     for area in changedAreas:
         if area[0] in character.flags['Discovered Areas']:
-            if area[1] not in character.flags['Discovered Areas']: 
+            if area[1] not in character.flags['Discovered Areas']:
                 character.flags['Discovered Areas'][area[1]] = character.flags['Discovered Areas'][area[0]]
+                character.flags['Marked Areas'][area[1]] = character.flags['Marked Areas'][area[0]]
             del character.flags['Discovered Areas'][area[0]]
+            del character.flags['Marked Areas'][area[0]]
             changed = True
     return changed
 
