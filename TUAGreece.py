@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: October 25, 2022
+Revised: November 14, 2022
 """
 
 
@@ -13,7 +13,7 @@ from TUAStatics import Static
 class Greece:
 
     name = "Greek Plains"
-    audio = "Shining Armour"
+    audio = "Impulse Response"
 
     def __init__(self, character):
         self.view = None

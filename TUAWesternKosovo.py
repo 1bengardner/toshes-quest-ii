@@ -2,7 +2,7 @@
 File: TUAWesternKosovo.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: January 17, 2016
+Revised: November 14, 2022
 """
 
 
@@ -13,7 +13,7 @@ from random import randint
 class WesternKosovo:
 
     name = "Western Kosovo"
-    audio = "Nose Honk"
+    audio = "Groundhog"
 
     def __init__(self, character):
         self.view = None

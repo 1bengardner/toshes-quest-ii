@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: November 12, 2022
+Revised: November 14, 2022
 """
 
 
@@ -12,7 +12,7 @@ import random
 class Thessaloniki:
 
     name = "Thessalonian Highlands"
-    audio = "Impulse Response"
+    audio = "Shining Armour"
 
     def __init__(self, character):
         self.view = None

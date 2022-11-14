@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: November 13, 2022
+Revised: November 14, 2022
 """
 
 
@@ -13,7 +13,7 @@ from TUAStatics import Static
 class EasternKosovo:
 
     name = "Eastern Kosovo"
-    audio = "Hummingbird"
+    audio = "Nose Honk"
 
     def __init__(self, character):
         self.TREE_ITEMS = [
