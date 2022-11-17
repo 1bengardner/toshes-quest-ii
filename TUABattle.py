@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: November 12, 2022
+Revised: November 16, 2022
 """
 
 
@@ -339,7 +339,10 @@ class Battle(object):
 
             # Apply damage to defender and add flags
             if not (miss or blocked) and damage is not None:
-                defender.hp -= int(damage)
+                if skill.CATEGORY == "XP Damage":
+                    defender.xp -= int(damage)
+                else:
+                    defender.hp -= int(damage)
             if not (miss or blocked) and healing is not None:
                 attacker.hp += int(healing)
             if not (miss or blocked):
@@ -379,9 +382,16 @@ class Battle(object):
                                   " damage and healing "+
                                   str(int(healing))+" HP.\n")
                 elif damage is not None:
-                    self.text += (attacker.NAME+" "+skill.TEXT+" "+
-                                  defender.NAME+
-                                  ", dealing "+str(int(damage))+" damage.\n")
+                    if skill.CATEGORY == "XP Damage":
+                        self.text += (attacker.NAME+" "+skill.TEXT+" "+
+                                      defender.NAME+
+                                      ", removing "+
+                                      str(int(damage))+" XP!\n")
+                    else:
+                        self.text += (attacker.NAME+" "+skill.TEXT+" "+
+                                      defender.NAME+
+                                      ", dealing "+
+                                      str(int(damage))+" damage.\n")
                 elif healing is not None:
                     self.text += (attacker.NAME+" "+skill.TEXT+
                                   ", healing "+str(int(healing))+" HP.\n")
@@ -487,11 +497,10 @@ class Battle(object):
                         self.sounds.append("Take Damage")
                 elif healing is not None and int(healing) > 0 and attacker == self.mainCharacter:
                     self.sounds.append("Heal")
-                if (damage is not None and int(damage) > 0 or healing is not None and int(healing) > 0) and critical:
-                    if attacker == self.mainCharacter:
-                        self.sounds.append("Critical Strike")
-                    elif defender == self.mainCharacter:
-                        self.sounds.append("Critical Injury")
+                if critical and attacker == self.mainCharacter and (damage is not None and int(damage) > 0 or healing is not None and int(healing) > 0):
+                    self.sounds.append("Critical Strike")
+                elif critical and defender == self.mainCharacter and damage is not None and int(damage) > 0:
+                    self.sounds.append("Critical Injury")
             if blocked and not miss and defender == self.mainCharacter:
                 self.sounds.append("Block")
 
