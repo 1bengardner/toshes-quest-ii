@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 13, 2022
+Revised: November 17, 2022
 """
 
  
@@ -26,7 +26,10 @@ class Window:
 
     def __init__(self, master):
         self.gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
-        self.gameFrame.grid(row=0)
+        self.gameFrame.grid(row=0, column=0)
+        
+        self.sideFrame = Frame(master, bg=DEFAULT_BG)
+        self.sideFrame.grid(row=0, column=1)
         
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
@@ -85,11 +88,12 @@ class Window:
         self.newSkillLabelTop.grid(row=0, sticky=N)
         self.newSkillLabelTop.bind("<Button-1>", self.removeNewSkillFrame)
         
-        self.makeChildren(self.gameFrame)
+        self.makeChildren(self.gameFrame, self.sideFrame)
 
-    def makeChildren(self, master):
-        self.topFrame = TopFrame(master)
-        self.bottomFrame = BottomFrame(master)
+    def makeChildren(self, leftMaster, rightMaster):
+        self.topFrame = TopFrame(leftMaster)
+        self.bottomFrame = BottomFrame(leftMaster)
+        self.rightFrame = RightFrame(rightMaster)
         
     def gridLevelUpFrame(self):
         self.levelUpFrame.grid()
@@ -154,6 +158,53 @@ class BottomFrame:
     def makeChildren(self, master):
         self.bottomLeftFrame = BottomLeftFrame(master)
         self.bottomRightFrame = BottomRightFrame(master)
+
+
+class RightFrame:
+    def __init__(self, master):
+        missions = LabelFrame(master,
+            bg=MEDIUMBEIGE,
+            font=font3,
+            text="Missions",
+            width=FRAME_C_WIDTH,
+            height=WINDOW_HEIGHT)
+        missions.grid()
+        missions.grid_propagate(0)
+        missions.columnconfigure(0, weight=1)
+        
+        self.missions = []
+        
+        for i in range(0, 10):
+            missionFrame = Frame(missions,
+                bg=MEDIUMBEIGE,
+                relief=GROOVE,
+                bd=2,
+                pady=2,)
+            missionFrame.grid(sticky=EW, padx=2, pady=2)
+            missionFrame.columnconfigure(0, weight=1)
+            
+            missionTitle = Label(missionFrame,
+                bg=MEDIUMBEIGE,
+                text="The Divelk Hut",
+                font=italicFont2,
+                wraplength=FRAME_C_WIDTH-20,)
+            missionTitle.grid(sticky=W)
+            missionDescription = Label(missionFrame,
+                bg=MEDIUMBEIGE,
+                text="Kill 6 Divelks for Bartender Maliko in Herceg Hogi.",
+                font=italicFont1,
+                wraplength=FRAME_C_WIDTH-20,
+                justify=LEFT,)
+            missionDescription.grid(sticky=W)
+            missionDetails = Label(missionFrame,
+                bg=MEDIUMBEIGE,
+                text="Divelks: ✗✗✗",
+                font=font1,
+                wraplength=FRAME_C_WIDTH-20,
+                justify=LEFT,)
+            missionDetails.grid(sticky=W)
+            
+            self.missions.append(missionFrame)
 
 
 class TopLeftFrame:
@@ -288,7 +339,7 @@ class TopLeftFrame:
         self.nameLabel = Label(self.vitalStats, text="Toshe", font=italicFont4,
                                fg=BLACK, bg=DEFAULT_BG)
         self.nameLabel.grid(row=0, column=0, columnspan=2)
-        self.xpBarLabel = Label(self.vitalStats, image=xpBars[6], bg=YELLOW,
+        self.xpBarLabel = Label(self.vitalStats, image=xpBars[6], bg=DEFAULT_BG,
                                 relief=SUNKEN, bd=1, compound=CENTER,
                                 font=font8, fg=WHITE)
         self.xpBarLabel.grid(row=1, columnspan=2)
@@ -762,6 +813,8 @@ class TopCenterFrame:
             self.mapButton.invoke()
         self.updateMapVisibility()
         
+        window.topFrame.topRightFrame.logButton['state'] = NORMAL
+        
         if hasattr(main.character, 'specialization'):
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
@@ -914,14 +967,32 @@ class TopRightFrame:
         self.weaponElementLabel = Label(self.otherStats, text="Water Weapon",
                                         font=font2, bg=WATER_COLOR,
                                         relief=GROOVE)
-        self.weaponElementLabel.grid(row=9, columnspan=5, sticky=E+W, ipady=3)
+        self.weaponElementLabel.grid(row=9, columnspan=5, sticky=E+W,
+            ipady=3, padx=6, pady=14)
+
+        self.showMissionLog = BooleanVar()
+        self.logButton = Checkbutton(self.otherStats,
+            image=logImage,
+            text="Mission Log ",
+            font=font2,
+            fg=BUTTON_FG,
+            bg=BUTTON_BG,
+            variable=self.showMissionLog,
+            command=self.updateMissionLog,
+            compound=RIGHT,
+            indicatoron=0,
+            state=DISABLED)
+        self.logButton.grid(row=10, columnspan=5)
+        self.logButton.bind_all("q", lambda _: self.logButton.invoke())
+        self.logButton.bind_all("Q", lambda _: self.logButton.invoke())
 
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
                                    fg=WHITE, activeforeground=WHITE,
                                    bg=BUTTON_BG, command=self.usePotion,
                                    compound=CENTER, state=DISABLED)
-        self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E)
+        self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E,
+            padx=6)
         self.potionButton.bind_all('p', self.usePotion)
         self.potionButton.bind_all('P', self.usePotion)
 
@@ -1144,6 +1215,14 @@ class TopRightFrame:
                     itemImage = itemImages[main.store[i*3+j].IMAGE_NAME]
                     self.storeButtons[i*3+j].config(image=itemImage,
                                                     state=NORMAL)
+
+    def updateMissionLog(self, on=None):
+        if on is not False and self.showMissionLog.get() or on:
+            window.sideFrame.grid()
+            root.geometry(str(WINDOW_WIDTH+FRAME_C_WIDTH)+"x"+str(WINDOW_HEIGHT))
+        else:
+            window.sideFrame.grid_remove()
+            root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT))
 
 
 class BottomLeftFrame:
@@ -1781,6 +1860,7 @@ def updateInterface(updates):
                     break
             window.bottomFrame.bottomRightFrame.bindChoices()
             window.gameFrame.grid()
+            topRightFrame.updateMissionLog()
         topCenterFrame.areaButton['image'] =\
             areaImages[areaName][updates['image index']]
 
@@ -1992,6 +2072,7 @@ def enableGameOverView():
 
 
 def enableLoadingView():
+    window.topFrame.topRightFrame.updateMissionLog(False)
     window.gameFrame.grid_remove()
     window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
     bottomFrame = window.bottomFrame.bottomRightFrame
@@ -2184,7 +2265,7 @@ def displayLoadingScreen():
     loadingBar = Label(root, width=WINDOW_WIDTH, height=WINDOW_HEIGHT,
                        bg=DEFAULT_BG, compound=BOTTOM, font=font1,
                        text=loadingText)
-    loadingBar.grid(sticky=E)
+    loadingBar.grid()
     loadingBar.grid_propagate(0)
     return loadingBar
 
@@ -2282,6 +2363,7 @@ FRAME_C_HEIGHT = 426
 NUMBER_OF_BARS = 46
 
 BEIGE = "#ebdec0"
+MEDIUMBEIGE = "#E5D7B7"
 DARKBEIGE = "#d1c29d"
 BROWN = "#704F16"
 LIGHTBEIGE = "#f4ead2"
@@ -2343,6 +2425,7 @@ gameOverImage = PhotoImage(file="images\\other\\gameover.gif")
 
 euroImage = PhotoImage(file="images\\icons\\euro.gif")
 potionImage = PhotoImage(file="images\\icons\\potion.gif")
+logImage = PhotoImage(file="images\\icons\\mission log.gif")
 sfxImage = PhotoImage(file="images\\icons\\sfx.gif")
 musicImage = PhotoImage(file="images\\icons\\music.gif")
 mapImage = PhotoImage(file="images\\icons\\map.gif")
