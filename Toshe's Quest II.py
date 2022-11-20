@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 19, 2022
+Revised: November 20, 2022
 """
 
  
@@ -310,7 +310,7 @@ class TopLeftFrame:
                     if str >= 50:
                         if dex >= 50:
                             if wis >= 50:
-                                return "Protean"
+                                return "Journeyman"
                             return "Ranger"
                         elif wis >= 50:
                             return "Monk"
@@ -1988,7 +1988,7 @@ def updateInterface(updates):
         topCenterFrame.updateMap()
     if ('new quest' in updates):
         window.rightFrame.addMission(updates['new quest'])
-        window.gridQuestFrame("NEW MISSION!")
+        window.gridQuestFrame("MISSION!")
     if ('completed quest' in updates):
         window.rightFrame.markMission(updates['completed quest'])
     if ('remove quest' in updates):
