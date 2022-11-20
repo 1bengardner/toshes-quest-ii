@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 17, 2022
+Revised: November 19, 2022
 """
 
  
@@ -2265,7 +2265,7 @@ def displayLoadingScreen():
     loadingBar = Label(root, width=WINDOW_WIDTH, height=WINDOW_HEIGHT,
                        bg=DEFAULT_BG, compound=BOTTOM, font=font1,
                        text=loadingText)
-    loadingBar.grid()
+    loadingBar.grid(row=0)
     loadingBar.grid_propagate(0)
     return loadingBar
 
