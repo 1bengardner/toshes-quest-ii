@@ -188,6 +188,16 @@ class RightFrame:
         self.missions.grid_propagate(0)
         self.missions.columnconfigure(0, weight=1)
         
+        self.noMissions = Label(self.missions,
+            bg=MEDIUMBEIGE,
+            font=font2,
+            text="No current missions.",
+            wraplength=FRAME_C_WIDTH-20,
+            pady=2,
+            justify=LEFT,
+            anchor=W,)
+        self.noMissions.grid(sticky=EW)
+        
         self.missionLog = {}
 
     def updateMissions(self):
@@ -195,6 +205,8 @@ class RightFrame:
             mission.missionDetails['text'] = quest.getDetailsFor(main.character)
 
     def addMission(self, quest):
+        self.noMissions.grid_remove()
+        
         missionFrame = Frame(self.missions,
             bg=MEDIUMBEIGE,
             pady=2,)
@@ -229,6 +241,7 @@ class RightFrame:
             mission.grid_forget()
             mission.destroy()
         self.missionLog = {}
+        self.noMissions.grid()
 
     def markMission(self, quest):
         self.missionLog[quest].config(
@@ -240,6 +253,8 @@ class RightFrame:
         self.missionLog[quest].grid_forget()
         self.missionLog[quest].destroy()
         del self.missionLog[quest]
+        if len(self.missionLog) == 0:
+            self.noMissions.grid()
 
 
 class TopLeftFrame:
