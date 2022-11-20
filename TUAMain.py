@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 13, 2022
+Revised: November 19, 2022
 """
 
 
@@ -21,6 +21,7 @@ from TUASkill import Skill
 from TUAEnemy import Enemy
 from TUACharacter import Character
 from TUABattle import Battle
+from TUAQuest import Quest
 
 from TUASound import Sound
 from TUAPreferences import Preferences
@@ -90,6 +91,8 @@ class Main:
         self.skills = {}
         self.enemies = {}
         self.mercenaries = {}
+        self.allQuests = []
+        self.completedQuests = {}
         weaponModifiers = {
                 1: [
                     'Big',
@@ -141,9 +144,14 @@ class Main:
                           self.armour.items() +
                           self.shields.items() +
                           self.miscellaneousItems.items())
+        self.evasiveItems = set([
+            "Moon Armour",
+            "Ugly Disguise",
+        ])
         self.populateSkills()
         self.populateEnemies()
         self.populateMercenaries()
+        self.populateQuests()
         self.populateAreas()
         self.buyback = False
         self.sound = Sound()
@@ -200,6 +208,12 @@ class Main:
         self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
 
+    def loadFromCheckpoint(self):
+        self.character = self.character.checkpoint
+        self.character.checkpoint = deepcopy(self.character)
+        self.initGame()
+        self.sound.playSound(self.sound.sounds['Load'])
+
     def startNewGame(self, fileName):
         """Create a new character and record it in a savefile."""
         STARTING_X = 3
@@ -231,6 +245,7 @@ class Main:
         self.x = self.character.x
         self.y = self.character.y
         self.initializeDefaultBattle()
+        self.initializeQuests()
 
     def saveLocation(self):
         self.character.area = self.currentArea.__class__
@@ -475,6 +490,19 @@ class Main:
                  blankWeapon, blankArmour, blankShield,
                  statPoints, flags, area, x, y, 0)
 
+    def populateQuests(self):
+        with open("data\\questdata.txt", "r") as file:
+            file.readline()
+            for line in file:
+                tokens = line.strip().split("\t")
+                title = tokens[0]
+                description = tokens[1]
+                completionCriteria = eval(tokens[2])
+                startFlag = tokens[3]
+                endFlag = tokens[4]
+                self.allQuests.append(Quest(title, description,
+                 completionCriteria, startFlag, endFlag))
+
     def move(self, direction):
         """Move character in the specified direction in the area.
 
@@ -552,7 +580,7 @@ class Main:
             
         # The definition
         if ( enemyIdentifier and not
-             (self.character.equippedArmour.NAME == "Moon Armour" and
+             (self.character.equippedArmour.NAME in self.evasiveItems and
               self.enemies[enemyIdentifier].LEVEL - 1 < self.character.level)):
             interfaceActions = {'view': "battle",
                                 'enemy': enemyIdentifier,
@@ -704,6 +732,19 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                     self.store.append(None)
 
         self.addMercenary(interfaceActions)
+        
+        newQuest = self.checkForNewQuest(self.character.quests, self.character.flags)
+        if newQuest:
+            interfaceActions['new quest'] = newQuest
+            self.sound.playSound(self.sound.sounds['New Quest'])
+        completedQuest = self.checkForFinishedQuest(self.character.quests, self.character)
+        if completedQuest:
+            interfaceActions['completed quest'] = completedQuest
+            self.sound.playSound(self.sound.sounds['Quest Ready'])
+        oldQuest = self.removeFinishedQuest(self.character.quests, self.character.flags)
+        if oldQuest:
+            interfaceActions['remove quest'] = oldQuest
+            self.sound.playSound(self.sound.sounds['Quest Complete'])
 
         self.view = interfaceActions['view']
 
@@ -913,6 +954,24 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                                [])
         self.battle = defaultBattle
 
+    def initializeQuests(self):
+        def syncWithCharacter(quests, charQuests, charFlags, char):
+            for questInProgress in charQuests:
+                quests.remove(questInProgress)
+                if questInProgress.isCompletedBy(char) and questInProgress.END_FLAG not in self.completedQuests:
+                    self.completedQuests[questInProgress.END_FLAG] = questInProgress
+            completedQuests = []
+            for quest in quests:
+                if quest.END_FLAG in charFlags:
+                    completedQuests.append(quest)
+            for quest in completedQuests:
+                quests.remove(quest)
+
+        self.availableQuests = []
+        for quest in self.allQuests:
+            self.availableQuests.append(quest)
+        syncWithCharacter(self.availableQuests, self.character.quests, self.character.flags, self.character)
+
     def addFlags(self):
         if self.currentArea.tempFlag is not None:
             if type(self.currentArea.tempFlag) == str:
@@ -922,3 +981,22 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                     self.character.flags[element] = self.currentArea.tempFlag[element]
 
             self.currentArea.tempFlag = None
+
+    def checkForNewQuest(self, quests, flags):
+        for quest in self.availableQuests:
+            if quest.START_FLAG in flags:
+                quests.append(quest)
+                self.availableQuests.remove(quest)
+                return quest
+
+    def checkForFinishedQuest(self, quests, character):
+        for quest in quests:
+            if quest.isCompletedBy(character) and quest.END_FLAG not in self.completedQuests:
+                self.completedQuests[quest.END_FLAG] = quest
+                return quest
+
+    def removeFinishedQuest(self, quests, flags):
+        for quest in quests:
+            if quest.END_FLAG in flags:
+                quests.remove(quest)
+                return quest

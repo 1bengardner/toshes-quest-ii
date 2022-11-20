@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 13, 2022
+Revised: November 19, 2022
 """
 
 
@@ -63,7 +63,11 @@ class Sound:
                        "Mark Map": "FX-Touch",
                        "Warp": "FX-Thud",
                        "Open Dialog": "FX-Touch",
-                       "Menu": "FX-Cluck"
+                       "Menu": "FX-Cluck",
+                       "New Quest": "FX-Scribble",
+                       "Quest Complete": "FX-Gracious",
+                       "Quest Ready": "FX-Surprise",
+                       "Open Log": "FX-Touch",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)

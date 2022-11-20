@@ -33,9 +33,11 @@ def update(gameFile, path):
         character.flags['Marked Areas'] = {}
         changed = True
     if ( "Config" not in character.flags or
-         "Automap On" not in character.flags['Config']):
+         "Automap On" not in character.flags['Config'] or
+         "Mission Log Open" not in character.flags['Config']):
         character.flags['Config'] = dict()
         character.flags['Config']['Automap On'] = 1
+        character.flags['Config']['Mission Log Open'] = 0
         changed = True
     for area in character.flags['Discovered Areas']:
         if area not in character.flags['Marked Areas']:
@@ -56,6 +58,9 @@ def update(gameFile, path):
         changed = True
     if not hasattr(character, "checkpoint"):
         setattr(character, "checkpoint", None)
+        changed = True
+    if not hasattr(character, "quests"):
+        setattr(character, "quests", [])
         changed = True
     changed = updateChangedAreaNames(character) or changed
     with open(path, "w") as gameFile:

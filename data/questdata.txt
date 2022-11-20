@@ -1,0 +1,6 @@
+TITLE	DESCRIPTION	COMPLETION_CRITERIA	START_FLAG	END_FLAG
+Manhunt	Kill 2 Rumadan men for Bartender Daniel in Herceg Novi.	{'Kills': ('Rumadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete
+Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete
+I Need a Doctor!	Kill Dr. Grabh for Bartender Daniel in Herceg Novi.	{'Kills': ('Dr. Grabh', 1)}	Daniel Quest 3	Daniel Quest 3 Complete
+Aquamarine Dreams	Bring an Aquamarine Shard to Ivana in Herceg Novi.	{'Items': {'Aquamarine Shard': 1}}	Ivana Talk 3	Necklace Fixed
+The Key to Macedonia	Find a blacksmith who can smith the Key to Macedonia.	{'Items': {'Key Mold': 1}}	Key Mold	Got Key

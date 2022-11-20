@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: November 12, 2022
+Revised: November 19, 2022
 """
 
 
@@ -809,6 +809,12 @@ class Igalo:
             elif not self.c.hasItem(rawMaterial, numberOfMaterials):
                 self.text = (npc+": I can't make it for you without the bars.")
                 
+        elif self.c.hasItem("Gold Bar") and "Gold Man" not in self.c.flags:
+            self.text = (npc+": Wowee! Is that gold? I'm a goldsmith "+
+                         "don'cha know? It's just that nobody ever brings "+
+                         "me a hunk of gold to hammer away at! Let me make "+
+                         "you something special!")
+            self.c.flags['Gold Man'] = True
         elif self.c.hasItem("Key Mold") and self.c.hasItem("Gold Bar"):
             self.c.flags['Got Key'] = True
             rawMaterial = "Gold Bar"
@@ -824,12 +830,6 @@ class Igalo:
             self.text = ("Toshe: %s, make this key for me." % npc+
                          "\n%s: I most certainly can do that as soon" % npc+
                          " as you get me a bar of metal to smith it with.")
-        elif self.c.hasItem("Gold Bar") and "Gold Man" not in self.c.flags:
-            self.text = (npc+": Wowee! Is that gold? I'm a goldsmith "+
-                         "don'cha know? It's just that nobody ever brings "+
-                         "me a hunk of gold to hammer away at! Let me make "+
-                         "you something special!")
-            self.c.flags['Gold Man'] = True
         elif npc not in self.c.flags:
             self.text = (npc+": Sorry for all the loudness. "+
                          "I'm probably disturbing the neighbourhood. They "+

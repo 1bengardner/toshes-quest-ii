@@ -18,7 +18,6 @@ from TUAStatics import Static
 import random
 from datetime import datetime
 import pickle
-from copy import deepcopy
 
 
 class Window:
@@ -44,6 +43,10 @@ class Window:
         self.lootFrame.grid(row=0)
         self.lootFrame.grid_remove()
         
+        self.questFrame = Frame(master, bg=QUEST_BG, relief=RIDGE, bd=10)
+        self.questFrame.grid(row=0)
+        self.questFrame.grid_remove()
+        
         self.powerUpFrame = Frame(master, bg=MYSTIC_BG, relief=RIDGE, bd=10)
         self.powerUpFrame.grid(row=0)
         self.powerUpFrame.grid_remove()
@@ -68,6 +71,11 @@ class Window:
                           bg=LOOT_BG, fg=LOOT_FG)
         lootLabel.grid()
         lootLabel.bind("<Button-1>", self.removeLootFrame)
+        
+        self.questLabel = Label(self.questFrame, text="QUEST!", font=font7,
+                           bg=QUEST_BG, fg=QUEST_FG)
+        self.questLabel.grid()
+        self.questLabel.bind("<Button-1>", self.removeQuestFrame)
         
         self.powerUpLabel = Label(self.powerUpFrame, text="POWER UP!",
                                   font=font5, bg=MYSTIC_BG, fg=MYSTIC_FG2)
@@ -117,6 +125,14 @@ class Window:
     def removeLootFrame(self, event=None):
         self.lootFrame.grid_remove()
         
+    def gridQuestFrame(self, phrase):
+        self.questLabel.config(text=phrase)
+        self.questFrame.grid()
+        root.after(2500, window.removeQuestFrame)
+
+    def removeQuestFrame(self, event=None):
+        self.questFrame.grid_remove()
+        
     def gridPowerUpFrame(self):
         self.powerUpFrame.grid()
         root.after(3500, window.removePowerUpFrame)
@@ -162,49 +178,68 @@ class BottomFrame:
 
 class RightFrame:
     def __init__(self, master):
-        missions = LabelFrame(master,
+        self.missions = LabelFrame(master,
             bg=MEDIUMBEIGE,
             font=font3,
             text="Missions",
             width=FRAME_C_WIDTH,
             height=WINDOW_HEIGHT)
-        missions.grid()
-        missions.grid_propagate(0)
-        missions.columnconfigure(0, weight=1)
+        self.missions.grid()
+        self.missions.grid_propagate(0)
+        self.missions.columnconfigure(0, weight=1)
         
-        self.missions = []
+        self.missionLog = {}
+
+    def updateMissions(self):
+        for quest, mission in self.missionLog.iteritems():
+            mission.missionDetails['text'] = quest.getDetailsFor(main.character)
+
+    def addMission(self, quest):
+        missionFrame = Frame(self.missions,
+            bg=MEDIUMBEIGE,
+            pady=2,)
+        missionFrame.grid(sticky=EW, padx=2, pady=2)
+        missionFrame.columnconfigure(0, weight=1)
         
-        for i in range(0, 10):
-            missionFrame = Frame(missions,
-                bg=MEDIUMBEIGE,
-                relief=GROOVE,
-                bd=2,
-                pady=2,)
-            missionFrame.grid(sticky=EW, padx=2, pady=2)
-            missionFrame.columnconfigure(0, weight=1)
-            
-            missionTitle = Label(missionFrame,
-                bg=MEDIUMBEIGE,
-                text="The Divelk Hut",
-                font=italicFont2,
-                wraplength=FRAME_C_WIDTH-20,)
-            missionTitle.grid(sticky=W)
-            missionDescription = Label(missionFrame,
-                bg=MEDIUMBEIGE,
-                text="Kill 6 Divelks for Bartender Maliko in Herceg Hogi.",
-                font=italicFont1,
-                wraplength=FRAME_C_WIDTH-20,
-                justify=LEFT,)
-            missionDescription.grid(sticky=W)
-            missionDetails = Label(missionFrame,
-                bg=MEDIUMBEIGE,
-                text="Divelks: ✗✗✗",
-                font=font1,
-                wraplength=FRAME_C_WIDTH-20,
-                justify=LEFT,)
-            missionDetails.grid(sticky=W)
-            
-            self.missions.append(missionFrame)
+        missionTitle = Label(missionFrame,
+            bg=MEDIUMBEIGE,
+            text=quest.TITLE,
+            font=italicFont2,
+            wraplength=FRAME_C_WIDTH-20,)
+        missionTitle.grid(sticky=W)
+        missionDescription = Label(missionFrame,
+            bg=MEDIUMBEIGE,
+            text=quest.DESCRIPTION,
+            font=italicFont1,
+            wraplength=FRAME_C_WIDTH-20,
+            justify=LEFT,)
+        missionDescription.grid(sticky=W)
+        missionFrame.missionDetails = Label(missionFrame,
+            bg=MEDIUMBEIGE,
+            text=quest.getDetailsFor(main.character),
+            font=font1,
+            wraplength=FRAME_C_WIDTH-20,
+            justify=LEFT,)
+        missionFrame.missionDetails.grid(sticky=W)
+        
+        self.missionLog[quest] = missionFrame
+
+    def clearMissions(self):
+        for mission in self.missionLog.itervalues():
+            mission.grid_forget()
+            mission.destroy()
+        self.missionLog = {}
+
+    def markMission(self, quest):
+        self.missionLog[quest].config(
+            relief=GROOVE,
+            bd=2,
+        )
+
+    def removeMission(self, quest):
+        self.missionLog[quest].grid_forget()
+        self.missionLog[quest].destroy()
+        del self.missionLog[quest]
 
 
 class TopLeftFrame:
@@ -344,7 +379,7 @@ class TopLeftFrame:
                                 font=font8, fg=WHITE)
         self.xpBarLabel.grid(row=1, columnspan=2)
         self.spBarLabel = Label(self.vitalStats, image=spBars[34],
-                                bg=DEFAULT_BG, relief=SUNKEN, bd=1)
+                                bg=DEFAULT_BG, relief=SUNKEN, bd=2)
         self.spBarLabel.grid(row=3, columnspan=2)
         self.spLabel = Label(self.vitalStats, text="80",
                              bg=DEFAULT_BG, font=font1, bd=0)
@@ -776,17 +811,16 @@ class TopCenterFrame:
             name = main.fileName
         main.loadGame(name)
         self.startGame(name)
+        window.topFrame.topCenterFrame.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
+        window.topFrame.topCenterFrame.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
 
     def restoreFile(self):
         window.bottomFrame.bottomRightFrame.okButton['command'] = \
             window.bottomFrame.bottomRightFrame.clickOkButton
         window.bottomFrame.bottomRightFrame.bindChoices()
         name = main.fileName
-        main.character = main.character.checkpoint
-        main.character.checkpoint = deepcopy(main.character)
-        main.initGame()
+        main.loadFromCheckpoint()
         self.startGame(name)
-        main.sound.playSound(main.sound.sounds['Load'])
 
     def createFile(self, name):
         main.startNewGame(name)
@@ -798,6 +832,15 @@ class TopCenterFrame:
         hideSideIntroFrames()
         
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
+        
+        window.topFrame.topRightFrame.logButton['state'] = NORMAL
+        if main.character.flags['Config']['Mission Log Open'] != window.topFrame.topRightFrame.showMissionLog.get():
+            window.topFrame.topRightFrame.logButton.invoke()
+        window.rightFrame.clearMissions()
+        for quest in main.character.quests:
+            window.rightFrame.addMission(quest)
+            if quest.isCompletedBy(main.character):
+                window.rightFrame.markMission(quest)
         
         interfaceActions = main.getLoginEvents()
         if interfaceActions is not None:
@@ -812,8 +855,6 @@ class TopCenterFrame:
         if main.character.flags['Config']['Automap On'] != self.showMap.get():
             self.mapButton.invoke()
         self.updateMapVisibility()
-        
-        window.topFrame.topRightFrame.logButton['state'] = NORMAL
         
         if hasattr(main.character, 'specialization'):
             window.topFrame.topLeftFrame.spWord.grid()
@@ -978,7 +1019,7 @@ class TopRightFrame:
             fg=BUTTON_FG,
             bg=BUTTON_BG,
             variable=self.showMissionLog,
-            command=self.updateMissionLog,
+            command=self.clickMissionLog,
             compound=RIGHT,
             indicatoron=0,
             state=DISABLED)
@@ -1215,6 +1256,12 @@ class TopRightFrame:
                     itemImage = itemImages[main.store[i*3+j].IMAGE_NAME]
                     self.storeButtons[i*3+j].config(image=itemImage,
                                                     state=NORMAL)
+
+    def clickMissionLog(self):
+        main.sound.playSound(main.sound.sounds['Open Log'])
+        self.updateMissionLog()
+        main.character.flags['Config']['Mission Log Open'] = self.showMissionLog.get()
+        requireExitConfirmation(True)
 
     def updateMissionLog(self, on=None):
         if on is not False and self.showMissionLog.get() or on:
@@ -1858,7 +1905,7 @@ def updateInterface(updates):
                 except TclError:
                     incrementProgress(True)
                     break
-            window.bottomFrame.bottomRightFrame.bindChoices()
+            bottomRightFrame.bindChoices()
             window.gameFrame.grid()
             topRightFrame.updateMissionLog()
         topCenterFrame.areaButton['image'] =\
@@ -1939,6 +1986,15 @@ def updateInterface(updates):
          topCenterFrame.showMap.get() and
          'game over' != updates['view']):
         topCenterFrame.updateMap()
+    if ('new quest' in updates):
+        window.rightFrame.addMission(updates['new quest'])
+        window.gridQuestFrame("NEW MISSION!")
+    if ('completed quest' in updates):
+        window.rightFrame.markMission(updates['completed quest'])
+    if ('remove quest' in updates):
+        window.rightFrame.removeMission(updates['remove quest'])
+        window.gridQuestFrame("MISSION\nCOMPLETE!")
+    window.rightFrame.updateMissions()
     topRightFrame.updateOtherStats()
     requireExitConfirmation(True)
         
@@ -2398,6 +2454,8 @@ MERCENARY_UP_BG = YELLOW
 MERCENARY_UP_FG = BROWN
 LOOT_BG = DARKBEIGE
 LOOT_FG = BROWN
+QUEST_BG = BROWN
+QUEST_FG = DARKBEIGE
 MYSTIC_BG = PURPLE
 MYSTIC_FG = MAGENTA
 MYSTIC_FG2 = LIGHTPURPLE

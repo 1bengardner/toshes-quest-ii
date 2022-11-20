@@ -11,7 +11,7 @@ class LastUpdatedOrderedDictWithLimit(OrderedDict):
     '''Store items up to LIMIT in the order the keys were last added.
     Items are evicted in FIFO sequence.'''
 
-    LIMIT = 6
+    LIMIT = 5
 
     def __setitem__(self, key, value):
         if key in self:

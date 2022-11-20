@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: November 11, 2022
+Revised: November 19, 2022
 """
 
 
@@ -75,6 +75,7 @@ class Character(object):
         self.potions = int(potions)
         self.LIVING = 1
         self.checkpoint = None
+        self.quests = []
         self.updateStats()
 
     def updateStats(self):

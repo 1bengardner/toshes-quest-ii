@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: May 11, 2017
+Revised: November 19, 2022
 """
 
 
@@ -311,6 +311,7 @@ class HercegNovi:
                 self.text = ("Ivana: Hi, Toshe..."+
                              "\nIvana winks at you.")
             elif ('Ivana Talk 3' in self.c.flags and
+                  'Necklace Fixed' not in self.c.flags and
                   self.c.hasItem("Aquamarine Shard") and
                   not self.c.itemIsEquipped("Aquamarine Shard")):
                 self.c.removeItem(self.c.indexOfItem("Aquamarine Shard"))
@@ -318,6 +319,7 @@ class HercegNovi:
                              "this. It's all I have."+
                              "\nIvana gives you 10000 euros!")
                 self.c.euros += 10000
+                self.c.flags['Necklace Fixed'] = True
             elif 'Ivana Talk 3' in self.c.flags:
                 self.text = ("Ivana: Could you get me a shard of aquamarine? I "+
                              "can reward you handsomely.")
