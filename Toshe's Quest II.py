@@ -900,6 +900,71 @@ class TopRightFrame:
         frameE.grid(row=0, column=2)
         frameE.grid_propagate(0)
         self.makeFrameElements(frameE)
+        self.makeIntroFrameElements(frameE)
+
+    def makeIntroFrameElements(self, master):
+        self.makeNewsFrame(master)
+
+    def makeNewsFrame(self, master):
+        news = LabelFrame(master, text="News", font=font3,
+                          width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
+                          bg=DEFAULT_BG)
+        news.grid()
+        news.grid_propagate(0)
+        news.columnconfigure(0, weight=1)
+
+        newsContent = Text(news,
+            bg=DEFAULT_BG,
+            height=28,
+            font=font1,
+            wrap=WORD,
+            bd=0,)
+        newsContent.tag_config("title", font=font3)
+        newsContent.tag_config("section", font=italicFont2)
+        newsContent.tag_config("emphasis", font=italicFont1)
+
+        newsContent.insert(END, "Content Updates", ("section"))
+        newsContent.insert(END,
+"""
+The remaining """)
+        newsContent.insert(END, "GUARDIAN BEASTS", ("emphasis"))
+        newsContent.insert(END, """ have been unleashed! Find all three—Earth, Water and Fire—and navigate their labyrithine abodes to destroy them once and for all.
+
+The lair of the dark commander """)
+        newsContent.insert(END, "NIPLIN", ("emphasis"))
+        newsContent.insert(END, """ has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
+
+""")
+        newsContent.insert(END, "Feature Updates", ("section"))
+        newsContent.insert(END, """
+Select a character with the """)
+        newsContent.insert(END, "RECENT GAMES", ("emphasis"))
+        newsContent.insert(END, """ list. Hit the ground running with a single click: no more typing your name in!
+
+Find your way around with the new """)
+        newsContent.insert(END, "MAP", ("emphasis"))
+        newsContent.insert(END,""". Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
+
+Are you thirsty? Quench that desire with a """)
+        newsContent.insert(END, "POTION", ("emphasis"))
+        newsContent.insert(END, """, and heal 50 HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
+
+It's 2022 and people's screens are getting wider...that means it's time for a """)
+        newsContent.insert(END, "MISSION LOG", ("emphasis"))
+        newsContent.insert(END, """! That's right, you can now view your current missions in your very own log, at your leisure.
+
+Zounds, we have """)
+        newsContent.insert(END, "SOUNDS", ("emphasis"))
+        newsContent.insert(END, """! You can now toggle sound effects, as well as music.
+
+Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
+        newsContent.insert(END, "RESUME FROM TOWN.", ("emphasis"))
+        newsContent['state'] = DISABLED
+        newsContent.grid(sticky=EW)
+
+        scrollbar = Scrollbar(news, bg=DEFAULT_BG, command=newsContent.yview)
+        scrollbar.grid(row=0, column=1, sticky=N+S)
+        newsContent.config(yscrollcommand=scrollbar.set)
 
     def makeFrameElements(self, master):
         """Create labelframes for other stats, enemy stats and store items.
