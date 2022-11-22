@@ -739,11 +739,11 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if newQuest:
             interfaceActions['new quest'] = newQuest
             self.sound.playSound(self.sound.sounds['New Quest'])
-        completedQuest = self.checkForFinishedQuest(self.character.quests, self.character)
+        completedQuest = self.checkForFinishedQuests(self.character.quests, self.character, returnOne=True)
         if completedQuest:
             interfaceActions['completed quest'] = completedQuest
             self.sound.playSound(self.sound.sounds['Quest Ready'])
-        oldQuest = self.removeFinishedQuest(self.character.quests, self.character.flags)
+        oldQuest = self.removeFinishedQuests(self.character.quests, self.character.flags, returnOne=True)
         if oldQuest:
             interfaceActions['remove quest'] = oldQuest
             self.sound.playSound(self.sound.sounds['Quest Complete'])
@@ -957,22 +957,16 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         self.battle = defaultBattle
 
     def initializeQuests(self):
-        def syncWithCharacter(quests, charQuests, charFlags, char):
-            for questInProgress in charQuests:
+        def syncWithCharacter(quests, character):
+            for questInProgress in character.quests:
                 quests.remove(questInProgress)
-                if questInProgress.isCompletedBy(char) and questInProgress.END_FLAG not in self.completedQuests:
-                    self.completedQuests[questInProgress.END_FLAG] = questInProgress
-            completedQuests = []
-            for quest in quests:
-                if quest.END_FLAG in charFlags:
-                    completedQuests.append(quest)
-            for quest in completedQuests:
-                quests.remove(quest)
+            self.checkForFinishedQuests(character.quests, character)
+            self.removeFinishedQuests(quests, character.flags)
 
         self.availableQuests = []
         for quest in self.allQuests:
             self.availableQuests.append(quest)
-        syncWithCharacter(self.availableQuests, self.character.quests, self.character.flags, self.character)
+        syncWithCharacter(self.availableQuests, self.character)
 
     def addFlags(self):
         if self.currentArea.tempFlag is not None:
@@ -991,14 +985,21 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 self.availableQuests.remove(quest)
                 return quest
 
-    def checkForFinishedQuest(self, quests, character):
+    def checkForFinishedQuests(self, quests, character, returnOne=False):
         for quest in quests:
             if quest.isCompletedBy(character) and quest.END_FLAG not in self.completedQuests:
                 self.completedQuests[quest.END_FLAG] = quest
-                return quest
+                if returnOne:
+                    return quest
 
-    def removeFinishedQuest(self, quests, flags):
+    def removeFinishedQuests(self, quests, flags, returnOne=False):
+        questsToRemove = []
         for quest in quests:
             if quest.END_FLAG in flags:
-                quests.remove(quest)
-                return quest
+                if returnOne:
+                    quests.remove(quest)
+                    return quest
+                questsToRemove.append(quest)
+        for quest in questsToRemove:
+            quests.remove(quest)
+        return questsToRemove
