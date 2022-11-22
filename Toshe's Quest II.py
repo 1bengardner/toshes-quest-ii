@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 20, 2022
+Revised: November 21, 2022
 """
 
  
@@ -1974,7 +1974,7 @@ def updateInterface(updates):
                     loadProgress += float(FULL_PROGRESS) / worstCaseAssetCount
                 root.update()
             enableLoadingView()
-            updateLoadingScreen(displayLoadingScreen())
+            updateLoadingScreen(*displayLoadingScreen())
             worstCaseAssetCount = 99
             for i in range(0, worstCaseAssetCount):
                 try:
@@ -2387,6 +2387,12 @@ def close(event=None):
 def displayLoadingScreen():
     global loadProgress
     loadProgress = 0
+    frame = Frame(root, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=DEFAULT_BG,
+        bd=4, relief=SUNKEN)
+    frame.grid(row=0)
+    frame.grid_propagate(0)
+    frame.columnconfigure(0, weight=1)
+    frame.rowconfigure(0, weight=1)
     loadingText = random.choice([
         "Blub blub.",
         "Yaouw!",
@@ -2398,21 +2404,21 @@ def displayLoadingScreen():
         "It seems as though my loading bar has become uncalibrated.",
         "You caught me by surprise! Where did I leave my shell?",
         "Brace yourself."])
-    loadingBar = Label(root, width=WINDOW_WIDTH, height=WINDOW_HEIGHT,
-                       bg=DEFAULT_BG, compound=BOTTOM, font=font1,
-                       text=loadingText)
+    loadingBar = Label(frame, bg=DEFAULT_BG, relief=SUNKEN, bd=1)
     loadingBar.grid(row=0)
-    loadingBar.grid_propagate(0)
-    return loadingBar
+    loadingLabel = Label(frame, bg=DEFAULT_BG, font=font1, text=loadingText)
+    loadingLabel.grid(row=0, pady=(0, 50))
+    return (frame, loadingBar)
 
 
-def updateLoadingScreen(loadingBar):
+def updateLoadingScreen(frame, loadingBar):
     loadingBar['image'] = xpBars[
         int(loadProgress / FULL_PROGRESS * (NUMBER_OF_BARS - 1))]
     if loadProgress == FULL_PROGRESS:
-        loadingBar.destroy()
+        frame.grid_forget()
+        frame.destroy()
     else:
-        root.after(30, updateLoadingScreen, loadingBar)
+        root.after(30, updateLoadingScreen, frame, loadingBar)
         
         
 def loadAssets():
@@ -2472,7 +2478,7 @@ def loadAssets():
     
     
 def loadGame(event=None):
-    updateLoadingScreen(displayLoadingScreen())
+    updateLoadingScreen(*displayLoadingScreen())
     loadAssets()
     
     global window
