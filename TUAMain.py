@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 19, 2022
+Revised: November 21, 2022
 """
 
 
@@ -648,6 +648,8 @@ class Main:
             self.x, self.y = interfaceActions['coordinates']
             self.sound.playSound(self.sound.sounds['Warp'])
             self.updateCheckpoint(interfaceActions['area'])
+            if "Rested" in self.character.flags:
+                self.sound.playSound(self.sound.sounds['Sleep'])
             return self.getInterfaceActions()
         elif interfaceActions['view'] == "battle":
             interfaceActions['menu'] = None

@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 19, 2022
+Revised: November 21, 2022
 """
 
 
@@ -68,6 +68,7 @@ class Sound:
                        "Quest Complete": "FX-Gracious",
                        "Quest Ready": "FX-Surprise",
                        "Open Log": "FX-Touch",
+                       "Sleep": "FX-Rise",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
