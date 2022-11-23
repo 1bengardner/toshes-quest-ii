@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: November 13, 2022
+Created: November 22, 2022
 """
 
 
@@ -67,7 +67,7 @@ class Static:
         ATHENS_WALL = "#f3d3b9"
         MACEDONIA = "#a5aae6"
         ICE = "#ffffff"
-        THIN_ICE = "#f0f8ff"
+        THIN_ICE = "#7fd2db"
         LAIR = "#747799"
         
     
@@ -181,8 +181,8 @@ class Static:
             "fg": HexColors.ICE,
             "bg": HexColors.WATER},
         "Fartooq Hold": {
-            "fg": HexColors.THIN_ICE,
-            "bg": HexColors.ICE},
+            "fg": HexColors.SEA_FLOOR,
+            "bg": HexColors.THIN_ICE},
         "Yaouw Volcano": {
             "fg": HexColors.FIRE_PATH,
             "bg": HexColors.DARKNESS},

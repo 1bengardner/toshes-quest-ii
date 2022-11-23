@@ -304,7 +304,7 @@ class AdriaticSea:
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: A secret passage!")
             self.c.flags['Melted Ice Aftermath'] = True
-        elif "Galijula Complete" not in self.c.flags:
+        elif "Aldreed" not in self.c.flags['Kills']:
             self.imageIndex = 25
             self.text = ("There is a magical force deep inside the tunnel.")
         else:

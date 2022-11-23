@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: November 14, 2022
+Revised: November 22, 2022
 """
 
 
@@ -38,6 +38,7 @@ class FartooqHold:
         pth2 = self.path2
         pth3 = self.path3
         pth4 = self.path4
+        orba = self.emptyOrb
         orbb = self.orb
         ltRt = self.leftRight
         bend = self.bend
@@ -51,9 +52,9 @@ class FartooqHold:
         
         self.spots = [
             [None, None, None, None, None, None, None, None],
-            [None, watr, None, None, orbb, None, pilr, None],
+            [None, watr, None, None, orba, None, pilr, None],
             [None, None, None, None, pth4, None, tunl, None],
-            [None, None, None, None, pth3, None, pol2, None],
+            [None, orbb, None, None, pth3, None, pol2, None],
             [None, None, None, None, pth2, None, None, None],
             [None, None, None, None, pth1, None, pol1, None],
             [None, None, None, None, fork, ltRt, bend, None],
@@ -67,6 +68,7 @@ class FartooqHold:
         e = {'Horn Dog': 10,
              'Horn Beast': 10,
              'Ice Spawn': 5}
+        f = {'Ice Elemental': 90}
              
         self.encounters = {wrp1: {},
                            cav1: {},
@@ -81,8 +83,9 @@ class FartooqHold:
                            pth1: e,
                            pth2: e,
                            pth3: e,
-                           pth4: e,
-                           orbb: e,
+                           pth4: {},
+                           orba: f,
+                           orbb: {},
                            ltRt: e,
                            bend: e,
                            pol1: e,
@@ -236,6 +239,19 @@ class FartooqHold:
         self.helpText = None
         self.menu = []
         return self.actions()
+        
+    def emptyOrb(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 14
+        self.text = None
+        self.helpText = None
+        self.menu = []
+
+        if "Placed Oracular Orb" not in self.c.flags:
+            X = 1
+            Y = 3
+            return self.actions({'area': "Fartooq Hold",
+                                 'coordinates': (X, Y)})
 
     def orb(self, selectionIndex=None):
         self.view = "travel"
@@ -243,17 +259,30 @@ class FartooqHold:
         self.text = None
         self.helpText = None
         self.menu = []
-        if selectionIndex == 0:
+        if selectionIndex == 1:
+            X = 4
+            Y = 2
+            return self.actions({'area': "Fartooq Hold",
+                                 'coordinates': (X, Y)})
+        elif selectionIndex == 0 and self.c.hasItem("Oracular Orb"):
+            self.text = "You release the orb from your grasp."
+            self.c.removeItem(self.c.indexOfItem("Oracular Orb"))
+        elif selectionIndex == 0:
+            self.c.flags['Magical Object'] = True
             self.imageIndex = 14
             self.text = "You grab the orb and feel its powerful presence."
+            self.menu = ["Put the orb back.", "Leave."]
             return self.actions({'item': "Oracular Orb"})
-        
-        if (self.c.hasItem("Oracular Orb") or
-            "Placed Oracular Orb" in self.c.flags):
+
+        if self.c.hasItem("Oracular Orb"):
             self.imageIndex = 14
-        else:
+            self.menu = ["Put the orb back."]
+        elif "Magical Object" not in self.c.flags:
             self.text = "Toshe: Holy shit! What the fuck is that?"
             self.menu = ["Take the magical object."]
+        else:
+            self.menu = ["Take the Oracular Orb."]
+        self.menu.append("Leave.")
         return self.actions()
 
     def leftRight(self, selectionIndex=None):

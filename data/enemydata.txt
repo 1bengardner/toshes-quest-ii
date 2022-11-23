@@ -203,7 +203,7 @@ Silvio Berlusconi4	Silvio Berlusconi	Silvio Berlusconi4	37	50000	50000	70	80	10	
 Pillar	Pillar	Pillar	1	100000	100000	20	100	10	200	0	0	50	999	99	0	{'Stand Firm': 30, 'Crumble No Damage': 30, 'Crumble Rocks': 10, 'Spire': 10, 'Icicle': 10, 'Molten Rocks': 10}	{}	0	0	0	0	Important Battle	0	0
 Hungry Bear	Ravenous Bear	Hungry Bear	20	2000	2000	50	90	10	200	0	0	25	100	999	0	{'Bite': 20}	{}	800	0	1	0	None	0	1
 Galijula Crab	Galijula Crab	Galijula Crab	4	75	75	15	90	10	200	0	8	0	50	999	0	{}	{}	60	0	1	0	None	0	1
-Ice Guardian	Ice Guardian	Ice Guardian	30	50000	50000	55	90	10	200	10	500	0	90	999	50	{'Healing Ray': 20, 'Reinvigorate': 5, 'Icicles': 5, 'Whirlpool': 15, 'Deep Thrust': 15, 'Steadfast Slash': 15}	{'Guardian Plate': 1, 'Ornate Halberd': 1, 'Helm Splitter': 1, 'Gyroscopic Flange': 1, 'Khabir\'s Shaft': 1, 'J Bow': 1, 'Golden Sun': 1}	1700	400	1	0	None	0	1
+Ice Guardian	Frozen Guardian	Ice Guardian	30	50000	50000	55	90	10	200	10	500	0	90	999	50	{'Healing Ray': 20, 'Reinvigorate': 5, 'Icicles': 5, 'Whirlpool': 15, 'Deep Thrust': 15, 'Steadfast Slash': 15}	{'Guardian Plate': 1, 'Ornate Halberd': 1, 'Helm Splitter': 1, 'Gyroscopic Flange': 1, 'Khabir\'s Shaft': 1, 'J Bow': 1, 'Golden Sun': 1}	1700	400	1	0	None	0	1
 Crystal Golem Red	Crystal Golem	Crystal Golem Red	15	1500	1500	22	90	10	200	0	200	0	0	100	100	{'Crystal Explosion Fire': 30, 'Rumble Strike': 10, 'Fireball': 15, 'Smoulder': 10, 'Firestorm': 5}	{'Garnet Fragment': 10}	550	0	1	0	None	0	0
 Crystal Golem Green	Crystal Golem	Crystal Golem Green	15	1500	1500	22	90	10	200	0	200	100	0	0	100	{'Crystal Explosion Earth': 30, 'Rumble Strike': 10, 'Mudslide': 15, 'Quicksand': 10, 'Duststorm': 5}	{'Jade Crystal': 10}	550	0	1	0	None	0	0
 Crystal Golem Blue	Crystal Golem	Crystal Golem Blue	15	1500	1500	22	90	10	200	0	200	0	100	0	100	{'Crystal Explosion Water': 30, 'Rumble Strike': 10, 'Icicles': 15, 'Whirlpool': 10, 'Hailstorm': 5}	{'Aquamarine Shard': 10}	550	0	1	0	None	0	0
@@ -211,7 +211,7 @@ Wandering Giant	Wandering Giant	Wandering Giant	20	3000	3000	40	80	10	200	0	80	0
 Horn Dog	Horn Dog	Horn Dog	21	2000	2000	38	90	10	200	0	0	0	75	-100	0	{'Charge': 20, 'Bite': 10}	{}	850	0	1	0	None	0	0
 Horn Beast	Horn Beast	Horn Beast	23	2500	2500	48	90	10	200	0	0	0	75	-100	0	{'Charge': 20, 'Soul Drain': 10}	{}	950	0	1	0	None	0	0
 Eyeless Yeti	Eyeless Yeti	Eyeless Yeti	24	8000	8000	80	10	10	200	0	100	0	100	-100	50	{'Battery Cage': 5, 'Shield Breaker': 5}	{}	1000	0	1	0	None	0	1
-Frost Dragon	Frost Dragon	Frost Dragon	26	20000	20000	20	50	0.1	200	0	200	0	100	-100	25	{'Icicles': 40, 'Hailstorm': 30, 'Dive': 20, 'Strong Attack': 10}	{'Frost Dragon Skin': 5}	1200	0	1	0	None	0	1
+Frost Dragon	Frost Dragon	Frost Dragon	26	20000	20000	20	50	0.1	200	0	200	0	100	-100	25	{'Icicles': 50, 'Hailstorm': 10, 'Dive': 20, 'Strong Attack': 10}	{'Frost Dragon Skin': 5}	1200	0	1	0	None	0	1
 Angry Eyeless Yeti	Angry Eyeless Yeti	Eyeless Yeti	24	8000	8000	160	10	10	200	0	100	0	100	-100	50	{'Bloodrush Crush': 5, 'Rage': 10, 'Aggression': 10, 'Reckless Rack': 5}	{}	2000	0	1	0	Important Battle	0	1
 Ice Spawn	Ice Spawn	Ice Spawn	25	5000	5000	40	90	10	200	0	120	25	100	-75	0	{'Blizzard': 10, 'Seal Smash': 30, 'Soul Drain': 10}	{}	1100	200	1	0	None	0	1
 Fire Imp	Fire Imp	Fire Imp	24	2000	2000	30	90	10	200	0	0	25	-75	125	0	{'Firestorm': 10, 'Fireball': 30, 'Burning Mind': 10}	{'Glowing Barrier': 5}	1000	0	1	0	None	0	1
@@ -243,4 +243,5 @@ Wonnen Daztinque	Wonnen Daztinque	Wonnen Daztinque	45	0	0	0	0	0	0	0	0	0	0	0	0	{}
 Dougou	Dougou	Dougou	46	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Skull Shield': 12}	0	0	1	0	Important Battle	0	0
 Niplin	Niplin	Niplin	72	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Niplin\'s Greatsword': 50, 'Niplin\'s Breastplate': 50}	0	0	0	0	Niplin Battle	1	1
 Riplin	Riplin	Riplin	74	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	0	0	Final Battle	1	1
-Gargoyle	Aged Gargoyle	Gargoyle	24	33	3300	50	50	10	200	0	200	50	100	0	50	{'Freezing Arrow': 9, 'Mist': 6, 'Swoop': 7}	{'Luminescent Barrier': 1, 'Ash Bow': 4}	10	0	1	0	None	0	1
+Gargoyle	Aged Gargoyle	Gargoyle	24	33	3300	50	50	10	200	0	200	50	100	0	50	{'Freezing Arrow': 9, 'Mist': 6, 'Swoop': 7}	{'Luminescent Barrier': 1, 'Ash Bow': 5}	10	0	1	0	None	0	1
+Ice Elemental	Ice Elemental	Ice Elemental	22	2100	2100	25	90	10	200	0	30	0	90	-100	25	{'Icicles': 40, 'Hailstorm': 30, 'Healing Glow': 20, 'Rock Shot': 10}	{'Radiant Barrier': 15}	900	0	1	0	None	0	0
