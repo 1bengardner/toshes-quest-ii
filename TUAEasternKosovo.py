@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: November 17, 2022
+Revised: November 23, 2022
 """
 
 
@@ -409,7 +409,7 @@ class EasternKosovo:
             self.text = ("You approach an old ruins. There is a" +
                          " set of stairs leading downwards.")
             self.menu = ["Descend into the ruins."]
-        elif "Finding President" in self.c.flags:
+        elif "Took Map" in self.c.flags:
             self.imageIndex = 13
             self.text = ("You approach an old ruins. There is a" +
                          " set of stairs leading downwards." +

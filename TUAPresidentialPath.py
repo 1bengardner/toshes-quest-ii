@@ -2,7 +2,7 @@
 File: TUAPresidentialPath.py
 Author: Ben Gardner
 Created: June 20, 2015
-Revised: October 26, 2022
+Revised: November 23, 2022
 """
 
 
@@ -296,6 +296,8 @@ class PresidentialPath:
         elif selectionIndex == 1:
             self.c.flags['Took Map'] = True
             self.text = "You pick up the map."
+            if "Marked Areas" in self.c.flags and "Eastern Kosovo" in self.c.flags['Marked Areas']:
+                self.c.flags['Marked Areas']['Eastern Kosovo'].add((8, 6))
             return self.actions({'item': "Presidential Map"})
         if "Finding President" not in self.c.flags:
             self.c.flags['Finding President'] = True
