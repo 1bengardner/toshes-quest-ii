@@ -13,9 +13,10 @@ Flail	350	Physical	30	27	Strength	Club	12	200
 Long Sword	600	Physical	35	30	Strength	Sword	4	200
 Javelin	500	Physical	15	28	Strength	Spear	20	200
 Alder Bow	500	Physical	20	30	Dexterity	Bow	6.4	200
+Honey Rod	600	Physical	10	10	Wisdom	Wand	0.1	200
 Espadon	1200	Physical	40	40	Strength	Sword	4	200
 Flanged Mace	800	Physical	25	35	Strength	Club	10	200
-Yew Wand	1300	Physical	30	30	Wisdom	Wand	0.1	200
+Yew Wand	1200	Physical	30	30	Wisdom	Wand	0.1	200
 Great Axe	1300	Physical	50	45	Strength	Axe	8	200
 Spear	800	Physical	30	42	Strength	Spear	8	200
 Birch Bow	1000	Physical	40	40	Dexterity	Bow	6.8	200

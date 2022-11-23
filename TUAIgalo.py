@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: November 19, 2022
+Revised: November 22, 2022
 """
 
 
@@ -325,14 +325,14 @@ class Igalo:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            if self.c.euros >= 1400 and self.c.hasRoom():
+            if self.c.euros >= 700 and self.c.hasRoom():
                 self.text = ("Toshe: Sure."+
                              "\nShady Man: Done. Thanks!"+
                              "\nThe man walks away.")
-                self.c.euros -= 1400
+                self.c.euros -= 700
                 self.c.flags['Shady Purchase'] = True
-                return self.actions({'item': "Yew Wand"})
-            elif self.c.euros < 1400:
+                return self.actions({'item': "Honey Rod"})
+            elif self.c.euros < 700:
                 self.text = ("Toshe: I can't afford that.")
             elif not self.c.hasRoom():
                 self.text = ("You have no room.")
@@ -340,7 +340,7 @@ class Igalo:
             self.text = ("Toshe: Hey, wands are outlawed here."+
                          "\nShady Man: What's your problem?")
         elif 'Shady Purchase' not in self.c.flags:
-            self.text = ("Shady Man: Psst. You want a wand? 1400 euros and "+
+            self.text = ("Shady Man: Psst. You want a wand? 700 euros and "+
                          "it's yours.")
             self.menu = ["\"Yes.\"",
                          "\"That's illegal.\""]
