@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 21, 2022
+Revised: November 22, 2022
 """
 
 
@@ -741,7 +741,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if newQuest:
             interfaceActions['new quest'] = newQuest
             self.sound.playSound(self.sound.sounds['New Quest'])
-        completedQuest = self.checkForFinishedQuests(self.character.quests, self.character, returnOne=True)
+        completedQuest = self.checkForReadyQuests(self.character.quests, self.character, returnOne=True)
         if completedQuest:
             interfaceActions['completed quest'] = completedQuest
             self.sound.playSound(self.sound.sounds['Quest Ready'])
@@ -962,7 +962,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         def syncWithCharacter(quests, character):
             for questInProgress in character.quests:
                 quests.remove(questInProgress)
-            self.checkForFinishedQuests(character.quests, character)
+            self.checkForReadyQuests(character.quests, character)
             self.removeFinishedQuests(quests, character.flags)
 
         self.availableQuests = []
@@ -987,7 +987,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 self.availableQuests.remove(quest)
                 return quest
 
-    def checkForFinishedQuests(self, quests, character, returnOne=False):
+    def checkForReadyQuests(self, quests, character, returnOne=False):
         for quest in quests:
             if quest.isCompletedBy(character) and quest.END_FLAG not in self.completedQuests:
                 self.completedQuests[quest.END_FLAG] = quest

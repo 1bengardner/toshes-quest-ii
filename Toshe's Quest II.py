@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 21, 2022
+Revised: November 23, 2022
 """
 
  
@@ -84,7 +84,7 @@ class Window:
         
         self.newSkillLabelBottom = Label(self.newSkillFrame,
                                          text="PUMMELER'S PRECISION!",
-                                         wraplength=WINDOW_WIDTH,
+                                         wraplength=WINDOW_WIDTH-20,
                                          font=font7,
                                          bg=SKILL_BG, fg=SKILL_FG)
         self.newSkillLabelBottom.grid(row=0, rowspan=2, pady=16)
@@ -1200,9 +1200,11 @@ Game over? Forget to save? Save in the wrong place? Don't fret. You can now RESU
 
     def usePotion(self, event=None):
         if (self.potionButton['state'] == NORMAL):
-            main.character.hp += 50
+            healAmount = 50
+            main.character.hp += healAmount
             main.character.potions -= 1
-            message = "You consume a vial full of life fluid."
+            message = ("You consume a vial full of life fluid, healing %s HP." %
+                healAmount)
             window.bottomFrame.bottomLeftFrame.insertOutput(message)
             self.updateOtherStats()
             window.topFrame.topLeftFrame.updateVitalStats()
