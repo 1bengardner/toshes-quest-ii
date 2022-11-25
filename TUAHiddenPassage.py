@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: November 11, 2022
+Revised: November 24, 2022
 """
 
 
@@ -229,6 +229,7 @@ class HiddenPassage:
         animal = None
         if "Animal Ascension" in self.c.flags:
             del self.c.flags['Animal Ascension']
+            self.c.flags['Ascended'] = True
             kills = self.c.flags['Kills']
             animalPowers = self.c.flags['Animal Powers']
             suffix = random.choice(["Stab", "Slice", "Smash", "Sever"])
@@ -262,6 +263,8 @@ class HiddenPassage:
                              " energy flows into you.")
                 self.c.flags['Animal Powers']['Giant Scarab2'] = 1
                 animal = "Scarab"
+            if len(self.c.flags['Animal Powers']) == 5:
+                self.c.flags['Fully Ascended'] = True
             return self.actions({'skill': "%s %s" % (animal, suffix),
                                  'cost': 0,
                                  'save': True})

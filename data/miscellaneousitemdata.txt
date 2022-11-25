@@ -4,12 +4,13 @@ Aquamarine Shard	500	This gem harnesses elemental power.
 Garnet Fragment	500	This gem harnesses elemental power.
 Gold Ore	500	This can be refined into a valuable metal.
 Gold Bar	2000	A lightweight metal with strong*resistive properties.
-Syvre Leaf	0	Be re-leafed.
+Syvre Leaf	500	Be re-leafed.
+Brummo Mint	1	This herb can have surprising effects*at an unexpected time.
 The Key to Macedonia	1	It is time to save your homeland.
 Key Mold	1	This can be used to smith a key.
-Letter from the Mayor	1	A letter that bears the signature*of the Herceg Novi mayor.
+Letter from the Mayor	1	This letter bears the signature of the*Herceg Novi mayor.
 Mysterious Parchment	1	Sunken Writings Opaquely Reveal*Death Fictitious Inside Soulless Hearts.
-Presidential Map	1	This map leads somewhere good.*That's what you hope.
+Presidential Map	1	This map indicates an X,*two paces west of Pristina.
 Greek Wall Blueprint	1	These drawings depict the layout*of the wall of Greece.
 Nutritious Mushroom	5000	Restores all HP.*Consumed when HP is below 50%.
 Delicious Mushroom	5000	Restores all EP.*Consumed when HP is below 50%.

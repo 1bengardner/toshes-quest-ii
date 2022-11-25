@@ -2,7 +2,7 @@
 File: TUAWeapon.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 27, 2014
+Revised: November 23, 2022
 """
 
 
@@ -33,5 +33,7 @@ class Weapon:
             self.ACCURACY = 50
         elif category == "Wand":
             self.ACCURACY = 999     # always hits
+        elif category == "Gun":
+            self.ACCURACY = 10
         else:
             self.ACCURACY = 0

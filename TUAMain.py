@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 22, 2022
+Revised: November 25, 2022
 """
 
 
@@ -92,7 +92,7 @@ class Main:
         self.enemies = {}
         self.mercenaries = {}
         self.allQuests = []
-        self.completedQuests = {}
+        self.completedQuests = set()
         weaponModifiers = {
                 1: [
                     'Big',
@@ -500,8 +500,10 @@ class Main:
                 completionCriteria = eval(tokens[2])
                 startFlag = tokens[3]
                 endFlag = tokens[4]
+                optional = tokens[5]
+                repeatable = tokens[6]
                 self.allQuests.append(Quest(title, description,
-                 completionCriteria, startFlag, endFlag))
+                 completionCriteria, startFlag, endFlag, optional, repeatable))
 
     def move(self, direction):
         """Move character in the specified direction in the area.
@@ -540,13 +542,20 @@ class Main:
         if ( isChristmasSeason and
              self.character.hasRoom() and
              "Christmas %i" % year not in self.character.flags):
+            differentItems = 4
             rewardText = "Thank you for playing during this holiday season!"
-            if year % 2 == 0:
+            if year % differentItems == 0:
                 itemText = "You get an Ugly Disguise."
                 item = "Ugly Disguise"
-            else:
+            elif year % differentItems == 1:
                 itemText = "You get a pair of Hopalong Boots."
                 item = "Hopalong Boots"
+            elif year % differentItems == 2:
+                itemText = "You get a rifle that shoots."
+                item = "A rifle that shoots"
+            elif year % differentItems == 3:
+                itemText = "You get the Debonairiest Nowell Shirt."
+                item = "Debonairiest Nowell Shirt"
             interfaceActions = {
                 'text': itemText,
                 'italic text': rewardText,
@@ -737,18 +746,19 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
         self.addMercenary(interfaceActions)
         
-        newQuest = self.checkForNewQuest(self.character.quests, self.character.flags)
-        if newQuest:
-            interfaceActions['new quest'] = newQuest
-            self.sound.playSound(self.sound.sounds['New Quest'])
-        completedQuest = self.checkForReadyQuests(self.character.quests, self.character, returnOne=True)
-        if completedQuest:
-            interfaceActions['completed quest'] = completedQuest
-            self.sound.playSound(self.sound.sounds['Quest Ready'])
         oldQuest = self.removeFinishedQuests(self.character.quests, self.character.flags, returnOne=True)
         if oldQuest:
             interfaceActions['remove quest'] = oldQuest
             self.sound.playSound(self.sound.sounds['Quest Complete'])
+        else:
+            newQuest = self.checkForNewQuest(self.character.quests, self.character.flags)
+            if newQuest:
+                interfaceActions['new quest'] = newQuest
+                self.sound.playSound(self.sound.sounds['New Quest'])
+        completedQuest = self.checkForReadyQuests(self.character.quests, self.character, returnOne=True)
+        if completedQuest:
+            interfaceActions['completed quest'] = completedQuest
+            self.sound.playSound(self.sound.sounds['Quest Ready'])
 
         self.view = interfaceActions['view']
 
@@ -849,7 +859,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return randint(1, numberOfSides)
 
     def attack(self):
-        interfaceActions = self.battle.attack(self.skills['Attack'])
+        if self.character.equippedWeapon.CATEGORY == "Gun":
+            interfaceActions = self.battle.attack(self.skills['Shoot'])            
+        else:
+            interfaceActions = self.battle.attack(self.skills['Attack'])
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
     
@@ -983,14 +996,18 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
     def checkForNewQuest(self, quests, flags):
         for quest in self.availableQuests:
             if quest.START_FLAG in flags:
-                quests.append(quest)
                 self.availableQuests.remove(quest)
+                if quest.END_FLAG in flags:
+                    return None
+                quests.insert(0, quest)
                 return quest
 
     def checkForReadyQuests(self, quests, character, returnOne=False):
         for quest in quests:
-            if quest.isCompletedBy(character) and quest.END_FLAG not in self.completedQuests:
-                self.completedQuests[quest.END_FLAG] = quest
+            if quest.isCompletedBy(character) and quest not in self.completedQuests:
+                self.completedQuests.add(quest)
+                quests.remove(quest)
+                quests.insert(0, quest)
                 if returnOne:
                     return quest
 

@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 21, 2022
+Revised: November 23, 2022
 """
 
 
@@ -38,6 +38,7 @@ class Sound:
                        "Deal Damage": "FX-Hit",
                        "Wand Attack": "FX-Cast",
                        "Bow Attack": "FX-Shoot",
+                       "Gun Attack": "FX-Bullet",
                        "Take Damage": "FX-Struck",
                        "Heal": "FX-Rise",
                        "Critical Strike": "FX-Critical",

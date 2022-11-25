@@ -60,3 +60,4 @@ Fists	0	Physical	0	5	Strength	Club	2	200
 Horological Wand	7000	Physical	80	83	Wisdom	Wand	0.1	200
 Dehiscer	7500	Physical	122	82	Strength	Axe	12	200
 Stinkblade	7500	Physical	111	81	Strength	Sword	4	200
+A rifle that shoots	1225	Physical	30	30	Strength	Gun	10	500

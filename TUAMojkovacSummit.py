@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: November 11, 2022
+Revised: November 25, 2022
 """
 
 
@@ -63,6 +63,10 @@ class MojkovacSummit:
              'Orc': 5,
              'Mountain Goblin': 5,
              'Giant Seal1': 5}
+        e2 = {'Goblin Ranger': 2,
+              'Orc': 2,
+              'Mountain Goblin': 2,
+              'Giant Seal1': 11}
 
         self.encounters = {wrp1: {},
                            wrp2: {},
@@ -74,8 +78,8 @@ class MojkovacSummit:
                            nml2: e,
                            nooE: {},
                            mtn1: e,
-                           nml3: e,
-                           nml4: e,
+                           nml3: e2,
+                           nml4: e2,
                            mtn2: {},
                            fire: e,
                            bldg: {},

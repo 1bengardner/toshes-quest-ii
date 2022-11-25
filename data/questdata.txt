@@ -1,6 +1,49 @@
-TITLE	DESCRIPTION	COMPLETION_CRITERIA	START_FLAG	END_FLAG
-Manhunt	Kill 2 Rumadan men for Bartender Daniel in Herceg Novi.	{'Kills': ('Rumadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete
-Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete
-I Need a Doctor!	Kill Dr. Grabh for Bartender Daniel in Herceg Novi.	{'Kills': ('Dr. Grabh', 1)}	Daniel Quest 3	Daniel Quest 3 Complete
-Aquamarine Dreams	Bring an Aquamarine Shard to Ivana in Herceg Novi.	{'Items': {'Aquamarine Shard': 1}}	Ivana Talk 3	Necklace Fixed
-The Key to Macedonia	Find a blacksmith who can smith the Key to Macedonia.	{'Items': {'Key Mold': 1}}	Key Mold	Got Key
+TITLE	DESCRIPTION	COMPLETION_CRITERIA	START_FLAG	END_FLAG	OPTIONAL	REPEATABLE
+Manhunt	Kill 2 Rumadan men for Bartender Daniel in Herceg Novi. They can be found in the Frolicking Fields nearby.	{'Kills': ('Rumadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete	0	0
+Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi. They can be found in the Bay of Kotor to the south.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete	0	0
+I need a doctor!	Find and kill Dr. Grabh for Bartender Daniel in Herceg Novi.	{'Kills': ('Dr. Grabh', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	0	0
+A Lovely Orcskin Jacket	Kill 1 Orc for Bartender Adam in Mojkovac Valley.	{'Kills': ('Orc', 1)}	Adam Quest 1	Adam Quest 1 Complete	0	0
+A Cute Goblinhide Coat	Kill 5 Goblins for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	0	0
+Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	0	0
+Fresh or Fowl?	Kill 1 crow for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	0	0
+A Shocking Choice	Kill 3 jellyfish for Bartender Igor in Pec.	{'Kills': ('Toxic Jellyfish', 3)}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	0	0
+"Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	0	0
+Business as Usual	Kill 5 Border Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	0	0
+Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	0	0
+General Information	Kill General Octavius for Bartender Zhang in Pristina. He can be found in a corner of Kosovo.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	0	0
+Homeland Bound	Continue your journey north through Black Mountain to reach Mojkovac.	{'No Criteria': True}	Daniel Quest 3 Complete	Mojkovac Summit	0	0
+Father Time	Rescue Dragan's father from inside The Watchmaking Facility.	{'No Criteria': True}	Dragan	The Watchmaking Facility Complete	0	0
+Mystery of the Mages	Gather information about the disappearance of the archmages for Mayor Radoman in Igalo.	{'Kills': ('Maximilian', 1)}	Radoman	Radoman Information 1	0	0
+The Mastermind	Find Niplin's headquarters.	{'No Criteria': True}	Radoman Information 1	Lair Entrance	0	0
+Delve Into Darkness	Explore the Lair of the Magi and find the archmages.	{'No Criteria': True}	Lair Entrance	Lair Tower	0	0
+Grave Matters	Bury Dragan's father in the cemetery.	{'No Criteria': True}	The Watchmaking Facility Complete	Ghost of Tomas Conclusion	0	0
+Something Fishy	Decrypt the anagram on Tomas Tam's tombstone and uncover what he has hidden.	{'No Criteria': True}	Ghost of Tomas Conclusion	Writings	0	0
+Paper Trail	Collect parchment from swordfish scattered throughout the Adriatic Sea.	{'Items': {'Mysterious Parchment': 1}}	Writings	All Tomas Writings Found	0	0
+Codebreaker	Decrypt the Mysterious Parchment and use it to discover a secret in Western Kosovo.	{'No Criteria': True}	All Tomas Writings Found	Secret Lab Unlocked	0	0
+Top Secret	Find what Tomas Tam has hidden in The Secret Laboratory.	{'No Criteria': True}	Secret Lab Entrance	Secret Lab Lever	0	0
+Gated Content	Get a letter bearing the signature of Mayor Mirko in Herceg Novi for the guards in Pristina.	{'Items': {'Letter from the Mayor': 1}}	Tipsy Tuesday	Unguarded Gate	0	0
+The President	Speak to the President of Macedonia.	{'Items': {'Presidential Map': 1}}	Unguarded Gate	Finding President	0	0
+The Key to Macedonia?	Follow the Presidential Map to see where it leads.	{'No Criteria': True}	Took Map	Old Ruins	0	0
+The Quest for Truth	Explore the Old Ruins.	{'Items': {'Macedonian Protector': 1}}	Old Ruins	Old Ruins Complete	0	0
+The Italian Job	Find and defeat Silvio Berlusconi in his castle.	{'Kills': ('Silvio Berlusconi3', 1)}	Silvio Coward 1	Blueprint	0	0
+Crossing The Border	Find a way beyond the Greek border.	{'Items': {'Greek Wall Blueprint': 1}}	Greek Wall	Greek Wall Hole	0	0
+Act like you belong	Sneak into the Coliseum.	{'Items': {'Greek Armour': 1, 'Greek Robe': 1}}	Not Disguised	Coliseum	0	0
+I want to be the very best	Win the coliseum.	{'No Criteria': True}	Coliseum	Coliseum Complete	0	0
+Guided Tour of the Mediterranean	Follow your escort to the Greek Fortress west of Athens.	{'No Criteria': True}	Coliseum Complete	Greek Fortress	0	0
+Internal Investigation	Search the Greek Fortress for clues about Macedonia.	{'Items': {'Key Mold': 1}}	Greek Fortress	Got Key Mold	0	0
+The Key to Macedonia	Find a blacksmith who can smith the Key to Macedonia.	{'Items': {'Key Mold': 1, 'Gold Bar': 1}}	Key Hunting	Got Key	0	0
+Steps to Justice	Travel to the Thessalonian Highlands from the northeastern tip of the Greek Plains.	{'No Criteria': True}	Got Key	Thessaloniki	0	0
+Open Thessame	Open the gate to Macedonia in the Thessalonian Highlands.	{'Items': {'The Key to Macedonia': 1}}	Thessaloniki	Macedonian Gate Opened	0	0
+Liberation	Save Macedonia.	{'No Criteria': True}	Stone Banter	Conclusion	0	0
+Graveyard Shift	Defeat the Pirates in the Scutari Peninsula and the Gryphons in Western Kosovo.	{'Multiple Kills': (('Pirate Captain', "Pirates"), ('Phoenix', "Gryphons"))}	Skeleton Clan	Skeleton Clan Reward	0	0
+Bilge Duty	Defeat the Skeletons in the Mojkovac Cemetery and the Gryphons in Western Kosovo.	{'Multiple Kills': (('Skeleton Commander', "Skeletons"), ('Phoenix', "Gryphons"))}	Pirate Clan	Pirate Clan Reward	0	0
+Pecking Order	Defeat the Skeletons in the Mojkovac Cemetery and the Pirates in the Scutari Peninsula.	{'Multiple Kills': (('Skeleton Commander', "Skeletons"), ('Pirate Captain', "Pirates"))}	Gryphon Clan	Gryphon Clan Reward	0	0
+Aquamarine Dreams	Bring an Aquamarine Shard to Ivana in Herceg Novi.	{'Items': {'Aquamarine Shard': 1}}	Ivana Talk 3	Necklace Fixed	1	0
+Animal Absorption	Hunt for a legendary Giant Animal and absorb its power using the altar in the Hidden Passage.	{'Wildcard Kills': (('Giant Seal2', 'Giant Shark2', 'Giant Salamander2', 'Giant Scorpion2', 'Giant Scarab2'), 1, "Legendary Animal")}	Animal Powers	Ascended	1	0
+Animal Ascension	Defeat every legendary Giant Animal and absorb their souls.	{'Multiple Kills': (('Giant Seal2', "Frostflipper the Fierce"), ('Giant Shark2', "Tidetooth the Tough"), ('Giant Salamander2', "Meltmaw the Magical"), ('Giant Scorpion2', "Poisonpinch the Piercing"), ('Giant Scarab2', "Stoneshell the Spirited"))}	Ascended	Fully Ascended	1	0
+Precious Metal	Bring a piece of Gold Ore to Goldum in the Rumadan Hideout.	{'Items': {'Gold Ore': 1}}	Met Goldum	Goldum Gold	1	0
+A Blade of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Rumadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
+Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward to Big Nigel in the Greek Plains.	{'Items': {'Jade Ward': 1, 'Garnet Ward': 1, 'Aquamarine Ward': 1}}	Big Nigel	Diamond Defence	1	1
+A Sword for an Oseku	Bring an Espadon to Qendresa in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	0	0
+Suited in Steel	Bring a Steel Cuirass to Qendresa in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	0	0
+Coat of Arms	Find and return the Oseku Shield to Qendresa in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	0	0

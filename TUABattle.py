@@ -491,6 +491,8 @@ class Battle(object):
                             self.sounds.append("Wand Attack")
                         elif attacker.equippedWeapon.CATEGORY == "Bow":
                             self.sounds.append("Bow Attack")
+                        elif attacker.equippedWeapon.CATEGORY == "Gun":
+                            self.sounds.append("Gun Attack")
                         else:
                             self.sounds.append("Deal Damage")
                     elif defender == self.mainCharacter:

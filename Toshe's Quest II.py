@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 23, 2022
+Revised: November 25, 2022
 """
 
  
@@ -15,6 +15,7 @@ import tkMessageBox
 from TUAMain import Main
 from TUADialog import OpenFileDialog
 from TUAStatics import Static
+import converter
 import random
 from datetime import datetime
 import pickle
@@ -203,21 +204,35 @@ class RightFrame:
     def updateMissions(self):
         for quest, mission in self.missionLog.iteritems():
             mission.missionDetails['text'] = quest.getDetailsFor(main.character)
+            if quest.getDetailsFor(main.character):
+                mission.missionDetails.grid(sticky=W)
+                
+            
+    def pushDownMissions(self):
+        for mission in self.missionLog:
+            element = self.missionLog[mission]
+            element.grid(row=int(element.grid_info()['row']) + 1)
 
-    def addMission(self, quest):
+    def addMission(self, quest, pushToTop=True):
         self.noMissions.grid_remove()
         
         missionFrame = Frame(self.missions,
             bg=MEDIUMBEIGE,
             pady=2,)
         missionFrame.grid(sticky=EW, padx=2, pady=2)
+        if pushToTop:
+            self.pushDownMissions()
+            missionFrame.grid(row=0)
         missionFrame.columnconfigure(0, weight=1)
         
         missionTitle = Label(missionFrame,
             bg=MEDIUMBEIGE,
-            text=quest.TITLE,
+            text=quest.TITLE + (" (Repeatable)" if quest.REPEATABLE else ""),
             font=italicFont2,
-            wraplength=FRAME_C_WIDTH-20,)
+            wraplength=FRAME_C_WIDTH-20,
+            justify=LEFT,)
+        if quest.OPTIONAL:
+            missionTitle['fg'] = BROWN
         missionTitle.grid(sticky=W)
         missionDescription = Label(missionFrame,
             bg=MEDIUMBEIGE,
@@ -232,7 +247,8 @@ class RightFrame:
             font=font1,
             wraplength=FRAME_C_WIDTH-20,
             justify=LEFT,)
-        missionFrame.missionDetails.grid(sticky=W)
+        if quest.getDetailsFor(main.character):
+            missionFrame.missionDetails.grid(sticky=W)
         
         self.missionLog[quest] = missionFrame
 
@@ -244,6 +260,8 @@ class RightFrame:
         self.noMissions.grid()
 
     def markMission(self, quest):
+        self.pushDownMissions()
+        self.missionLog[quest].grid(row=0)
         self.missionLog[quest].config(
             relief=GROOVE,
             bd=2,
@@ -596,6 +614,8 @@ class TopCenterFrame:
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
         self.musicButton.grid(row=0, padx=16, sticky=W)
+        self.musicButton.bind_all("<Control-m>", lambda _: self.musicButton.invoke())
+        self.musicButton.bind_all("<Control-M>", lambda _: self.musicButton.invoke())
         self.playSfx = BooleanVar(value=True)
         self.sfxButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=sfxImage,
@@ -796,7 +816,7 @@ class TopCenterFrame:
         d = OpenFileDialog(root, "Start Game")
         if not hasattr(d, 'entryValue'):
             window.bottomFrame.bottomLeftFrame.insertOutput(
-                "Come on. I promise not to bite.")
+                "Turtle: Come on. I promise not to bite.")
             return
         self.tryToLoadFile(d.entryValue)
 
@@ -807,16 +827,28 @@ class TopCenterFrame:
             self.createFile(name)
         except AttributeError:
             window.bottomFrame.bottomLeftFrame.insertOutput(
+                "Turtle: " +
                 name +
                 ", some vital information is missing from your file." +
-                "\nPerhaps this can be remedied with a conversion.")
-        except (EOFError, ValueError, KeyError, IndexError, ImportError):
-            window.bottomFrame.bottomLeftFrame.insertOutput(
-                name +
-                ", your file is completely garbled! This is quite unfortunate.")
-        except ImportError:
-            window.bottomFrame.bottomLeftFrame.insertOutput(
-                "I cannot read this file at all! What language is this?")
+                " Perhaps this can be remedied with a conversion.")
+            path = "saves\\"+name+".tq"
+            with open(path, "r") as gameFile:
+                changed = converter.update(gameFile, path)
+            if changed:
+                window.bottomFrame.bottomLeftFrame.insertOutput(
+                    "Turtle: " +
+                    name +
+                    ", your file has been successfully converted!")
+                self.tryToLoadFile(name)
+        # except (EOFError, ValueError, KeyError, IndexError, ImportError):
+            # window.bottomFrame.bottomLeftFrame.insertOutput(
+                # "Turtle: " +
+                # name +
+                # ", your file is completely garbled! This is quite unfortunate.")
+        # except ImportError:
+            # window.bottomFrame.bottomLeftFrame.insertOutput(
+                # "Turtle: " +
+                # "I cannot read this file at all! What language is this?")
 
     def loadFile(self, name=None):
         if not name:
@@ -853,7 +885,7 @@ class TopCenterFrame:
             window.topFrame.topRightFrame.logButton.invoke()
         window.rightFrame.clearMissions()
         for quest in main.character.quests:
-            window.rightFrame.addMission(quest)
+            window.rightFrame.addMission(quest, pushToTop=False)
             if quest.isCompletedBy(main.character):
                 window.rightFrame.markMission(quest)
         
@@ -1355,8 +1387,8 @@ class BottomLeftFrame:
         self.outputBox.tag_config("grey", foreground=GREY)
         self.outputBox.tag_config("highlight", foreground=BLACK)
         self.outputBox.insert(END,
-                              ("Welcome. Click on me to "+
-                               "embark on a quest."), "italicize")
+            "Turtle: Welcome. Click on me to embark on a quest.",
+            ("grey", "highlight"))
         self.outputBox['state'] = DISABLED
         
         self.outputScrollbar = Scrollbar(master, bg=DEFAULT_BG,

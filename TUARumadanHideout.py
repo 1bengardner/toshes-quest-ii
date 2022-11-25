@@ -2,7 +2,7 @@
 File: TUARumadanHideout.py
 Author: Ben Gardner
 Created: July 12, 2015
-Revised: November 12, 2022
+Revised: November 25, 2022
 """
 
 
@@ -80,8 +80,9 @@ class RumadanHideout:
             Y = 3
             return self.actions({'area': "Rumadan Village",
                                  'coordinates': (X, Y)})
-        elif ( selectionIndex == 1 and
-             "Oseku Shield" not in self.c.flags):
+        elif (selectionIndex == 1 and
+              "Qendresa Crest" not in self.c.flags and
+               not self.c.hasItem("Oseku Shield")):
             self.text = ("You take the Oseku Shield!")
             self.c.flags['Oseku Shield'] = True
             self.menu = ["Leave."]
@@ -115,15 +116,20 @@ class RumadanHideout:
             self.text = ("Beside Jazidhu's corpse lies a large shield.")
             self.menu = ["Leave.",
                          "Pick up the shield."]
+        elif ("Qendresa Crest" not in self.c.flags and
+              not self.c.hasItem("Oseku Shield")):
+            self.text = ("You see the Oseku Shield on the ground.")
+            self.menu = ["Leave.",
+                         "Pick up the shield."]            
         elif (selectionIndex == 1 and
               "Goldum Gold" not in self.c.flags):
-                self.c.removeItem(self.c.indexOfItem("Gold Ore"))
-                self.c.flags['Goldum Gold'] = True
-                self.text = ("You place a piece of gold ore in Goldum's" +
-                             " frail demon hands." +
-                             "\nGoldum: Yes...please, leave me with" +
-                             " gold...return later. Yes...")
-                self.menu = ["Leave."]
+            self.c.removeItem(self.c.indexOfItem("Gold Ore"))
+            self.c.flags['Goldum Gold'] = True
+            self.text = ("You place a piece of gold ore in Goldum's" +
+                         " frail demon hands." +
+                         "\nGoldum: Yes...please, leave me with" +
+                         " gold...return later. Yes...")
+            self.menu = ["Leave."]
         elif (selectionIndex == 1 and 
               "Goldum Gold" in self.c.flags):
             self.skillArrangementPhase = 1
@@ -139,17 +145,20 @@ class RumadanHideout:
                          "Rearrange your skills."]
         else:
             self.menu = ["Leave."]
-            self.text = "Toshe: I sure made a mess of this place."
-            if self.c.hasMercenary("Qendresa"):
-                self.text += ("\nQendresa: There was no place in Albania for" +
-                              " these vile men.")
+            if "Met Goldum" not in self.c.flags:
+                self.text = "Toshe: I sure made a mess of this place."
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += ("\nQendresa: There was no place in Albania" +
+                                  " for these vile men.")
             if self.c.hasMercenary("Barrie"):
-                self.text += ("\nBarrie: Wait...who's that?" +
-                              "\nBarrie shines his staff on a cloaked" +
-                              " demon cowering in the corner. It" +
-                              " gasps and curls into a ball."
-                              "\nToshe: Yeah, who are you?" +
-                              "\nGoldum: Um...I am gold-um...please..." +
+                if "Met Goldum" not in self.c.flags:
+                    self.c.flags['Met Goldum'] = True
+                    self.text += ("\nBarrie: Wait...who's that?" +
+                                  "\nBarrie shines his staff on a cloaked" +
+                                  " demon cowering in the corner. It" +
+                                  " gasps and curls into a ball."
+                                  "\nToshe: Yeah, who are you?")
+                self.text += ("\nGoldum: Um...I am gold-um...please..." +
                               " give gold...um...ore...")
                 if self.c.hasItem("Gold Ore"):
                     self.menu.append("Give Goldum gold ore.")

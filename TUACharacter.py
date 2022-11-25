@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: November 19, 2022
+Revised: November 23, 2022
 """
 
 
@@ -80,7 +80,9 @@ class Character(object):
 
     def updateStats(self):
         """Update stats that are dependent on other stats."""
-        if self.equippedWeapon.REQUIREMENT_TYPE == "Strength":
+        if self.equippedWeapon.CATEGORY == "Gun":
+            self.damage = self.equippedWeapon.POWER
+        elif self.equippedWeapon.REQUIREMENT_TYPE == "Strength":
             self.damage = self.strength * self.equippedWeapon.POWER / 10
         elif self.equippedWeapon.REQUIREMENT_TYPE == "Dexterity":
             self.damage = self.dexterity * self.equippedWeapon.POWER / 10

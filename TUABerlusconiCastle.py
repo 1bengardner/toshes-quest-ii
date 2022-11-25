@@ -2,7 +2,7 @@
 File: TUABerlusconiCastle.py
 Author: Ben Gardner
 Created: July 14, 2015
-Revised: October 25, 2022
+Revised: November 23, 2022
 """
 
 
@@ -565,7 +565,7 @@ class BerlusconiCastle:
                 self.text += ("\n%s: Does he think he can conquer" % merc2 +
                               " the world or somethin'?")
             if self.c.hasMercenary(merc1):
-                self.text += ("\n%s: It sounds like Silvio has bigger" % merc1 +
+                self.text += ("\n%s: It sounds like Silvio has larger" % merc1 +
                               " plans. We must stop him before it's too late.")
             self.text += ("\nYou notice a scroll on the lectern.")
             self.menu = ["Take the scroll."]

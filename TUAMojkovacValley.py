@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: November 12, 2022
+Revised: November 24, 2022
 """
 
 
@@ -93,7 +93,20 @@ class MojkovacValley:
         self.helpText = None
         self.menu = []
         npc = "Ryfil the Kid"
-        if "Ryfil the Kid" not in self.c.flags:
+        if selectionIndex == 0:
+            self.c.flags['Rifled The Kid'] = True
+            self.view = "battle"
+            return self.actions({'enemy': "Ryfil the Kid"})
+            
+        if "Ryfil the Kid" in self.c.flags['Kills']:
+            self.text = "You see Ryfil's dead body on the ground."
+        elif self.c.equippedWeapon.CATEGORY == "Gun":
+            if "Rifled The Kid" in self.c.flags:
+                self.text = npc+": Don't shoot!"                
+            else:
+                self.text = npc+": I-is that a real gun?"
+            self.menu = ["Aim at Ryfil."]
+        elif "Ryfil the Kid" not in self.c.flags:
             self.text = (npc+": Hey, A'm Ryfil; Ry fa' sha't. But evrywan "+
                          "just calls me \"Ryfil the Kid\" fa' sam reasan. "+
                          "Prabably bacause A'm the anly kid in Makavass!")

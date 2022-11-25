@@ -327,6 +327,7 @@ class Greece:
                 self.c.removeItem(self.c.indexOfItem(rm3))
                 self.text = ("%s crushes your three wards into" % npc +
                              " a %s." % product)
+                self.c.flags['Diamond Defence'] = True
                 return self.actions({'item': product})
             elif (not self.c.hasItem(rm1) or
                   not self.c.hasItem(rm2) or

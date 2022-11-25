@@ -2,7 +2,7 @@
 File: TUASkill.py
 Author: Ben Gardner
 Created: March 14, 2013
-Revised: March 30, 2013
+Revised: November 23, 2022
 """
 
 
@@ -35,7 +35,7 @@ class Skill:
             permittedWeapons.remove("All")
             self.PERMITTED_WEAPONS = permittedWeapons |\
                                      set(["Sword", "Club", "Axe", "Spear",
-                                          "Bow", "Wand"])
+                                          "Bow", "Wand", "Gun"])
         else:
             self.PERMITTED_WEAPONS = permittedWeapons
         self.EP_USED = int(epUsed)
