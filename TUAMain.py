@@ -544,18 +544,19 @@ class Main:
              "Christmas %i" % year not in self.character.flags):
             differentItems = 4
             rewardText = "Thank you for playing during this holiday season!"
-            if year % differentItems == 0:
+            roll = year + hash(self.fileName.lower())
+            if roll % differentItems == 0:
                 itemText = "You get an Ugly Disguise."
                 item = "Ugly Disguise"
-            elif year % differentItems == 1:
+            elif roll % differentItems == 1:
                 itemText = "You get a pair of Hopalong Boots."
                 item = "Hopalong Boots"
-            elif year % differentItems == 2:
-                itemText = "You get a rifle that shoots."
-                item = "A rifle that shoots"
-            elif year % differentItems == 3:
+            elif roll % differentItems == 2:
                 itemText = "You get the Debonairiest Nowell Shirt."
                 item = "Debonairiest Nowell Shirt"
+            elif roll % differentItems == 3:
+                itemText = "You get a rifle that shoots."
+                item = "A rifle that shoots"
             interfaceActions = {
                 'text': itemText,
                 'italic text': rewardText,
