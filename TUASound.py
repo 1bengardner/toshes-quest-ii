@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 23, 2022
+Revised: November 25, 2022
 """
 
 
@@ -43,6 +43,7 @@ class Sound:
                        "Heal": "FX-Rise",
                        "Critical Strike": "FX-Critical",
                        "Critical Injury": "FX-Injured",
+                       "Defend": "FX-Tap",
                        "Block": "FX-Brush",
                        "Flee": "FX-Flee",
                        "Kill": "FX-Activate",

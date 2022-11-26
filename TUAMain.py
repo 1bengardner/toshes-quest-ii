@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 25, 2022
+Revised: November 26, 2022
 """
 
 
@@ -868,6 +868,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return interfaceActions
     
     def defend(self):
+        self.sound.playSound(self.sound.sounds['Defend'])
         interfaceActions = self.battle.attack(self.skills['Defend'])
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
