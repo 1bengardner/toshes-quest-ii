@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: November 19, 2022
+Revised: November 26, 2022
 """
 
 
@@ -320,10 +320,11 @@ class HercegNovi:
                              "\nIvana gives you 10000 euros!")
                 self.c.euros += 10000
                 self.c.flags['Necklace Fixed'] = True
-            elif 'Ivana Talk 3' in self.c.flags:
+            elif ('Ivana Talk 3' in self.c.flags and
+                  'Necklace Fixed' not in self.c.flags):
                 self.text = ("Ivana: Could you get me a shard of aquamarine? I "+
                              "can reward you handsomely.")
-            elif ('Ivana Talk 2' in self.c.flags and
+            elif ('Ivana Talk 3' not in self.c.flags and
                   self.c.flags['Ivana Level'] != self.c.level):
                 self.text = ("Ivana: Wow Toshe! You look taller than "+
                              "last time! Where have you been? "+
@@ -338,7 +339,7 @@ class HercegNovi:
                              "could you get me a shard of aquamarine? I can "+
                              "reward you handsomely.")
                 self.c.flags['Ivana Talk 3'] = True
-            elif 'Ivana Talk 1' in self.c.flags:
+            elif 'Ivana Talk 2' not in self.c.flags:
                 self.text = ("Ivana: Hello, Toshe! Have you gone to The Bluffs "+
                              "against my word? Well, it's inevitable. Nobody "+
                              "listens to me. But, if you manage to get past "+

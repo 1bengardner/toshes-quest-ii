@@ -2,7 +2,7 @@
 File: TUARumadanHideout.py
 Author: Ben Gardner
 Created: July 12, 2015
-Revised: November 25, 2022
+Revised: November 26, 2022
 """
 
 
@@ -51,7 +51,8 @@ class RumadanHideout:
     def entrance(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 0
-        if "Oseku Shield" in self.c.flags and self.c.hasMercenary("Barrie"):
+        if ("Qendresa Crest" in self.c.flags or
+            self.c.hasItem("Oseku Shield")) and self.c.hasMercenary("Barrie"):
             self.imageIndex = 1
         self.text = None
         self.helpText = None
@@ -151,7 +152,9 @@ class RumadanHideout:
                     self.text += ("\nQendresa: There was no place in Albania" +
                                   " for these vile men.")
             if self.c.hasMercenary("Barrie"):
-                if "Met Goldum" not in self.c.flags:
+                if "Met Goldum" in self.c.flags:
+                    self.text = "You see Goldum cowering in the corner."
+                else:
                     self.c.flags['Met Goldum'] = True
                     self.text += ("\nBarrie: Wait...who's that?" +
                                   "\nBarrie shines his staff on a cloaked" +

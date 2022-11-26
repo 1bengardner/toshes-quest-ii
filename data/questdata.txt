@@ -8,7 +8,7 @@ Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kil
 Fresh or Fowl?	Kill 1 crow for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	0	0
 A Shocking Choice	Kill 3 jellyfish for Bartender Igor in Pec.	{'Kills': ('Toxic Jellyfish', 3)}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	0	0
 "Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	0	0
-Business as Usual	Kill 5 Border Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	0	0
+Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	0	0
 Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	0	0
 General Information	Kill General Octavius for Bartender Zhang in Pristina. He can be found in a corner of Kosovo.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	0	0
 Homeland Bound	Continue your journey north through Black Mountain to reach Mojkovac.	{'No Criteria': True}	Daniel Quest 3 Complete	Mojkovac Summit	0	0
@@ -44,6 +44,6 @@ Animal Ascension	Defeat every legendary Giant Animal and absorb their souls.	{'M
 Precious Metal	Bring a piece of Gold Ore to Goldum in the Rumadan Hideout.	{'Items': {'Gold Ore': 1}}	Met Goldum	Goldum Gold	1	0
 A Blade of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Rumadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
 Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward to Big Nigel in the Greek Plains.	{'Items': {'Jade Ward': 1, 'Garnet Ward': 1, 'Aquamarine Ward': 1}}	Big Nigel	Diamond Defence	1	1
-A Sword for an Oseku	Bring an Espadon to Qendresa in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	0	0
-Suited in Steel	Bring a Steel Cuirass to Qendresa in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	0	0
-Coat of Arms	Find and return the Oseku Shield to Qendresa in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	0	0
+A Sword for an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	0	0
+Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	0	0
+Coat of Arms	Find the lost Oseku Shield somewhere in Albania and return it to the woman in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	0	0

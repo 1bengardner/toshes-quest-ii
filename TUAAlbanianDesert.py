@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: October 25, 2022
+Revised: November 26, 2022
 """
 
 
@@ -753,7 +753,7 @@ class AlbanianDesert:
                 self.text += ("\nQendresa: Yaouw!")
                 if self.c.hasMercenary("Barrie"):
                     self.text += ("\nBarrie: That's a funny noise.")
-                    self.text += ("\nQendresa: No, in the distance." +
+                    self.text += ("\nQendresa: No, look to the horizon." +
                                   "\nQendresa points to a volcano in the distance.")
             self.c.flags['Plugged Geyser Aftermath'] = True
         elif "Oukkar" not in self.c.flags['Kills']:

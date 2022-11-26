@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: October 26, 2022
+Revised: November 26, 2022
 """
 
 
@@ -661,7 +661,7 @@ class Pristina:
                 self.c.removeItem(self.c.indexOfItem(rawMaterial))
                 self.c.removeItem(self.c.indexOfItem(rawMaterial))
                 self.c.euros -= price
-                self.text = ("After you pay %s euros, " % price +
+                self.text = ("After you pay %s euros," % price +
                              " the blacksmith smelts your ore and" +
                              " returns with a golden bar.")
                 self.menu = ["Smelt gold ore (500 euros, 2 ores).",

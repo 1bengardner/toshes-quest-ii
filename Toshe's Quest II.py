@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 25, 2022
+Revised: November 26, 2022
 """
 
  
@@ -510,6 +510,7 @@ class TopLeftFrame:
         self.updateInventory()
         window.topFrame.topRightFrame.buyButton['state'] = DISABLED
         window.topFrame.topRightFrame.updateStore()
+        window.topFrame.topRightFrame.updateOtherStats()
 
     def clickDropButton(self):
         if self.v1.get() in main.character.equippedItemIndices.values():

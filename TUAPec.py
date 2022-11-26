@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: January 23, 2016
+Revised: November 26, 2022
 """
 
 
@@ -543,7 +543,7 @@ class Pec:
                          " cannot go anywhere without equipment."+
                          " Warrior, do you think you could help me get back"+
                          " on my feet?")
-            self.menu = ["Help Qendresa.",
+            self.menu = ["Help the woman.",
                          "Decline to help."]
             self.tempFlag = "Qendresa Intro"
             
@@ -577,7 +577,7 @@ class Pec:
             self.text = ("Toshe: No, sorry."+
                          "\n%s: Please, I need your help. I need to" % npc +
                          " return home.")
-            self.menu = ["Help Qendresa.",
+            self.menu = ["Help the woman.",
                          "Refuse to help."]
             self.tempFlag = "Qendresa No"
 
