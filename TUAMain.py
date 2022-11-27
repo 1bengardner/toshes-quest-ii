@@ -209,6 +209,9 @@ class Main:
         self.sound.playSound(self.sound.sounds['Load'])
 
     def loadFromCheckpoint(self):
+        self.character.checkpoint.flags['Discovered Areas'] = self.character.flags['Discovered Areas']
+        self.character.checkpoint.flags['Marked Areas'] = self.character.flags['Marked Areas']
+        self.character.checkpoint.flags['Config'] = self.character.flags['Config']
         self.character = self.character.checkpoint
         self.character.checkpoint = deepcopy(self.character)
         self.initGame()
@@ -233,7 +236,10 @@ class Main:
                                    {'Kills': {},
                                     'Discovered Areas': {},
                                     'Marked Areas': {},
-                                    'Config': {'Automap On': 1}},
+                                    'Config': {
+                                        'Automap On': 1,
+                                        'Mission Log Open': 0,
+                                   }},
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y,
                                    0)
