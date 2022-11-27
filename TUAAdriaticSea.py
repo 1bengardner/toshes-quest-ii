@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: November 24, 2022
+Revised: November 26, 2022
 """
 
 
@@ -153,8 +153,6 @@ class AdriaticSea:
         self.c.flags['Swimming HP Loss'] += 1
 
     def checkWritings(self):
-        if "Writings" not in self.c.flags:
-            self.c.flags['Writings'] = set()
         if ("Ghost of Tomas Conclusion" in self.c.flags and
          "All Tomas Writings Found" not in self.c.flags and
          "Swordfish" in self.c.flags['Kills']):
