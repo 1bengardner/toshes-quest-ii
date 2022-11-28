@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 26, 2022
+Revised: November 28, 2022
 """
 
  
@@ -343,7 +343,7 @@ class TopLeftFrame:
                     if str >= 50:
                         if dex >= 50:
                             if wis >= 50:
-                                return "Journeyman"
+                                return "Veteran"
                             return "Ranger"
                         elif wis >= 50:
                             return "Monk"
@@ -632,6 +632,8 @@ class TopCenterFrame:
         except IOError:
             pass
         self.sfxButton.grid(row=0, padx=40, sticky=W)
+        self.sfxButton.bind_all("<Alt-m>", lambda _: self.sfxButton.invoke())
+        self.sfxButton.bind_all("<Alt-M>", lambda _: self.sfxButton.invoke())
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(row=0, pady=6)

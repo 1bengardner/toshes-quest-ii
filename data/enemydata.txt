@@ -234,7 +234,7 @@ Masked Magus	Masked Magus	Death Magus	39	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Avadavra W
 Time Wizard	Time Wizard	Time Wizard	44	0	0	0	0	0	0	0	0	0	0	0	0	{'Temporal Shift': 20, 'Fireball': 15}	{'Horological Wand': 7}	0	0	1	0	None	0	1
 Abomination	Abomination	Abomination	40	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	None	0	1
 Fire Zealot	Fire Zealot	Fire Zealot	41	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Bloodfire Cloak': 50, 'Gilded Robe': 50}	0	0	1	0	None	1	1
-Choronzon	Choronzon	Conjured Demon	42	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Flametongue': 5, 'Glowing Barrier': 8}	0	0	1	0	None	0	1
+Choronzon	Balrog	Conjured Demon	42	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Flametongue': 5, 'Glowing Barrier': 8}	0	0	1	0	None	0	1
 Occult Conjurer	Occult Conjurer	Conjurer	43	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Arcane Vestment': 50, 'Impwood Wand': 50}	0	0	1	0	None	1	1
 Magus Predecessor	Magus Predecessor	Undead Magus	44	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Luminescent Barrier': 50, 'Shamanic Robes': 50}	0	0	1	0	None	1	0
 Corporeal Magus	Corporeal Magus	Magus Wraith	45	0	0	0	0	0	0	0	0	0	0	0	0	{}	{'Shadow Mail': 9}	0	0	1	0	None	0	0

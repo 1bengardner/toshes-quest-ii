@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: November 22, 2022
+Revised: November 28, 2022
 """
 
 
@@ -751,47 +751,49 @@ class Igalo:
         elif selectionIndex == 1:
             rawMaterial = "Gold Bar"
             product = "Gold Hauberk"
-            price = 2000
+            rawProduct = "Steel Hauberk"
             numberOfMaterials = 2
             if  (self.c.hasItem(rawMaterial, numberOfMaterials) and
-                 self.c.euros >= price and
-                 not self.c.itemIsEquipped(rawMaterial)):
+                 self.c.hasItem(rawProduct) and
+                 not self.c.itemIsEquipped(rawProduct)):
                 for i in range(0, numberOfMaterials):
                     self.c.removeItem(self.c.indexOfItem(rawMaterial))
-                self.c.euros -= price
-                self.text = ("After you pay %s euros," % price +
-                             " the %s smiths your bars into" % npc +
+                self.c.removeItem(self.c.indexOfItem(rawProduct))
+                self.text = ("After you hand over your %s," % rawProduct +
+                             " the %s smiths it with your bars into" % npc +
                              " a %s." % product)
                 smithed = True
-            elif price > self.c.euros:
+            elif (not self.c.hasItem(rawProduct) or
+                  self.c.itemIsEquipped(rawProduct)):
                 self.text = (
-                    npc+": Sorry, my service is too expensive for you.")
+                    npc+": Sorry, I'll need a %s first." % rawProduct)
             elif not self.c.hasItem(rawMaterial, numberOfMaterials):
                 self.text = (npc+": I can't make it for you without the bars.")
         elif selectionIndex == 2:
             rawMaterial = "Gold Bar"
             product = "Gold Cuirass"
-            price = 2000
+            rawProduct = "Steel Cuirass"
             numberOfMaterials = 2
             if  (self.c.hasItem(rawMaterial, numberOfMaterials) and
-                 self.c.euros >= price and
-                 not self.c.itemIsEquipped(rawMaterial)):
+                 self.c.hasItem(rawProduct) and
+                 not self.c.itemIsEquipped(rawProduct)):
                 for i in range(0, numberOfMaterials):
                     self.c.removeItem(self.c.indexOfItem(rawMaterial))
-                self.c.euros -= price
-                self.text = ("After you pay %s euros," % price +
-                             " the %s smiths your bars into" % npc +
+                self.c.removeItem(self.c.indexOfItem(rawProduct))
+                self.text = ("After you hand over your %s," % rawProduct +
+                             " the %s smiths it with your bars into" % npc +
                              " a %s." % product)
                 smithed = True
-            elif price > self.c.euros:
+            elif (not self.c.hasItem(rawProduct) or
+                  self.c.itemIsEquipped(rawProduct)):
                 self.text = (
-                    npc+": Sorry, my service is too expensive for you.")
+                    npc+": Sorry, I'll need a %s first." % rawProduct)
             elif not self.c.hasItem(rawMaterial, numberOfMaterials):
                 self.text = (npc+": I can't make it for you without the bars.")
         elif selectionIndex == 3:
             rawMaterial = "Gold Bar"
             product = "Gold Shield"
-            price = 4000
+            price = 5000
             numberOfMaterials = 3
             if  (self.c.hasItem(rawMaterial, numberOfMaterials) and
                  self.c.euros >= price and
@@ -847,9 +849,9 @@ class Igalo:
 
         if "Gold Man" in self.c.flags:
             self.menu = ["Leave.",
-                         "Smith Gold Hauberk (2000 euros, 2 bars).",
-                         "Smith Gold Cuirass (2000 euros, 2 bars).",
-                         "Smith Gold Shield (4000 euros, 3 bars)."]
+                         "Smith Gold Hauberk (Steel Hauberk, 2 bars).",
+                         "Smith Gold Cuirass (Steel Cuirass, 2 bars).",
+                         "Smith Gold Shield (5000 euros, 3 bars)."]
         else:
             self.menu = ["Leave."]
 

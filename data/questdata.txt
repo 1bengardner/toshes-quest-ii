@@ -15,7 +15,7 @@ Homeland Bound	Continue your journey north through Black Mountain to reach Mojko
 Father Time	Rescue Dragan's father from inside The Watchmaking Facility.	{'No Criteria': True}	Dragan	The Watchmaking Facility Complete	0	0
 Mystery of the Mages	Gather information about the disappearance of the archmages for Mayor Radoman in Igalo.	{'Kills': ('Maximilian', 1)}	Radoman	Radoman Information 1	0	0
 The Mastermind	Find Niplin's headquarters.	{'No Criteria': True}	Radoman Information 1	Lair Entrance	0	0
-Delve Into Darkness	Explore the Lair of the Magi and find the archmages.	{'No Criteria': True}	Lair Entrance	Lair Tower	0	0
+Delve into Darkness	Explore the Lair of the Magi and find the archmages.	{'No Criteria': True}	Lair Entrance	Lair Tower	0	0
 Grave Matters	Bury Dragan's father in the cemetery.	{'No Criteria': True}	The Watchmaking Facility Complete	Ghost of Tomas Conclusion	0	0
 Something Fishy	Decrypt the anagram on Tomas Tam's tombstone and uncover what he has hidden.	{'No Criteria': True}	Ghost of Tomas Conclusion	Writings	0	0
 Paper Trail	Collect parchment from swordfish scattered throughout the Adriatic Sea.	{'Items': {'Mysterious Parchment': 1}}	Writings	All Tomas Writings Found	0	0
@@ -26,7 +26,7 @@ The President	Speak to the President of Macedonia.	{'Items': {'Presidential Map'
 The Key to Macedonia?	Follow the Presidential Map to see where it leads.	{'No Criteria': True}	Took Map	Old Ruins	0	0
 The Quest for Truth	Explore the Old Ruins.	{'Items': {'Macedonian Protector': 1}}	Old Ruins	Old Ruins Complete	0	0
 The Italian Job	Find and defeat Silvio Berlusconi in his castle.	{'Kills': ('Silvio Berlusconi3', 1)}	Silvio Coward 1	Blueprint	0	0
-Crossing The Border	Find a way beyond the Greek border.	{'Items': {'Greek Wall Blueprint': 1}}	Greek Wall	Greek Wall Hole	0	0
+Alternate Plans	Find a way beyond the Greek border.	{'Items': {'Greek Wall Blueprint': 1}}	Greek Wall	Greek Wall Hole	0	0
 Act like you belong	Sneak into the Coliseum.	{'Items': {'Greek Armour': 1, 'Greek Robe': 1}}	Not Disguised	Coliseum	0	0
 I want to be the very best	Win the coliseum.	{'No Criteria': True}	Coliseum	Coliseum Complete	0	0
 Guided Tour of the Mediterranean	Follow your escort to the Greek Fortress west of Athens.	{'No Criteria': True}	Coliseum Complete	Greek Fortress	0	0
@@ -42,8 +42,8 @@ Aquamarine Dreams	Bring an Aquamarine Shard to Ivana in Herceg Novi.	{'Items': {
 Animal Absorption	Hunt for a legendary Giant Animal and absorb its power using the altar in the Hidden Passage.	{'Wildcard Kills': (('Giant Seal2', 'Giant Shark2', 'Giant Salamander2', 'Giant Scorpion2', 'Giant Scarab2'), 1, "Legendary Animal")}	Animal Powers	Ascended	1	0
 Animal Ascension	Defeat every legendary Giant Animal and absorb their souls.	{'Multiple Kills': (('Giant Seal2', "Frostflipper the Fierce"), ('Giant Shark2', "Tidetooth the Tough"), ('Giant Salamander2', "Meltmaw the Magical"), ('Giant Scorpion2', "Poisonpinch the Piercing"), ('Giant Scarab2', "Stoneshell the Spirited"))}	Ascended	Fully Ascended	1	0
 Precious Metal	Bring a piece of Gold Ore to Goldum in the Rumadan Hideout.	{'Items': {'Gold Ore': 1}}	Met Goldum	Goldum Gold	1	0
-A Blade of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Rumadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
+A Sword of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Rumadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
 Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward to Big Nigel in the Greek Plains.	{'Items': {'Jade Ward': 1, 'Garnet Ward': 1, 'Aquamarine Ward': 1}}	Big Nigel	Diamond Defence	1	1
-A Sword for an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	0	0
+Delivery to an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	0	0
 Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	0	0
 Coat of Arms	Find the lost Oseku Shield somewhere in Albania and return it to the woman in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	0	0
