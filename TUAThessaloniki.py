@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: November 14, 2022
+Revised: November 28, 2022
 """
 
 
@@ -418,36 +418,46 @@ class Thessaloniki:
                         self.text += "\nToshe: What do you mean inside?"
                         self.text += "\nBarrie: Seriously, we gotta head back to Herceg."
                         self.text += "\nToshe: If you say."
-                    elif "Avalanche" not in [skill.NAME for skill in self.c.skills]:
+                    elif "Avalanche" not in [skill.NAME for skill in self.c.skills] and "Moved Boulders" not in self.c.flags:
                         self.text += "\nBarrie taps his foot, thinking."
                         self.text += "\nBarrie: There's a powerful force here. Remember the boulders in Herceg Bluffs? You need a spell to blast those. That's my intel."
-                    else:
+                    elif "Moved Boulders" not in self.c.flags:
                         self.text += "\nBarrie: What if you used Avalanche on the Herceg mountains?"
+                    else:
+                        self.text += "\nBarrie: We need to check out the Golem Cavern in the Billowing Bluffs. I can sense it."
                 elif "Aldreed" not in self.c.flags['Kills']:
                     if 'Aldreed Entrance Found' not in self.c.flags:
                         self.text += "\nBarrie is pacing."
                         self.text += "\nBarrie: Ok, we should go for a deep, long swim."
                         self.text += "\nToshe: I'm trying to enter that palace, and you want to swim? What's wrong with you?"
                         self.text += "\nBarrie: There must be something in the water."
-                    elif "Melting Touch" not in [skill.NAME for skill in self.c.skills]:
+                    elif "Melting Touch" not in [skill.NAME for skill in self.c.skills] and "Melted Ice" not in self.c.flags:
                         self.text += "\nBarrie scratches his nose."
                         self.text += "\nBarrie: Let's explore: there's that frozen passage down in the sea. What could melt that? Magic. That's what."
-                    else:
+                    elif "Melted Ice" not in self.c.flags:
                         self.text += "\nBarrie: You have the touch. Use it. To melt ice."
+                    elif "Galijula" not in self.c.flags:
+                        self.text += "\nBarrie: We gotta go back in that underwater cave thing in the sea. Trust me."                        
+                    else:
+                        self.text += "\nBarrie: Hear me out...what if there's something hidden in Galijula?"
                 elif "Oukkar" not in self.c.flags['Kills']:
                     if 'Oukkar Entrance Found' not in self.c.flags:
                         self.text += "\nBarrie: Oukkay, just one more beacon to light! Don't call me Seuss; just go where it's bright!"
                         self.text += "\nToshe: That was lame as fuck."
                         self.text += "\nBarrie: If you'd rather, I can show you where the sun don't shine."
-                    elif "Hailstorm" not in [skill.NAME for skill in self.c.skills]:
+                    elif "Hailstorm" not in [skill.NAME for skill in self.c.skills] and "Plugged Geyser" not in self.c.flags:
                         self.text += "\nBarrie: We gotta light that last beacon. But how?"
                         self.text += "\nToshe: There's something with that geyser in the desert."
                         self.text += "\nBarrie: True, true. We know fire melts ice. But what could chill and clog a steaming geyser?"
-                    else:
+                    elif "Plugged Geyser" not in self.c.flags:
                         self.text += "\nBarrie: Hail thee!"
-                        self.text += "\nQendresa bows."
+                        if self.c.hasMercenary("Qendresa"):
+                            self.text += "\nQendresa bows."
                         self.text += "\nToshe: What did I do?"
                         self.text += "\nBarrie: It's what you're about to do, friend. Call upon your storm and lead us to sandy victory!"
+                    else:
+                        self.text += "\nBarrie: To Yaouw!"
+                        
             elif self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: It seems that a mage-like force is obstructing us. Bear with me...perhaps we can combat magic with magic? Pristina is brimming with wizardry. We may be able to find help there."
 

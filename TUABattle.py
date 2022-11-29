@@ -132,10 +132,6 @@ class Battle(object):
         elif self.mainCharacter.ep < skill.EP_USED:
             self.text += "You do not have enough EP!"
         else:
-            if not self.isStunned(self.mainCharacter,
-                                self.charactersFlags[self.mainCharacter.NAME]):
-                self.checkConsumables()
-                self.mainCharacter.ep -= skill.EP_USED
             if self.characterFirst:
                 self.takeCharacterTurn(skill)
                 if self.checkDeath():
@@ -211,6 +207,10 @@ class Battle(object):
 
     def takeCharacterTurn(self, skill):
         """Allow Toshe and his party to attack the enemy."""
+        if not self.isStunned(self.mainCharacter,
+                              self.charactersFlags[self.mainCharacter.NAME]):
+            self.checkConsumables()
+            self.mainCharacter.ep -= skill.EP_USED
         self.takeTurn(skill, self.mainCharacter, self.enemy,
                       self.charactersFlags[self.mainCharacter.NAME],
                       self.enemyFlags)
@@ -889,6 +889,7 @@ class Battle(object):
                 if character.isDead():
                     self.text += character.NAME+" went unconscious!\n"
                     self.auxiliaryCharacters.remove(character)
+                    self.sounds.append("Dead")
         return False
 
     def checkConsumables(self):
@@ -963,6 +964,10 @@ class Battle(object):
             else:
                 xpGained = self.enemy.XP
                 eurosGained = self.enemy.EUROS
+
+            if ( jackpotRoll <= 5 or jackpotRoll <= 10
+                 and "Pirate Clan Reward" in self.mainCharacter.flags):
+                self.sounds.append("Jackpot")
 
             divisor = (self.mainCharacter.level - self.enemy.LEVEL)
             if divisor <= 0:

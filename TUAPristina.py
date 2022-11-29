@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: November 26, 2022
+Revised: November 28, 2022
 """
 
 
@@ -800,18 +800,17 @@ class Pristina:
         item2 = "Aquamarine Ward"
         item3 = "Garnet Ward"
         price = 1000
-        self.menu = ["Craft %s (%s euros, 3 gems)." % (item1, price),
-                     "Craft %s (%s euros, 3 gems)." % (item2, price),
-                     "Craft %s (%s euros, 3 gems)." % (item3, price),
+        self.menu = ["Craft %s (%s euros, 2 gems)." % (item1, price),
+                     "Craft %s (%s euros, 2 gems)." % (item2, price),
+                     "Craft %s (%s euros, 2 gems)." % (item3, price),
                      "Leave."]
         if selectionIndex == 0:
             gem = "Jade Crystal"
             item = item1
-            aOrAn = "An" if item[0] in ("A", "E", "I", "O", "U") else "A"
-            if  (self.c.hasItem(gem, 3) and
+            aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
+            if  (self.c.hasItem(gem, 2) and
                  self.c.euros >= price and
                  not self.c.itemIsEquipped(gem)):
-                self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.euros -= price
@@ -821,16 +820,15 @@ class Pristina:
                 return self.actions({'item': item})
             elif price > self.c.euros:
                 self.text = (npc+": I need more euros.")
-            elif not self.c.hasItem(gem, 3):
+            elif not self.c.hasItem(gem, 2):
                 self.text = (npc + ": You are missing a key ingredient.")
         elif selectionIndex == 1:
             gem = "Aquamarine Shard"
             item = item2
-            aOrAn = "An" if item[0] in ("A", "E", "I", "O", "U") else "A"
-            if  (self.c.hasItem(gem, 3) and
+            aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
+            if  (self.c.hasItem(gem, 2) and
                  self.c.euros >= price and
                  not self.c.itemIsEquipped(gem)):
-                self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.euros -= price
@@ -840,16 +838,15 @@ class Pristina:
                 return self.actions({'item': item})
             elif price > self.c.euros:
                 self.text = (npc+": I need more euros.")
-            elif not self.c.hasItem(gem, 3):
+            elif not self.c.hasItem(gem, 2):
                 self.text = (npc + ": You are forgetting something.")
         elif selectionIndex == 2:
             gem = "Garnet Fragment"
             item = item3
-            aOrAn = "An" if item[0] in ("A", "E", "I", "O", "U") else "A"
-            if  (self.c.hasItem(gem, 3) and
+            aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
+            if  (self.c.hasItem(gem, 2) and
                  self.c.euros >= price and
                  not self.c.itemIsEquipped(gem)):
-                self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.euros -= price
@@ -859,7 +856,7 @@ class Pristina:
                 return self.actions({'item': item})
             elif price > self.c.euros:
                 self.text = (npc+": I need more euros.")
-            elif not self.c.hasItem(gem, 3):
+            elif not self.c.hasItem(gem, 2):
                 self.text = (npc + ": I need more garnet fragments.")
         elif selectionIndex == 3:
             X = 7

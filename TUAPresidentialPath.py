@@ -2,7 +2,7 @@
 File: TUAPresidentialPath.py
 Author: Ben Gardner
 Created: June 20, 2015
-Revised: November 23, 2022
+Revised: November 28, 2022
 """
 
 
@@ -331,6 +331,7 @@ class PresidentialPath:
         
         elif "PP Guard 1" not in self.c.flags:
             self.c.flags['New Song'] = "Drat"
+            self.tempFlag = {'New Song': self.audio}
             self.text = ("Two guards are blocking the entrance to the" +
                          " president's outpost." +
                          "\nToshe: Hi, I came to see the president." +

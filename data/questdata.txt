@@ -10,7 +10,7 @@ A Shocking Choice	Kill 3 jellyfish for Bartender Igor in Pec.	{'Kills': ('Toxic 
 "Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	0	0
 Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	0	0
 Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	0	0
-General Information	Kill General Octavius for Bartender Zhang in Pristina. He can be found in a corner of Kosovo.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	0	0
+General Information	Kill General Octavius for Bartender Zhang in Pristina.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	0	0
 Homeland Bound	Continue your journey north through Black Mountain to reach Mojkovac.	{'No Criteria': True}	Daniel Quest 3 Complete	Mojkovac Summit	0	0
 Father Time	Rescue Dragan's father from inside The Watchmaking Facility.	{'No Criteria': True}	Dragan	The Watchmaking Facility Complete	0	0
 Mystery of the Mages	Gather information about the disappearance of the archmages for Mayor Radoman in Igalo.	{'Kills': ('Maximilian', 1)}	Radoman	Radoman Information 1	0	0

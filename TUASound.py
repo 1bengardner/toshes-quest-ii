@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 25, 2022
+Revised: November 28, 2022
 """
 
 
@@ -71,6 +71,7 @@ class Sound:
                        "Quest Ready": "FX-Surprise",
                        "Open Log": "FX-Touch",
                        "Sleep": "FX-Rise",
+                       "Jackpot": "FX-Sell",
                       }
         
         mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)

@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: November 26, 2022
+Revised: November 28, 2022
 """
 
 
@@ -547,7 +547,6 @@ class AdriaticSea:
             self.c.flags['New Song'] = "Buddha"
             self.text = (npc+": Greetings, small sir. Care "+
                          "to learn a spell?")
-            self.tempFlag = {'New Song': self.audio}
             self.menu = ["\"Yes.\"",
                          "\"No!\""]
         return self.actions()

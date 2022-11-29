@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: November 23, 2022
+Revised: November 28, 2022
 """
 
 
@@ -191,7 +191,7 @@ class EasternKosovo:
         self.helpText = None
         self.menu = []
         if ( "General Octavius" not in self.c.flags['Kills'] and
-             "Zhang Quest 3" in self.c.flags and
+             "Bartender Zhang Quest 3" in self.c.flags and
              "In Battle" not in self.c.flags):
             self.c.flags['In Battle'] = True
             self.view = "battle"

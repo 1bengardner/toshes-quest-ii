@@ -218,7 +218,8 @@ class RightFrame:
         
         missionFrame = Frame(self.missions,
             bg=MEDIUMBEIGE,
-            pady=2,)
+            pady=2,
+            bd=2,)
         missionFrame.grid(sticky=EW, padx=2, pady=2)
         if pushToTop:
             self.pushDownMissions()
@@ -264,7 +265,13 @@ class RightFrame:
         self.missionLog[quest].grid(row=0)
         self.missionLog[quest].config(
             relief=GROOVE,
-            bd=2,
+        )
+
+    def unmarkMission(self, quest):
+        self.pushDownMissions()
+        self.missionLog[quest].grid(row=0)
+        self.missionLog[quest].config(
+            relief=FLAT,
         )
 
     def removeMission(self, quest):
@@ -1322,7 +1329,7 @@ Game over? Forget to save? Save in the wrong place? Don't fret. You can now RESU
         
         state = NORMAL if c.potions > 0 and (
             main.view in ("travel", "inventory")) else DISABLED
-        font = font3 if c.potions < 100 else font1
+        font = font2 if c.potions < 100 else font1
         text = c.potions if c.potions > 0 else " "
         self.potionButton.config(state=state, font=font, text=text)
 
@@ -2093,6 +2100,9 @@ def updateInterface(updates):
         window.gridQuestFrame("MISSION!")
     if ('completed quest' in updates):
         window.rightFrame.markMission(updates['completed quest'])
+    if ('uncompleted quests' in updates):
+        for quest in updates['uncompleted quests']:
+            window.rightFrame.unmarkMission(quest)
     if ('remove quest' in updates):
         window.rightFrame.removeMission(updates['remove quest'])
         window.gridQuestFrame("MISSION\nCOMPLETE!")
@@ -2299,6 +2309,9 @@ def enableStoreView():
     bottomFrame.fleeButton.grid_remove()
     bottomFrame.skillButton.grid_remove()
     bottomFrame.centerButton['state'] = NORMAL
+    bottomFrame.centerButton.unbind_all('x')
+    bottomFrame.centerButton.unbind_all('X')
+    bottomFrame.centerButton.unbind_all('<BackSpace>')
 
 
 def enableDropItemView():

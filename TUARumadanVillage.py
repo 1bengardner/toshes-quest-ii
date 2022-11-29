@@ -2,7 +2,7 @@
 File: TUARumadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: November 24, 2022
+Revised: November 28, 2022
 """
 
 
@@ -446,7 +446,7 @@ class RumadanVillage:
                 self.c.removeItem(self.c.indexOfItem(rawMaterial1))
                 self.c.removeItem(self.c.indexOfItem(rawMaterial2))
                 self.c.euros -= craftPrice
-                self.text = ("After you pay %s euros " % craftPrice +
+                self.text = ("After you pay %s euros" % craftPrice +
                              " and hand over your gems, the %s" % npc +
                              " returns with a %s." % product)
                 self.c.flags['Magnificent Blade'] = True

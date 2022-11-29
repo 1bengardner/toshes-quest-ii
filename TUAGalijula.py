@@ -3,7 +3,7 @@
 File: TUAGalijula.py
 Author: Ben Gardner
 Created: April 22, 2016
-Revised: October 25, 2022
+Revised: November 28, 2022
 """
 
 
@@ -415,6 +415,7 @@ class Galijula:
             self.menu = ["Brace yourself."]
             return self.actions()
         elif "Avalanche Wait" in self.c.flags:
+            self.c.flags['New Song'] = self.audio
             self.view = "battle"
             self.c.flags["Avalanche Attack"] = True
             return self.actions({'enemy': "Frost Dragon"})

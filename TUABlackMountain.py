@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: December 31, 2015
+Revised: November 28, 2022
 """
 
 
@@ -417,7 +417,6 @@ class BlackMountain:
             self.c.flags['New Song'] = "Buddha"
             self.text = (npc+": Hello, little boy. Would "+
                          "you like to learn magic today?")
-            self.tempFlag = {'New Song': self.audio}
             self.menu = ["\"Yes.\"",
                          "\"No!\""]
         return self.actions()

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 26, 2022
+Revised: November 28, 2022
 """
 
 
@@ -766,6 +766,9 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if completedQuest:
             interfaceActions['completed quest'] = completedQuest
             self.sound.playSound(self.sound.sounds['Quest Ready'])
+        uncompletedQuests = self.checkForUnreadyQuests(self.character.quests, self.character)
+        if uncompletedQuests:
+            interfaceActions['uncompleted quests'] = uncompletedQuests
 
         self.view = interfaceActions['view']
 
@@ -1018,6 +1021,15 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 quests.insert(0, quest)
                 if returnOne:
                     return quest
+
+    def checkForUnreadyQuests(self, quests, character):
+        uncompletedQuests = []
+        for quest in self.completedQuests:
+            if not quest.isCompletedBy(character):
+                uncompletedQuests.append(quest)
+        for quest in uncompletedQuests:
+            self.completedQuests.remove(quest)
+        return uncompletedQuests
 
     def removeFinishedQuests(self, quests, flags, returnOne=False):
         questsToRemove = []
