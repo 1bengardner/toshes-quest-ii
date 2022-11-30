@@ -2336,6 +2336,8 @@ def enableStoreView():
     bottomFrame.centerButton.unbind_all('x')
     bottomFrame.centerButton.unbind_all('X')
     bottomFrame.centerButton.unbind_all('<BackSpace>')
+    bottomFrame.centerButton.bind_all('i', bottomFrame.clickInventoryButton)
+    bottomFrame.centerButton.bind_all('I', bottomFrame.clickInventoryButton)
 
 
 def enableDropItemView():
