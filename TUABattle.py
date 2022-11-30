@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: November 28, 2022
+Revised: November 30, 2022
 """
 
 
@@ -329,8 +329,10 @@ class Battle(object):
                       (hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Frostfire" and
                        skill.ELEMENT == "Physical")):
-                    damage = damage/2. * (100-defender.fireReduction) / 100.\
-                             + damage/2. * (100-defender.waterReduction) / 100.
+                    damage = (max(0, damage/2. * (100-defender.fireReduction)
+                        / 100.)
+                        + max(0, damage/2. * (100-defender.waterReduction)
+                        / 100.))
                 elif not (hasattr(attacker, "equippedWeapon") and
                           attacker.equippedWeapon.CATEGORY == "Wand"):
                     damage *= (100-defender.physicalReduction) / 100.
