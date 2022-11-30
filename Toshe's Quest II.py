@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 28, 2022
+Revised: November 30, 2022
 """
 
  
@@ -961,31 +961,55 @@ class TopRightFrame:
             wrap=WORD,
             bd=0,)
         newsContent.tag_config("title", font=font3)
-        newsContent.tag_config("section", font=italicFont2)
-        newsContent.tag_config("emphasis", font=italicFont1)
+        newsContent.tag_config("section", font=italicFont2, spacing3=2)
+        newsContent.tag_config("emphasis", font=boldFont1)
 
         newsContent.insert(END, "Content Updates", ("section"))
         newsContent.insert(END,
 """
-The remaining GUARDIAN BEASTS have been unleashed! Find all three—Earth, Water and Fire—and navigate their labyrithine abodes to destroy them once and for all.
+The remaining """)
+        newsContent.insert(END, "Guardian Beasts", ("emphasis"))
+        newsContent.insert(END,
+""" have been unleashed! Find all three—Earth, Water and Fire—and navigate their labyrithine abodes to challenge them. Prepare yourself for some tough battles!
 
-The lair of the dark commander NIPLIN has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
+The lair of the dark commander """)
+        newsContent.insert(END, "Niplin", ("emphasis"))
+        newsContent.insert(END,
+""" has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
 
 """)
         newsContent.insert(END, "Feature Updates", ("section"))
         newsContent.insert(END,
 """
-Select a character with the RECENT GAMES list. Hit the ground running with a single click: no more typing your name in!
+Select a character with the """)
+        newsContent.insert(END, "Recent Games", ("emphasis"))
+        newsContent.insert(END,
+""" list. Hit the ground running with a single click: no more typing your name in!
 
-Find your way around with the new MAP. Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
+Find your way around with the new """)
+        newsContent.insert(END, "Map", ("emphasis"))
+        newsContent.insert(END,
+""". Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
 
-Are you thirsty? Quench that desire with a POTION, and heal 50 HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
+Are you thirsty? Quench that desire with a """)
+        newsContent.insert(END, "potion", ("emphasis"))
+        newsContent.insert(END,
+""", and heal 50 HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
 
-It's 2022 and people's screens are getting wider...that means it's time for a MISSION LOG! That's right, you can now view your current missions in your very own log, at your leisure.
+It's 2022 and people's screens are getting wider...that means it's time for a """)
+        newsContent.insert(END, "Mission Log", ("emphasis"))
+        newsContent.insert(END,
+"""! That's right, you can now view your current missions in your very own log, at your leisure.
 
-Zounds, we have SOUNDS! You can now toggle sound effects, as well as music.
+Zounds, we have """)
+        newsContent.insert(END, "sounds", ("emphasis"))
+        newsContent.insert(END,
+"""! You can now toggle sound effects, as well as music.
 
-Game over? Forget to save? Save in the wrong place? Don't fret. You can now RESUME FROM TOWN.""")
+Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
+        newsContent.insert(END, "resume from town", ("emphasis"))
+        newsContent.insert(END,
+""".""")
         newsContent['state'] = DISABLED
         newsContent.grid(sticky=EW)
 
@@ -2588,6 +2612,7 @@ root = Tk()
 # Initialize variables
 font1 = tkFont.Font(family="Garamond", size=10)
 italicFont1 = tkFont.Font(family="Garamond", size=10, slant="italic")
+boldFont1 = tkFont.Font(family="Garamond", size=10, weight="bold")
 font2 = tkFont.Font(family="Garamond", size=11)
 italicFont2 = tkFont.Font(family="Garamond", size=11, slant="italic", weight="bold")
 font3 = tkFont.Font(family="Garamond", size=12, weight="bold")
