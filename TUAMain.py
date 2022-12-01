@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 28, 2022
+Revised: December 1, 2022
 """
 
 
@@ -271,7 +271,7 @@ class Main:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
-        preferences.recentCharacters[self.fileName.capitalize()] = self.character
+        preferences.recentCharacters[self.fileName] = self.character
         with open("prefs\\recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
 

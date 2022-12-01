@@ -2,7 +2,7 @@
 File: TUAPreferences.py
 Author: Ben Gardner
 Created: November 5, 2022
-Revised: November 13, 2022
+Revised: December 1, 2022
 """
 
 from collections import OrderedDict
@@ -14,8 +14,9 @@ class LastUpdatedOrderedDictWithLimit(OrderedDict):
     LIMIT = 5
 
     def __setitem__(self, key, value):
-        if key in self:
-            del self[key]
+        lowerKeys = {key.lower(): key for key in self}
+        if key.lower() in lowerKeys:
+            del self[lowerKeys[key.lower()]]
         OrderedDict.__setitem__(self, key, value)
         while len(self) > self.LIMIT:
             del self[self.items()[0][0]]
