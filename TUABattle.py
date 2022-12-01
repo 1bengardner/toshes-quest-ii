@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: November 30, 2022
+Revised: December 1, 2022
 """
 
 
@@ -438,10 +438,10 @@ class Battle(object):
                             defender, "hp")+skill.TARGET_EFFECTS['hp'])
                         
             # Add potential status ailments along with corresponding text
-            if not (miss or blocked):
+            if damage and not (miss or blocked):
                 if skill.ELEMENT == "Earth" and ("Grounded" not in
                                                  defenderFlags):
-                    if self.roll() <= 20:
+                    if self.roll() <= 40:
                         self.text += defender.NAME+" was grounded!\n"
                         defenderFlags.add("Grounded")
                 elif (skill.ELEMENT == "Poison" and
@@ -451,20 +451,15 @@ class Battle(object):
                     defenderFlags.add("Poisoned")
                 elif skill.ELEMENT == "Electricity" and ("Paralyzed" not in
                                                          defenderFlags):
-                    if self.roll() <= 10:
+                    if self.roll() <= 20:
                         self.text += defender.NAME+" was paralyzed!\n"
                         defenderFlags.add("Paralyzed")
                 elif skill.ELEMENT == "Water":
-                    if self.roll() <= 30 and damage >= defender.maxHp/3:
+                    if self.roll() <= 50 and damage >= defender.maxHp/3:
                         self.text += defender.NAME+" drowned!\n"
-                elif skill.ELEMENT == "Ice" and ("Frozen" not in
-                                                 defenderFlags):
-                    self.text += defender.NAME+" was frozen!\n"
-                    defenderFlags.add("Frozen")
-                    defenderFlags.discard("Burning")
                 elif ((skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
                       and ("Frozen" not in defenderFlags)):
-                    if self.roll() <= 5:
+                    if self.roll() <= 20:
                         self.text += defender.NAME+" was frozen!\n"
                         defenderFlags.add("Frozen")
                         defenderFlags.discard("Burning")
@@ -479,7 +474,7 @@ class Battle(object):
                     defenderFlags.add("Sundered")
                 elif ((skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
                       and ("Burning" not in defenderFlags) and damage):
-                    if self.roll() <= 10:
+                    if self.roll() <= 20:
                         self.text += defender.NAME+" caught on fire!\n"
                         defenderFlags.add("Burning")
                         defenderFlags.discard("Frozen")
