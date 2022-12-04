@@ -492,6 +492,8 @@ class Battle(object):
                             "Panning": self.getPanning(defender)})
 
             # Make sounds
+            if skill.NAME == "Defend":
+                 self.sounds.append("Defend")
             if not (miss or blocked):
                 if damage is not None and int(damage) > 0:
                     if attacker == self.mainCharacter:

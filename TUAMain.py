@@ -877,7 +877,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return interfaceActions
     
     def defend(self):
-        self.sound.playSound(self.sound.sounds['Defend'])
         interfaceActions = self.battle.attack(self.skills['Defend'])
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
