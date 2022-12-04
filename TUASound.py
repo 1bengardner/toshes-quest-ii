@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 28, 2022
+Revised: December 4, 2022
 """
 
 
@@ -40,7 +40,7 @@ class Sound:
                        "Bow Attack": "FX-Shoot",
                        "Gun Attack": "FX-Bullet",
                        "Take Damage": "FX-Struck",
-                       "Heal": "FX-Rise",
+                       "Heal": "FX-Bless",
                        "Critical Strike": "FX-Critical",
                        "Critical Injury": "FX-Injured",
                        "Defend": "FX-Tap",
@@ -70,11 +70,19 @@ class Sound:
                        "Quest Complete": "FX-Gracious",
                        "Quest Ready": "FX-Surprise",
                        "Open Log": "FX-Touch",
-                       "Sleep": "FX-Rise",
+                       "Sleep": "FX-Bless",
                        "Jackpot": "FX-Sell",
+                       "Grounded": "FX-Ground",
+                       "Frozen": "FX-Freeze",
+                       "Poisoned": "FX-Poison",
+                       "Paralyzed": "FX-Paralyze",
+                       "Burning": "FX-Burn",
+                       "Petrified": "FX-Petrify",
+                       "Drowned": "FX-Drown",
+                       "Break Free": "FX-Rise",
                       }
         
-        mixer.init(frequency=44100, size=-8, channels=2, buffer=2048)
+        mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)
         self.currentSong = None
         self.previousSong = None    # For returning to the previous song after an event
         self.sfxMuted = False
@@ -116,9 +124,15 @@ class Sound:
         if not self.isPlaying():
             return True
             
-    def playSound(self, soundName, count=1):
+    def playSound(self, soundName, count=1, pan=None):
         if not self.sfxMuted and count > 0:
-            mixer.Sound(self.path % soundName).play(loops=count - 1)
+            sound = mixer.Sound(self.path % soundName)
+            if pan is None:
+                sound.play(loops=count - 1)
+            else:
+                channel = mixer.find_channel(True)
+                channel.set_volume(*pan)
+                channel.play(sound, loops=count - 1)
             
     def muteSfx(self):
         if self.sfxMuted:

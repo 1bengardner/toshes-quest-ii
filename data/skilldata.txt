@@ -57,7 +57,7 @@ Smoulder	Damage	{"Wand"}	20	200	Fire	{}	{'defence': -3}	casts Smoulder on	None
 Avalanche	Multi-Hit Damage	{"Wand"}	25	4	Earth	{}	{}	conjures a boulder to fall on	None
 Whirlpool	Damage	{"Wand"}	25	300	Water	{}	{}	casts Whirlpool on	None
 Hot Coals	Multi-Hit Damage	{"Wand"}	30	4	Fire	{}	{'hp': -5}	conjures a hot coal to burn	None
-Poison Cloud	Damage	{"Wand"}	30	0	Poison	{}	{}	casts Poison Cloud	None
+Poison Cloud	Miscellaneous	{"Wand"}	30	0	Poison	{}	{}	casts Poison Cloud	None
 Melting Touch	Damage	{"Wand"}	30	300	Fire	{}	{'defence': -15}	casts Melting Touch on	None
 Floodtide	Damage	{"Wand"}	35	400	Water	{}	{}	casts Floodtide on	None
 Mist	Miscellaneous	{"Wand"}	35	0	Physical	{}	{'waterReduction': -20, 'accuracy': -5}	conjures a veil of mist	None
@@ -82,7 +82,8 @@ Recover	Heal	{"All"}	15	25	Physical	{}	{}	recovers	None
 Restore	Percent Heal	{"All"}	50	25	Physical	{}	{}	restores	Recovering
 Reinvigorate	Percent Heal	{"All"}	125	50	Physical	{}	{}	reinvigorates	Recovering
 Revitalize	Percent Heal	{"All"}	250	100	Physical	{}	{}	revitalizes	Recovering
-Equip Item	Miscellaneous	{"All"}	0	0	Physical	{}	{}	swaps gear	Recovering
+Equip Item	Miscellaneous	{"All"}	0	0	Physical	{}	{}	swaps gear	None
+Drink Potion	Heal	{"All"}	0	50	Physical	{}	{}	consumes a vial of life fluid	None
 Inner Zen	Miscellaneous	{"All"}	25	0	Physical	{'accuracy': 4, 'cRate': 2, 'cDamage': 20}	{}	focuses deeply	None
 Healing Glow	Magic Heal	{"Wand"}	20	500	Physical	{}	{}	casts Healing Glow	None
 Healing Light	Magic Heal	{"Wand"}	40	2000	Physical	{}	{}	casts a Healing Light	None

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 1, 2022
+Revised: December 4, 2022
 """
 
 
@@ -904,12 +904,18 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if 'sounds' in interfaceActions:
             soundCount = Counter()
             for sound in interfaceActions['sounds']:
+                if type(sound) is dict:
+                    sound = tuple(sound.items())
                 if "Critical" in sound: # Don't stack critical sounds
                     soundCount[sound] = 1
                 else:
                     soundCount[sound] += 1
             for sound in soundCount:
-                self.sound.playSound(self.sound.sounds[sound], soundCount[sound])
+                if type(sound) is tuple:
+                    sound = dict(sound)
+                    self.sound.playSound(self.sound.sounds[sound['Name']], count=soundCount[tuple(sound.items())], pan=sound['Panning'])
+                else:
+                    self.sound.playSound(self.sound.sounds[sound], count=soundCount[sound])
 
     def addMercenary(self, interfaceActions):
         if 'mercenary' in interfaceActions:
