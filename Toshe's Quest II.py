@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 30, 2022
+Revised: December 4, 2022
 """
 
  
@@ -501,15 +501,15 @@ class TopLeftFrame:
         self.dropButton.grid_remove()
 
     def clickEquipButton(self):
-        main.character.equip(self.v1.get())
+        if main.view == "battle":
+            interfaceActions = main.equipItem(self.v1.get())
+            updateInterface(interfaceActions)
+        else:
+            main.character.equip(self.v1.get())
+            main.sound.playSound(main.sound.sounds['Equip'])
         window.topFrame.topRightFrame.updateOtherStats()
         self.equipButton['state'] = DISABLED
         self.updateInventory()
-        if main.view == "battle":
-            interfaceActions = main.equipItem()
-            window.bottomFrame.bottomRightFrame.clickBackButton()
-            updateInterface(interfaceActions)
-        main.sound.playSound(main.sound.sounds['Equip'])
         
     def clickSellButton(self):
         main.sell(self.v1.get())
@@ -1161,12 +1161,12 @@ Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
         self.potionButton = Button(self.otherStats, image=potionImage,
                                    text="104", font=font2,
                                    fg=WHITE, activeforeground=WHITE,
-                                   bg=BUTTON_BG, command=self.usePotion,
+                                   bg=BUTTON_BG, command=self.clickPotionButton,
                                    compound=CENTER, state=DISABLED)
         self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E,
             padx=6)
-        self.potionButton.bind_all('p', self.usePotion)
-        self.potionButton.bind_all('P', self.usePotion)
+        self.potionButton.bind_all('p', self.clickPotionButton)
+        self.potionButton.bind_all('P', self.clickPotionButton)
 
         self.vBorderLabel1 = Label(self.otherStats, image=vBorderImage1,
                                   bg=DEFAULT_BG, bd=0)
@@ -1264,17 +1264,16 @@ Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
         window.topFrame.topLeftFrame.updateInventory()
         requireExitConfirmation(True)
 
-    def usePotion(self, event=None):
+    def clickPotionButton(self, event=None):
         if (self.potionButton['state'] == NORMAL):
-            healAmount = 50
-            main.character.hp += healAmount
-            main.character.potions -= 1
-            message = ("You consume a vial full of life fluid, healing %s HP." %
-                healAmount)
-            window.bottomFrame.bottomLeftFrame.insertOutput(message)
-            self.updateOtherStats()
-            window.topFrame.topLeftFrame.updateVitalStats()
-            main.sound.playSound(main.sound.sounds['Drink'])
+            if main.view == "battle":
+                interfaceActions = main.drinkPotion()
+                updateInterface(interfaceActions)
+            else:
+                message = main.usePotion()
+                self.updateOtherStats()
+                window.topFrame.topLeftFrame.updateVitalStats()
+                window.bottomFrame.bottomLeftFrame.insertOutput(message)
 
     def clickBuyButton(self):
         main.buy(self.v2.get())
@@ -1352,7 +1351,7 @@ Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
                                           bg=DEFAULT_BG, fg=BLACK)
         
         state = NORMAL if c.potions > 0 and (
-            main.view in ("travel", "inventory")) else DISABLED
+            main.view in ("travel", "inventory", "battle")) else DISABLED
         font = font2 if c.potions < 100 else font1
         text = c.potions if c.potions > 0 else " "
         self.potionButton.config(state=state, font=font, text=text)
@@ -2192,6 +2191,8 @@ def enableBattleView():
     bottomFrame.attackButton['state'] = NORMAL
     bottomFrame.defendButton['state'] = NORMAL
     bottomFrame.fleeButton['state'] = NORMAL
+    bottomFrame.centerButton.config(image=inventoryImage,
+                                    command=bottomFrame.clickInventoryButton)
     bottomFrame.centerButton.grid(pady=(0, 34))
     bottomFrame.centerButton.bind_all('i', bottomFrame.clickInventoryButton)
     bottomFrame.centerButton.bind_all('I', bottomFrame.clickInventoryButton)
@@ -2203,6 +2204,7 @@ def enableBattleView():
     bottomFrame.fleeButton.grid()
     bottomFrame.skillButton.grid()
     
+    bottomFrame.enableMenuBox()
     bottomFrame.bindSkills()
     
     skills = []
@@ -2301,6 +2303,7 @@ def enableInventoryView():
     leftFrame.dropButton.grid_remove()
     leftFrame.equipButton.grid()
     leftFrame.equipButton['state'] = DISABLED
+    bottomFrame.skillButton['state'] = DISABLED
 
 
 def enableStoreView():

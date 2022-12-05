@@ -891,11 +891,27 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
 
-    def equipItem(self):
-        interfaceActions = self.battle.attack(self.skills['Equip Item'])
+    def equipItem(self, itemIndex):
+        interfaceActions = self.battle.attack(
+            self.skills['Equip Item'],
+            lambda: self.character.equip(itemIndex))
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
-        
+
+    def drinkPotion(self):
+        interfaceActions = self.battle.attack(
+            self.skills['Drink Potion'],
+            lambda: self.usePotion())
+        self.updateBattleVariables(interfaceActions)
+        return interfaceActions
+
+    def usePotion(self):
+        self.character.potions -= 1
+        healAmount = 50
+        self.character.hp += healAmount
+        self.sound.playSound(self.sound.sounds['Drink'])
+        return "You consume a vial full of life fluid, healing %s HP." % healAmount
+
     def updateBattleVariables(self, interfaceActions):
         self.collectItem(interfaceActions, True)
         self.view = interfaceActions['view']

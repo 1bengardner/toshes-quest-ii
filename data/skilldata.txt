@@ -83,7 +83,7 @@ Restore	Percent Heal	{"All"}	50	25	Physical	{}	{}	restores	Recovering
 Reinvigorate	Percent Heal	{"All"}	125	50	Physical	{}	{}	reinvigorates	Recovering
 Revitalize	Percent Heal	{"All"}	250	100	Physical	{}	{}	revitalizes	Recovering
 Equip Item	Miscellaneous	{"All"}	0	0	Physical	{}	{}	swaps gear	None
-Drink Potion	Heal	{"All"}	0	50	Physical	{}	{}	consumes a vial of life fluid	None
+Drink Potion	Miscellaneous	{"All"}	0	0	Physical	{}	{}	consumes a vial of life fluid	None
 Inner Zen	Miscellaneous	{"All"}	25	0	Physical	{'accuracy': 4, 'cRate': 2, 'cDamage': 20}	{}	focuses deeply	None
 Healing Glow	Magic Heal	{"Wand"}	20	500	Physical	{}	{}	casts Healing Glow	None
 Healing Light	Magic Heal	{"Wand"}	40	2000	Physical	{}	{}	casts a Healing Light	None

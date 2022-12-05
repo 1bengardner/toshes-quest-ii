@@ -122,7 +122,7 @@ class Battle(object):
             actions.update(newActions)
         return actions
 
-    def attack(self, skill):
+    def attack(self, skill, successfulTurnCallback=lambda: None):
         """Make Toshe attack the enemy with a specified skill."""
         self.sounds = []
         self.text = ""
@@ -132,7 +132,9 @@ class Battle(object):
         elif self.mainCharacter.ep < skill.EP_USED:
             self.text += "You do not have enough EP!"
         else:
-            turns = [lambda: self.takeCharacterTurn(skill), self.takeEnemyTurn]
+            turns = [
+                lambda: self.takeCharacterTurn(skill, successfulTurnCallback),
+                self.takeEnemyTurn]
             if not self.characterFirst:
                 turns.reverse()
             for turn in turns:
@@ -188,7 +190,7 @@ class Battle(object):
 
         return self.actions()
 
-    def takeCharacterTurn(self, skill):
+    def takeCharacterTurn(self, skill, successfulTurnCallback=lambda: None):
         """Allow Toshe and his party to attack the enemy."""
         if not self.isStunned(self.mainCharacter,
                               self.charactersFlags[self.mainCharacter.NAME]):
@@ -196,7 +198,7 @@ class Battle(object):
             self.mainCharacter.ep -= skill.EP_USED
         self.takeTurn(skill, self.mainCharacter, self.enemy,
                       self.charactersFlags[self.mainCharacter.NAME],
-                      self.enemyFlags)
+                      self.enemyFlags, successfulTurnCallback)
         for character in self.auxiliaryCharacters:
             skill = self.selectRandomElement(character.skills)
             self.takeTurn(skill, character, self.enemy,
@@ -218,7 +220,8 @@ class Battle(object):
             self.enemy: (0.25, 1)
         }[affectedCombatant]
 
-    def takeTurn(self, skill, attacker, defender, attackerFlags, defenderFlags):
+    def takeTurn(self, skill, attacker, defender, attackerFlags, defenderFlags,
+        successfulTurnCallback=lambda: None):
         """Run through one turn of the battle.
 
         The specified attacker will attack the defender with its chosen skill
@@ -252,7 +255,7 @@ class Battle(object):
                     skill = copy(skill)
                     skill.MULTIPLIER -= 1
                     self.takeTurn(skill, attacker, defender, attackerFlags,
-                                  defenderFlags)
+                                  defenderFlags, successfulTurnCallback)
             elif skill.CATEGORY == "Life Steal Damage":
                 damage = (attacker.damage * self.randomChance())
             elif "Damage" in skill.CATEGORY:
@@ -494,6 +497,8 @@ class Battle(object):
             # Make sounds
             if skill.NAME == "Defend":
                  self.sounds.append("Defend")
+            if skill.NAME == "Equip Item":
+                 self.sounds.append("Equip")
             if not (miss or blocked):
                 if damage is not None and int(damage) > 0:
                     if attacker == self.mainCharacter:
@@ -517,6 +522,8 @@ class Battle(object):
                     self.sounds.append("Critical Injury")
             if blocked and not miss and defender == self.mainCharacter:
                 self.sounds.append("Block")
+
+            successfulTurnCallback()
 
         # Do actions associated with flags attached to the attacker
         self.doFlagActions(attacker, attackerFlags)
