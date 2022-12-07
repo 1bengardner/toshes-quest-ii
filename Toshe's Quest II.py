@@ -5,10 +5,10 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 4, 2022
+Revised: December 6, 2022
 """
 
- 
+
 from Tkinter import *
 import tkFont
 import tkMessageBox
