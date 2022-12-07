@@ -2,7 +2,7 @@
 File: TUAGolemCavern2.py
 Author: Ben Gardner
 Created: May 26, 2020
-Revised: May 31, 2020
+Revised: December 6, 2022
 """
 
 
@@ -33,10 +33,19 @@ class GolemCavern2:
         
         self.spots = [
             [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
             [None, None, rok2, None, None, None, None],
             [None, rok3, pill, pitt, wlk2, rok1, None],
             [None, None, None, cran, None, None, None],
-            [None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
         ]
         
         e = {'Crystal Golem Blue': 15}
@@ -72,7 +81,7 @@ class GolemCavern2:
         if selectionIndex == 0:
             self.c.flags['Rising'] = True
             X = 3
-            Y = 1
+            Y = 11
             return self.actions({'area': "Golem Cavern: Floor 1",
                                  'coordinates': (X, Y)})
         self.text = ("You come across a pile of glowing minerals.")

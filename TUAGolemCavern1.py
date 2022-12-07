@@ -2,7 +2,7 @@
 File: TUAGolemCavern1.py
 Author: Ben Gardner
 Created: May 26, 2017
-Revised: May 31, 2020
+Revised: December 6, 2022
 """
 
 
@@ -33,10 +33,19 @@ class GolemCavern1:
         
         self.spots = [
             [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
             [None, rok1, walk, pitt, wlk2, rok2, None],
             [None, None, None, entr, None, None, None],
             [None, None, None, warp, None, None, None],
-            [None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None],
         ]
         
         e = {'Crystal Golem Green': 15}
@@ -98,7 +107,7 @@ class GolemCavern1:
             self.c.flags['Golem Cavern Pit 1'] = True
             self.c.flags['Going Down'] = True
             X = 3
-            Y = 2
+            Y = 7
             return self.actions({'area': "Golem Cavern: Floor 2",
                                  'coordinates': (X, Y)})
         if "Golem Cavern Pit 1" in self.c.flags:

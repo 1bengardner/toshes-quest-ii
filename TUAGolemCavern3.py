@@ -2,7 +2,7 @@
 File: TUAGolemCavern3.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: May 31, 2020
+Revised: December 6, 2022
 """
 
 
@@ -41,7 +41,15 @@ class GolemCavern3:
             [None, None, corr, None, cor2, None, None],
             [None, rok4, pill, pitt, pill, rok2, None],
             [None, None, None, cran, None, None, None],
-            [None, None, None, None, None, None, None]
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None],
         ]
         
         e = {'Crystal Golem Red': 15}
@@ -81,7 +89,7 @@ class GolemCavern3:
         if selectionIndex == 0:
             self.c.flags['Rising'] = True
             X = 3
-            Y = 2
+            Y = 7
             return self.actions({'area': "Golem Cavern: Floor 2",
                                  'coordinates': (X, Y)})
         self.text = ("You come across a pile of glowing minerals.")

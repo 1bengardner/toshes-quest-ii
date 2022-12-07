@@ -2,7 +2,7 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: November 14, 2022
+Revised: December 6, 2022
 """
 
 
@@ -344,7 +344,7 @@ class HercegBluffs:
             self.c.flags['Moved Boulders'] = True
         elif selectionIndex == 0:
             X = 3
-            Y = 2
+            Y = 11
             return self.actions({'area': "Golem Cavern: Floor 1",
                                  'coordinates': (X, Y)})            
             
