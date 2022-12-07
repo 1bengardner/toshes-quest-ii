@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: November 13, 2022
+Revised: December 6, 2022
 """
 
 
@@ -203,6 +203,7 @@ class Boat:
             self.imageIndex = 2
         if 'Boat Chat Done' not in self.c.flags:
             self.text = ("Toshe: Got it.")
+            self.helpText = ("Click on the centre image to save the game.")
             self.c.flags['Boat Chat Done'] = True
         elif 'Boat Chat Done' in self.c.flags:
             if selectionIndex == 0:
