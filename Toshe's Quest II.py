@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 6, 2022
+Revised: December 7, 2022
 """
 
 
@@ -376,8 +376,10 @@ class TopLeftFrame:
                         return "Trainee Mage"
                     elif dex >= 25:
                         return "Trainee Archer"
-                    else:
+                    elif character.level > 1:
                         return "Trainee"
+                    else:
+                        return "Castaway"
 
                 MAX_LINE_LENGTH = 24
                 lines = [
