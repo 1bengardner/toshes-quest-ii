@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: December 6, 2022
+Revised: December 9, 2022
 """
 
 
@@ -100,17 +100,17 @@ class Battle(object):
             'Magical Mushroom': [{
                 'stat': "earthReduction",
                 'type': "Add",
-                'value': 15,
+                'value': 25,
                 'multiplicand': None},
                                  {
                 'stat': "waterReduction",
                 'type': "Add",
-                'value': 15,
+                'value': 25,
                 'multiplicand': None},
                                  {
                 'stat': "fireReduction",
                 'type': "Add",
-                'value': 15,
+                'value': 25,
                 'multiplicand': None}]
             }
 
@@ -944,9 +944,9 @@ class Battle(object):
 
     def checkConsumables(self):
         """Check if any consumables should be consumed and take action."""
-        if self.mainCharacter.hp < 0.5 * self.mainCharacter.maxHp:
+        if self.enemy.MUSIC == "Important Battle":
             for item in self.consumableEffects:
-                if self.mainCharacter.hasItem(item):
+                while self.mainCharacter.hasItem(item):
                     for effects in self.consumableEffects[item]:
                         if effects['type'] == "Add":
                             setattr(self.mainCharacter,
@@ -965,7 +965,6 @@ class Battle(object):
                     self.text += ("Toshe consumes %s %s!\n" % (aOrAn, item))
                     self.mainCharacter.removeItem(
                         self.mainCharacter.indexOfItem(item))
-                    break
         
 
     def endBattle(self):
@@ -1056,7 +1055,8 @@ class Battle(object):
         Returns the item name if one was dropped, otherwise None."""
         if self.enemy.isDead():
             drop = self.selectRandomElement(self.enemy.ITEMS, self.enemy.UNIQUE)
-            if drop:
+            if drop and (drop != "Brummo Mint" or
+                         not self.mainCharacter.hasItem(drop)):
                 self.text += (self.enemy.NAME+" left behind an item: "+
                               drop+"!")
                 return drop

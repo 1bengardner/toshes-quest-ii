@@ -28,13 +28,14 @@ Luminescent Barrier	8000	Elemental	0	0	40	0
 Gold Shield	10000	Elemental	20	30	25	10
 Titanium Shield	8000	Physical	100	40	10	10
 Rusty Titanium Shield	8000	Physical	120	35	0	10
-Jade Ward	1000	Earth	0	0	70	0
-Aquamarine Ward	1000	Water	0	0	70	0
-Garnet Ward	1000	Fire	0	0	70	0
-Diamond Ward	1000	Elemental	0	0	50	0
+Jade Ward	0	Earth	0	0	70	0
+Aquamarine Ward	0	Water	0	0	70	0
+Garnet Ward	0	Fire	0	0	70	0
+Diamond Ward	10000	Elemental	0	0	50	0
 Nothing	0	Physical	0	0	0	0
 Skeleton Shield	2000	Earth	45	13	20	9
 Swash Buckler	2000	Water	20	16	20	5
 Gryphon Kite	2000	Fire	35	15	20	7
 Oseku Shield	0	Physical	300	30	25	7
 Skull Shield	7000	Physical	45	10	20	9
+Aspis	7000	Physical	90	35	0	11

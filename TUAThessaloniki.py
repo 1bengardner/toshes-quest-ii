@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: November 28, 2022
+Revised: November 30, 2022
 """
 
 
@@ -210,6 +210,12 @@ class Thessaloniki:
         self.text = None
         self.helpText = None
         self.menu = []
+        if "Phalanx Captain" not in self.c.flags:
+            self.view = "battle"
+            self.text = "Phalanx Captain: Halt, Macedonian."
+            self.c.flags['Phalanx Captain'] = True
+            return self.actions({'enemy': "Phalanx Captain",
+                                 'mercenaries': self.c.mercenaries,})
         self.text = ("You can see the gates of Macedonia up ahead.")
         return self.actions()
 
