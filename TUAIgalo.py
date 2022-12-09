@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: November 28, 2022
+Revised: December 8, 2022
 """
 
 
@@ -398,7 +398,7 @@ class Igalo:
                             'coordinates': (X, Y)})
         self.text = ("You read a banner:"+
                      "\n\"Town Hall\"")
-        self.menu = ["Enter the building."]
+        self.menu = ["Enter the town hall."]
         return self.actions()
 
     def narrowStreet2(self, selectionIndex=None):

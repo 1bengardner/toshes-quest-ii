@@ -1,12 +1,15 @@
 ![Toshe's Quest II](https://user-images.githubusercontent.com/6226898/77361171-334b1e80-6d25-11ea-86b8-6c5e56ad271a.png)
 
+**Toshe's Quest II: Toshe's Underwater Adventures**
+
 The smash hit sequel: An expansive, old-school RPG with a picture-and-text interface, including an original musical score by [me](https://github.com/1bengardner).
 
 ## Getting Started
 
 ### Prerequisites
 
-Install ``Python 2`` and ``Pygame``, available for download from the latest [release](https://github.com/1bengardner/toshes-quest-ii/releases).
+- Install ``Python 2`` and ``Pygame``, available for download from the latest [release](https://github.com/1bengardner/toshes-quest-ii/releases).
+- Install ``Garamond`` font
 
 ### Running the game
 
@@ -19,7 +22,7 @@ For help with playing the game, you can view the [help document](https://docs.go
 
 ### Story
 
-The tale begins with the aftermath of an aquatic battle between good and evil, leaving Toshe lost at sea. Catastrophic shipwreck has left him stranded. And, in the depths of the Adriatic Sea, the anemonies aren't friendly.
+The tale begins with the aftermath of a seaborne battle between good and evil. Catastrophic shipwreck has left Toshe underwater. And, in the depths of the Adriatic Sea, the anemonies aren't friendly.
 
 Having a distinct preference for brawn over wit, Toshe won't go down without a fight. Sworn defender, Toshe dedicates his life to honour. It might sound like Toshe's trying to save the world, but he's really just trying to save his own butt. To do that, he needs some help. That's where you come in!
 

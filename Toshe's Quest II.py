@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 7, 2022
+Revised: December 9, 2022
 """
 
 
@@ -1444,7 +1444,7 @@ class BottomLeftFrame:
             greeting = random.choice([
                 "Let the quest begin.",
                 "Brace yourself.",
-                "Smell those scents of adventure."
+                "I can smell your scents of adventure."
             ]))
         self.outputBox.insert(END,
                               "%s❧ %s" % ("\n\n" if addSpacing else "", timestamp),
@@ -1904,10 +1904,12 @@ def displayStoreItemStats():
     frame.itemValueLabel['text'] = "%d / %d Euros" % (item.PRICE,
                                                       main.character.euros)
     
-    if item.CATEGORY == "Miscellaneous" and "*" not in item.INFORMATION:
-        frame.itemRequirementLabel['text'] = item.INFORMATION
-    elif item.CATEGORY == "Miscellaneous" and "*" in item.INFORMATION:
-        frame.itemRequirementLabel['text'] = item.INFORMATION.split("*")[0]
+    if item.CATEGORY == "Miscellaneous":
+        frame.itemRequirementLabel['font'] = italicFont1
+        if "*" not in item.INFORMATION:
+            frame.itemRequirementLabel['text'] = item.INFORMATION
+        elif "*" in item.INFORMATION:
+            frame.itemRequirementLabel['text'] = item.INFORMATION.split("*")[0]
     else:
         frame.itemRequirementLabel['text'] = ("Requires",
                                               item.REQUIREMENT_VALUE,
@@ -1917,7 +1919,8 @@ def displayStoreItemStats():
         frame.itemQualityLabel['text'] = item.DEFENCE, "Defence"
     elif item.CATEGORY == "Miscellaneous" and "*" not in item.INFORMATION:
         frame.itemQualityLabel['text'] = ""
-    elif item.CATEGORY == "Miscellaneous" and "*" in item.INFORMATION:        
+    elif item.CATEGORY == "Miscellaneous" and "*" in item.INFORMATION:
+        frame.itemQualityLabel['font'] = italicFont1
         frame.itemQualityLabel['text'] = item.INFORMATION.split("*")[1]
     else:
         frame.itemQualityLabel['text'] = item.POWER, "Power"
@@ -2466,7 +2469,7 @@ def displayLoadingScreen():
         "I have been waiting for you.",
         "Please be patient. I am a little slow.",
         "Let me get everything ready for you.",
-        "Greetings! Please dry your feet on the mat.",
+        "Dry your feet on the mat, please.",
         "It seems as though my loading bar has become uncalibrated.",
         "You caught me by surprise! Where did I leave my shell?",
         "Brace yourself."])
