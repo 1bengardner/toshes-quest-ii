@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 4, 2022
+Revised: December 10, 2022
 """
 
 
@@ -12,6 +12,7 @@ from random import randint
 from random import choice
 from collections import Counter
 from datetime import date
+from threading import Thread
 
 from TUAWeapon import Weapon
 from TUAArmour import Armour
@@ -207,6 +208,7 @@ class Main:
             self.character = pickle.load(gameFile)
         self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
+        Thread(target=self.writeGameToPreferences).start()
 
     def loadFromCheckpoint(self):
         self.character.checkpoint.flags['Discovered Areas'] = self.character.flags['Discovered Areas']
@@ -263,7 +265,7 @@ class Main:
         with open("saves\\"+self.fileName+".tq", "w") as gameFile:
             pickle.dump(self.character, gameFile)
         self.sound.playSound(self.sound.sounds['Save'])
-        self.writeGameToPreferences()
+        Thread(target=self.writeGameToPreferences).start()
 
     def writeGameToPreferences(self):
         try:
