@@ -2,7 +2,7 @@
 File: TUAArmour.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 27, 2014
+Revised: December 11, 2022
 """
 
 
@@ -10,8 +10,8 @@ class Armour:
 
     def __init__(self, name, price, element, requirementValue, defence,
                  reduction):
-        self.NAME = str(name)
-        self.IMAGE_NAME = self.NAME
+        self.BASE_NAME = str(name)
+        self.IMAGE_NAME = self.BASE_NAME
         self.PRICE = int(price)
         self.SELL_PRICE = int(price)/4
         self.ELEMENT = str(element)
@@ -45,3 +45,13 @@ class Armour:
             self.PHYSICAL_REDUCTION = int(reduction)
         self.REQUIREMENT_TYPE = "Strength"
         self.CATEGORY = "Armour"
+
+    @property
+    def NAME(self):
+        return "%s +%s" % (self.BASE_NAME, self.upgradeCount) if hasattr(self, "upgradeCount") else self.BASE_NAME
+
+    def upgrade(self):
+        if not hasattr(self, "upgradeCount"):
+            self.upgradeCount = 0
+        self.DEFENCE += 2
+        self.upgradeCount += 1

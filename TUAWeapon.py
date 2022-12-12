@@ -2,7 +2,7 @@
 File: TUAWeapon.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: November 23, 2022
+Revised: December 11, 2022
 """
 
 
@@ -10,8 +10,8 @@ class Weapon:
 
     def __init__(self, name, price, element, requirementValue, power,
                  requirementType, category, cRate, cDamage):
-        self.NAME = str(name)
-        self.IMAGE_NAME = self.NAME
+        self.BASE_NAME = str(name)
+        self.IMAGE_NAME = self.BASE_NAME
         self.PRICE = int(price)
         self.SELL_PRICE = int(price)/4
         self.ELEMENT = str(element)
@@ -37,3 +37,13 @@ class Weapon:
             self.ACCURACY = 10
         else:
             self.ACCURACY = 0
+
+    @property
+    def NAME(self):
+        return "%s +%s" % (self.BASE_NAME, self.upgradeCount) if hasattr(self, "upgradeCount") else self.BASE_NAME
+
+    def upgrade(self):
+        if not hasattr(self, "upgradeCount"):
+            self.upgradeCount = 0
+        self.POWER += 2
+        self.upgradeCount += 1

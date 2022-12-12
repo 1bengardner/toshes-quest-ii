@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 9, 2022
+Revised: December 11, 2022
 """
 
 
@@ -852,7 +852,7 @@ class TopCenterFrame:
                     name +
                     ", your file has been successfully converted!")
                 self.tryToLoadFile(name)
-        # except (EOFError, ValueError, KeyError, IndexError, ImportError):
+        # except (EOFError, ValueError, KeyError, IndexError):
             # window.bottomFrame.bottomLeftFrame.insertOutput(
                 # "Turtle: " +
                 # name +
