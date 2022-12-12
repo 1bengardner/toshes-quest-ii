@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 11, 2022
+Revised: December 12, 2022
 """
 
 
@@ -1439,13 +1439,7 @@ class BottomLeftFrame:
         
     def insertTimestamp(self, addSpacing=False):
         self.outputBox['state'] = NORMAL
-        timestamp = "{dt:%I}:{dt.minute} {dt:%p} - {greeting}".format(
-            dt = datetime.now(),
-            greeting = random.choice([
-                "Let the quest begin.",
-                "Brace yourself.",
-                "I can smell your scents of adventure."
-            ]))
+        timestamp = "{dt:%I}:{dt.minute} {dt:%p}".format(dt = datetime.now())
         self.outputBox.insert(END,
                               "%s❧ %s" % ("\n\n" if addSpacing else "", timestamp),
                               ("grey", "highlight"))
@@ -2213,10 +2207,14 @@ def enableBattleView():
     bottomFrame.bindSkills()
     
     skills = []
-    bottomFrame.skillButton['state'] = DISABLED
     for skill in main.character.skills:
         skills.append(skill.NAME)
-    bottomFrame.modifyMenu(skills)
+    if len(filter(lambda skill:
+        skill in bottomFrame.menuBox.get(0, bottomFrame.menuBox.size()-1),
+        skills)) < len(skills):
+        bottomFrame.modifyMenu(skills)
+    if not bottomFrame.menuSelectionIsValid():
+        bottomFrame.skillButton['state'] = DISABLED
 
 
 def enableBattleOverView():
@@ -2472,7 +2470,8 @@ def displayLoadingScreen():
         "Dry your feet on the mat, please.",
         "It seems as though my loading bar has become uncalibrated.",
         "You caught me by surprise! Where did I leave my shell?",
-        "Brace yourself."])
+        "Brace yourself.",
+        "I can smell your scents of adventure.",])
     loadingBar = Label(frame, bg=DEFAULT_BG, relief=SUNKEN, bd=1)
     loadingBar.grid(row=0)
     loadingLabel = Label(frame, bg=DEFAULT_BG, font=font1, text=loadingText)
