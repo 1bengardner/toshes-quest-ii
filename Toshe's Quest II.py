@@ -2209,7 +2209,7 @@ def enableBattleView():
     skills = []
     for skill in main.character.skills:
         skills.append(skill.NAME)
-    if len(filter(lambda skill:
+    if len(skills) != bottomFrame.menuBox.size() or len(filter(lambda skill:
         skill in bottomFrame.menuBox.get(0, bottomFrame.menuBox.size()-1),
         skills)) < len(skills):
         bottomFrame.modifyMenu(skills)
