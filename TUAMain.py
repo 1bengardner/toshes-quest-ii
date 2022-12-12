@@ -545,15 +545,14 @@ class Main:
                 with open("data\\dailychallenge.txt", "r") as enemyFile:
                     for line in enemyFile:
                         enemies.append(line.strip())
-                enemyName = None
-                while enemyName is None or enemy.LEVEL - 1 > self.character.level:
+                enemy = None
+                while enemy is None or enemy.LEVEL - 1 > self.character.level:
                     i = randint(0, len(enemies) - 1)
-                    enemyName = enemies[i]
-                    enemy = self.enemies[enemyName]
+                    enemy = self.enemies[enemies[i]]
                     del enemies[i]
                 killCount = min(10, 2 + self.character.level - enemy.LEVEL)
-                description = "Hunt: %s. Kill %s of them." % (enemyName, killCount)
-                criteria = {'Kills': (enemyName, killCount)}
+                description = "Hunt: %s. Defeat %s of them." % (enemy.NAME, killCount)
+                criteria = {'Kills': (enemy.IDENTIFIER, killCount)}
                 return description, criteria
 
             interfaceActions = {}
@@ -596,7 +595,7 @@ class Main:
                     itemText = "The King of Elves appears and hands you a pair of Hopalong Boots."
                     item = "Hopalong Boots"
                 elif roll % differentItems == 2:
-                    itemText = "The King of Elves appears and grants you the Debonairiest Nowell Shirt."
+                    itemText = "The King of Elves appears and bestows upon you the Debonairiest Nowell Shirt."
                     item = "Debonairiest Nowell Shirt"
                 elif roll % differentItems == 3:
                     itemText = "The King of Elves appears and tosses you a rifle that shoots."
