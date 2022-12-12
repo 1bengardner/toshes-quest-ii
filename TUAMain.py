@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 11, 2022
+Revised: December 12, 2022
 """
 
 
@@ -813,7 +813,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                             equipToUpgrade = self.character.items[i]
                             if 'text' not in interfaceActions or not interfaceActions['text']:
                                 interfaceActions['text'] = ""
-                            interfaceActions['text'] += ("\nDaily Challenge complete!\nYour %s has been upgraded." % equipToUpgrade.NAME)
+                            interfaceActions['text'] += ("\nDaily Challenge complete!\n%s got upgraded." % equipToUpgrade.NAME)
                             equipToUpgrade.upgrade()
                             break
                         
