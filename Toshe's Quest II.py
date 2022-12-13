@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 12, 2022
+Revised: December 13, 2022
 """
 
 
@@ -460,7 +460,9 @@ class TopLeftFrame:
 
         # Inventory checkbutton variable
         self.v1 = IntVar()
-        self.itemButtons = makeItemButtons(self.inventory, self.v1, 0)
+        self.itemButtonFrame = Frame(self.inventory, bg=DEFAULT_BG)
+        self.itemButtonFrame.grid()
+        self.itemButtons = makeItemButtons(self.itemButtonFrame, self.v1, 0)
         self.itemNameLabel = Label(self.inventory, text="Name", font=font2,
                                    bg=DEFAULT_BG)
         self.itemNameLabel.grid(columnspan=3, sticky=W)
@@ -501,6 +503,23 @@ class TopLeftFrame:
                                  command=self.clickDropButton)
         self.dropButton.grid(row=10, columnspan=3, sticky=E+W)
         self.dropButton.grid_remove()
+        
+    def expandInventory(self):
+        for button in self.itemButtons:
+            button.destroy()
+        self.itemButtons = makeItemButtons(self.itemButtonFrame, self.v1, 0, 4)
+        self.itemNameLabel.grid(columnspan=4)
+        self.itemCategoryLabel.grid(columnspan=4)
+        self.itemValueLabel.grid(columnspan=4)
+        self.itemRequirementLabel.grid(columnspan=4)
+        self.itemQualityLabel.grid(columnspan=4)
+        self.itemCBRateLabel.grid(columnspan=4)
+        self.itemElementLabel.grid(columnspan=4)
+        self.equipButton.grid(row=10, columnspan=4)
+        self.equipButton.grid_remove()
+        self.dropButton.grid(row=10, columnspan=4)
+        self.dropButton.grid_remove()
+        self.sellButton.grid(row=10, columnspan=4)
 
     def clickEquipButton(self):
         if main.view == "battle":
@@ -574,32 +593,38 @@ class TopLeftFrame:
         """Show the current images for the character's inventory in the
         Inventory frame.
         """
+        if len(self.itemButtons) < 16 and "Chasmic Rucksack" in main.character.flags:
+            self.expandInventory()
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                "Your inventory can now hold 16 items.",
+                "italicize")
         clearItemStats(self, store=False)
         self.v1.set(-1)
-        for i in range(0, 3):
-            for j in range(0, 3):
-                if not main.character.items[i*3+j]:
-                    self.itemButtons[i*3+j].config(image=noItemImage,
+        rows = 4 if "Chasmic Rucksack" in main.character.flags else 3
+        for i in range(0, rows):
+            for j in range(0, rows):
+                if not main.character.items[i*rows+j]:
+                    self.itemButtons[i*rows+j].config(image=noItemImage,
                                                    state=DISABLED,
                                                    bg=BLACK)
-                elif i*3+j in main.character.equippedItemIndices.values():
+                elif i*rows+j in main.character.equippedItemIndices.values():
                     try:
                         itemImage = itemImages[
-                            main.character.items[i*3+j].IMAGE_NAME]
+                            main.character.items[i*rows+j].IMAGE_NAME]
                     except KeyError as e:
                         print "Missing image: %s" % e
                         itemImage = defaultImage
-                    self.itemButtons[i*3+j].config(image=itemImage,
-                                                   state=NORMAL,
-                                                   bg=LIGHTCYAN)
-                elif i*3+j not in main.character.equippedItemIndices.values():
+                    self.itemButtons[i*rows+j].config(image=itemImage,
+                                                      state=NORMAL,
+                                                      bg=LIGHTCYAN)
+                elif i*rows+j not in main.character.equippedItemIndices.values():
                     try:
                         itemImage = itemImages[
-                            main.character.items[i*3+j].IMAGE_NAME]
+                            main.character.items[i*rows+j].IMAGE_NAME]
                     except KeyError as e:
                         print "Missing image: %s" % e
                         itemImage = defaultImage
-                    self.itemButtons[i*3+j].config(image=itemImage,
+                    self.itemButtons[i*rows+j].config(image=itemImage,
                                                    state=NORMAL,
                                                    bg=BLACK)
         self.equipButton['text'] = "Equip"
@@ -870,6 +895,8 @@ class TopCenterFrame:
             name = main.fileName
         main.loadGame(name)
         self.startGame(name)
+        if "Chasmic Rucksack" in main.character.flags:
+            window.topFrame.topLeftFrame.expandInventory()
         window.topFrame.topCenterFrame.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
         window.topFrame.topCenterFrame.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
 
@@ -892,6 +919,13 @@ class TopCenterFrame:
         
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
         
+        interfaceActions = main.getInterfaceActions(justFought=True)
+        eventActions = main.getLoginEvents()
+        if eventActions is not None:
+            interfaceActions.update(eventActions)
+            stateChanged = True
+        updateInterface(interfaceActions)
+        
         window.topFrame.topRightFrame.logButton['state'] = NORMAL
         if main.character.flags['Config']['Mission Log Open'] != window.topFrame.topRightFrame.showMissionLog.get():
             window.topFrame.topRightFrame.logButton.invoke()
@@ -900,13 +934,6 @@ class TopCenterFrame:
             window.rightFrame.addMission(quest, pushToTop=False)
             if quest.isCompletedBy(main.character):
                 window.rightFrame.markMission(quest)
-        
-        interfaceActions = main.getInterfaceActions(justFought=True)
-        eventActions = main.getLoginEvents()
-        if eventActions is not None:
-            interfaceActions.update(eventActions)
-            stateChanged = True
-        updateInterface(interfaceActions)
         
         self.mapButton['state'] = NORMAL
         self.mapButton.grid()
@@ -1766,7 +1793,7 @@ class BottomRightFrame:
                 self.menuBox.insert(END, i)
 
 
-def makeItemButtons(master, var, inStore):
+def makeItemButtons(master, var, inStore, rows=3):
     """Create 9 buttons to represent either inventory or store items.
 
     inStore indicates that the buttons are being made in the store frame if its
@@ -1774,12 +1801,13 @@ def makeItemButtons(master, var, inStore):
     """
     itemButtons = []
     commands = [displayItemStats, displayStoreItemStats]
-    for i in range(0, 3):   # Item radiobutton values range from 0 to 8
-        for j in range(0, 3):
+    sidePx = 64 if rows == 3 else 45
+    for i in range(0, rows):
+        for j in range(0, rows):
             itemButton = Radiobutton(master, image=defaultImage,
-                                     variable=var, value=i*3+j, width=64,
-                                     height=64, bg=BLACK, indicatoron=0, bd=4,
-                                     command=commands[inStore])
+                                     variable=var, value=i*rows+j, width=sidePx,
+                                     height=sidePx, bg=BLACK, indicatoron=0,
+                                     bd=4, command=commands[inStore])
             itemButton.grid(row=i, column=j)
             itemButtons.append(itemButton)
     return itemButtons

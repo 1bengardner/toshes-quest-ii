@@ -21,3 +21,4 @@ Magical Mushroom	3000	Increases all reductions by 25%.*Consumed during an import
 Macedonian Protector	0	Increases block chance while defending.
 Oracular Orb	0	A magical orb of great energy.
 Ominous Orb	0	This orb can be fused with its*user to combine potentials.
+Chasmic Rucksack	15000	You could even fit a Telamon Shield in this thing.

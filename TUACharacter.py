@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: November 23, 2022
+Revised: December 12, 2022
 """
 
 
@@ -279,7 +279,7 @@ class Character(object):
         self.updateStats()
 
     def hasNoItems(self):
-        return self.items == [None]*9
+        return self.items == [None]*len(self.items)
 
     def hasRoom(self):
         return None in self.items

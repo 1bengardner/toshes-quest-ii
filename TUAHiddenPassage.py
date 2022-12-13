@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: November 24, 2022
+Revised: December 12, 2022
 """
 
 
@@ -315,7 +315,7 @@ class HiddenPassage:
                                  'coordinates': (X, Y)})
         npc = "Merchant"
         if "Buyback Items" not in self.c.flags:
-            self.c.flags['Buyback Items'] = [None]*9
+            self.c.flags['Buyback Items'] = ["Chasmic Rucksack"] + [None]*8
         self.c.flags['Passage Merchant'] = True
         self.text = npc+": " + random.choice(
             ["I'm a collector.",

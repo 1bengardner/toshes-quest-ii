@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 12, 2022
+Revised: December 13, 2022
 """
 
 
@@ -1005,7 +1005,12 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def buy(self, itemIndex):
         self.character.euros -= self.store[itemIndex].PRICE
-        self.character.addItem(self.store[itemIndex])
+        if self.store[itemIndex].NAME == "Chasmic Rucksack":
+            self.character.flags['Chasmic Rucksack'] = True
+            while len(self.character.items) < 16:
+                self.character.items.append(None)
+        else:
+            self.character.addItem(self.store[itemIndex])
         if self.buyback:
             self.character.flags['Buyback Items'][itemIndex] = None
             self.store[itemIndex] = None
