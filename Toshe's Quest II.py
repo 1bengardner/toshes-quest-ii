@@ -2462,7 +2462,7 @@ def close(event=None):
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         if canSave:
             answer = tkMessageBox.askyesnocancel(
-                "Save and Exit",
+                "Save and exit",
                 "Do you want to save the game?",
                 parent=root)
             if answer is None:
@@ -2470,9 +2470,10 @@ def close(event=None):
             elif answer:
                 main.saveGame()
         elif main.view != "game over":
-            if not tkMessageBox.askokcancel(
-                 "Warning",
+            if "no" == tkMessageBox.askquestion(
+                 "Exit without saving",
                  "You can't save right now. Are you sure you want to quit?",
+                 icon="warning",
                  parent=root):
                 return
 

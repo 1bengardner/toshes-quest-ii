@@ -592,16 +592,16 @@ class Main:
                 rewardText = "Thank you for playing during this holiday season!"
                 roll = (year + hash(self.fileName.lower())) % differentItems
                 if roll == 0:
-                    itemText = "The King of Elves appears and gives you an Ugly Disguise."
+                    itemText = "The King of Elves appears and tosses you an Ugly Disguise."
                     item = "Ugly Disguise"
                 elif roll == 1:
-                    itemText = "The King of Elves appears and hands you a pair of Hopalong Boots."
+                    itemText = "The King of Elves appears and gives you a pair of Hopalong Boots."
                     item = "Hopalong Boots"
                 elif roll == 2:
                     itemText = "The King of Elves appears and bestows upon you the Debonairiest Nowell Shirt."
                     item = "Debonairiest Nowell Shirt"
                 elif roll == 3:
-                    itemText = "The King of Elves appears and tosses you a rifle that shoots."
+                    itemText = "The King of Elves appears and hands you a rifle that shoots."
                     item = "A rifle that shoots"
                 interfaceActions.update({
                     'text': itemText,
