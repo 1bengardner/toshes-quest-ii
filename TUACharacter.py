@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: December 12, 2022
+Revised: December 16, 2022
 """
 
 
@@ -76,6 +76,9 @@ class Character(object):
         self.LIVING = 1
         self.checkpoint = None
         self.quests = []
+        self.specialization = None
+        self.mastery = 1
+        self.sp = 0
         self.updateStats()
 
     def updateStats(self):
@@ -200,9 +203,9 @@ class Character(object):
             
     @property
     def spTnl(self):
-        if self.ub205e2nmzfwi > 10:
-            return self.ub205e2nmzfwi * 100 - 500
-        return (self.ub205e2nmzfwi ** 2 - self.ub205e2nmzfwi + 10) // 2 * 10
+        if self.mastery > 10:
+            return self.mastery * 100 - 500
+        return (self.mastery ** 2 - self.mastery + 10) // 2 * 10
             
     def hasLeveledUp(self):
         """Check if the character has enough xp to level up."""
@@ -231,7 +234,7 @@ class Character(object):
     def hasSpecializedUp(self):
         """Check if the character has enough kills to specialize up."""
         if self.sp >= self.spTnl:
-            self.ub205e2nmzfwi += 1
+            self.mastery += 1
             self.sp = 0
             return True
         return False

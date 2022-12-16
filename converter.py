@@ -62,6 +62,11 @@ def update(gameFile, path):
     if not hasattr(character, "quests"):
         setattr(character, "quests", [])
         changed = True
+    if not hasattr(character, "specialization"):
+        setattr(character, "specialization", None)
+        setattr(character, "mastery", 1)
+        setattr(character, "sp", 0)
+        changed = True
     changed = updateChangedAreaNames(character) or changed
     with open(path, "w") as gameFile:
         pickle.dump(character, gameFile)

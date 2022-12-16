@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 13, 2022
+Revised: December 16, 2022
 """
 
 
@@ -562,8 +562,8 @@ class TopLeftFrame:
                                                   (NUMBER_OF_BARS - 1))]
         self.xpBarLabel['text'] = "%d%%" % (100 * c.xp / c.xpTnl)
         self.xpBarLabel['fg'] = WHITE if (100 * c.xp / c.xpTnl < 45) else NAVY
-        if hasattr(c, 'specialization'):
-            self.spWord['text'] = "%s %s" % (c.specialization, c.ub205e2nmzfwi)
+        if c.specialization is not None:
+            self.spWord['text'] = "%s %s" % (c.specialization, c.mastery)
             if c.sp > c.spTnl:
                 self.spBarLabel['image'] = spBars[-1]
             else:
@@ -941,7 +941,7 @@ class TopCenterFrame:
             self.mapButton.invoke()
         self.updateMapVisibility()
         
-        if hasattr(main.character, 'specialization'):
+        if main.character.specialization is not None:
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
             window.topFrame.topLeftFrame.spBarLabel.grid()
@@ -2083,12 +2083,12 @@ def updateInterface(updates):
         window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
         main.sound.playSound(main.sound.sounds['Level Up'])
 
-    if hasattr(main.character, 'specialization'):
+    if main.character.specialization is not None:
         while main.character.hasSpecializedUp():
             if not updates['text']:
                 updates['text'] = ""
             updates['text'] += "\nToshe is now a %s rank %s!" % (
-                main.character.specialization, main.character.ub205e2nmzfwi)
+                main.character.specialization, main.character.mastery)
             window.gridPowerUpFrame()
 
     for mercenary in main.character.mercenaries:
