@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: December 9, 2022
+Revised: December 16, 2022
 """
 
 
@@ -1039,7 +1039,7 @@ class Battle(object):
             if self.enemy.IDENTIFIER not in self.mainCharacter.flags['Kills']:
                 self.mainCharacter.flags['Kills'][self.enemy.IDENTIFIER] = 0
             self.mainCharacter.flags['Kills'][self.enemy.IDENTIFIER] += 1
-            if hasattr(self.mainCharacter, 'specialization'):
+            if self.mainCharacter.specialization is not None:
                 self.mainCharacter.sp += 1
             self.sounds.append("Kill")
         elif (self.coliseumMode and
