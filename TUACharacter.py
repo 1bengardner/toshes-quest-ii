@@ -203,8 +203,8 @@ class Character(object):
             
     @property
     def spTnl(self):
-        if self.mastery > 10:
-            return self.mastery * 100 - 500
+        if self.mastery > 5:
+            return self.mastery * 50 - 100
         return (self.mastery ** 2 - self.mastery + 10) // 2 * 10
             
     def hasLeveledUp(self):
