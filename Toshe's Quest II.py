@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 16, 2022
+Revised: December 20, 2022
 """
 
 
@@ -1818,7 +1818,7 @@ def displayItemStats():
     frame = window.topFrame.topLeftFrame
     item = main.character.items[frame.v1.get()]
     
-    frame.itemNameLabel.config(text=item.NAME, font=italicFont2)
+    frame.itemNameLabel.config(text=item.displayName, font=italicFont2)
     
     frame.itemCategoryLabel['text'] = item.CATEGORY
     
@@ -1919,7 +1919,7 @@ def displayStoreItemStats():
     frame = window.topFrame.topRightFrame
     item = main.store[frame.v2.get()]
 
-    frame.itemNameLabel.config(text=item.NAME, font=italicFont2)
+    frame.itemNameLabel.config(text=item.displayName, font=italicFont2)
     
     frame.itemCategoryLabel['text'] = item.CATEGORY
     

@@ -67,6 +67,11 @@ def update(gameFile, path):
         setattr(character, "mastery", 1)
         setattr(character, "sp", 0)
         changed = True
+    for item in character.items:
+        if item.CATEGORY != "Miscellaneous":
+            if not hasattr(item, "upgradeCount"):
+                item.upgradeCount = 0
+                changed = True
     changed = updateChangedAreaNames(character) or changed
     with open(path, "w") as gameFile:
         pickle.dump(character, gameFile)

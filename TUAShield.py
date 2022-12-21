@@ -2,7 +2,7 @@
 File: TUAShield.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 13, 2022
+Revised: December 20, 2022
 """
 
 
@@ -10,8 +10,8 @@ class Shield:
 
     def __init__(self, name, price, element, requirementValue, defence,
                  reduction, bRate):
-        self.BASE_NAME = str(name)
-        self.IMAGE_NAME = self.BASE_NAME
+        self.NAME = str(name)
+        self.IMAGE_NAME = self.NAME
         self.PRICE = int(price)
         self.SELL_PRICE = int(price)/4
         self.ELEMENT = str(element)
@@ -49,8 +49,8 @@ class Shield:
         self.upgradeCount = 0
 
     @property
-    def NAME(self):
-        return "%s +%s" % (self.BASE_NAME, self.upgradeCount) if self.upgradeCount > 0 else self.BASE_NAME
+    def displayName(self):
+        return "%s +%s" % (self.NAME, self.upgradeCount) if self.upgradeCount > 0 else self.NAME
 
     def upgrade(self):
         self.DEFENCE += 2
