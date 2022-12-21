@@ -68,10 +68,9 @@ def update(gameFile, path):
         setattr(character, "sp", 0)
         changed = True
     for item in character.items:
-        if item.CATEGORY != "Miscellaneous":
-            if not hasattr(item, "upgradeCount"):
-                item.upgradeCount = 0
-                changed = True
+        if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
+            item.upgradeCount = 0
+            changed = True
     changed = updateChangedAreaNames(character) or changed
     with open(path, "w") as gameFile:
         pickle.dump(character, gameFile)
@@ -88,10 +87,14 @@ if __name__ == "__main__":
             path = "saves\\"+fileName+".tq"
             with open(path, "r") as gameFile:
                 changed = update(gameFile, path)
-        except:
-            path = "saves\\"+fileName+".toshe"
-            with open(path, "r") as gameFile:
-                changed = update(gameFile, fileName)
+        except (IOError):
+            try:
+                path = "saves\\"+fileName+".toshe"
+                with open(path, "r") as gameFile:
+                    changed = update(gameFile, fileName)
+            except (IOError):
+                raw_input("No .tq or .toshe file named %s was found." % fileName)
+                exit()
         print
         if changed == "error":
             raw_input(fileName+" could not be updated. The file format is probably too old.")
