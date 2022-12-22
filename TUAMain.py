@@ -540,15 +540,17 @@ class Main:
         if ( isChristmasSeason and
              self.character.hasRoom() and
              "Christmas %i" % year not in self.character.flags):
-            itemText = "You get an Ugly Disguise."
             rewardText = "Thank you for playing during this holiday season!"
+            if year % 2 == 0:
+                itemText = "You get an Ugly Disguise."
+                item = "Ugly Disguise"
+            else:
+                itemText = "You get a pair of Hopalong Boots."
+                item = "Hopalong Boots"
             interfaceActions = {
-                'view': "travel",
-                'image index': 0,
-                'menu': [],
                 'text': itemText,
                 'italic text': rewardText,
-                'item': "Ugly Disguise"}
+                'item': item}
             self.collectItem(interfaceActions)
             self.character.flags["Christmas %i" % year] = True
             return interfaceActions

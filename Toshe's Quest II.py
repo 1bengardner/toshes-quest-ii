@@ -857,12 +857,11 @@ class TopCenterFrame:
             if quest.isCompletedBy(main.character):
                 window.rightFrame.markMission(quest)
         
-        interfaceActions = main.getLoginEvents()
-        if interfaceActions is not None:
-            updateInterface(interfaceActions)
-            stateChanged = True
-        
         interfaceActions = main.getInterfaceActions(justFought=True)
+        eventActions = main.getLoginEvents()
+        if eventActions is not None:
+            interfaceActions.update(eventActions)
+            stateChanged = True
         updateInterface(interfaceActions)
         
         self.mapButton['state'] = NORMAL

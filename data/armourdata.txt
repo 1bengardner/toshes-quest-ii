@@ -53,3 +53,4 @@ Beast Hide	8000	Physical	50	25	25
 Ugly Disguise	1225	Fire	12	25	-100
 Shamanic Robes	8000	Physical	0	6	15
 Dark Plate	8000	Elemental	90	38	20
+Hopalong Boots	1225	Water	1	12	25
