@@ -925,39 +925,25 @@ class TopRightFrame:
         newsContent.insert(END, "Content Updates", ("section"))
         newsContent.insert(END,
 """
-The remaining """)
-        newsContent.insert(END, "GUARDIAN BEASTS", ("emphasis"))
-        newsContent.insert(END, """ have been unleashed! Find all three—Earth, Water and Fire—and navigate their labyrithine abodes to destroy them once and for all.
+The remaining GUARDIAN BEASTS have been unleashed! Find all three—Earth, Water and Fire—and navigate their labyrithine abodes to destroy them once and for all.
 
-The lair of the dark commander """)
-        newsContent.insert(END, "NIPLIN", ("emphasis"))
-        newsContent.insert(END, """ has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
+The lair of the dark commander NIPLIN has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
 
 """)
         newsContent.insert(END, "Feature Updates", ("section"))
-        newsContent.insert(END, """
-Select a character with the """)
-        newsContent.insert(END, "RECENT GAMES", ("emphasis"))
-        newsContent.insert(END, """ list. Hit the ground running with a single click: no more typing your name in!
+        newsContent.insert(END,
+"""
+Select a character with the RECENT GAMES list. Hit the ground running with a single click: no more typing your name in!
 
-Find your way around with the new """)
-        newsContent.insert(END, "MAP", ("emphasis"))
-        newsContent.insert(END,""". Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
+Find your way around with the new MAP. Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
 
-Are you thirsty? Quench that desire with a """)
-        newsContent.insert(END, "POTION", ("emphasis"))
-        newsContent.insert(END, """, and heal 50 HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
+Are you thirsty? Quench that desire with a POTION, and heal 50 HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
 
-It's 2022 and people's screens are getting wider...that means it's time for a """)
-        newsContent.insert(END, "MISSION LOG", ("emphasis"))
-        newsContent.insert(END, """! That's right, you can now view your current missions in your very own log, at your leisure.
+It's 2022 and people's screens are getting wider...that means it's time for a MISSION LOG! That's right, you can now view your current missions in your very own log, at your leisure.
 
-Zounds, we have """)
-        newsContent.insert(END, "SOUNDS", ("emphasis"))
-        newsContent.insert(END, """! You can now toggle sound effects, as well as music.
+Zounds, we have SOUNDS! You can now toggle sound effects, as well as music.
 
-Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
-        newsContent.insert(END, "RESUME FROM TOWN.", ("emphasis"))
+Game over? Forget to save? Save in the wrong place? Don't fret. You can now RESUME FROM TOWN.""")
         newsContent['state'] = DISABLED
         newsContent.grid(sticky=EW)
 
