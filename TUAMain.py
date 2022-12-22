@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 13, 2022
+Revised: December 22, 2022
 """
 
 
@@ -648,6 +648,11 @@ class Main:
                                 'enemy': enemyIdentifier,
                                 'text': "",
                                 'mercenaries': self.character.mercenaries}
+            if enemyIdentifier == "Will o Wisp":
+                interfaceActions['enemy modifiers'] = {
+                    'Stats': {},
+                    'Multiplicative': 1,
+                }
         else:
             if selectionIndex is None:
                 interfaceActions = self.currentSpot()
@@ -907,6 +912,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             if enemyProbabilities:
                 if self.roll(10000) == 1:
                     return "Gigantic Crayons"
+                # if self.roll(2) == 1:
+                    # return "Will o Wisp"
                 return self.selectRandomElement(enemyProbabilities)
         return None
 

@@ -246,3 +246,4 @@ Riplin	Riplin	Riplin	74	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	999999	50000	0	0	Final Bat
 Gargoyle	Aged Gargoyle	Gargoyle	24	33	3300	50	50	10	200	0	200	50	100	0	50	{'Freezing Arrow': 9, 'Mist': 6, 'Swoop': 7}	{'Luminescent Barrier': 1, 'Ash Bow': 5}	10	0	1	0	None	0	1
 Ice Elemental	Ice Elemental	Ice Elemental	22	2100	2100	25	90	10	200	0	30	0	90	-100	25	{'Icicles': 40, 'Hailstorm': 30, 'Healing Glow': 20, 'Rock Shot': 10}	{'Radiant Barrier': 15}	900	0	1	0	None	0	0
 Ryfil the Kid	Ryfil the Kid	Ryfil the Kid	6	150	150	0	100	0	200	0	0	-100	-100	-100	-100	{'Cower': 100}	{'Cotton Shirt': 100}	100	2	1	0	None	1	1
+Will o Wisp	Will-o'-Wisp	Will o Wisp	0	0	0	0	0	0	0	0	0	0	0	0	0	{}	{}	0	0	1	0	Wisp Battle	0	0

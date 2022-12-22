@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: December 4, 2022
+Revised: December 14, 2022
 """
 
 
@@ -29,7 +29,8 @@ class Sound:
                       "Guardian Battle": "Space Traveller",
                       "Final Battle": "Grandpa's Gardens",
                       "Niplin Battle": "Niplin",
-                      "Crayon Battle": "RUF"
+                      "Crayon Battle": "RUF",
+                      "Wisp Battle": "RUF",
                      }
         self.sounds = {"Level Up": "FX-Dream",
                        "Get Item": "FX-Collect",
