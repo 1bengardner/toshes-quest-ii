@@ -1467,7 +1467,7 @@ class BottomLeftFrame:
         
     def insertTimestamp(self, addSpacing=False):
         self.outputBox['state'] = NORMAL
-        timestamp = "{dt:%I}:{dt.minute:02d} {dt:%p}".format(dt = datetime.now())
+        timestamp = "{dt:%I}:{dt.minute:02d} {dt:%p} on {dt:%B} {dt.day}, {dt.year}".format(dt = datetime.now())
         self.outputBox.insert(END,
                               "%s❧ %s" % ("\n\n" if addSpacing else "", timestamp),
                               ("grey", "highlight"))
