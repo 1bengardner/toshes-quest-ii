@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: December 20, 2022
+Revised: January 3, 2023
 """
 
 
@@ -916,19 +916,20 @@ class TopCenterFrame:
         stateChanged = False
         
         hideSideIntroFrames()
-        
+
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
-        
+        window.topFrame.topRightFrame.logButton['state'] = NORMAL
+        if main.character.flags['Config']['Mission Log Open'] != window.topFrame.topRightFrame.showMissionLog.get():
+            window.topFrame.topRightFrame.logButton.invoke()
+
         interfaceActions = main.getInterfaceActions(justFought=True)
         eventActions = main.getLoginEvents()
         if eventActions is not None:
             interfaceActions.update(eventActions)
             stateChanged = True
+        window.rightFrame.clearMissions()
         updateInterface(interfaceActions)
-        
-        window.topFrame.topRightFrame.logButton['state'] = NORMAL
-        if main.character.flags['Config']['Mission Log Open'] != window.topFrame.topRightFrame.showMissionLog.get():
-            window.topFrame.topRightFrame.logButton.invoke()
+
         window.rightFrame.clearMissions()
         for quest in main.character.quests:
             window.rightFrame.addMission(quest, pushToTop=False)
@@ -2148,6 +2149,8 @@ def updateInterface(updates):
     if ('new quest' in updates):
         window.rightFrame.addMission(updates['new quest'])
         window.gridQuestFrame("MISSION!")
+        if not window.topFrame.topRightFrame.showMissionLog.get():
+            window.topFrame.topRightFrame.logButton.invoke()
     if ('completed quest' in updates):
         window.rightFrame.markMission(updates['completed quest'])
     if ('uncompleted quests' in updates):
