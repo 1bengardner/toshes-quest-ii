@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 13, 2022
+Revised: January 3, 2023
 """
 
 
@@ -819,6 +819,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                         
                 getDailyChallengeReward(interfaceActions)
 
+        completedQuest = self.checkForReadyQuests(self.character.quests, self.character, returnOne=True)
+        if completedQuest:
+            interfaceActions['completed quest'] = completedQuest
+            self.sound.playSound(self.sound.sounds['Quest Ready'])
         oldQuest = self.removeFinishedQuests(self.character.quests, self.character.flags, returnOne=True)
         if oldQuest:
             interfaceActions['remove quest'] = oldQuest
@@ -828,10 +832,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             if newQuest:
                 interfaceActions['new quest'] = newQuest
                 self.sound.playSound(self.sound.sounds['New Quest'])
-        completedQuest = self.checkForReadyQuests(self.character.quests, self.character, returnOne=True)
-        if completedQuest:
-            interfaceActions['completed quest'] = completedQuest
-            self.sound.playSound(self.sound.sounds['Quest Ready'])
         uncompletedQuests = self.checkForUnreadyQuests(self.character.quests, self.character)
         if uncompletedQuests:
             interfaceActions['uncompleted quests'] = uncompletedQuests
