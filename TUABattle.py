@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: December 16, 2022
+Revised: January 6, 2023
 """
 
 
@@ -460,8 +460,9 @@ class Battle(object):
                                 "Name": "Paralyzed",
                                 "Panning": self.getPanning(defender)})
                 elif skill.ELEMENT == "Water":
-                    if self.roll() <= 50 and damage >= defender.maxHp/3:
+                    if self.roll() <= 50 and damage >= defender.maxHp/2:
                         self.text += defender.NAME+" drowned!\n"
+                        defender.hp = 0
                         if defender in (self.mainCharacter, self.enemy):
                             self.sounds.append({
                                 "Name": "Drowned",
