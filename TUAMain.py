@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: January 3, 2023
+Revised: January 6, 2023
 """
 
 
@@ -648,6 +648,8 @@ class Main:
                                 'enemy': enemyIdentifier,
                                 'text': "",
                                 'mercenaries': self.character.mercenaries}
+            if self.currentArea.name == "Macedonia":
+                del interfaceActions['mercenaries']
         else:
             if selectionIndex is None:
                 interfaceActions = self.currentSpot()
