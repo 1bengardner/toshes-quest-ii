@@ -331,6 +331,18 @@ class Battle(object):
             if skill.CATEGORY == "Life Steal Damage":
                 healing = damage * skill.MULTIPLIER / 100.
 
+            bruhMoment = False
+            if ( self.mainCharacter.hasItem("Brummo Mint") and
+                 attacker == self.mainCharacter and
+                 critical and
+                 damage and
+                 skill.NAME == "Attack" and
+                 not self.enemy.UNIQUE):
+                bruhMoment = True
+                damage = defender.hp
+                self.mainCharacter.removeItem(
+                    self.mainCharacter.indexOfItem("Brummo Mint"))
+
             # Apply damage to defender and add flags
             if not (miss or blocked) and damage is not None:
                 if skill.CATEGORY == "XP Damage":
@@ -354,17 +366,8 @@ class Battle(object):
                                   " from blocking.\n") % (defender.NAME,
                                                           epBoost)
             else:
-                bruhMoment = False
                 if critical:
                     if damage:
-                        if ( self.mainCharacter.hasItem("Brummo Mint") and
-                             attacker == self.mainCharacter and
-                             skill.NAME == "Attack" and
-                             not self.enemy.UNIQUE):
-                            bruhMoment = True
-                            damage = defender.hp
-                            self.mainCharacter.removeItem(
-                                self.mainCharacter.indexOfItem("Brummo Mint"))
                         self.text += "Critical strike! "
                     elif healing:
                         self.text += "Critical heal! "
@@ -393,7 +396,7 @@ class Battle(object):
                     self.text += (attacker.NAME+" "+skill.TEXT+".\n")
                     
                 if bruhMoment:
-                    self.text += ("\nToshe: That was a Brummo Mint.\n")
+                    self.text += ("Toshe: That was a Brummo Mint.\n")
 
                 for stat, value in skill.USER_EFFECTS.items():                        
                     if value >= 0:
