@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: January 3, 2023
+Revised: February 26, 2023
 """
 
 
@@ -350,7 +350,7 @@ class TopLeftFrame:
                     if str >= 50:
                         if dex >= 50:
                             if wis >= 50:
-                                return "Veteran"
+                                return "Omnibus"
                             return "Ranger"
                         elif wis >= 50:
                             return "Monk"
