@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: November 12, 2022
+Revised: February 25, 2023
 """
 
 
@@ -831,12 +831,16 @@ class LairOfTheMagi:
                 self.text += "\nNiplin: You don't recognize me? Where are my manners..."
                 self.text += "\nNiplin unsheathes his speckled greatsword as he steps closer."
                 self.menu = ["Brace yourself."]
-            elif selectionIndex is None:
+            elif selectionIndex is None and "Niplin has no manners" not in self.c.flags:
                 self.text = "Niplin: You've come to challenge me. You want to free the archmages."
                 self.menu = [
                     "\"Yes, I do.\"",
                     "\"No, I want you dead.\""
                 ]
+            else:
+                self.text = "Niplin: Have you decided to face your fears?"
+                self.text += "\nNiplin draws his speckled greatsword and casually rests it over his shoulder."
+                self.menu = ["Brace yourself."]
         elif "Niplin has no manners" not in self.c.flags:
             self.c.flags['New Song'] = "Drat"
             self.tempFlag = "Niplin has no manners"
@@ -863,7 +867,7 @@ class LairOfTheMagi:
             self.c.flags['Niplin Aftermath'] = True
             self.text = "Niplin is knocked down by your final blow."
             self.text += "\nNiplin: Urgh..."
-            self.text += "\nNiplin slowly kneels from his fallen position."
+            self.text += "\nNiplin slowly rises to his knees."
             self.text += "\nA white light shines upon him as he sheds his armour."
             self.text += "\nYou black out."
         elif "Riplin Encounter" not in self.c.flags:
@@ -1056,65 +1060,49 @@ class LairOfTheMagi:
             self.c.flags['Henchmen'] = set()
         if riddleNumber not in self.c.flags['Henchmen']:
             self.c.flags['Henchmen'].add(riddleNumber)
-            self.c.flags['Jail Altercation'] = True
             self.view = "battle"
             return self.actions({'enemy': "Magus's Henchman",
                                  'mercenaries': self.c.mercenaries})
         else:
             self.text = "You read a message engraved on a wall of the stone hall:\n\"%s\"" % phrase
+        return self.actions()
 
     def riddle1(self, selectionIndex=None):
         self.upRight(selectionIndex)
 
-        self.riddleMain(1, "The inner flame is revealed just after the fire starts.")
-
-        return self.actions()
+        return self.riddleMain(1, "The inner flame is revealed just after the fire starts.")
 
     def riddle2(self, selectionIndex=None):
         self.downLeft(selectionIndex)
 
-        self.riddleMain(2, "Before visiting the ocean, tend to the goldfish.")
-
-        return self.actions()
+        return self.riddleMain(2, "Before visiting the ocean, tend to the goldfish.")
 
     def riddle3(self, selectionIndex=None):
         self.downRight(selectionIndex)
 
-        self.riddleMain(3, "Basking in the sun grants good health immediately.")
-
-        return self.actions()
+        return self.riddleMain(3, "Basking in the sun grants good health immediately.")
 
     def riddle4(self, selectionIndex=None):
         self.downRight(selectionIndex)
 
-        self.riddleMain(4, "Sit in the grass, then look to the sky.")
-
-        return self.actions()
+        return self.riddleMain(4, "Sit in the grass, then look to the sky.")
 
     def riddle5(self, selectionIndex=None):
         self.downLeft(selectionIndex)
 
-        self.riddleMain(5, "Algae can be seen just before the sea reaches high tide.")
-
-        return self.actions()
+        return self.riddleMain(5, "Algae can be seen just before the sea reaches high tide.")
 
     def riddle6(self, selectionIndex=None):
         self.upRight(selectionIndex)
 
-        self.riddleMain(6, "The cherry blossom blooms just before its colour fades.")
-
-        return self.actions()
+        return self.riddleMain(6, "The cherry blossom blooms just before its colour fades.")
 
     def riddle7(self, selectionIndex=None):
         self.upLeft(selectionIndex)
 
-        self.riddleMain(7, "In the end, all will be shrouded in fog.")
-
-        return self.actions()
+        return self.riddleMain(7, "In the end, all will be shrouded in fog.")
 
     def riddle8(self, selectionIndex=None):
         self.upLeft(selectionIndex)
 
-        self.riddleMain(8, "Both are pretty, though the more royal immediately precedes the second.")
-
-        return self.actions()
+        return self.riddleMain(8, "Both are pretty, though the more royal immediately precedes the second.")
