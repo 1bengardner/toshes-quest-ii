@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: October 25, 2022
+Revised: January 7, 2023
 """
 
 
@@ -881,7 +881,9 @@ class Macedonia(object):
             self.text = (npc+": ...If two of them are dead." +
                          "\nThe summoner goes still as the last ounce" +
                          " of blood leaks from his chest wound." +
-                         "\nToshe: Damn it!")
+                         "\nToshe: Damn it...")
+            self.text += ("\nYou collect a hearty vial of life fluid.")
+            self.c.potions += 1
         elif selectionIndex == 1:
             self.text = ("Toshe: Don't want to talk?")
             if self.c.equippedWeapon.CATEGORY == "Wand":

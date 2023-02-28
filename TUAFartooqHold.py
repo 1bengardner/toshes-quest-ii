@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: November 28, 2022
+Revised: January 7, 2023
 """
 
 
@@ -271,7 +271,7 @@ class FartooqHold:
             self.c.flags['Magical Object'] = True
             self.imageIndex = 14
             self.text = "You grab the orb and feel its powerful presence."
-            self.menu = ["Put the orb back.", "Leave."]
+            self.menu = ["Replace the orb.", "Leave."]
             return self.actions({'item': "Oracular Orb"})
 
         if self.c.hasItem("Oracular Orb"):

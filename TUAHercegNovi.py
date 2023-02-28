@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: December 12, 2022
+Revised: January 7, 2023
 """
 
 
@@ -325,6 +325,7 @@ class HercegNovi:
                 self.text = ("Ivana: Could you get me a shard of aquamarine? I "+
                              "can reward you handsomely.")
             elif ('Ivana Talk 2' in self.c.flags and
+                  'Necklace Fixed' not in self.c.flags and
                   self.c.flags['Ivana Level'] != self.c.level):
                 self.text = ("Ivana: Wow Toshe! You look taller than "+
                              "last time! Where have you been? "+
