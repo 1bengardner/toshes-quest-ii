@@ -888,7 +888,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
               "New Song" in self.character.flags):
             if "New Song" in self.character.flags:
                 newSong = self.character.flags['New Song']
-                del self.character.flags['New Song']
             else:
                 newSong = self.currentArea.audio
             self.sound.playMusic(newSong)
@@ -899,6 +898,9 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             newSong = self.currentArea.audio
             self.sound.fadeoutMusic(2000)
             self.sound.queueMusic(newSong)
+
+        if "New Song" in self.character.flags:
+            del self.character.flags['New Song']
 
     def encounterEnemy(self):
         """Check the spot to see if enemy encounter conditions have been
