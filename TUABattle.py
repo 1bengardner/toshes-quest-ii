@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: January 6, 2023
+Revised: February 27, 2023
 """
 
 
@@ -43,8 +43,10 @@ class Battle(object):
 
         # 50/50 chance for each combatant to go first
         if (self.mainCharacter.equippedWeapon.CATEGORY == "Bow" or
-            self.roll() >= 50):
+            self.roll() >= 50 and not self.enemy.UNIQUE):
             self.characterFirst = True
+        elif self.enemy.UNIQUE:
+            self.characterFirst = random.seed(self.mainCharacter.seed2 + self.enemy.IDENTIFIER)
         else:
             self.characterFirst = False
 
@@ -208,9 +210,12 @@ class Battle(object):
     def takeEnemyTurn(self):
         """Allow the enemy to attack Toshe."""
         skill = self.selectRandomElement(self.enemy.SKILLS)
-        defenders = self.auxiliaryCharacters+[self.mainCharacter]
-        defenderIndex = random.randint(0, len(self.auxiliaryCharacters))
-        defender = defenders[defenderIndex]
+        if hasattr(self.enemy, "homingTarget"):
+            defender = self.enemy.homingTarget
+        else:
+            defenders = self.auxiliaryCharacters+[self.mainCharacter]
+            defenderIndex = random.randint(0, len(self.auxiliaryCharacters))
+            defender = defenders[defenderIndex]
         self.takeTurn(skill, self.enemy, defender, self.enemyFlags,
                       self.charactersFlags[defender.NAME])
                       
@@ -272,17 +277,16 @@ class Battle(object):
                            self.randomChance())
 
             if skill.CATEGORY == "Critical Damage":
-                attacker.cRate *= 2
-                attacker.cDamage *= 2
+                attacker.cRate *= 4
                 
             critical = self.critical(attacker)
             if damage and critical:
                 damage *= attacker.cDamage / 100.
             if healing and critical:
                 healing *= attacker.cDamage / 100.
+
             if skill.CATEGORY == "Critical Damage":
-                attacker.cRate /= 2
-                attacker.cDamage /= 2
+                attacker.cRate /= 4
                 
             if (skill.ELEMENT == "Physical" and
                 skill.CATEGORY != "No Defence Damage" and
@@ -305,6 +309,7 @@ class Battle(object):
                     damage *= (100-defender.earthReduction) / 100.
                 elif (skill.ELEMENT == "Water" or
                       skill.ELEMENT == "Ice" or
+                      skill.ELEMENT == "Freezing" or
                       (hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Water" and
                        skill.ELEMENT == "Physical")):
@@ -326,8 +331,11 @@ class Battle(object):
                           attacker.equippedWeapon.CATEGORY == "Wand"):
                     damage *= (100-defender.physicalReduction) / 100.
 
+            if "Bloody Socket Active" in attackerFlags and damage is not None:
+                damage = defender.hp - 1
+
             damage = self.adjustedDamage(damage)
-                
+
             if skill.CATEGORY == "Life Steal Damage":
                 healing = damage * skill.MULTIPLIER / 100.
 
@@ -359,7 +367,7 @@ class Battle(object):
                 self.text += attacker.NAME+" missed!\n"
             elif blocked:
                 self.text += attacker.NAME+" was blocked by "+defender.NAME+"!\n"
-                if "Defending Active" in defenderFlags:
+                if "Defending Active" in defenderFlags and defender == self.mainCharacter:
                     epBoost = 1 + int(damage ** 0.5 * 9)
                     defender.ep += epBoost
                     self.text += ("Adrenaline rush! %s gained a %s EP boost" +
@@ -398,7 +406,7 @@ class Battle(object):
                 if bruhMoment:
                     self.text += ("Toshe: That was a Brummo Mint.\n")
 
-                for stat, value in skill.USER_EFFECTS.items():                        
+                for stat, value in skill.USER_EFFECTS.items():
                     if value >= 0:
                         self.text += (attacker.NAME+"'s "+self.mapStat(stat)[0]+
                                       " increased by "+str(value)+
@@ -437,7 +445,7 @@ class Battle(object):
                  skill.CATEGORY == "Miscellaneous") and not (miss or blocked):
                 if skill.ELEMENT == "Earth" and ("Grounded" not in
                                                  defenderFlags):
-                    if self.roll() <= 40:
+                    if self.roll() <= 30:
                         self.text += defender.NAME+" was grounded!\n"
                         defenderFlags.add("Grounded")
                         if defender in (self.mainCharacter, self.enemy):
@@ -470,9 +478,17 @@ class Battle(object):
                             self.sounds.append({
                                 "Name": "Drowned",
                                 "Panning": self.getPanning(defender)})
+                elif skill.ELEMENT == "Freezing":
+                    self.text += defender.NAME+" was frozen!\n"
+                    defenderFlags.add("Frozen")
+                    defenderFlags.discard("Burning")
+                    if defender in (self.mainCharacter, self.enemy):
+                        self.sounds.append({
+                            "Name": "Frozen",
+                            "Panning": self.getPanning(defender)})
                 elif ((skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
                       and ("Frozen" not in defenderFlags)):
-                    if self.roll() <= 20:
+                    if self.roll() <= 15:
                         self.text += defender.NAME+" was frozen!\n"
                         defenderFlags.add("Frozen")
                         defenderFlags.discard("Burning")
@@ -495,7 +511,7 @@ class Battle(object):
                     defenderFlags.add("Sundered")
                 elif ((skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
                       and ("Burning" not in defenderFlags)):
-                    if self.roll() <= 20:
+                    if self.roll() <= 25:
                         self.text += defender.NAME+" caught on fire!\n"
                         defenderFlags.add("Burning")
                         defenderFlags.discard("Frozen")
@@ -506,10 +522,10 @@ class Battle(object):
                                 "Panning": self.getPanning(defender)})
 
             # Make sounds
-            if skill.NAME == "Defend":
-                 self.sounds.append("Defend")
-            if skill.NAME == "Equip Item":
-                 self.sounds.append("Equip")
+            if skill.NAME == "Defend" and attacker == self.mainCharacter:
+                self.sounds.append("Defend")
+            if skill.NAME == "Equip Item" and attacker == self.mainCharacter:
+                self.sounds.append("Equip")
             if not (miss or blocked):
                 if damage is not None and int(damage) > 0:
                     if attacker == self.mainCharacter:
@@ -533,11 +549,14 @@ class Battle(object):
                     self.sounds.append("Critical Injury")
             if blocked and not miss and defender == self.mainCharacter:
                 self.sounds.append("Block")
-
-            successfulTurnCallback()
+                
+        self.doAdditionalActions(skill, attacker, defender)
 
         # Do actions associated with flags attached to the attacker
         self.doFlagActions(attacker, attackerFlags)
+
+        if not self.isStunned(attacker, attackerFlags):
+            successfulTurnCallback()
 
     def mapStat(self, stat):
         """Map a given stat name to its literal description and literal modifier
@@ -588,6 +607,18 @@ class Battle(object):
     def critical(self, attacker):
         """Return whether the attacker has scored a critical hit."""
         return self.roll(1000) <= attacker.cRate*10
+        
+    def doAdditionalActions(self, skill, attacker, defender):
+        if skill.CATEGORY == "Locked-On Damage":
+            attacker.homingTarget = defender
+        elif defender.NAME == "Riplin" and defender.hp <= defender.maxHp/4 and not hasattr(defender, "finalForm"):
+            defender.defence = 0
+            defender.cRate *= 5
+            defender.finalForm = True
+            self.text += ("Riplin sheds his armour!\nRiplin's defence fell to %s.\nRiplin's critical chance rose to %i%%.\n" % (defender.defence, int(defender.cRate)))
+            self.sounds.append({
+                "Name": "Remove Armour",
+                "Panning": self.getPanning(defender)})
 
     def doFlagActions(self, target, flags):
         """Perform any actions specified by current flags on the target."""
@@ -740,9 +771,10 @@ class Battle(object):
 
         if "Homing Active" in flags and "Homing" not in flags:
             self.text += target.NAME+" stopped homing.\n"
+            del target.homingTarget
         if "Homing Active" in flags:
-            target.accuracy -= 100
-            target.cRate -= 100
+            target.accuracy -= 90
+            target.cRate -= 90
             flags.remove("Homing Active")
         if "Homing" in flags:
             flags.remove("Homing")
@@ -792,6 +824,13 @@ class Battle(object):
         if "Winding Up" in flags:
             flags.remove("Winding Up")
             flags.add("Winding Up Active")
+        
+        if "Bloody Socket Active" in flags:
+            flags.remove("Bloody Socket Active")
+        if "Bloody Socket" in flags:
+            flags.remove("Bloody Socket")
+            flags.add("Bloody Socket Active")
+            flags.add("Recovering")
 
         if "Sleeping 3" in flags:
             self.text += target.NAME+" woke up.\n"
