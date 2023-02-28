@@ -977,7 +977,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def usePotion(self):
         self.character.potions -= 1
-        healAmount = 50
+        healAmount = int(50 + 10 * self.character.level ** 0.5 - 10)
         self.character.hp += healAmount
         self.sound.playSound(self.sound.sounds['Drink'])
         return "You consume a vial full of life fluid, healing %s HP." % healAmount
