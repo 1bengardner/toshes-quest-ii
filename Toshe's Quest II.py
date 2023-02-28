@@ -894,9 +894,9 @@ class TopCenterFrame:
             window.bottomFrame.bottomRightFrame.bindChoices()
             name = main.fileName
         main.loadGame(name)
-        self.startGame(name)
         if "Chasmic Rucksack" in main.character.flags:
             window.topFrame.topLeftFrame.expandInventory()
+        self.startGame(name)
         window.topFrame.topCenterFrame.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
         window.topFrame.topCenterFrame.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
 
