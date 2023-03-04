@@ -648,6 +648,11 @@ class Main:
                                 'enemy': enemyIdentifier,
                                 'text': "",
                                 'mercenaries': self.character.mercenaries}
+			if enemyIdentifier == "Will o Wisp":
+                interfaceActions['enemy modifiers'] = {
+                    'Stats': {},
+                    'Multiplicative': 1,
+                }
             if self.currentArea.name == "Macedonia":
                 del interfaceActions['mercenaries']
         else:
@@ -911,6 +916,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             if enemyProbabilities:
                 if self.roll(10000) == 1:
                     return "Gigantic Crayons"
+                # if self.roll(2) == 1:
+                    # return "Will o Wisp"
                 return self.selectRandomElement(enemyProbabilities)
         return None
 
