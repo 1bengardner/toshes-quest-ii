@@ -113,7 +113,7 @@ Dive	Critical Damage	{"All"}	0	300	Physical	{}	{}	dives from the sky to strike	N
 Sting	Critical Damage	{"All"}	0	100	Poison	{}	{'ep': -5}	stings	None
 Blind	Damage	{"All"}	0	10	Fire	{}	{'accuracy': -50}	uses a piece of glass to reflect blinding sunlight into the eyes of	None
 Command Fang	Damage	{"All"}	0	125	Physical	{}	{'cRate': -2}	commands Fang to leap at	None
-Drain	Damage	{"All"}	0	0	Physical	{}	{'ep': -20}	drains	None
+Drain	Damage	{"All"}	0	0	Miscellaneous	{}	{'ep': -20}	drains	None
 Bolt	Damage	{"Wand"}	8	100	Electricity	{}	{}	casts Bolt on	None
 Strong Attack	Damage	{"All"}	0	200	Physical	{}	{}	attacks	None
 Sing	Damage	{"All"}	0	0	Electricity	{}	{'damage': -25, 'ep': -50, 'maxHp': -1}	sings to	None
@@ -128,7 +128,7 @@ Water Affinity	Miscellaneous	{"All"}	0	0	Physical	{'waterReduction': 50}	{}	cast
 Fire Affinity	Miscellaneous	{"All"}	0	0	Physical	{'fireReduction': 50}	{}	casts Fire Affinity	Fire Affinity
 Grow Heads	Miscellaneous	{"All"}	0	0	Physical	{'maxHp': 20000, 'hp': 20000, 'accuracy': 8}	{}	grows two more heads	Recovering
 Poisonbreath	Reduced Accuracy Damage	{"All"}	0	300	Poison	{}	{'defence': -3}	breathes poisonous gas onto	None
-Home In	Damage	{"All"}	0	0	Physical	{'accuracy': 90, 'cRate': 90}	{}	homes in on	Homing
+Home In	Locked-On Damage	{"All"}	0	0	Physical	{'accuracy': 90, 'cRate': 90}	{}	homes in on	Homing
 Nimble Feet	Miscellaneous	{"All"}	0	0	Physical	{}	{}	bolts away	Escaping
 Golden Fur	Miscellaneous	{"All"}	0	0	Physical	{'bRate': 75, 'accuracy': 1}	{}	grows a coat of gold fur	Golden Fur
 Soul Siphon	Damage	{"All"}	0	0	Physical	{}	{'ep': -300}	siphons energy from	Recovering
@@ -137,7 +137,7 @@ Nero	Life Steal Damage	{"Sword"}	0	3000	Petrification	{'maxHp': -500}	{}	takes h
 Negletto1	Damage	{"Sword"}	0	100	Fire	{'defence': -50}	{}	uses his Negletto Blade to horizontally slash	None
 Negletto2	Damage	{"Sword"}	0	100	Ice	{'defence': -50}	{}	uses his Negletto Blade to vertically slash	None
 Negletto3	Damage	{"Sword"}	0	100	Electricity	{'defence': -50}	{}	uses his Negletto Blade to diagonally slash	None
-Nefando	Critical Damage	{"Sword"}	0	175	Physical	{'cDamage': 50}	{}	thrusts his Nefando Blade into	None
+Nefando	Critical Damage	{"Sword"}	0	200	Physical	{'cDamage': 50}	{}	thrusts his Nefando Blade into	None
 Nefasto	Reduced Accuracy Damage	{"Sword"}	0	300	Physical	{'damage': -1}	{}	swings his Nefasto Blade at	None
 Stand Firm	Miscellaneous	{"All"}	0	0	Physical	{}	{}	stands firm	None
 Crumble No Damage	Miscellaneous	{"All"}	0	0	Physical	{'defence': -1}	{}	slowly crumbles	None
@@ -152,7 +152,10 @@ Crystal Explosion Water	Critical Damage	{"All"}	0	200	Water	{'physicalReduction'
 Crystal Explosion Fire	Critical Damage	{"All"}	0	200	Fire	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None
 Sleep	Miscellaneous	{"All"}	0	0	Physical	{}	{}	falls asleep	Sleeping
 Frostburn	Damage	{"All"}	0	200	Frostfire	{}	{}	casts Frostburn on	None
-Icebreath	Reduced Accuracy Damage	{"All"}	0	300	Freezing	{}	{'defence': -3}	breathes frost on	None
-Temporal Shift	XP Damage	{"All"}	0	100	Physical	{}	{}	casts Temporal Shift on	None
+Icebreath	Reduced Accuracy Damage	{"All"}	0	100	Freezing	{}	{'defence': -3}	breathes frost on	None
+Temporal Shift	XP Damage	{"All"}	0	1000	Physical	{}	{}	casts Temporal Shift on	None
 Cower	Miscellaneous	{"All"}	0	0	Physical	{}	{}	cowers in fear	None
 Shoot	Damage	{"Gun"}	0	100	Physical	{}	{}	shoots	None
+Intimidate	Damage	{"All"}	0	0	Petrification	{}	{}	intimidates	None
+Add Speckle	Miscellaneous	{"Sword"}	0	0	Physical	{'damage': 2}	{}	adds a speckle of augmentation to his greatsword	None
+Bloody Socket	Damage	{"All"}	0	0	Physical	{}	{}	casts Bloody Socket on	Bloody Socket

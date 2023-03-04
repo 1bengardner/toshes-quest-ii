@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: December 4, 2022
+Revised: February 26, 2023
 """
 
 
@@ -80,6 +80,7 @@ class Sound:
                        "Petrified": "FX-Petrify",
                        "Drowned": "FX-Drown",
                        "Break Free": "FX-Rise",
+                       "Remove Armour": "FX-Toss",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)
