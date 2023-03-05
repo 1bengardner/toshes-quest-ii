@@ -2045,10 +2045,6 @@ def updateInterface(updates):
     topRightFrame = window.topFrame.topRightFrame
     topCenterFrame = window.topFrame.topCenterFrame
     bottomLeftFrame = window.bottomFrame.bottomLeftFrame
-
-    # Flash must occur before battle view is shown and area button is disabled
-    if ('flash' in updates):
-        flash()
         
     if ('image index' in updates) and (updates['image index'] is not None):
         areaName = main.currentArea.name
@@ -2179,6 +2175,11 @@ def updateInterface(updates):
     window.rightFrame.updateMissions()
     topRightFrame.updateOtherStats()
     requireExitConfirmation(True)
+    if ('flash' in updates):
+        lastState = topCenterFrame.areaButton['state']
+        topCenterFrame.areaButton['state'] = NORMAL
+        flash()
+        topCenterFrame.areaButton['state'] = lastState
         
 
 def enableTravelView():
