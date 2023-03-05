@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: December 12, 2022
+Revised: March 4, 2023
 """
 
 
@@ -64,7 +64,7 @@ class HiddenPassage:
                            bend: e,
                            gann: {},
                            splt: e,
-                           toys: e,
+                           toys: {},
                            glow: e,
                            tun2: e,
                            mrch: {},
@@ -162,7 +162,11 @@ class HiddenPassage:
             animalPowers = self.c.flags['Animal Powers']
             random.seed(self.c.xp)
             suffix = random.choice(["Stab", "Slice", "Smash", "Sever"])
-            if (("Giant Seal2" in kills and
+            if self.c.hasItem("Ominous Orb"):
+                self.text = ("Gan: Toshe, the orb you wield..." +
+                             "\nGan hesitates in awe." +
+                             "\nGan: Go right and you can take its power!")
+            elif (("Giant Seal2" in kills and
                  "Giant Seal2" not in animalPowers) or
                 ("Giant Shark2" in kills and
                  "Giant Shark2" not in animalPowers) or
@@ -220,14 +224,113 @@ class HiddenPassage:
         return self.actions()
 
     def toys(self, selectionIndex=None):
+        def getSpecializationOptions(character):
+            options = {
+                "Warrior": [
+                    "Flame Knight",
+                    "Reckless Lancer",
+                    "Stalwart Slayer",
+                    "Executioner",
+                ],
+                "Archer": [
+                    "Swift Sharpshooter",
+                    "Soul Sniper",
+                    "Headshot Hunter",
+                    "Skulker",
+                ],
+                "Mage": [
+                    "Blaze Mage",
+                    "Stone Sage",
+                    "Snow Sorcerer",
+                    "Mystic",
+                ],
+                "Ranger": [
+                    "Guardian",
+                    "Defender",
+                    "Son of Centaur",
+                    "Scallywag",
+                ],
+                "Monk": [
+                    "Adrenal Avenger",
+                    "Astral Assailant",
+                    "Sandman",
+                    "Hermit",
+                ],
+                "Druid": [
+                    "Spirit Seer",
+                    "Weird Warlock",
+                    "Critical Caster",
+                    "Magic Marksman",
+                ],
+                "Balanced": [
+                    "Squad Leader",
+                    "Paladin",
+                    "Vengeful Vigilante",
+                    "Alchemist",
+                ],
+            }
+            
+            str = character.strength
+            dex = character.dexterity
+            wis = character.wisdom
+            if str >= 50 or str > dex and str > wis:
+                if dex >= 50:
+                    if wis >= 50:
+                        return options["Balanced"]
+                    return options["Ranger"]
+                elif wis >= 50:
+                    return options["Monk"]
+                return options["Warrior"]
+            elif dex >= 50 or dex > str and dex > wis:
+                if wis >= 50:
+                    return options["Druid"]
+                return options["Archer"]
+            elif wis >= 50:
+                return options["Mage"]
+            else:
+                return None
+
         self.view = "travel"
         self.imageIndex = 5
         self.text = None
         self.helpText = None
         self.menu = []
-        suffix = None
-        animal = None
-        if "Animal Ascension" in self.c.flags:
+        if "Ready to Specialize" in self.c.flags and selectionIndex is not None:
+            self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
+            self.text = "Toshe: I feel strong."
+            self.helpText = "You have chosen a specialization! As you defeat enemies, your specialization will level up and grant you a bonus."
+            self.c.flags['Newly Specialized'] = True
+            #del self.c.flags['Ready to Specialize']
+        elif (selectionIndex == 0 and self.c.hasItem("Ominous Orb") or
+              "Ready to Specialize" in self.c.flags):
+            if not any(filter(lambda stat: stat >= 50, [
+                self.c.strength,
+                self.c.dexterity,
+                self.c.wisdom
+            ])):
+                self.text = ("A voice: You are not yet worthy! Return, once" +
+                    " you are experienced enough.")
+                return self.actions()
+
+            self.text = ""
+            if self.c.hasItem("Ominous Orb"):
+                self.text += ("The Ominous Orb is released from your grasp.\n")
+                self.c.removeItem(self.c.indexOfItem("Ominous Orb"))
+            self.text += ("A voice: Choose your destiny!")
+            self.menu = map(
+                lambda specialization: "Become %s %s." % (
+                    "an" if specialization[0] in ("A", "E", "I", "O", "U")
+                        else "a",
+                    specialization),
+                getSpecializationOptions(self.c))
+            self.c.flags['Ready to Specialize'] = True
+        elif self.c.hasItem("Ominous Orb"):
+            self.text = ("An ominous voice sounds." +
+                         "\nAn ominous voice: Are you ready?")
+            self.menu = ["\"I'm ready.\""]
+        elif "Animal Ascension" in self.c.flags:
+            suffix = None
+            animal = None
             del self.c.flags['Animal Ascension']
             self.c.flags['Ascended'] = True
             kills = self.c.flags['Kills']

@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: November 30, 2022
+Revised: March 4, 2023
 """
 
 
@@ -473,7 +473,7 @@ class Thessaloniki:
                 Y = 19
                 return self.actions({'area': "Lair of the Magi",
                                      'coordinates': (X, Y)})
-            elif "Niplin" in self.c.flags['Kills'] and not self.c.hasItem("Ominous Orb") and "Special Ascension" not in self.c.flags:
+            elif "Niplin" in self.c.flags['Kills'] and not self.c.hasItem("Ominous Orb") and self.c.specialization is None and "Ready to Specialize" not in self.c.flags:
                 self.text = "You watch a small purple sphere float to shore from the water. It begins rolling toward you. As you bend down to pick it up, it changes course and rolls directly into your hand."
                 self.text += "\nYou find the Ominous Orb!"
                 return self.actions({'item': "Ominous Orb"})

@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: February 26, 2023
+Revised: March 5, 2023
 """
 
 
@@ -347,7 +347,9 @@ class TopLeftFrame:
                     str = character.strength
                     dex = character.dexterity
                     wis = character.wisdom
-                    if str >= 50:
+                    if character.specialization is not None:
+                        return character.specialization
+                    elif str >= 50:
                         if dex >= 50:
                             if wis >= 50:
                                 return "Omnibus"
@@ -381,7 +383,7 @@ class TopLeftFrame:
                     else:
                         return "Castaway"
 
-                MAX_LINE_LENGTH = 24
+                MAX_LINE_LENGTH = 26
                 lines = [
                     name,
                     "%s ❦ %s" % (character.level, getTitle(character)),
@@ -423,12 +425,12 @@ class TopLeftFrame:
         self.spBarLabel = Label(self.vitalStats, image=spBars[34],
                                 bg=DEFAULT_BG, relief=SUNKEN, bd=2)
         self.spBarLabel.grid(row=3, columnspan=2)
-        self.spLabel = Label(self.vitalStats, text="80",
-                             bg=DEFAULT_BG, font=font1, bd=0)
-        self.spLabel.grid(row=4, sticky=W+N)
         self.spWord = Label(self.vitalStats, text="Mystic 2", fg=MYSTIC_FG,
                             bg=MYSTIC_BG, font=font1, relief=RIDGE)
-        self.spWord.grid(row=4, column=1, padx=1, ipadx=4, ipady=1, sticky=E)
+        self.spWord.grid(row=4, padx=1, ipadx=4, ipady=1, sticky=W)
+        self.spLabel = Label(self.vitalStats, text="80",
+                             bg=DEFAULT_BG, font=font1, bd=0)
+        self.spLabel.grid(row=4, column=1, sticky=E+N)
         self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=BROWN,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
@@ -562,6 +564,11 @@ class TopLeftFrame:
                                                   (NUMBER_OF_BARS - 1))]
         self.xpBarLabel['text'] = "%d%%" % (100 * c.xp / c.xpTnl)
         self.xpBarLabel['fg'] = WHITE if (100 * c.xp / c.xpTnl < 45) else NAVY
+        if "Newly Specialized" in main.character.flags:
+            del main.character.flags['Newly Specialized']
+            self.spWord.grid()
+            self.spLabel.grid()
+            self.spBarLabel.grid()
         if c.specialization is not None:
             self.spWord['text'] = "%s %s" % (c.specialization, c.mastery)
             if c.sp > c.spTnl:
@@ -569,7 +576,7 @@ class TopLeftFrame:
             else:
                 self.spBarLabel['image'] = spBars[int(float(c.sp) / c.spTnl *
                                                       (NUMBER_OF_BARS - 1))]
-            self.spLabel['text'] = c.sp
+            self.spLabel['text'] = "%d/%d" % (c.sp, c.spTnl)
         if c.hp <= 0:
             self.hpBarLabel['image'] = hpBars[0]
         elif float(c.hp) < float(c.maxHp) / NUMBER_OF_BARS:
@@ -2074,23 +2081,33 @@ def updateInterface(updates):
     bottomLeftFrame.unhighlightOutputBox()
     topCenterFrame.changeTitle(main.currentArea.name)
     views[updates['view']]()
-            
+
+    hasLeveledUp = False
     while main.character.hasLeveledUp():
+        hasLeveledUp = True
         if not updates['text']:
             updates['text'] = ""
         updates['text'] += "\nToshe has reached level "+str(
             main.character.level)+"!"
         window.gridLevelUpFrame()
         window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
+    if hasLeveledUp:
         main.sound.playSound(main.sound.sounds['Level Up'])
 
+    hasSpecializedUp = False
     if main.character.specialization is not None:
         while main.character.hasSpecializedUp():
+            hasSpecializedUp = True
             if not updates['text']:
                 updates['text'] = ""
-            updates['text'] += "\nToshe is now a %s rank %s!" % (
-                main.character.specialization, main.character.mastery)
+            updates['text'] += "\nToshe is now %s %s rank %s!" % (
+                "an" if main.character.specialization[0]
+                    in ("A", "E", "I", "O", "U") else "a",
+                main.character.specialization,
+                main.character.mastery)
             window.gridPowerUpFrame()
+    if hasSpecializedUp:
+        main.sound.playSound(main.sound.sounds['Power Up'])
 
     for mercenary in main.character.mercenaries:
         while mercenary.hasLeveledUp():
@@ -2621,7 +2638,7 @@ WHITE = "#f4f4f4"
 NAVY = "#000050"
 PURPLE = "#26065c"
 MAGENTA = "#de6ef1"
-LIGHTPURPLE = "#4f3c70"
+LIGHTPURPLE = "#958aa9"
 ORANGE = "#f8b681"
 DARKORANGE = "#a33c00"
 EARTH_COLOR = "#b0ca90"

@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: February 26, 2023
+Revised: March 5, 2023
 """
 
 
@@ -36,6 +36,7 @@ class Sound:
                        "Get Item": "FX-Collect",
                        "Mercenary Up": "FX-Discover",
                        "New Skill": "FX-Discover",
+                       "Power Up": "FX-Discover",
                        "Deal Damage": "FX-Hit",
                        "Wand Attack": "FX-Cast",
                        "Bow Attack": "FX-Shoot",
@@ -141,7 +142,7 @@ class Sound:
             self.sfxMuted = False
             self.playSound("FX-Activate")
         else:
-            self.playSound("FX-Toss")
+            self.playSound("FX-Touch")
             self.sfxMuted = True
         self.writePreferences()
         
