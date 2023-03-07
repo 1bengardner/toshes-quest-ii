@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 5, 2023
+Revised: March 6, 2023
 """
 
 
@@ -431,7 +431,7 @@ class TopLeftFrame:
         self.spLabel = Label(self.vitalStats, text="80",
                              bg=DEFAULT_BG, font=font1, bd=0)
         self.spLabel.grid(row=4, column=1, sticky=E+N)
-        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=BROWN,
+        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=RARE_BD,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
         self.hpWord = Label(self.vitalStats, text="HP",
@@ -1228,7 +1228,7 @@ Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
         self.enemyLevelLabel = Label(self.enemyStats, text="17", font=font2,
                                      width=2, bg=DEFAULT_BG, relief=RIDGE)
         self.enemyLevelLabel.grid(row=0, column=1, padx=10, pady=10, sticky=E)
-        self.enemyImageLabel = Label(self.enemyStats, image=None, bg=BROWN,
+        self.enemyImageLabel = Label(self.enemyStats, image=None, bg=COMMON_BD,
                                      relief=RIDGE, bd=4)
         self.enemyImageLabel.grid(columnspan=2, pady=20)
         self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[20],
@@ -2634,7 +2634,7 @@ BLACK = "#000000"
 BLUE = "#0093DC"
 GREY = "#888888"
 LIGHTCYAN = "#7bb4b9"
-YELLOW = "#eec000"
+YELLOW = "#d5ab00"
 WHITE = "#f4f4f4"
 NAVY = "#000050"
 PURPLE = "#26065c"
@@ -2665,6 +2665,9 @@ MYSTIC_FG = MAGENTA
 MYSTIC_FG2 = LIGHTPURPLE
 SKILL_BG = ORANGE
 SKILL_FG = DARKORANGE
+COMMON_BD = BROWN
+RARE_BD = YELLOW
+LEGENDARY_BD = ORANGE
 
 root = Tk()
 
