@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: March 5, 2023
+Revised: March 6, 2023
 """
 
 
@@ -33,8 +33,8 @@ class Sound:
                       "Wisp Battle": "RUF",
                      }
         self.sounds = {"Level Up": "FX-Dream",
+                       "Mercenary Up": "FX-Dream",
                        "Get Item": "FX-Collect",
-                       "Mercenary Up": "FX-Discover",
                        "New Skill": "FX-Discover",
                        "Power Up": "FX-Discover",
                        "Deal Damage": "FX-Hit",
@@ -140,9 +140,8 @@ class Sound:
     def muteSfx(self):
         if self.sfxMuted:
             self.sfxMuted = False
-            self.playSound("FX-Activate")
-        else:
             self.playSound("FX-Touch")
+        else:
             self.sfxMuted = True
         self.writePreferences()
         
