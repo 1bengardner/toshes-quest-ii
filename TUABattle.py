@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: February 27, 2023
+Revised: March 7, 2023
 """
 
 
@@ -317,7 +317,10 @@ class Battle(object):
                 elif (skill.ELEMENT == "Fire" or
                       (hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Fire" and
-                       skill.ELEMENT == "Physical")):
+                       skill.ELEMENT == "Physical") or
+                      (hasattr(attacker, "specialization") and
+                       attacker.specialization == "Flame Knight" and
+                       skill.NAME == "Attack")):
                     damage *= (100-defender.fireReduction) / 100.
                 elif (skill.ELEMENT == "Frostfire" or
                       (hasattr(attacker, "equippedWeapon") and
@@ -402,7 +405,14 @@ class Battle(object):
                                   ", healing "+str(int(healing))+" HP.\n")
                 else:
                     self.text += (attacker.NAME+" "+skill.TEXT+".\n")
-                    
+
+                if ( hasattr(attacker, "specialization") and
+                     attacker.specialization == "Soul Sniper" and
+                     critical):
+                    attacker.ep += 50
+                    self.text += ("%s restored 50 EP by scoring a critical hit.\n"
+                                  % attacker.NAME)
+
                 if bruhMoment:
                     self.text += ("Toshe: That was a Brummo Mint.\n")
 
@@ -549,7 +559,15 @@ class Battle(object):
                     self.sounds.append("Critical Injury")
             if blocked and not miss and defender == self.mainCharacter:
                 self.sounds.append("Block")
-                
+
+        if ( hasattr(attacker, "specialization") and
+             attacker.specialization == "Swift Sharpshooter" and
+             attacker.accuracy > 100):
+            originalAccuracy = attacker.accuracy
+            attacker.accuracy -= 100
+            self.takeTurn(skill, attacker, defender, set(), defenderFlags)
+        attacker.accuracy = originalAccuracy
+
         self.doAdditionalActions(skill, attacker, defender)
 
         # Do actions associated with flags attached to the attacker

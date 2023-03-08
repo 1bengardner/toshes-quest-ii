@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: December 16, 2022
+Revised: March 7, 2023
 """
 
 
@@ -109,6 +109,24 @@ class Character(object):
         self.defence = int(self.equippedArmour.DEFENCE +
                            self.equippedShield.DEFENCE)
 
+        if self.specialization == "Flame Knight":
+            self.fireReduction += 2 * self.mastery
+        if self.specialization == "Reckless Lancer":
+            self.damage += 2 * self.mastery
+            if self.equippedWeapon.CATEGORY == "Spear":
+                self.damage *= 2
+                self.accuracy //= 2
+        if self.specialization == "Stalwart Slayer":
+            self.damage *= 4
+            self.cRate = 0
+        if (self.specialization == "Executioner" and
+            self.equippedWeapon.CATEGORY == "Axe"):
+            self.cDamage *= 3
+        if self.specialization == "Swift Sharpshooter":
+            self.accuracy += 2 * self.mastery
+        if self.specialization == "Soul Sniper":
+            self.cRate += 0.5 * self.mastery
+
     @property
     def ep(self):
         return self._ep
@@ -136,6 +154,8 @@ class Character(object):
         
     @property
     def strength(self):
+        if self.specialization == "Stalwart Slayer":
+            return self._strength + 2 * self.mastery
         return self._strength
 
     @strength.setter
@@ -145,11 +165,13 @@ class Character(object):
         Values: damage*, cDamage
         Increases critical damage by 1% of base critical damage per point.
         """
-        self._strength = value
+        self._strength += value - self.strength
         self.updateStats()
 
     @property
     def dexterity(self):
+        if self.specialization == "Executioner":
+            return self._dexterity + 2 * self.mastery
         return self._dexterity
 
     @dexterity.setter
@@ -161,11 +183,13 @@ class Character(object):
         Increases critical chance by 1% of base critical chance per point.
         Increases block chance by 5% of base block chance per point.
         """
-        self._dexterity = value
+        self._dexterity += value - self.dexterity
         self.updateStats()
 
     @property
     def wisdom(self):
+        if self.specialization == "Snow Sorcerer":
+            return self._wisdom + 2 * self.mastery
         return self._wisdom
 
     @wisdom.setter
@@ -175,7 +199,7 @@ class Character(object):
         Values: damage*, earthReduction, waterReduction, fireReduction
         Adds 0.1% to all element reductions per point.
         """
-        self._wisdom = value
+        self._wisdom += value - self.wisdom
         self.updateStats()
 
     @property
