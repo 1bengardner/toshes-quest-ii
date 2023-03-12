@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: March 11, 2023
+Revised: March 12, 2023
 """
 
 
@@ -296,12 +296,17 @@ class HiddenPassage:
         self.helpText = None
         self.menu = []
         if "Ready to Specialize" in self.c.flags and selectionIndex is not None:
-            self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
-            self.text = "Toshe: I feel strong."
-            self.helpText = "You have chosen a specialization! As you defeat enemies, your specialization will level up and grant you a bonus."
             self.c.flags['Newly Specialized'] = True
-            #del self.c.flags['Ready to Specialize']
-        elif (selectionIndex == 0 and self.c.hasItem("Ominous Orb") or
+            if self.c.specialization is None:
+                self.helpText = "You have chosen a specialization! As you defeat enemies, your specialization will rank up and grant you a bonus."
+            self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
+            del self.c.flags['Ready to Specialize']
+            if "Respec" in self.c.flags:
+                del self.c.flags['Respec']
+                self.text = "Toshe: I feel like a new man."
+            else:
+                self.text = "Toshe: I feel strong."
+        elif (selectionIndex == 0 and (self.c.hasItem("Ominous Orb") or "Respec" in self.c.flags) or
               "Ready to Specialize" in self.c.flags):
             if not any(filter(lambda stat: stat >= 50, [
                 self.c.strength,
@@ -316,7 +321,10 @@ class HiddenPassage:
             if self.c.hasItem("Ominous Orb"):
                 self.text += ("The Ominous Orb is released from your grasp.\n")
                 self.c.removeItem(self.c.indexOfItem("Ominous Orb"))
-            self.text += ("A voice: Choose your destiny!")
+            if "Respec" in self.c.flags:
+                self.text += ("A voice: Choose your new destiny, and erase the old!")
+            else:
+                self.text += ("A voice: Choose your destiny!")
             self.menu = map(
                 lambda specialization: "Become %s %s." % (
                     "an" if specialization[0] in ("A", "E", "I", "O", "U")
@@ -324,6 +332,10 @@ class HiddenPassage:
                     specialization),
                 getSpecializationOptions(self.c))
             self.c.flags['Ready to Specialize'] = True
+        elif selectionIndex == 0:
+            self.text = ("A voice: Your rank will be reset! Are you certain?")
+            self.menu = ["Change specializations and reset to Rank 1."]
+            self.c.flags['Respec'] = True
         elif self.c.hasItem("Ominous Orb"):
             self.text = ("An ominous voice sounds." +
                          "\nAn ominous voice: Are you ready?")
@@ -371,6 +383,13 @@ class HiddenPassage:
             return self.actions({'skill': "%s %s" % (animal, suffix),
                                  'cost': 0,
                                  'save': True})
+        elif self.c.specialization is not None and self.c.mastery > 1:
+            self.text = ("A voice: Are you not content with the path you have chosen?")
+            self.menu = ["Change your specialization."]
+            if "Respec" in self.c.flags:
+                del self.c.flags['Respec']
+        elif self.c.specialization is not None:
+            self.text = ("A voice: Now go and hone your new abilities.")
         else:
             self.text = ("Light shines in through the cracks in the wall upon" +
                          " ancient oriental artifacts scattered about.")
