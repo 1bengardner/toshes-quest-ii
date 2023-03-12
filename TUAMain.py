@@ -259,12 +259,15 @@ class Main:
         self.character.x = self.x
         self.character.y = self.y
 
-    def saveGame(self):
+    def saveGame(self, sync=False):
         self.saveLocation()
         with open("saves\\"+self.fileName+".tq", "w") as gameFile:
             pickle.dump(self.character, gameFile)
         self.sound.playSound(self.sound.sounds['Save'])
-        Thread(target=self.writeGameToPreferences).start()
+        if sync:
+            self.writeGameToPreferences()
+        else:
+            Thread(target=self.writeGameToPreferences).start()
 
     def writeGameToPreferences(self):
         try:
