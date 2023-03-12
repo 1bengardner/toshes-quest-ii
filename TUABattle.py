@@ -495,18 +495,18 @@ class Battle(object):
                      self.roll() <= 10):
                     attacker.physicalReduction += 100
                     attackerFlags.add("Hiding")
-                    self.text += ("%s hid in the shadows.\n"
+                    self.text += ("Skulking! %s hid in the shadows.\n"
                                   % attacker.NAME)
                 if ( hasattr(defender, "specialization") and
                      defender.specialization == "Son of Centaur" and
                      not (miss or blocked or parried) and
                      damage and
                      int(damage) > 0 and
-                     self.roll() <= 5 or critical and self.roll() <= 5):
+                     (self.roll() <= 5 or critical and self.roll() <= 5)):
                     defender.damage += 5
                     defender.cRate += 10
                     defender.cDamage += 25
-                    self.text += ("%s became enraged.\n"
+                    self.text += ("Centaur blood! %s became enraged.\n"
                                   % defender.NAME)
                 if ( hasattr(attacker, "specialization") and
                      attacker.specialization == "Sandman" and
@@ -670,23 +670,25 @@ class Battle(object):
             if blocked and not miss and defender == self.mainCharacter:
                 self.sounds.append("Block")
 
-        if ( hasattr(attacker, "specialization") and
-             attacker.specialization == "Swift Sharpshooter" and
-             attacker.accuracy > 100 and
-             damage is not None):
-            originalAccuracy = attacker.accuracy
-            attacker.accuracy -= 100
-            self.takeTurn(skill, attacker, defender, set(), set())
-            attacker.accuracy = originalAccuracy
-        if ( hasattr(self.mainCharacter, "specialization") and
-             self.mainCharacter.specialization == "Vengeful Vigilante" and
-             defender in self.auxiliaryCharacters and
-             not self.isStunned(self.mainCharacter, self.charactersFlags[character.NAME]) and
-             not (miss or blocked or parried) and
-             self.roll() <= 50 and
-             len(self.mainCharacter.skills) > 0):
-            self.text += "Vengeance! "
-            self.takeTurn(self.mainCharacter.skills[0], self.mainCharacter, attacker, set(), set())
+            if ( hasattr(attacker, "specialization") and
+                 attacker.specialization == "Swift Sharpshooter" and
+                 attacker.accuracy > 100 and
+                 damage is not None and
+                 attacker.ep >= skill.EP_USED):
+                attacker.ep -= skill.EP_USED
+                originalAccuracy = attacker.accuracy
+                attacker.accuracy -= 100
+                self.takeTurn(skill, attacker, defender, set(), set())
+                attacker.accuracy = originalAccuracy
+            if ( hasattr(self.mainCharacter, "specialization") and
+                 self.mainCharacter.specialization == "Vengeful Vigilante" and
+                 defender in self.auxiliaryCharacters and
+                 not self.isStunned(self.mainCharacter, self.charactersFlags[self.mainCharacter.NAME]) and
+                 not (miss or blocked or parried) and
+                 self.roll() <= 50 and
+                 len(self.mainCharacter.skills) > 0):
+                self.text += "Vengeance! "
+                self.takeTurn(self.mainCharacter.skills[0], self.mainCharacter, attacker, set(), set())
 
         self.doAdditionalActions(skill, attacker, defender)
 
@@ -1213,9 +1215,9 @@ class Battle(object):
             xpGained /= divisor
 
             if self.mainCharacter.specialization == "Spirit Seer":
-                xpGained = int(xpGained * 1 + (0.1 * self.mainCharacter.mastery))
+                xpGained = int(xpGained * (1 + 0.1 * self.mainCharacter.mastery))
             if self.mainCharacter.specialization == "Alchemist":
-                eurosGained = int(eurosGained * 1 + (0.2 * self.mainCharacter.mastery))
+                eurosGained = int(eurosGained * (1 + 0.2 * self.mainCharacter.mastery))
 
             self.mainCharacter.xp += xpGained
             for character in self.auxiliaryCharacters:

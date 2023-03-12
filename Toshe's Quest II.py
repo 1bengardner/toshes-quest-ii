@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 11, 2023
+Revised: March 12, 2023
 """
 
 
@@ -78,7 +78,7 @@ class Window:
         self.questLabel.grid()
         self.questLabel.bind("<Button-1>", self.removeQuestFrame)
         
-        self.powerUpLabel = Label(self.powerUpFrame, text="POWER UP!",
+        self.powerUpLabel = Label(self.powerUpFrame, text="RANK UP!",
                                   font=font5, bg=MYSTIC_BG, fg=MYSTIC_FG2)
         self.powerUpLabel.grid()
         self.powerUpLabel.bind("<Button-1>", self.removePowerUpFrame)
@@ -430,7 +430,7 @@ class TopLeftFrame:
         self.spWord.grid(row=4, padx=1, ipadx=4, ipady=1, sticky=W)
         self.spLabel = Label(self.vitalStats, text="80",
                              bg=DEFAULT_BG, font=font1, bd=0)
-        self.spLabel.grid(row=4, column=1, sticky=E+N)
+        self.spLabel.grid(row=4, column=1, sticky=E+N, padx=(0, 1))
         self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=COMMON_BD,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
@@ -439,7 +439,7 @@ class TopLeftFrame:
         self.hpWord.grid(column=0, sticky=W)
         self.hpLabel = Label(self.vitalStats, text="100/100",
                                   bg=DEFAULT_BG, font=font1, bd=0)
-        self.hpLabel.grid(row=6, column=1, sticky=E)
+        self.hpLabel.grid(row=6, column=1, sticky=E, padx=(0, 1))
         self.hpBarLabel = Label(self.vitalStats, image=hpBars[4], bg=DEFAULT_BG,
                                 relief=SUNKEN, bd=1)
         self.hpBarLabel.grid(columnspan=2)
@@ -451,7 +451,7 @@ class TopLeftFrame:
         self.epWord.grid(column=0, sticky=W)
         self.epLabel = Label(self.vitalStats, text="100/100",
                                   bg=DEFAULT_BG, font=font1, bd=0)
-        self.epLabel.grid(row=9, column=1, sticky=E)
+        self.epLabel.grid(row=9, column=1, sticky=E, padx=(0, 1))
 
 
         self.inventory = LabelFrame(master, text="Inventory", font=font3,
@@ -1880,8 +1880,10 @@ def displayItemStats():
 
     if main.character.specialization != "Scallywag" and (
         (item.CATEGORY == "Bow" and
+         main.character.equippedWeapon is not item and 
          main.character.equippedShield.NAME != "Nothing") or
         (item.CATEGORY == "Shield" and
+         main.character.equippedShield is not item and
          main.character.equippedWeapon.CATEGORY == "Bow")):
         frame.itemCategoryLabel['fg'] = RED
     else:
@@ -1912,9 +1914,12 @@ def displayItemStats():
          main.character.dexterity < item.REQUIREMENT_VALUE) or
         (item.REQUIREMENT_TYPE == "Wisdom" and
          main.character.wisdom < item.REQUIREMENT_VALUE) or
+        main.character.specialization != "Scallywag" and
         (item.CATEGORY == "Bow" and
-         main.character.equippedShield.NAME != "Nothing") or
-        (item.CATEGORY == "Shield" and
+         main.character.equippedWeapon is not item and 
+         main.character.equippedShield.NAME != "Nothing" or
+         item.CATEGORY == "Shield" and
+         main.character.equippedShield is not item and
          main.character.equippedWeapon.CATEGORY == "Bow")):
         frame.equipButton['state'] = DISABLED
     else:
@@ -2003,7 +2008,7 @@ def displayStoreItemStats():
     else:
         frame.itemRequirementLabel['fg'] = RED
 
-    if main.character.euros < item.PRICE or not main.character.hasRoom():
+    if main.character.euros < item.PRICE or not main.character.hasRoom() and item.NAME != "Chasmic Rucksack":
         frame.buyButton['state'] = DISABLED
     else:
         frame.buyButton['state'] = NORMAL
@@ -2093,8 +2098,8 @@ def updateInterface(updates):
     if hasLeveledUp:
         main.sound.playSound(main.sound.sounds['Level Up'])
 
-    hasSpecializedUp = False
     if main.character.specialization is not None:
+        hasSpecializedUp = False
         while main.character.hasSpecializedUp():
             hasSpecializedUp = True
             if not updates['text']:
@@ -2105,8 +2110,8 @@ def updateInterface(updates):
                 main.character.specialization,
                 main.character.mastery)
             window.gridPowerUpFrame()
-    if hasSpecializedUp:
-        main.sound.playSound(main.sound.sounds['Power Up'])
+        if hasSpecializedUp:
+            main.sound.playSound(main.sound.sounds['Power Up'])
 
     for mercenary in main.character.mercenaries:
         while mercenary.hasLeveledUp():
@@ -2492,7 +2497,7 @@ def close(event=None):
             if answer is None:
                 return
             elif answer:
-                main.saveGame()
+                main.saveGame(True)
         elif main.view != "game over":
             if "no" == tkMessageBox.askquestion(
                  "Exit without saving",

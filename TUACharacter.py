@@ -97,7 +97,7 @@ class Character(object):
             power *= 1 + 0.01 * (self.mastery - 1)
         if self.specialization == "Vengeful Vigilante":
             power *= 1 + 0.02 * (self.mastery - 1)
-
+        power = int(power)
         if self.specialization == "Magic Marksman":
             self.damage = (self.dexterity + self.wisdom) * power / 10
         elif self.equippedWeapon.CATEGORY == "Gun":
@@ -110,13 +110,13 @@ class Character(object):
             self.damage = self.wisdom * power / 10
         cDamage = self.equippedWeapon.C_DAMAGE
         accuracy = self.equippedWeapon.ACCURACY
+        cRate = self.equippedWeapon.C_RATE
         if self.specialization == "Critical Caster":
             cDamage *= 1 + 0.03 * (self.mastery - 1)
-            self.cRate = 100
             accuracy = 0
+            cRate = 100
         self.cDamage = int(cDamage * self.baseCDamage)
         self.accuracy = int(accuracy + self.baseAccuracy)
-        cRate = self.equippedWeapon.C_RATE
         if self.specialization == "Adrenal Avenger":
             cRate *= 1 + 0.03 * (self.mastery - 1)
         self.cRate = round(cRate * self.baseCRate, 1)
@@ -160,7 +160,7 @@ class Character(object):
         if self.specialization == "Skulker":
             self.earthReduction += 1 * (self.mastery - 1)
             self.waterReduction += 1 * (self.mastery - 1)
-            self.fireReductiona += 1 * (self.mastery - 1)
+            self.fireReduction += 1 * (self.mastery - 1)
         if self.specialization == "Stone Sage":
             self.bRate += 1 * (self.mastery - 1)
         if self.specialization == "Mystic":
@@ -168,7 +168,7 @@ class Character(object):
         if self.specialization == "Guardian":
             self.defence += 2 * (self.mastery - 1)
         if self.specialization == "Scallywag":
-            self.waterReduction += max(0, 0.5 * (self.mastery - 1) * (self.accuracy - 100))
+            self.waterReduction += int(max(0, 0.5 * (self.mastery - 1) * (self.accuracy - 100)))
         if self.specialization == "Sandman":
             self.earthReduction += 3 * (self.mastery - 1)
         if self.specialization == "Hermit":
@@ -222,7 +222,7 @@ class Character(object):
         if self.specialization == "Executioner":
             return self._dexterity + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return self._strength + 1 * (self.mastery - 1)
+            return self._dexterity + 1 * (self.mastery - 1)
         return self._dexterity
 
     @dexterity.setter
@@ -242,7 +242,7 @@ class Character(object):
         if self.specialization == "Snow Sorcerer":
             return self._wisdom + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return self._strength + 1 * (self.mastery - 1)
+            return self._wisdom + 1 * (self.mastery - 1)
         return self._wisdom
 
     @wisdom.setter
@@ -311,15 +311,21 @@ class Character(object):
     @specialization.setter
     def specialization(self, value):
         self.mastery = 1
+        self.sp = 0
         if self._specialization == "Paladin":
             extraPoints = self.level - 1
-            stats = [self.strength, self.dexterity, self.wisdom]
             while extraPoints > 0:
-                stats[extraPoints % 3] -= 1
+                if extraPoints % 3 == 0:
+                    self.strength -= 1
+                elif extraPoints % 3 == 1:
+                    self.dexterity -= 1
+                elif extraPoints % 3 == 2:
+                    self.wisdom -= 1
                 extraPoints -= 1
         if value == "Paladin":
             self.statPoints += self.level - 1
         self._specialization = value
+        self.updateStats()
 
     def hasLeveledUp(self):
         """Check if the character has enough xp to level up."""
@@ -351,7 +357,8 @@ class Character(object):
         """Check if the character has enough kills to specialize up."""
         if self.sp >= self.spTnl:
             self.mastery += 1
-            self.sp = 0
+            self.sp = self.sp - self.spTnl
+            self.updateStats()
             return True
         return False
 
