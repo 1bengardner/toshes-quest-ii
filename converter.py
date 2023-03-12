@@ -68,14 +68,19 @@ def update(gameFile, path):
         setattr(character, "sp", 0)
         setattr(character, "_maxHp", max(character.level * 20 + 80, character.hp))
         setattr(character, "_maxEp", max(character.level * 20 + 80, character.ep))
+        for mercenary in character.mercenaries:
+            setattr(mercenary, "_specialization", None)
+            setattr(mercenary, "_maxHp", max(mercenary.level * 20 + 80, mercenary.hp))
+            setattr(mercenary, "_maxEp", max(mercenary.level * 20 + 80, mercenary.ep))
         changed = True
     for item in character.items:
         if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
             item.upgradeCount = 0
             changed = True
     changed = updateChangedAreaNames(character) or changed
-    with open(path, "w") as gameFile:
-        pickle.dump(character, gameFile)
+    if changed:
+        with open(path, "w") as gameFile:
+            pickle.dump(character, gameFile)
         
     return changed
 
