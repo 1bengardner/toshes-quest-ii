@@ -272,7 +272,10 @@ class Main:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
-        preferences.recentCharacters[self.fileName] = self.character
+        paredDownChar = deepcopy(self.character)
+        paredDownChar.flags = {}
+        paredDownChar.checkpoint = None
+        preferences.recentCharacters[self.fileName] = paredDownChar
         with open("prefs\\recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
 

@@ -431,7 +431,7 @@ class TopLeftFrame:
         self.spLabel = Label(self.vitalStats, text="80",
                              bg=DEFAULT_BG, font=font1, bd=0)
         self.spLabel.grid(row=4, column=1, sticky=E+N)
-        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=RARE_BD,
+        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=COMMON_BD,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
         self.hpWord = Label(self.vitalStats, text="HP",
@@ -869,7 +869,7 @@ class TopCenterFrame:
             self.loadFile(name)
         except IOError:
             self.createFile(name)
-        except AttributeError:
+        except AttributeError as e:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 "Turtle: " +
                 name +
@@ -884,6 +884,8 @@ class TopCenterFrame:
                     name +
                     ", your file has been successfully converted!")
                 self.tryToLoadFile(name)
+            else:
+                raise e
         # except (EOFError, ValueError, KeyError, IndexError):
             # window.bottomFrame.bottomLeftFrame.insertOutput(
                 # "Turtle: " +

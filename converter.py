@@ -62,10 +62,12 @@ def update(gameFile, path):
     if not hasattr(character, "quests"):
         setattr(character, "quests", [])
         changed = True
-    if not hasattr(character, "specialization"):
-        setattr(character, "specialization", None)
+    if not hasattr(character, "_specialization"):
+        setattr(character, "_specialization", None)
         setattr(character, "mastery", 1)
         setattr(character, "sp", 0)
+        setattr(character, "_maxHp", max(character.level * 20 + 80, character.hp))
+        setattr(character, "_maxEp", max(character.level * 20 + 80, character.ep))
         changed = True
     for item in character.items:
         if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
