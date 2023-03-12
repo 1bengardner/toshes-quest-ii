@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: March 4, 2023
+Revised: March 11, 2023
 """
 
 
@@ -229,13 +229,13 @@ class HiddenPassage:
                 "Warrior": [
                     "Flame Knight",
                     "Reckless Lancer",
-                    "Stalwart Slayer",
                     "Executioner",
+                    "Stalwart Slayer",
                 ],
                 "Archer": [
                     "Swift Sharpshooter",
-                    "Soul Sniper",
                     "Headshot Hunter",
+                    "Soul Sniper",
                     "Skulker",
                 ],
                 "Mage": [
@@ -246,14 +246,14 @@ class HiddenPassage:
                 ],
                 "Ranger": [
                     "Guardian",
+                    "Scallywag",
                     "Defender",
                     "Son of Centaur",
-                    "Scallywag",
                 ],
                 "Monk": [
                     "Adrenal Avenger",
-                    "Astral Assailant",
                     "Sandman",
+                    "Astral Assailant",
                     "Hermit",
                 ],
                 "Druid": [

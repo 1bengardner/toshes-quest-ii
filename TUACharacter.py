@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: March 7, 2023
+Revised: March 12, 2023
 """
 
 
@@ -50,9 +50,9 @@ class Character(object):
         self.xp = int(xp)
         self.xpTnl = int(xpTnl)
         self._hp = int(hp)
-        self.maxHp = int(maxHp)
+        self._maxHp = int(maxHp)
         self._ep = int(ep)
-        self.maxEp = int(maxEp)
+        self._maxEp = int(maxEp)
         self._strength = int(strength)
         self._dexterity = int(dexterity)
         self._wisdom = int(wisdom)
@@ -76,25 +76,54 @@ class Character(object):
         self.LIVING = 1
         self.checkpoint = None
         self.quests = []
-        self.specialization = None
+        self._specialization = None
         self.mastery = 1
         self.sp = 0
         self.updateStats()
 
     def updateStats(self):
         """Update stats that are dependent on other stats."""
-        if self.equippedWeapon.CATEGORY == "Gun":
-            self.damage = self.equippedWeapon.POWER
+        power = self.equippedWeapon.POWER
+        if ((self.specialization == "Blaze Mage" and
+             self.equippedWeapon.CATEGORY == "Wand") or
+            self.specialization == "Astral Assailant" or
+            (self.specialization == "Weird Warlock" and
+             self.equippedWeapon.CATEGORY not in
+             set(["Sword", "Club", "Axe", "Spear"])) or
+            (self.specialization == "Magic Marksman" and
+             self.equippedWeapon.CATEGORY == "Bow")):
+            power += 2 * (self.mastery - 1)
+        if self.specialization == "Son of Centaur":
+            power *= 1 + 0.01 * (self.mastery - 1)
+        if self.specialization == "Vengeful Vigilante":
+            power *= 1 + 0.02 * (self.mastery - 1)
+
+        if self.specialization == "Magic Marksman":
+            self.damage = (self.dexterity + self.wisdom) * power / 10
+        elif self.equippedWeapon.CATEGORY == "Gun":
+            self.damage = power
         elif self.equippedWeapon.REQUIREMENT_TYPE == "Strength":
-            self.damage = self.strength * self.equippedWeapon.POWER / 10
+            self.damage = self.strength * power / 10
         elif self.equippedWeapon.REQUIREMENT_TYPE == "Dexterity":
-            self.damage = self.dexterity * self.equippedWeapon.POWER / 10
+            self.damage = self.dexterity * power / 10
         elif self.equippedWeapon.REQUIREMENT_TYPE == "Wisdom":
-            self.damage = self.wisdom * self.equippedWeapon.POWER / 10
-        self.cDamage = int(self.equippedWeapon.C_DAMAGE * self.baseCDamage)
-        self.accuracy = int(self.equippedWeapon.ACCURACY + self.baseAccuracy)
-        self.cRate = round(self.equippedWeapon.C_RATE * self.baseCRate, 1)
-        self.bRate = int(self.equippedShield.B_RATE * self.baseBRate)
+            self.damage = self.wisdom * power / 10
+        cDamage = self.equippedWeapon.C_DAMAGE
+        accuracy = self.equippedWeapon.ACCURACY
+        if self.specialization == "Critical Caster":
+            cDamage *= 1 + 0.03 * (self.mastery - 1)
+            self.cRate = 100
+            accuracy = 0
+        self.cDamage = int(cDamage * self.baseCDamage)
+        self.accuracy = int(accuracy + self.baseAccuracy)
+        cRate = self.equippedWeapon.C_RATE
+        if self.specialization == "Adrenal Avenger":
+            cRate *= 1 + 0.03 * (self.mastery - 1)
+        self.cRate = round(cRate * self.baseCRate, 1)
+        bRate = self.equippedShield.B_RATE
+        if self.specialization == "Defender":
+            bRate *= 1 + 0.03 * (self.mastery - 1)
+        self.bRate = int(bRate * self.baseBRate)
         self.earthReduction = int(self.equippedArmour.EARTH_REDUCTION +
                                   self.equippedShield.EARTH_REDUCTION +
                                   self.baseReduction)
@@ -110,9 +139,9 @@ class Character(object):
                            self.equippedShield.DEFENCE)
 
         if self.specialization == "Flame Knight":
-            self.fireReduction += 2 * self.mastery
+            self.fireReduction += 2 * (self.mastery - 1)
         if self.specialization == "Reckless Lancer":
-            self.damage += 2 * self.mastery
+            self.damage += 2 * (self.mastery - 1)
             if self.equippedWeapon.CATEGORY == "Spear":
                 self.damage *= 2
                 self.accuracy //= 2
@@ -123,9 +152,27 @@ class Character(object):
             self.equippedWeapon.CATEGORY == "Axe"):
             self.cDamage *= 3
         if self.specialization == "Swift Sharpshooter":
-            self.accuracy += 2 * self.mastery
+            self.accuracy += 2 * (self.mastery - 1)
         if self.specialization == "Soul Sniper":
-            self.cRate += 0.5 * self.mastery
+            self.cRate += 0.5 * (self.mastery - 1)
+        if self.specialization == "Headshot Hunter":
+            self.cDamage += 5 * (self.mastery - 1)
+        if self.specialization == "Skulker":
+            self.earthReduction += 1 * (self.mastery - 1)
+            self.waterReduction += 1 * (self.mastery - 1)
+            self.fireReductiona += 1 * (self.mastery - 1)
+        if self.specialization == "Stone Sage":
+            self.bRate += 1 * (self.mastery - 1)
+        if self.specialization == "Mystic":
+            self.physicalReduction += 1 * (self.mastery - 1)
+        if self.specialization == "Guardian":
+            self.defence += 2 * (self.mastery - 1)
+        if self.specialization == "Scallywag":
+            self.waterReduction += max(0, 0.5 * (self.mastery - 1) * (self.accuracy - 100))
+        if self.specialization == "Sandman":
+            self.earthReduction += 3 * (self.mastery - 1)
+        if self.specialization == "Hermit":
+            self.defence *= 2
 
     @property
     def ep(self):
@@ -155,7 +202,9 @@ class Character(object):
     @property
     def strength(self):
         if self.specialization == "Stalwart Slayer":
-            return self._strength + 2 * self.mastery
+            return self._strength + 2 * (self.mastery - 1)
+        elif self.specialization == "Squad Leader":
+            return self._strength + 1 * (self.mastery - 1)
         return self._strength
 
     @strength.setter
@@ -171,7 +220,9 @@ class Character(object):
     @property
     def dexterity(self):
         if self.specialization == "Executioner":
-            return self._dexterity + 2 * self.mastery
+            return self._dexterity + 2 * (self.mastery - 1)
+        elif self.specialization == "Squad Leader":
+            return self._strength + 1 * (self.mastery - 1)
         return self._dexterity
 
     @dexterity.setter
@@ -189,7 +240,9 @@ class Character(object):
     @property
     def wisdom(self):
         if self.specialization == "Snow Sorcerer":
-            return self._wisdom + 2 * self.mastery
+            return self._wisdom + 2 * (self.mastery - 1)
+        elif self.specialization == "Squad Leader":
+            return self._strength + 1 * (self.mastery - 1)
         return self._wisdom
 
     @wisdom.setter
@@ -201,6 +254,26 @@ class Character(object):
         """
         self._wisdom += value - self.wisdom
         self.updateStats()
+
+    @property
+    def maxHp(self):
+        if self.specialization == "Paladin":
+            return self._maxHp + 20 * (self.mastery - 1)
+        return self._maxHp
+
+    @maxHp.setter
+    def maxHp(self, value):
+        self._maxHp += value - self.maxHp
+
+    @property
+    def maxEp(self):
+        if self.specialization == "Hermit":
+            return self._maxEp + 20 * (self.mastery - 1)
+        return self._maxEp
+
+    @maxEp.setter
+    def maxEp(self, value):
+        self._maxEp += value - self.maxEp
 
     @property
     def baseCDamage(self):
@@ -230,7 +303,24 @@ class Character(object):
         if self.mastery > 5:
             return self.mastery * 50 - 100
         return (self.mastery ** 2 - self.mastery + 10) // 2 * 10
-            
+
+    @property
+    def specialization(self):
+        return self._specialization
+
+    @specialization.setter
+    def specialization(self, value):
+        self.mastery = 1
+        if self._specialization == "Paladin":
+            extraPoints = self.level - 1
+            stats = [self.strength, self.dexterity, self.wisdom]
+            while extraPoints > 0:
+                stats[extraPoints % 3] -= 1
+                extraPoints -= 1
+        if value == "Paladin":
+            self.statPoints += self.level - 1
+        self._specialization = value
+
     def hasLeveledUp(self):
         """Check if the character has enough xp to level up."""
         if self.xp >= self.xpTnl:
@@ -242,6 +332,8 @@ class Character(object):
             self.xpTnl += 20*self.level**2 - 20*self.level + 100
             if self.NAME == "Toshe":
                 self.statPoints += 5
+                if self.specialization == "Paladin":
+                    self.statPoints += 1
             elif self.NAME == "Dragan":
                 self.dexterity += 5
             elif self.NAME == "Qendresa":

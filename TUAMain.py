@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: January 11, 2023
+Revised: March 12, 2023
 """
 
 
@@ -648,7 +648,7 @@ class Main:
                                 'enemy': enemyIdentifier,
                                 'text': "",
                                 'mercenaries': self.character.mercenaries}
-			if enemyIdentifier == "Will o Wisp":
+            if enemyIdentifier == "Will o Wisp":
                 interfaceActions['enemy modifiers'] = {
                     'Stats': {},
                     'Multiplicative': 1,
@@ -954,7 +954,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return interfaceActions
     
     def defend(self):
-        interfaceActions = self.battle.attack(self.skills['Defend'])
+        if self.character.specialization == "Mystic":
+            interfaceActions = self.battle.attack(self.skills['Re-energize'])
+        else:
+            interfaceActions = self.battle.attack(self.skills['Defend'])
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
 
@@ -985,6 +988,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
     def usePotion(self):
         self.character.potions -= 1
         healAmount = int(50 + 10 * self.character.level ** 0.5 - 10)
+        if self.character.specialization == "Alchemist":
+            healAmount *= 10
         self.character.hp += healAmount
         self.sound.playSound(self.sound.sounds['Drink'])
         return "You consume a vial full of life fluid, healing %s HP." % healAmount

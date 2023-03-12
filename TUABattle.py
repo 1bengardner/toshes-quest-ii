@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: March 7, 2023
+Revised: March 12, 2023
 """
 
 
@@ -42,8 +42,12 @@ class Battle(object):
         self.tosheAlertMessages()
 
         # 50/50 chance for each combatant to go first
-        if (self.mainCharacter.equippedWeapon.CATEGORY == "Bow" or
-            self.roll() >= 50 and not self.enemy.UNIQUE):
+        if ( self.mainCharacter.equippedWeapon.CATEGORY == "Bow" and
+             self.mainCharacter.equippedShield.NAME != "Nothing"):
+            self.characterFirst = False
+        elif (self.mainCharacter.equippedWeapon.CATEGORY == "Bow" or
+              self.mainCharacter.specialization == "Squad Leader" or
+              self.roll() >= 50 and not self.enemy.UNIQUE):
             self.characterFirst = True
         elif self.enemy.UNIQUE:
             self.characterFirst = random.seed(self.mainCharacter.seed2 + self.enemy.IDENTIFIER)
@@ -239,6 +243,7 @@ class Battle(object):
             miss = False
             blocked = False
             critical = False
+            parried = False
 
             # Set damage and healing based on skill category
             if skill.CATEGORY == "Accurate Damage":
@@ -247,8 +252,10 @@ class Battle(object):
                 attacker.accuracy /= 2.
             if "Damage" in skill.CATEGORY:
                 miss = self.miss(attacker) or "Auto Avoid" in defenderFlags
-                blocked = self.gotBlockedBy(defender) and\
-                          not self.isStunned(defender, defenderFlags)
+                if not self.isStunned(defender, defenderFlags):
+                    blocked = self.gotBlockedBy(defender)
+                    if not blocked and skill.ELEMENT == "Physical":
+                        parried = self.gotParriedBy(defender)
             if skill.CATEGORY == "Accurate Damage":
                 attacker.accuracy /= 2
             elif skill.CATEGORY == "Reduced Accuracy Damage":
@@ -296,7 +303,26 @@ class Battle(object):
                   damage):
                 damage -= defender.defence / 3
 
+            if ( hasattr(attacker, "specialization") and
+                 attacker.specialization == "Adrenal Avenger" and
+                 attacker.hp <= attacker.maxHp / 2 and
+                 damage):
+                damage *= 2
+
             damage = self.adjustedDamage(damage)
+
+            if ( hasattr(attacker, "specialization") and
+                 attacker.specialization == "Astral Assailant" and
+                 hasattr(attacker, "equippedWeapon")):
+                if attacker.equippedWeapon.ELEMENT == "Earth":
+                    defender.earthReduction /= 2.0
+                elif attacker.equippedWeapon.ELEMENT == "Water":
+                    defender.waterReduction /= 2.0
+                elif attacker.equippedWeapon.ELEMENT == "Fire":
+                    defender.fireReduction /= 2.0
+                elif attacker.equippedWeapon.ELEMENT == "Frostfire":
+                    defender.waterReduction /= 1.5
+                    defender.fireReduction /= 1.5
 
             # Modify damage based on defender's reduction values
             if damage:
@@ -307,6 +333,9 @@ class Battle(object):
                      attacker.equippedWeapon.ELEMENT == "Earth" and
                      skill.ELEMENT == "Physical")):
                     damage *= (100-defender.earthReduction) / 100.
+                    if ( hasattr(attacker, "specialization") and
+                         attacker.specialization == "Stone Sage"):
+                        damage *= 1.5
                 elif (skill.ELEMENT == "Water" or
                       skill.ELEMENT == "Ice" or
                       skill.ELEMENT == "Freezing" or
@@ -314,6 +343,9 @@ class Battle(object):
                        attacker.equippedWeapon.ELEMENT == "Water" and
                        skill.ELEMENT == "Physical")):
                     damage *= (100-defender.waterReduction) / 100.
+                    if ( hasattr(attacker, "specialization") and
+                         attacker.specialization == "Snow Sorcerer"):
+                        damage *= 1.5
                 elif (skill.ELEMENT == "Fire" or
                       (hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Fire" and
@@ -322,6 +354,9 @@ class Battle(object):
                        attacker.specialization == "Flame Knight" and
                        skill.NAME == "Attack")):
                     damage *= (100-defender.fireReduction) / 100.
+                    if ( hasattr(attacker, "specialization") and
+                         attacker.specialization == "Blaze Mage"):
+                        damage *= 1.5
                 elif (skill.ELEMENT == "Frostfire" or
                       (hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Frostfire" and
@@ -330,9 +365,26 @@ class Battle(object):
                         / 100.)
                         + max(0, damage/2. * (100-defender.waterReduction)
                         / 100.))
+                    if ( hasattr(attacker, "specialization") and
+                         (attacker.specialization == "Blaze Mage" or
+                          attacker.specialization == "Snow Sorcerer")):
+                        damage *= 1.25
                 elif not (hasattr(attacker, "equippedWeapon") and
                           attacker.equippedWeapon.CATEGORY == "Wand"):
                     damage *= (100-defender.physicalReduction) / 100.
+
+            if ( hasattr(attacker, "specialization") and
+                 attacker.specialization == "Astral Assailant" and
+                 hasattr(attacker, "equippedWeapon")):
+                if attacker.equippedWeapon.ELEMENT == "Earth":
+                    defender.earthReduction *= 2.0
+                elif attacker.equippedWeapon.ELEMENT == "Water":
+                    defender.waterReduction *= 2.0
+                elif attacker.equippedWeapon.ELEMENT == "Fire":
+                    defender.fireReduction *= 2.0
+                elif attacker.equippedWeapon.ELEMENT == "Frostfire":
+                    defender.waterReduction *= 1.5
+                    defender.fireReduction *= 1.5
 
             if "Bloody Socket Active" in attackerFlags and damage is not None:
                 damage = defender.hp - 1
@@ -354,28 +406,51 @@ class Battle(object):
                 self.mainCharacter.removeItem(
                     self.mainCharacter.indexOfItem("Brummo Mint"))
 
+            if ( hasattr(attacker, "specialization") and
+                 attacker.specialization == "Headshot Hunter" and
+                 not (miss or blocked or parried) and damage):
+                if 5 * damage >= defender.hp:
+                    damage *= 5
+                    self.text += "Headshot! "
+                else:
+                    oldAccuracy = attacker.accuracy
+                    attacker.accuracy *= 0.1
+                    miss = self.miss(attacker)
+                    attacker.accuracy = oldAccuracy
+
             # Apply damage to defender and add flags
-            if not (miss or blocked) and damage is not None:
+            if not (miss or blocked or parried) and damage is not None:
                 if skill.CATEGORY == "XP Damage":
                     defender.xp -= int(damage)
                 else:
                     defender.hp -= int(damage)
-            if not (miss or blocked) and healing is not None:
+            if not (miss or blocked or parried) and healing is not None:
                 attacker.hp += int(healing)
-            if not (miss or blocked):
+            if not (miss or blocked or parried):
                 attackerFlags.add(skill.FLAG)
 
             # Add text corresponding to attack
             if miss:
                 self.text += attacker.NAME+" missed!\n"
-            elif blocked:
-                self.text += attacker.NAME+" was blocked by "+defender.NAME+"!\n"
+            elif blocked or parried:
+                self.text += ("%s was %s by %s!\n" % (
+                    attacker.NAME,
+                    "parried" if parried else "blocked",
+                    defender.NAME))
                 if "Defending Active" in defenderFlags and defender == self.mainCharacter:
-                    epBoost = 1 + int(damage ** 0.5 * 9)
-                    defender.ep += epBoost
-                    self.text += ("Adrenaline rush! %s gained a %s EP boost" +
-                                  " from blocking.\n") % (defender.NAME,
-                                                          epBoost)
+                    boost = 1 + int(damage ** 0.5 * 9)
+                    if ( hasattr(defender, "specialization") and
+                         defender.specialization == "Guardian"):
+                        defender.hp += boost
+                        defender.ep += boost
+                        self.text += ("Guardian rush! %s gained a %s HP/EP" +
+                                      " boost from blocking.\n") % (
+                                      defender.NAME, boost)
+                    else:
+                        defender.ep += boost
+                        self.text += ("Adrenaline rush! %s gained a %s EP" +
+                                      " boost from blocking.\n") % (
+                                      defender.NAME, boost)
             else:
                 if critical:
                     if damage:
@@ -408,9 +483,44 @@ class Battle(object):
 
                 if ( hasattr(attacker, "specialization") and
                      attacker.specialization == "Soul Sniper" and
+                     not (miss or blocked or parried) and
+                     damage and
+                     int(damage) > 0 and
                      critical):
                     attacker.ep += 50
-                    self.text += ("%s restored 50 EP by scoring a critical hit.\n"
+                    self.text += ("Snipe! %s restored 50 EP by scoring a critical hit.\n"
+                                  % attacker.NAME)
+                if ( hasattr(attacker, "specialization") and
+                     attacker.specialization == "Skulker" and
+                     self.roll() <= 10):
+                    attacker.physicalReduction += 100
+                    attackerFlags.add("Hiding")
+                    self.text += ("%s hid in the shadows.\n"
+                                  % attacker.NAME)
+                if ( hasattr(defender, "specialization") and
+                     defender.specialization == "Son of Centaur" and
+                     not (miss or blocked or parried) and
+                     damage and
+                     int(damage) > 0 and
+                     self.roll() <= 5 or critical and self.roll() <= 5):
+                    defender.damage += 5
+                    defender.cRate += 10
+                    defender.cDamage += 25
+                    self.text += ("%s became enraged.\n"
+                                  % defender.NAME)
+                if ( hasattr(attacker, "specialization") and
+                     attacker.specialization == "Sandman" and
+                     skill.NAME == "Attack" and
+                     not (miss or blocked or parried)):
+                    defender.accuracy *= 0.9
+                    self.text += ("%s got sand in %s's eye.\n"
+                                  % (attacker.NAME, defender.NAME))
+                if ( hasattr(attacker, "specialization") and
+                     attacker.specialization == "Spirit Seer" and
+                     not (miss or blocked or parried) and
+                     self.roll() <= 20):
+                    attacker.ep += 20
+                    self.text += ("Spiritual strike! %s restored 20 EP.\n"
                                   % attacker.NAME)
 
                 if bruhMoment:
@@ -562,11 +672,21 @@ class Battle(object):
 
         if ( hasattr(attacker, "specialization") and
              attacker.specialization == "Swift Sharpshooter" and
-             attacker.accuracy > 100):
+             attacker.accuracy > 100 and
+             damage is not None):
             originalAccuracy = attacker.accuracy
             attacker.accuracy -= 100
-            self.takeTurn(skill, attacker, defender, set(), defenderFlags)
-        attacker.accuracy = originalAccuracy
+            self.takeTurn(skill, attacker, defender, set(), set())
+            attacker.accuracy = originalAccuracy
+        if ( hasattr(self.mainCharacter, "specialization") and
+             self.mainCharacter.specialization == "Vengeful Vigilante" and
+             defender in self.auxiliaryCharacters and
+             not self.isStunned(self.mainCharacter, self.charactersFlags[character.NAME]) and
+             not (miss or blocked or parried) and
+             self.roll() <= 50 and
+             len(self.mainCharacter.skills) > 0):
+            self.text += "Vengeance! "
+            self.takeTurn(self.mainCharacter.skills[0], self.mainCharacter, attacker, set(), set())
 
         self.doAdditionalActions(skill, attacker, defender)
 
@@ -621,6 +741,11 @@ class Battle(object):
     def gotBlockedBy(self, defender):
         """Return whether the defender has blocked."""
         return self.roll() <= defender.bRate
+
+    def gotParriedBy(self, defender):
+        return (hasattr(defender, "specialization") and
+                defender.specialization == "Defender" and
+                self.roll() <= 20)
 
     def critical(self, attacker):
         """Return whether the attacker has scored a critical hit."""
@@ -1086,7 +1211,12 @@ class Battle(object):
                 divisor = 1
             
             xpGained /= divisor
-                
+
+            if self.mainCharacter.specialization == "Spirit Seer":
+                xpGained = int(xpGained * 1 + (0.1 * self.mainCharacter.mastery))
+            if self.mainCharacter.specialization == "Alchemist":
+                eurosGained = int(eurosGained * 1 + (0.2 * self.mainCharacter.mastery))
+
             self.mainCharacter.xp += xpGained
             for character in self.auxiliaryCharacters:
                 character.xp += xpGained

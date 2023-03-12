@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 6, 2023
+Revised: March 11, 2023
 """
 
 
@@ -1876,7 +1876,8 @@ def displayItemStats():
     else:
         frame.itemElementLabel['text'] = ""
 
-    if ((item.CATEGORY == "Bow" and
+    if main.character.specialization != "Scallywag" and (
+        (item.CATEGORY == "Bow" and
          main.character.equippedShield.NAME != "Nothing") or
         (item.CATEGORY == "Shield" and
          main.character.equippedWeapon.CATEGORY == "Bow")):
