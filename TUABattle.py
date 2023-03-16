@@ -838,6 +838,24 @@ class Battle(object):
             flags.remove("Recovering")
             flags.add("Recovering Active")
 
+        if any([flag in flags for flag in [
+            "Re-energizing Active", "Re-energizing 2", "Re-energizing 3"]]):
+            epGain = 5 + target.wisdom // 2 + target.maxEp // 20
+            target.ep += epGain
+            self.text += "%s re-energizes %s EP.\n" % (target.NAME, epGain)
+        if "Re-energizing" in flags:
+            flags.remove("Re-energizing")
+            flags.add("Re-energizing Active")
+        elif "Re-energizing Active" in flags:
+            flags.add("Re-energizing 2")
+            flags.remove("Re-energizing Active")
+        elif "Re-energizing 2" in flags:
+            flags.add("Re-energizing 3")
+            flags.remove("Re-energizing 2")
+        elif "Re-energizing 3" in flags:
+            self.text += target.NAME+" has finished re-energizing.\n"
+            flags.remove("Re-energizing 3")
+
         if "Golden Fur" in flags:
             pass
         elif "Golden Fur Active" in flags:
