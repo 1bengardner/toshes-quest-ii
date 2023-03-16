@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 12, 2023
+Revised: March 16, 2023
 """
 
 
@@ -936,9 +936,11 @@ class TopCenterFrame:
         if eventActions is not None:
             interfaceActions.update(eventActions)
             stateChanged = True
+        # We must clear missions when reloading
         window.rightFrame.clearMissions()
         updateInterface(interfaceActions)
 
+        # We must clear again so that new missions from updateInterface() are not shown twice
         window.rightFrame.clearMissions()
         for quest in main.character.quests:
             window.rightFrame.addMission(quest, pushToTop=False)
