@@ -60,6 +60,7 @@ class Window:
                                   font=font5, bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
         self.levelUpLabel.grid()
         self.levelUpLabel.bind("<Button-1>", self.removeLevelUpFrame)
+        self.levelUpCallback = None
         
         self.mercenaryUpLabel = Label(self.mercenaryUpFrame,
                                  text="MERC. UP!",
@@ -67,21 +68,25 @@ class Window:
                                  bg=MERCENARY_UP_BG, fg=MERCENARY_UP_FG)
         self.mercenaryUpLabel.grid()
         self.mercenaryUpLabel.bind("<Button-1>", self.removeMercenaryUpFrame)
+        self.mercenaryCallback = None
         
         lootLabel = Label(self.lootFrame, text="LOOT!", font=font5,
                           bg=LOOT_BG, fg=LOOT_FG)
         lootLabel.grid()
         lootLabel.bind("<Button-1>", self.removeLootFrame)
+        self.lootCallback = None
         
         self.questLabel = Label(self.questFrame, text="QUEST!", font=font7,
                            bg=QUEST_BG, fg=QUEST_FG)
         self.questLabel.grid()
         self.questLabel.bind("<Button-1>", self.removeQuestFrame)
+        self.questCallback = None
         
-        self.powerUpLabel = Label(self.powerUpFrame, text="RANK UP!",
+        powerUpLabel = Label(self.powerUpFrame, text="RANK UP!",
                                   font=font5, bg=MYSTIC_BG, fg=MYSTIC_FG2)
-        self.powerUpLabel.grid()
-        self.powerUpLabel.bind("<Button-1>", self.removePowerUpFrame)
+        powerUpLabel.grid()
+        powerUpLabel.bind("<Button-1>", self.removePowerUpFrame)
+        self.powerUpCallback = None
         
         self.newSkillLabelBottom = Label(self.newSkillFrame,
                                          text="PUMMELER'S PRECISION!",
@@ -96,6 +101,7 @@ class Window:
                                          bg=SKILL_BG, fg=SKILL_FG)
         self.newSkillLabelTop.grid(row=0, sticky=N)
         self.newSkillLabelTop.bind("<Button-1>", self.removeNewSkillFrame)
+        self.newSkillCallback = None
         
         self.makeChildren(self.gameFrame, self.sideFrame)
 
@@ -105,46 +111,58 @@ class Window:
         self.rightFrame = RightFrame(rightMaster)
         
     def gridLevelUpFrame(self):
+        if self.levelUpCallback:
+            root.after_cancel(self.levelUpCallback)
         self.levelUpFrame.grid()
-        root.after(4000, window.removeLevelUpFrame)
+        self.levelUpCallback = root.after(4000, window.removeLevelUpFrame)
 
     def removeLevelUpFrame(self, event=None):
         self.levelUpFrame.grid_remove()
 
     def gridMercenaryUpFrame(self, name):
+        if self.mercenaryCallback:
+            root.after_cancel(self.mercenaryCallback)
         self.mercenaryUpLabel.config(text="%s UP!" % name.upper())
         self.mercenaryUpFrame.grid()
-        root.after(3000, window.removeMercenaryUpFrame)
+        self.mercenaryCallback = root.after(3000, window.removeMercenaryUpFrame)
 
     def removeMercenaryUpFrame(self, event=None):
         self.mercenaryUpFrame.grid_remove()
         
     def gridLootFrame(self):
+        if self.lootCallback:
+            root.after_cancel(self.lootCallback)
         self.lootFrame.grid()
-        root.after(2500, window.removeLootFrame)
+        self.lootCallback = root.after(2500, window.removeLootFrame)
 
     def removeLootFrame(self, event=None):
         self.lootFrame.grid_remove()
         
     def gridQuestFrame(self, phrase):
+        if self.questCallback:
+            root.after_cancel(self.questCallback)
         self.questLabel.config(text=phrase)
         self.questFrame.grid()
-        root.after(2500, window.removeQuestFrame)
+        self.questCallback = root.after(2500, window.removeQuestFrame)
 
     def removeQuestFrame(self, event=None):
         self.questFrame.grid_remove()
         
     def gridPowerUpFrame(self):
+        if self.powerUpCallback:
+            root.after_cancel(self.powerUpCallback)
         self.powerUpFrame.grid()
-        root.after(3500, window.removePowerUpFrame)
+        self.powerUpCallback = root.after(3500, window.removePowerUpFrame)
 
     def removePowerUpFrame(self, event=None):
         self.powerUpFrame.grid_remove()
         
     def gridnewSkillFrame(self, skillName):
+        if self.newSkillCallback:
+            root.after_cancel(self.newSkillCallback)
         self.newSkillLabelBottom.config(text="%s!" % skillName.upper())
         self.newSkillFrame.grid()
-        root.after(3000, window.removeNewSkillFrame)
+        self.newSkillCallback = root.after(3000, window.removeNewSkillFrame)
         
     def removeNewSkillFrame(self, event=None):
         self.newSkillFrame.grid_remove()
