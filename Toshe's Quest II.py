@@ -506,22 +506,23 @@ class TopLeftFrame:
         self.dropButton.grid(row=10, columnspan=3, sticky=E+W)
         self.dropButton.grid_remove()
         
-    def expandInventory(self):
+    def expandInventory(self, expand=True):
         for button in self.itemButtons:
             button.destroy()
-        self.itemButtons = makeItemButtons(self.itemButtonFrame, self.v1, 0, 4)
-        self.itemNameLabel.grid(columnspan=4)
-        self.itemCategoryLabel.grid(columnspan=4)
-        self.itemValueLabel.grid(columnspan=4)
-        self.itemRequirementLabel.grid(columnspan=4)
-        self.itemQualityLabel.grid(columnspan=4)
-        self.itemCBRateLabel.grid(columnspan=4)
-        self.itemElementLabel.grid(columnspan=4)
-        self.equipButton.grid(row=10, columnspan=4)
+        self.itemButtons = makeItemButtons(self.itemButtonFrame, self.v1, 0,
+            4 if expand else 3)
+        self.itemNameLabel.grid(columnspan=4 if expand else 3)
+        self.itemCategoryLabel.grid(columnspan=4 if expand else 3)
+        self.itemValueLabel.grid(columnspan=4 if expand else 3)
+        self.itemRequirementLabel.grid(columnspan=4 if expand else 3)
+        self.itemQualityLabel.grid(columnspan=4 if expand else 3)
+        self.itemCBRateLabel.grid(columnspan=4 if expand else 3)
+        self.itemElementLabel.grid(columnspan=4 if expand else 3)
+        self.equipButton.grid(row=10, columnspan=4 if expand else 3)
         self.equipButton.grid_remove()
-        self.dropButton.grid(row=10, columnspan=4)
+        self.dropButton.grid(row=10, columnspan=4 if expand else 3)
         self.dropButton.grid_remove()
-        self.sellButton.grid(row=10, columnspan=4)
+        self.sellButton.grid(row=10, columnspan=4 if expand else 3)
 
     def clickEquipButton(self):
         if main.view == "battle":
@@ -903,8 +904,6 @@ class TopCenterFrame:
             window.bottomFrame.bottomRightFrame.bindChoices()
             name = main.fileName
         main.loadGame(name)
-        if "Chasmic Rucksack" in main.character.flags:
-            window.topFrame.topLeftFrame.expandInventory()
         self.startGame(name)
         window.topFrame.topCenterFrame.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
         window.topFrame.topCenterFrame.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
@@ -961,6 +960,10 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spWord.grid_remove()
             window.topFrame.topLeftFrame.spLabel.grid_remove()
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
+
+        window.topFrame.topLeftFrame.expandInventory(
+            True if "Chasmic Rucksack" in main.character.flags else False)
+
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
         self.areaButton.bind_all("<Control-s>", lambda _: self.areaButton.invoke())
