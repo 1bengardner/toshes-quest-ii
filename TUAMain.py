@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: March 15, 2023
+Revised: March 16, 2023
 """
 
 
@@ -954,9 +954,12 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def attack(self):
         if self.character.equippedWeapon.CATEGORY == "Gun":
-            interfaceActions = self.battle.attack(self.skills['Shoot'])            
+            skill = self.skills['Shoot']
+        elif self.character.specialization == "Weird Warlock" and self.roll(10) == 1:
+            skill = random.choice([skill for skill in self.skills.itervalues() if "Wand" in skill.permittedWeapons])
         else:
-            interfaceActions = self.battle.attack(self.skills['Attack'])
+            skill = self.skills['Attack']
+        interfaceActions = self.battle.attack(skill)
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
     
