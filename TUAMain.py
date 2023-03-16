@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: March 12, 2023
+Revised: March 15, 2023
 """
 
 
@@ -92,7 +92,6 @@ class Main:
         self.enemies = {}
         self.mercenaries = {}
         self.allQuests = []
-        self.completedQuests = set()
         weaponModifiers = {
                 1: [
                     'Big',
@@ -252,6 +251,7 @@ class Main:
         self.x = self.character.x
         self.y = self.character.y
         self.initializeDefaultBattle()
+        self.completedQuests = set()
         self.initializeQuests()
 
     def saveLocation(self):
@@ -1104,9 +1104,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             self.checkForReadyQuests(character.quests, character)
             self.removeFinishedQuests(quests, character.flags)
 
-        self.availableQuests = []
-        for quest in self.allQuests:
-            self.availableQuests.append(quest)
+        self.availableQuests = [quest for quest in self.allQuests]
         syncWithCharacter(self.availableQuests, self.character)
 
     def addFlags(self):
