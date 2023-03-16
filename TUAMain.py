@@ -213,6 +213,7 @@ class Main:
         self.character.checkpoint.flags['Marked Areas'] = self.character.flags['Marked Areas']
         self.character.checkpoint.flags['Config'] = self.character.flags['Config']
         self.character = self.character.checkpoint
+        self.character.checkpoint = None
         self.character.checkpoint = deepcopy(self.character)
         self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
