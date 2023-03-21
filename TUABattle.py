@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: March 12, 2023
+Revised: March 20, 2023
 """
 
 
@@ -478,6 +478,10 @@ class Battle(object):
                 elif healing is not None:
                     self.text += (attacker.NAME+" "+skill.TEXT+
                                   ", healing "+str(int(healing))+" HP.\n")
+                elif skill.CATEGORY == "Lock On":
+                        self.text += (attacker.NAME+" "+skill.TEXT+" "+
+                                      defender.NAME+".\n")
+
                 else:
                     self.text += (attacker.NAME+" "+skill.TEXT+".\n")
 
@@ -754,11 +758,11 @@ class Battle(object):
         return self.roll(1000) <= attacker.cRate*10
         
     def doAdditionalActions(self, skill, attacker, defender):
-        if skill.CATEGORY == "Locked-On Damage":
+        if skill.CATEGORY == "Lock On":
             attacker.homingTarget = defender
         elif defender.NAME == "Riplin" and defender.hp <= defender.maxHp/4 and not hasattr(defender, "finalForm"):
             defender.defence = 0
-            defender.cRate *= 5
+            defender.cRate *= 10
             defender.finalForm = True
             self.text += ("Riplin sheds his armour!\nRiplin's defence fell to %s.\nRiplin's critical chance rose to %i%%.\n" % (defender.defence, int(defender.cRate)))
             self.sounds.append({
@@ -943,6 +947,8 @@ class Battle(object):
             flags.remove("Homing")
             flags.add("Homing Active")
             flags.add("Recovering")
+            if "Recovering Active" in flags:
+                flags.remove("Recovering Active")
 
         if "Escaping 2" in flags and False not in [
             flag not in flags for flag in [
@@ -987,13 +993,15 @@ class Battle(object):
         if "Winding Up" in flags:
             flags.remove("Winding Up")
             flags.add("Winding Up Active")
-        
+
         if "Bloody Socket Active" in flags:
             flags.remove("Bloody Socket Active")
         if "Bloody Socket" in flags:
             flags.remove("Bloody Socket")
             flags.add("Bloody Socket Active")
             flags.add("Recovering")
+            if "Recovering Active" in flags:
+                flags.remove("Recovering Active")
 
         if "Sleeping 3" in flags:
             self.text += target.NAME+" woke up.\n"

@@ -128,7 +128,7 @@ Water Affinity	Miscellaneous	{"All"}	0	0	Physical	{'waterReduction': 50}	{}	cast
 Fire Affinity	Miscellaneous	{"All"}	0	0	Physical	{'fireReduction': 50}	{}	casts Fire Affinity	Fire Affinity
 Grow Heads	Miscellaneous	{"All"}	0	0	Physical	{'maxHp': 20000, 'hp': 20000, 'accuracy': 8}	{}	grows two more heads	Recovering
 Poisonbreath	Reduced Accuracy Damage	{"All"}	0	300	Poison	{}	{'defence': -3}	breathes poisonous gas onto	None
-Home In	Locked-On Damage	{"All"}	0	0	Physical	{'accuracy': 90, 'cRate': 90}	{}	homes in on	Homing
+Home In	Lock On	{"All"}	0	0	Physical	{'accuracy': 90, 'cRate': 90}	{}	homes in on	Homing
 Nimble Feet	Miscellaneous	{"All"}	0	0	Physical	{}	{}	bolts away	Escaping
 Golden Fur	Miscellaneous	{"All"}	0	0	Physical	{'bRate': 75, 'accuracy': 1}	{}	grows a coat of gold fur	Golden Fur
 Soul Siphon	Damage	{"All"}	0	0	Physical	{}	{'ep': -300}	siphons energy from	Recovering
@@ -158,4 +158,4 @@ Cower	Miscellaneous	{"All"}	0	0	Physical	{}	{}	cowers in fear	None
 Shoot	Damage	{"Gun"}	0	100	Physical	{}	{}	shoots	None
 Intimidate	Damage	{"All"}	0	0	Petrification	{}	{}	intimidates	None
 Add Speckle	Miscellaneous	{"Sword"}	0	0	Physical	{'damage': 2}	{}	adds a speckle of augmentation to his greatsword	None
-Bloody Socket	Damage	{"All"}	0	0	Physical	{}	{}	casts Bloody Socket on	Bloody Socket
+Bloody Socket	Miscellaneous	{"All"}	0	0	Physical	{}	{}	casts Bloody Socket	Bloody Socket
