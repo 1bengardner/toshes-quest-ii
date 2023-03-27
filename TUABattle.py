@@ -481,13 +481,11 @@ class Battle(object):
                 elif skill.CATEGORY == "Lock On":
                         self.text += (attacker.NAME+" "+skill.TEXT+" "+
                                       defender.NAME+".\n")
-
                 else:
                     self.text += (attacker.NAME+" "+skill.TEXT+".\n")
 
                 if ( hasattr(attacker, "specialization") and
                      attacker.specialization == "Soul Sniper" and
-                     not (miss or blocked or parried) and
                      damage and
                      int(damage) > 0 and
                      critical):
@@ -503,7 +501,6 @@ class Battle(object):
                                   % attacker.NAME)
                 if ( hasattr(defender, "specialization") and
                      defender.specialization == "Son of Centaur" and
-                     not (miss or blocked or parried) and
                      damage and
                      int(damage) > 0 and
                      (self.roll() <= 5 or critical and self.roll() <= 5)):
@@ -514,14 +511,12 @@ class Battle(object):
                                   % defender.NAME)
                 if ( hasattr(attacker, "specialization") and
                      attacker.specialization == "Sandman" and
-                     skill.NAME == "Attack" and
-                     not (miss or blocked or parried)):
+                     skill.NAME == "Attack"):
                     defender.accuracy *= 0.9
                     self.text += ("%s got sand in %s's eye.\n"
                                   % (attacker.NAME, defender.NAME))
                 if ( hasattr(attacker, "specialization") and
                      attacker.specialization == "Spirit Seer" and
-                     not (miss or blocked or parried) and
                      self.roll() <= 20):
                     attacker.ep += 20
                     self.text += ("Spiritual strike! %s restored 20 EP.\n"
