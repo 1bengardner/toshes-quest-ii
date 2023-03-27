@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: March 20, 2023
+Revised: March 27, 2023
 """
 
 
@@ -511,7 +511,8 @@ class Battle(object):
                                   % defender.NAME)
                 if ( hasattr(attacker, "specialization") and
                      attacker.specialization == "Sandman" and
-                     skill.NAME == "Attack"):
+                     skill.NAME == "Attack" and
+                     self.roll() <= 50):
                     defender.accuracy *= 0.9
                     self.text += ("%s got sand in %s's eye.\n"
                                   % (attacker.NAME, defender.NAME))
