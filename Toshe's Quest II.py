@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 16, 2023
+Revised: March 26, 2023
 """
 
 
@@ -1360,7 +1360,7 @@ Game over? Don't fret. You can now """)
               (c.cDamage / 100. - 1) + 1))
             )
         self.wisdomValueButton['text'] = c.wisdom
-        if c.accuracy > 100:
+        if c.accuracy > 100 and c.specialization != "Swift Sharpshooter":
             self.accuracyValueLabel['text'] = "100%"
         else:
             self.accuracyValueLabel['text'] = str(c.accuracy) + "%"
