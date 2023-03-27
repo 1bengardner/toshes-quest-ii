@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: March 12, 2023
+Revised: March 26, 2023
 """
 
 
@@ -108,18 +108,18 @@ class Character(object):
             self.damage = self.dexterity * power / 10
         elif self.equippedWeapon.REQUIREMENT_TYPE == "Wisdom":
             self.damage = self.wisdom * power / 10
+        cRate = self.equippedWeapon.C_RATE
         cDamage = self.equippedWeapon.C_DAMAGE
         accuracy = self.equippedWeapon.ACCURACY
-        cRate = self.equippedWeapon.C_RATE
-        if self.specialization == "Critical Caster":
-            cDamage *= 1 + 0.03 * (self.mastery - 1)
-            accuracy = 0
-            cRate = 100
-        self.cDamage = int(cDamage * self.baseCDamage)
-        self.accuracy = int(accuracy + self.baseAccuracy)
         if self.specialization == "Adrenal Avenger":
             cRate *= 1 + 0.03 * (self.mastery - 1)
         self.cRate = round(cRate * self.baseCRate, 1)
+        if self.specialization == "Critical Caster":
+            cDamage *= 1 + 0.03 * (self.mastery - 1)
+            accuracy = 0
+            self.cRate = 100
+        self.cDamage = int(cDamage * self.baseCDamage)
+        self.accuracy = int(accuracy + self.baseAccuracy)
         bRate = self.equippedShield.B_RATE
         if self.specialization == "Defender":
             bRate *= 1 + 0.03 * (self.mastery - 1)
