@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: March 16, 2023
+Revised: March 26, 2023
 """
 
 
@@ -953,13 +953,17 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return random.randint(1, numberOfSides)
 
     def attack(self):
+        weirdWarlockCast = False
         if self.character.equippedWeapon.CATEGORY == "Gun":
             skill = self.skills['Shoot']
-        elif self.character.specialization == "Weird Warlock" and self.roll(10) == 1:
-            skill = random.choice([skill for skill in self.skills.itervalues() if "Wand" in skill.permittedWeapons])
+        elif self.character.specialization == "Weird Warlock" and self.character.equippedWeapon.CATEGORY in set(["Bow", "Wand"]) and self.roll(10) == 1:
+            weirdWarlockCast = True
+            skill = random.choice([skill for skill in self.skills.itervalues() if set([self.character.equippedWeapon.CATEGORY]) == skill.PERMITTED_WEAPONS])
         else:
             skill = self.skills['Attack']
         interfaceActions = self.battle.attack(skill)
+        if weirdWarlockCast:
+            self.character.ep += skill.EP_USED
         self.updateBattleVariables(interfaceActions)
         return interfaceActions
     
