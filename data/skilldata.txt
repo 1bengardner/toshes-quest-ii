@@ -96,7 +96,7 @@ Bite	Life Steal Damage	{"All"}	0	50	Physical	{}	{}	bites	None
 Catch Breath	Miscellaneous	{"All"}	0	0	Physical	{}	{}	takes a time-out to catch his breath	None
 Fling Dung	Damage	{"All"}	0	50	Poison	{}	{}	flings dung at	None
 Thorns	Damage	{"All"}	0	150	Earth	{}	{}	summons thorns to attack	None
-Poison Ivy	Damage	{"Wand"}	30	0	Poison	{}	{}	summons poison ivy	None
+Poison Ivy	Miscellaneous	{"Wand"}	30	0	Poison	{}	{}	summons poison ivy	None
 Fall Down	Miscellaneous	{"All"}	0	0	Physical	{'defence': 10}	{}	fall down	None
 Fire Claw	Damage	{"All"}	0	100	Fire	{}	{}	rakes a flaming claw through	None
 Soul Drain	Damage	{"All"}	0	150	Electricity	{'hp': 20}	{'ep': -20}	drains the soul of	None
