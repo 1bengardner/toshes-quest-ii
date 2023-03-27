@@ -1056,7 +1056,7 @@ Find your way around with the new """)
 Are you thirsty? Quench that desire with a """)
         newsContent.insert(END, "potion", ("emphasis"))
         newsContent.insert(END,
-""", and heal 50 HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
+""", and heal some HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
 
 It's 2022 and people's screens are getting wider...that means it's time for a """)
         newsContent.insert(END, "Mission Log", ("emphasis"))
@@ -1068,7 +1068,7 @@ Zounds, we have """)
         newsContent.insert(END,
 """! You can now toggle sound effects, as well as music.
 
-Game over? Forget to save? Save in the wrong place? Don't fret. You can now """)
+Game over? Don't fret. You can now """)
         newsContent.insert(END, "resume from town", ("emphasis"))
         newsContent.insert(END,
 """.""")
@@ -2665,7 +2665,7 @@ BLACK = "#000000"
 BLUE = "#0093DC"
 GREY = "#888888"
 LIGHTCYAN = "#7bb4b9"
-YELLOW = "#d5ab00"
+YELLOW = "#daa520"
 WHITE = "#f4f4f4"
 NAVY = "#000050"
 PURPLE = "#26065c"
