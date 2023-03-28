@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 26, 2023
+Revised: March 27, 2023
 """
 
 
@@ -524,6 +524,67 @@ class TopLeftFrame:
         self.dropButton.grid(row=10, columnspan=3, sticky=E+W)
         self.dropButton.grid_remove()
         
+        self.hitBoxes = []
+
+    def createHitBox(self, kind="Miss", number=0, critical=False):
+        def raiseHitBox(hitBox, height, motion):
+            hitLabelMaxHeight = 32
+            hitLabel.grid(pady=(height if motion == "Down" else 0,
+                                height if motion == "Up" else 0))
+            if height > self.tosheLabel.winfo_height() - hitLabelMaxHeight:
+                self.hitBoxes.remove(hitLabel)
+                hitLabel.destroy()
+            else:
+                frameCount = 50.
+                frameDuration = 20
+                if motion == "Down":
+                    delta = self.tosheLabel.winfo_height() / frameCount
+                elif motion == "Up":
+                    delta = (self.tosheLabel.winfo_height() - height) / frameCount * 2
+                hitLabel.next = root.after(frameDuration,
+                    lambda: raiseHitBox(hitBox, height + delta, motion))
+        fgs = {
+            "Damage": DAMAGE_BOX_FG,
+            "Heal": DAMAGE_BOX_FG,
+            "Earth": EARTH_COLOR,
+            "Water": WATER_COLOR,
+            "Fire": FIRE_COLOR,
+            "Frostfire": ENIGMATIC_COLOR,
+            "Miss": BROWN,
+            "Block": DAMAGE_BOX_FG,
+            "Parry": DAMAGE_BOX_FG,
+        }
+        bgs = {
+            "Damage": DAMAGE_BOX_BG,
+            "Heal": HEAL_BOX_BG,
+            "Earth": DAMAGE_BOX_BG,
+            "Water": DAMAGE_BOX_BG,
+            "Fire": DAMAGE_BOX_BG,
+            "Frostfire": DAMAGE_BOX_BG,
+            "Miss": DEFAULT_BG,
+            "Block": GREY,
+            "Parry": GREY,
+        }
+        hitLabel = Label(self.vitalStats,
+                         text = ("%s!" % kind) if kind in [
+                            "Miss", "Block", "Parry"] else number,
+                         font=font8 if critical else lightFont8,
+                         fg=fgs[kind],
+                         bg=bgs[kind],
+                         relief=RIDGE,
+                         padx=2)
+        hitLabelMaxWidth = 64
+        pad = random.randint(0, self.tosheLabel.winfo_width() - hitLabelMaxWidth)
+        if random.randrange(100) < 50:
+            padx = (pad, 0)
+        else:
+            padx = (0, pad)
+        hitLabel.grid(row=5, columnspan=2, padx=padx)
+        raiseHitBox(hitLabel,
+                    0,
+                    "Down" if kind in ["Miss", "Block", "Parry"] else "Up")
+        self.hitBoxes.append(hitLabel)
+
     def expandInventory(self, expand=True):
         for button in self.itemButtons:
             button.destroy()
@@ -2659,6 +2720,7 @@ DARKBEIGE = "#d1c29d"
 BROWN = "#704F16"
 LIGHTBEIGE = "#f4ead2"
 RED = "#90000d"
+GREEN = "#009037"
 LIGHTRED = "#d31524"
 CYAN = "#24828b"
 BLACK = "#000000"
@@ -2673,8 +2735,8 @@ MAGENTA = "#de6ef1"
 LIGHTPURPLE = "#958aa9"
 ORANGE = "#f8b681"
 DARKORANGE = "#a33c00"
-EARTH_COLOR = "#b0ca90"
-WATER_COLOR = "#b0cbc7"
+EARTH_COLOR = "#b5e080"
+WATER_COLOR = "#a7d3e8"
 FIRE_COLOR = "#e6ba90"
 ENIGMATIC_COLOR = "#e2afc9"
 
@@ -2699,6 +2761,9 @@ SKILL_FG = DARKORANGE
 COMMON_BD = BROWN
 RARE_BD = YELLOW
 LEGENDARY_BD = ORANGE
+DAMAGE_BOX_FG = WHITE
+DAMAGE_BOX_BG = RED
+HEAL_BOX_BG = GREEN
 
 root = Tk()
 
@@ -2715,6 +2780,7 @@ font5 = tkFont.Font(family="Garamond", size=80, weight="bold")
 font6 = tkFont.Font(family="Garamond", size=18)
 font7 = tkFont.Font(family="Garamond", size=66, weight="bold")
 font8 = tkFont.Font(family="Garamond", size=16, weight="bold")
+lightFont8 = tkFont.Font(family="Garamond", size=16)
 
 welcomeImage = PhotoImage(file="images\\other\\turtle.gif")
 tosheImage = PhotoImage(file="images\\other\\toshe.gif")
