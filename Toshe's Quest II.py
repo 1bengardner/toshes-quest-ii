@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 27, 2023
+Revised: March 28, 2023
 """
 
 
@@ -529,17 +529,20 @@ class TopLeftFrame:
     def createHitBox(self, kind="Miss", number=0, critical=False):
         def raiseHitBox(hitBox, height, motion):
             hitLabelMaxHeight = 32
-            hitLabel.grid(pady=(height if motion == "Down" else 0,
-                                height if motion == "Up" else 0))
+            hitLabel.grid(pady=(height if motion[0] == "D" else 0,
+                                height if motion[0] == "U" else 0))
             if height > self.tosheLabel.winfo_height() - hitLabelMaxHeight:
                 self.hitBoxes.remove(hitLabel)
                 hitLabel.destroy()
             else:
                 frameCount = 50.
                 frameDuration = 20
-                if motion == "Down":
+                if "Linear" in motion:
                     delta = self.tosheLabel.winfo_height() / frameCount
-                elif motion == "Up":
+                    if delta >= 1:
+                        # Smooth motion
+                        delta = int(delta)
+                elif "Ease" in motion:
                     delta = (self.tosheLabel.winfo_height() - height) / frameCount * 2
                 hitLabel.next = root.after(frameDuration,
                     lambda: raiseHitBox(hitBox, height + delta, motion))
@@ -550,9 +553,18 @@ class TopLeftFrame:
             "Water": WATER_COLOR,
             "Fire": FIRE_COLOR,
             "Frostfire": ENIGMATIC_COLOR,
-            "Miss": BROWN,
+            "Miss": DAMAGE_BOX_BG,
             "Block": DAMAGE_BOX_FG,
             "Parry": DAMAGE_BOX_FG,
+
+            "Grounded": BLACK,
+            "Poisoned": BLACK,
+            "Paralyzed": BLACK,
+            "Drowned": BLACK,
+            "Frozen": BLACK,
+            "Petrified": BLACK,
+            "Sundered": BLACK,
+            "Burning": BLACK,
         }
         bgs = {
             "Damage": DAMAGE_BOX_BG,
@@ -561,16 +573,42 @@ class TopLeftFrame:
             "Water": DAMAGE_BOX_BG,
             "Fire": DAMAGE_BOX_BG,
             "Frostfire": DAMAGE_BOX_BG,
-            "Miss": DEFAULT_BG,
+            "Miss": WHITE,
             "Block": GREY,
             "Parry": GREY,
+
+            "Grounded": EARTH_COLOR,
+            "Poisoned": POISON_COLOR,
+            "Paralyzed": LIGHTNING_COLOR,
+            "Drowned": WATER_COLOR,
+            "Frozen": ICE_COLOR,
+            "Petrified": PETRIFICATION_COLOR,
+            "Sundered": SUNDERED_BG,
+            "Burning": FIRE_COLOR,
         }
+        misses = set([
+            "Miss",
+            "Block",
+            "Parry",
+        ])
+        ailments = set([
+            "Grounded",
+            "Poisoned",
+            "Paralyzed",
+            "Drowned",
+            "Frozen",
+            "Petrified",
+            "Sundered",
+            "Burning",
+        ])
         hitLabel = Label(self.vitalStats,
-                         text = ("%s!" % kind) if kind in [
-                            "Miss", "Block", "Parry"] else number,
+                         text = ("%s!" % kind) if kind in
+                            misses | ailments else number,
                          font=font8 if critical else lightFont8,
                          fg=fgs[kind],
-                         bg=bgs[kind],
+                         bg=bgs[kind]
+                            if number or kind in misses | ailments
+                            else GREY,
                          relief=RIDGE,
                          padx=2)
         hitLabelMaxWidth = 64
@@ -580,9 +618,12 @@ class TopLeftFrame:
         else:
             padx = (0, pad)
         hitLabel.grid(row=5, columnspan=2, padx=padx)
-        raiseHitBox(hitLabel,
-                    0,
-                    "Down" if kind in ["Miss", "Block", "Parry"] else "Up")
+        motion = "Up/Ease"
+        if kind in misses:
+            motion = "Down/Linear"
+        elif kind in ailments:
+            motion = "Up/Linear"
+        raiseHitBox(hitLabel, 0, motion)
         self.hitBoxes.append(hitLabel)
 
     def expandInventory(self, expand=True):
@@ -2739,6 +2780,10 @@ EARTH_COLOR = "#b5e080"
 WATER_COLOR = "#a7d3e8"
 FIRE_COLOR = "#e6ba90"
 ENIGMATIC_COLOR = "#e2afc9"
+POISON_COLOR = "#ddfaac"
+LIGHTNING_COLOR = "#f2f2aa"
+ICE_COLOR = "#c0f0f0"
+PETRIFICATION_COLOR = "#ded4ca"
 
 DEFAULT_BG = BEIGE
 BUTTON_BG = DARKBEIGE
@@ -2764,6 +2809,7 @@ LEGENDARY_BD = ORANGE
 DAMAGE_BOX_FG = WHITE
 DAMAGE_BOX_BG = RED
 HEAL_BOX_BG = GREEN
+SUNDERED_BG = DARKBEIGE
 
 root = Tk()
 
