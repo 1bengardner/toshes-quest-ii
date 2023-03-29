@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: March 27, 2023
+Revised: March 28, 2023
 """
 
 
@@ -23,8 +23,9 @@ class Battle(object):
         self.DEFEND_BLOCK_VALUE = 25
         self.PROTECTOR_BLOCK_VALUE = 5
         self.view = "battle"
-        self.sounds = []
         self.text = ""
+        self.sounds = []
+        self.hits = []
         self.mainCharacter = character
         self.auxiliaryCharacters = [
             c for c in auxiliaryCharacters if not c.isDead()]
@@ -123,15 +124,17 @@ class Battle(object):
     def actions(self, newActions=None):
         actions = {'view': self.view,
                    'text': "\n"+self.text.strip(),
-                   'sounds': self.sounds}
+                   'sounds': self.sounds,
+                   'hits': self.hits,}
         if newActions:
             actions.update(newActions)
         return actions
 
     def attack(self, skill, successfulTurnCallback=lambda: None):
         """Make Toshe attack the enemy with a specified skill."""
-        self.sounds = []
         self.text = ""
+        self.sounds = []
+        self.hits = []
         if self.mainCharacter.equippedWeapon.CATEGORY not in\
            skill.PERMITTED_WEAPONS:
             self.text += "You cannot use this skill with your equipped weapon!"
@@ -159,8 +162,9 @@ class Battle(object):
 
         If he is unsuccessful at fleeing, the battle will continue and the enemy
         will attack."""
-        self.sounds = []
         self.text = ""
+        self.sounds = []
+        self.hits = []
         if not self.enemy.FLEEABLE:
             self.text += "There's nowhere to run."
 
@@ -244,6 +248,8 @@ class Battle(object):
             blocked = False
             critical = False
             parried = False
+            
+            damageElement = "Physical"
 
             # Set damage and healing based on skill category
             if skill.CATEGORY == "Accurate Damage":
@@ -333,6 +339,7 @@ class Battle(object):
                      attacker.equippedWeapon.ELEMENT == "Earth" and
                      skill.ELEMENT == "Physical")):
                     damage *= (100-defender.earthReduction) / 100.
+                    damageElement = "Earth"
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Stone Sage"):
                         damage *= 1.5
@@ -343,6 +350,7 @@ class Battle(object):
                        attacker.equippedWeapon.ELEMENT == "Water" and
                        skill.ELEMENT == "Physical")):
                     damage *= (100-defender.waterReduction) / 100.
+                    damageElement = "Water"
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Snow Sorcerer"):
                         damage *= 1.5
@@ -354,6 +362,7 @@ class Battle(object):
                        attacker.specialization == "Flame Knight" and
                        skill.NAME == "Attack")):
                     damage *= (100-defender.fireReduction) / 100.
+                    damageElement = "Fire"
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Blaze Mage"):
                         damage *= 1.5
@@ -365,6 +374,7 @@ class Battle(object):
                         / 100.)
                         + max(0, damage/2. * (100-defender.waterReduction)
                         / 100.))
+                    damageElement = "Frostfire"
                     if ( hasattr(attacker, "specialization") and
                          (attacker.specialization == "Blaze Mage" or
                           attacker.specialization == "Snow Sorcerer")):
@@ -424,20 +434,44 @@ class Battle(object):
                     defender.xp -= int(damage)
                 else:
                     defender.hp -= int(damage)
+                    self.hits.append({
+                        "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                        "Kind": damageElement,
+                        "Number": int(damage),
+                        "Critical": critical,
+                        "Aux": attacker in self.auxiliaryCharacters,
+                    })
             if not (miss or blocked or parried) and healing is not None:
                 attacker.hp += int(healing)
+                self.hits.append({
+                    "Target": "Enemy" if attacker is self.enemy else attacker.NAME,
+                    "Kind": "Heal",
+                    "Number": int(healing),
+                    "Critical": critical,
+                    "Aux": attacker in self.auxiliaryCharacters,
+                })
             if not (miss or blocked or parried):
                 attackerFlags.add(skill.FLAG)
 
             # Add text corresponding to attack
             if miss:
                 self.text += attacker.NAME+" missed!\n"
+                self.hits.append({
+                    "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                    "Kind": "Miss",
+                    "Aux": attacker in self.auxiliaryCharacters,
+                })
             elif blocked or parried:
                 self.text += ("%s was %s by %s!\n" % (
                     attacker.NAME,
                     "parried" if parried else "blocked",
                     defender.NAME))
                 if "Defending Active" in defenderFlags and defender == self.mainCharacter:
+                    self.hits.append({
+                        "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                        "Kind": "Boost",
+                        "Aux": attacker in self.auxiliaryCharacters,
+                    })
                     boost = 1 + int(damage ** 0.5 * 9)
                     if ( hasattr(defender, "specialization") and
                          defender.specialization == "Guardian"):
@@ -451,6 +485,12 @@ class Battle(object):
                         self.text += ("Adrenaline rush! %s gained a %s EP" +
                                       " boost from blocking.\n") % (
                                       defender.NAME, boost)
+                else:
+                    self.hits.append({
+                        "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                        "Kind": "Parry" if parried else "Block",
+                        "Aux": attacker in self.auxiliaryCharacters,
+                    })
             else:
                 if critical:
                     if damage:
@@ -572,6 +612,10 @@ class Battle(object):
                             self.sounds.append({
                                 "Name": "Grounded",
                                 "Panning": self.getPanning(defender)})
+                            self.hits.append({
+                                "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                                "Kind": "Grounded",
+                                "Aux": attacker in self.auxiliaryCharacters,})
                 elif (skill.ELEMENT == "Poison" and
                       "Poisoned" not in defenderFlags and
                       defender.LIVING):
@@ -581,6 +625,10 @@ class Battle(object):
                         self.sounds.append({
                             "Name": "Poisoned",
                             "Panning": self.getPanning(defender)})
+                        self.hits.append({
+                            "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                            "Kind": "Poisoned",
+                            "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Electricity" and ("Paralyzed" not in
                                                          defenderFlags):
                     if self.roll() <= 20:
@@ -590,6 +638,10 @@ class Battle(object):
                             self.sounds.append({
                                 "Name": "Paralyzed",
                                 "Panning": self.getPanning(defender)})
+                            self.hits.append({
+                                "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                                "Kind": "Paralyzed",
+                                "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Water":
                     if self.roll() <= 50 and damage >= defender.maxHp/2:
                         self.text += defender.NAME+" drowned!\n"
@@ -598,17 +650,14 @@ class Battle(object):
                             self.sounds.append({
                                 "Name": "Drowned",
                                 "Panning": self.getPanning(defender)})
-                elif skill.ELEMENT == "Freezing":
-                    self.text += defender.NAME+" was frozen!\n"
-                    defenderFlags.add("Frozen")
-                    defenderFlags.discard("Burning")
-                    if defender in (self.mainCharacter, self.enemy):
-                        self.sounds.append({
-                            "Name": "Frozen",
-                            "Panning": self.getPanning(defender)})
-                elif ((skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
-                      and ("Frozen" not in defenderFlags)):
-                    if self.roll() <= 15:
+                            self.hits.append({
+                                "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                                "Kind": "Drowned",
+                                "Aux": attacker in self.auxiliaryCharacters,})
+                elif skill.ELEMENT == "Freezing" or (
+                     (skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
+                      and ("Frozen" not in defenderFlags)
+                      and self.roll() <= 15):
                         self.text += defender.NAME+" was frozen!\n"
                         defenderFlags.add("Frozen")
                         defenderFlags.discard("Burning")
@@ -616,6 +665,10 @@ class Battle(object):
                             self.sounds.append({
                                 "Name": "Frozen",
                                 "Panning": self.getPanning(defender)})
+                            self.hits.append({
+                                "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                                "Kind": "Frozen",
+                                "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Petrification" and ("Petrified" not in
                                                            defenderFlags):
                     self.text += defender.NAME+" turned to stone!\n"
@@ -626,9 +679,17 @@ class Battle(object):
                         self.sounds.append({
                             "Name": "Petrified",
                             "Panning": self.getPanning(defender)})
+                        self.hits.append({
+                            "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                            "Kind": "Petrified",
+                            "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Sunder" and ("Sundered" not in
                                                     defenderFlags):
                     defenderFlags.add("Sundered")
+                    self.hits.append({
+                        "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                        "Kind": "Sundered",
+                        "Aux": attacker in self.auxiliaryCharacters,})
                 elif ((skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
                       and ("Burning" not in defenderFlags)):
                     if self.roll() <= 25:
@@ -640,6 +701,10 @@ class Battle(object):
                             self.sounds.append({
                                 "Name": "Burning",
                                 "Panning": self.getPanning(defender)})
+                            self.hits.append({
+                                "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                                "Kind": "Burning",
+                                "Aux": attacker in self.auxiliaryCharacters,})
 
             # Make sounds
             if skill.NAME == "Defend" and attacker == self.mainCharacter:

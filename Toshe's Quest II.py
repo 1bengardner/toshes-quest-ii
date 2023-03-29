@@ -523,108 +523,6 @@ class TopLeftFrame:
                                  command=self.clickDropButton)
         self.dropButton.grid(row=10, columnspan=3, sticky=E+W)
         self.dropButton.grid_remove()
-        
-        self.hitBoxes = []
-
-    def createHitBox(self, kind="Miss", number=0, critical=False):
-        def raiseHitBox(hitBox, height, motion):
-            hitLabelMaxHeight = 32
-            hitLabel.grid(pady=(height if motion[0] == "D" else 0,
-                                height if motion[0] == "U" else 0))
-            if height > self.tosheLabel.winfo_height() - hitLabelMaxHeight:
-                self.hitBoxes.remove(hitLabel)
-                hitLabel.destroy()
-            else:
-                frameCount = 50.
-                frameDuration = 20
-                if "Linear" in motion:
-                    delta = self.tosheLabel.winfo_height() / frameCount
-                    if delta >= 1:
-                        # Smooth motion
-                        delta = int(delta)
-                elif "Ease" in motion:
-                    delta = (self.tosheLabel.winfo_height() - height) / frameCount * 2
-                hitLabel.next = root.after(frameDuration,
-                    lambda: raiseHitBox(hitBox, height + delta, motion))
-        fgs = {
-            "Damage": DAMAGE_BOX_FG,
-            "Heal": DAMAGE_BOX_FG,
-            "Earth": EARTH_COLOR,
-            "Water": WATER_COLOR,
-            "Fire": FIRE_COLOR,
-            "Frostfire": ENIGMATIC_COLOR,
-            "Miss": DAMAGE_BOX_BG,
-            "Block": DAMAGE_BOX_FG,
-            "Parry": DAMAGE_BOX_FG,
-
-            "Grounded": BLACK,
-            "Poisoned": BLACK,
-            "Paralyzed": BLACK,
-            "Drowned": BLACK,
-            "Frozen": BLACK,
-            "Petrified": BLACK,
-            "Sundered": BLACK,
-            "Burning": BLACK,
-        }
-        bgs = {
-            "Damage": DAMAGE_BOX_BG,
-            "Heal": HEAL_BOX_BG,
-            "Earth": DAMAGE_BOX_BG,
-            "Water": DAMAGE_BOX_BG,
-            "Fire": DAMAGE_BOX_BG,
-            "Frostfire": DAMAGE_BOX_BG,
-            "Miss": WHITE,
-            "Block": GREY,
-            "Parry": GREY,
-
-            "Grounded": EARTH_COLOR,
-            "Poisoned": POISON_COLOR,
-            "Paralyzed": LIGHTNING_COLOR,
-            "Drowned": WATER_COLOR,
-            "Frozen": ICE_COLOR,
-            "Petrified": PETRIFICATION_COLOR,
-            "Sundered": SUNDERED_BG,
-            "Burning": FIRE_COLOR,
-        }
-        misses = set([
-            "Miss",
-            "Block",
-            "Parry",
-        ])
-        ailments = set([
-            "Grounded",
-            "Poisoned",
-            "Paralyzed",
-            "Drowned",
-            "Frozen",
-            "Petrified",
-            "Sundered",
-            "Burning",
-        ])
-        hitLabel = Label(self.vitalStats,
-                         text = ("%s!" % kind) if kind in
-                            misses | ailments else number,
-                         font=font8 if critical else lightFont8,
-                         fg=fgs[kind],
-                         bg=bgs[kind]
-                            if number or kind in misses | ailments
-                            else GREY,
-                         relief=RIDGE,
-                         padx=2)
-        hitLabelMaxWidth = 64
-        pad = random.randint(0, self.tosheLabel.winfo_width() - hitLabelMaxWidth)
-        if random.randrange(100) < 50:
-            padx = (pad, 0)
-        else:
-            padx = (0, pad)
-        hitLabel.grid(row=5, columnspan=2, padx=padx)
-        motion = "Up/Ease"
-        if kind in misses:
-            motion = "Down/Linear"
-        elif kind in ailments:
-            motion = "Up/Linear"
-        raiseHitBox(hitLabel, 0, motion)
-        self.hitBoxes.append(hitLabel)
 
     def expandInventory(self, expand=True):
         for button in self.itemButtons:
@@ -2173,7 +2071,10 @@ def updateInterface(updates):
     actions is a dictionary that may contain updates to the textbox, menu,
     center image, or current view.
     """
-        
+
+    global hitBoxes
+    global hitBoxTriggers
+
     bottomRightFrame = window.bottomFrame.bottomRightFrame
     topRightFrame = window.topFrame.topRightFrame
     topCenterFrame = window.topFrame.topCenterFrame
@@ -2292,6 +2193,40 @@ def updateInterface(updates):
          topCenterFrame.showMap.get() and
          'game over' != updates['view']):
         topCenterFrame.updateMap()
+    if ('hits' in updates):
+        def createDelayedHitBox(delay, hit):
+            if hit['Target'] == "Toshe":
+                parent = window.topFrame.topLeftFrame.vitalStats
+                boundaryWidget = window.topFrame.topLeftFrame.tosheLabel
+            elif hit['Target'] == "Enemy":
+                parent = window.topFrame.topRightFrame.enemyStats
+                boundaryWidget = window.topFrame.topRightFrame.enemyImageLabel
+            number = hit['Number'] if "Number" in hit else None
+            critical = hit['Critical'] if "Critical" in hit else False
+            hitBoxTriggers.append(
+                root.after(
+                    delay,
+                    lambda: hitBoxes.append(
+                        createHitBox(parent,
+                            boundaryWidget,
+                            hit['Kind'],
+                            number,
+                            critical,
+                            hit['Aux']))))
+        tosheHits = filter(lambda hit: hit['Target'] == "Toshe", updates['hits'])
+        enemyHits = filter(lambda hit: hit['Target'] == "Enemy", updates['hits'])
+        for hits in [tosheHits, enemyHits]:
+            for i, hit in enumerate(hits):
+                createDelayedHitBox(i * 125, hit)
+    elif updates['view'] != "battle":
+        for box in hitBoxes:
+            if box.next:
+                root.after_cancel(box.next)
+            box.destroy()
+        hitBoxes = []
+        for trigger in hitBoxTriggers:
+            root.after_cancel(trigger)
+        hitBoxTriggers = []
     if ('new quest' in updates):
         window.rightFrame.addMission(updates['new quest'])
         window.gridQuestFrame("MISSION!")
@@ -2746,6 +2681,122 @@ def requireExitConfirmation(yes=None):
         askToSave = yes
 
 
+def createHitBox(parent,
+                 boundaryWidget,
+                 kind,
+                 number=0,
+                 critical=False,
+                 aux=False):
+    def raiseHitBox(hitBox, height, motion):
+        hitLabelMaxHeight = 32
+        hitLabel.grid(pady=(height if motion[0] == "D" else 0,
+                            height if motion[0] == "U" else 0))
+        if height > boundaryWidget.winfo_height() - hitLabelMaxHeight:
+            hitLabel.next = None
+            hitLabel.destroy()
+        else:
+            frameCount = 50.
+            frameDuration = 20
+            if "Linear" in motion:
+                delta = boundaryWidget.winfo_height() / frameCount
+                if delta >= 1:
+                    # Smooth motion
+                    delta = int(delta)
+            elif "Ease" in motion:
+                delta = (boundaryWidget.winfo_height() - height) / frameCount * 2
+            hitLabel.next = root.after(frameDuration,
+                lambda: raiseHitBox(hitBox, height + delta, motion))
+    fgs = {
+        "Physical": DAMAGE_BOX_FG,
+        "Heal": DAMAGE_BOX_FG,
+        "Earth": EARTH_COLOR,
+        "Water": WATER_COLOR,
+        "Fire": FIRE_COLOR,
+        "Frostfire": ENIGMATIC_COLOR,
+        "Miss": DAMAGE_BOX_BG,
+        "Block": DAMAGE_BOX_FG,
+        "Parry": DAMAGE_BOX_FG,
+        "Boost": DAMAGE_BOX_FG,
+
+        "Grounded": BLACK,
+        "Poisoned": BLACK,
+        "Paralyzed": BLACK,
+        "Drowned": BLACK,
+        "Frozen": BLACK,
+        "Petrified": BLACK,
+        "Sundered": BLACK,
+        "Burning": BLACK,
+    }
+    bgs = {
+        "Physical": DAMAGE_BOX_BG,
+        "Heal": HEAL_BOX_BG,
+        "Earth": DAMAGE_BOX_BG,
+        "Water": DAMAGE_BOX_BG,
+        "Fire": DAMAGE_BOX_BG,
+        "Frostfire": DAMAGE_BOX_BG,
+        "Miss": WHITE,
+        "Block": GREY,
+        "Parry": GREY,
+        "Boost": GREY,
+
+        "Grounded": EARTH_COLOR,
+        "Poisoned": POISON_COLOR,
+        "Paralyzed": LIGHTNING_COLOR,
+        "Drowned": WATER_COLOR,
+        "Frozen": ICE_COLOR,
+        "Petrified": PETRIFICATION_COLOR,
+        "Sundered": SUNDERED_BG,
+        "Burning": FIRE_COLOR,
+    }
+    misses = set([
+        "Miss",
+        "Block",
+        "Parry",
+        "Boost",
+    ])
+    ailments = set([
+        "Grounded",
+        "Poisoned",
+        "Paralyzed",
+        "Drowned",
+        "Frozen",
+        "Petrified",
+        "Sundered",
+        "Burning",
+    ])
+    font = lightFont8
+    if critical:
+        if aux:
+            font = boldFont2
+        else:
+            font = font8
+    elif aux:
+        font = font2
+    hitLabel = Label(parent,
+                     text = ("%s!" % kind) if kind in
+                        misses | ailments else number,
+                     font=font,
+                     fg=fgs[kind],
+                     bg=bgs[kind]
+                        if number or kind in misses | ailments
+                        else GREY,
+                     relief=RIDGE,
+                     padx=2)
+    hitLabelMaxWidth = 64
+    pad = random.randint(0, min(boundaryWidget.winfo_width(), 190) - hitLabelMaxWidth)
+    if random.randrange(100) < 50:
+        padx = (pad, 0)
+    else:
+        padx = (0, pad)
+    hitLabel.grid(row=boundaryWidget.grid_info()['row'], columnspan=2, padx=padx)
+    motion = "Up/Ease"
+    if kind in misses:
+        motion = "Down/Linear"
+    elif kind in ailments:
+        motion = "Up/Linear"
+    raiseHitBox(hitLabel, 0, motion)
+    return hitLabel
+
 main = Main()
 
 WINDOW_WIDTH = 822
@@ -2819,6 +2870,7 @@ italicFont1 = tkFont.Font(family="Garamond", size=10, slant="italic")
 boldFont1 = tkFont.Font(family="Garamond", size=10, weight="bold")
 font2 = tkFont.Font(family="Garamond", size=11)
 italicFont2 = tkFont.Font(family="Garamond", size=11, slant="italic", weight="bold")
+boldFont2 = tkFont.Font(family="Garamond", size=11, weight="bold")
 font3 = tkFont.Font(family="Garamond", size=12, weight="bold")
 font4 = tkFont.Font(family="Garamond", size=14)
 italicFont4 = tkFont.Font(family="Garamond", size=14, slant="italic")
@@ -2883,6 +2935,10 @@ views = {'travel': enableTravelView,
          'game over': enableGameOverView}
 
 askToSave = False
+
+hitBoxes = []
+hitBoxTriggers = []
+
 root.protocol('WM_DELETE_WINDOW', close)
 root.iconbitmap("images\\icons\\tq.ico")
 root.title("Toshe's Quest II")
