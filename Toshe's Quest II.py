@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 29, 2023
+Revised: March 30, 2023
 """
 
 
@@ -1322,6 +1322,48 @@ Game over? Don't fret. You can now """)
                                 command=self.clickBuyButton)
         self.buyButton.grid(columnspan=3, sticky=E+W)
 
+
+
+        self.forge = LabelFrame(master, text="Forge of Olympus", font=font3,
+                                width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
+                                bg=DEFAULT_BG)
+        self.forge.grid(row=0)
+        self.forge.grid_propagate(0)
+
+        self.v3 = IntVar()
+        Button(self.forge, image=anvilImage, bg=DEFAULT_BG, relief=FLAT,
+            state=DISABLED
+            ).grid(columnspan=2, pady=(64, 0))
+        anvilItemButton = Radiobutton(self.forge, image=noItemImage,
+                                      variable=self.v3, value=1, width=64,
+                                      height=64, bg=BLACK, indicatoron=0,
+                                      bd=4, compound=CENTER,
+                                      text="Select an item to upgrade",
+                                      activeforeground=WHITE,
+                                      font=font2, fg=WHITE, wrap=64)
+        anvilItemButton.grid(columnspan=2, row=0, pady=(6, 140))
+        Label(self.forge, image=crucibleImage, bg=DEFAULT_BG, state=DISABLED
+            ).grid(columnspan=2, pady=(32, 0))
+        sacrificeButton1 = Radiobutton(self.forge, image=noItemImage,
+                                       variable=self.v3, value=2, width=64,
+                                       height=64, bg=BLACK, indicatoron=0,
+                                       bd=4, compound=CENTER,
+                                       text="Select an item to sacrifice",
+                                       activeforeground=WHITE,
+                                       font=font2, fg=WHITE, wrap=64)
+        sacrificeButton1.grid(row=1, pady=(0, 32))
+        sacrificeButton2 = Radiobutton(self.forge, image=noItemImage,
+                                       variable=self.v3, value=3, width=64,
+                                       height=64, bg=BLACK, indicatoron=0,
+                                       bd=4, compound=CENTER,
+                                       text="Select an item to sacrifice",
+                                       activeforeground=WHITE,
+                                       font=font2, fg=WHITE, wrap=64)
+        sacrificeButton2.grid(row=1, column=1, pady=(0, 32))
+        self.forgeSuccess = Label(self.forge, text="Success chance: 1%",
+            font=font2, bg=DEFAULT_BG, relief=GROOVE
+            ).grid(columnspan=2, ipadx=6, ipady=3, pady=(8, 0))
+
     def animateEnemy(self):
         interval = 250
         enemyImage = self.enemyImageLabel['image']
@@ -2569,6 +2611,7 @@ def hideSideGameFrames():
     rightFrame.otherStats.grid_remove()
     rightFrame.enemyStats.grid_remove()
     rightFrame.store.grid_remove()
+    rightFrame.forge.grid_remove()
 
 
 def hideSideIntroFrames():
@@ -2945,6 +2988,9 @@ fleeImage = PhotoImage(file="images\\icons\\flee.gif")
 
 noItemImage = PhotoImage(file="images\\other\\empty.gif")
 defaultImage = PhotoImage(file="images\\other\\default.gif")
+
+anvilImage = PhotoImage(file="images\\other\\anvil.gif")
+crucibleImage = PhotoImage(file="images\\other\\crucible.gif")
 
 xpBars = []
 hpBars = []
