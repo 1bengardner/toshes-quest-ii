@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 28, 2023
+Revised: March 29, 2023
 """
 
 
@@ -452,6 +452,7 @@ class TopLeftFrame:
         self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=COMMON_BD,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
+        self.tosheLabel.queuedImages = []
         self.hpWord = Label(self.vitalStats, text="HP",
                             bg=DEFAULT_BG, font=font1, bd=0)
         self.hpWord.grid(column=0, sticky=W)
@@ -523,6 +524,19 @@ class TopLeftFrame:
                                  command=self.clickDropButton)
         self.dropButton.grid(row=10, columnspan=3, sticky=E+W)
         self.dropButton.grid_remove()
+
+    def animateToshe(self):
+        interval = 125
+        for event in self.tosheLabel.queuedImages:
+            root.after_cancel(event)
+        self.tosheLabel.queuedImages = []
+        def updateImageDelayed(delay, image):
+            self.tosheLabel.queuedImages.append(
+                root.after(delay, lambda: self.tosheLabel.config(image=image)))
+        for i, image in enumerate(bloodSlashImages):
+            updateImageDelayed(i * interval, image)
+        self.tosheLabel.queuedImages.append(
+            root.after((i+1) * interval, lambda: self.tosheLabel.config(image=tosheImage)))
 
     def expandInventory(self, expand=True):
         for button in self.itemButtons:
@@ -1256,6 +1270,7 @@ Game over? Don't fret. You can now """)
         self.enemyImageLabel = Label(self.enemyStats, image=None, bg=COMMON_BD,
                                      relief=RIDGE, bd=4)
         self.enemyImageLabel.grid(columnspan=2, pady=20)
+        self.enemyImageLabel.queuedImages = []
         self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[20],
                                      bg=DEFAULT_BG, relief=SUNKEN, bd=1)
         self.enemyHpBarLabel.grid(row=3, columnspan=2)
@@ -1306,6 +1321,20 @@ Game over? Don't fret. You can now """)
                                 fg=BUTTON_FG, bg=BUTTON_BG,
                                 command=self.clickBuyButton)
         self.buyButton.grid(columnspan=3, sticky=E+W)
+
+    def animateEnemy(self):
+        interval = 250
+        enemyImage = self.enemyImageLabel['image']
+        for event in self.enemyImageLabel.queuedImages:
+            root.after_cancel(event)
+        self.enemyImageLabel.queuedImages = []
+        def updateImageDelayed(delay, image):
+            self.enemyImageLabel.queuedImages.append(
+                root.after(delay, lambda: self.enemyImageLabel.config(image=image)))
+        for i, image in enumerate(bloodDropImages):
+            updateImageDelayed(i * interval, image)
+        self.enemyImageLabel.queuedImages.append(
+            root.after((i+1) * interval, lambda: self.enemyImageLabel.config(image=enemyImage)))
 
     def increaseStrength(self):
         main.character.strength += 1
@@ -2218,6 +2247,10 @@ def updateInterface(updates):
         for hits in [tosheHits, enemyHits]:
             for i, hit in enumerate(hits):
                 createDelayedHitBox(i * 125, hit)
+        if any(filter(lambda hit: hit['Kind'] == "Bloody Attack", updates['hits'])):
+            window.topFrame.topLeftFrame.animateToshe()
+        if any(filter(lambda hit: hit['Kind'] == "Bloody Up", updates['hits'])):
+            window.topFrame.topRightFrame.animateEnemy()
     elif updates['view'] != "battle":
         for box in hitBoxes:
             if box.next:
@@ -2882,6 +2915,10 @@ lightFont8 = tkFont.Font(family="Garamond", size=16)
 
 welcomeImage = PhotoImage(file="images\\other\\turtle.gif")
 tosheImage = PhotoImage(file="images\\other\\toshe.gif")
+bloodDropImages = [PhotoImage(file="images\\other\\blood_drop%s.gif" % (i+1))
+    for i in range(3)]
+bloodSlashImages = [PhotoImage(file="images\\other\\blood_slash%s.gif" % (i+1))
+    for i in range(4)]
 gameOverImage = PhotoImage(file="images\\other\\gameover.gif")
 
 euroImage = PhotoImage(file="images\\icons\\euro.gif")

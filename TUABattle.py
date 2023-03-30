@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: March 28, 2023
+Revised: March 29, 2023
 """
 
 
@@ -398,6 +398,11 @@ class Battle(object):
 
             if "Bloody Socket Active" in attackerFlags and damage is not None:
                 damage = defender.hp - 1
+                if not (miss or blocked or parried):
+                    self.hits.append({
+                        "Kind": "Bloody Attack",
+                        "Target": None,
+                    })
 
             damage = self.adjustedDamage(damage)
 
@@ -1063,6 +1068,10 @@ class Battle(object):
             flags.add("Recovering")
             if "Recovering Active" in flags:
                 flags.remove("Recovering Active")
+            self.hits.append({
+                "Kind": "Bloody Up",
+                "Target": None,
+            })
 
         if "Sleeping 3" in flags:
             self.text += target.NAME+" woke up.\n"
