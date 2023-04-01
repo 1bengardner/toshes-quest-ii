@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: March 30, 2023
+Revised: April 1, 2023
 """
 
 
@@ -2789,7 +2789,7 @@ def createHitBox(parent,
         "Water": WATER_COLOR,
         "Fire": FIRE_COLOR,
         "Frostfire": ENIGMATIC_COLOR,
-        "Miss": DAMAGE_BOX_BG,
+        "Miss": BLACK,
         "Block": DAMAGE_BOX_FG,
         "Parry": DAMAGE_BOX_FG,
         "Boost": DAMAGE_BOX_FG,
@@ -2846,6 +2846,11 @@ def createHitBox(parent,
             font = boldFont2
         else:
             font = font8
+    elif kind == "Miss":
+        if aux:
+            font = font1
+        else:
+            font = font4
     elif aux:
         font = font2
     hitLabel = Label(parent,
