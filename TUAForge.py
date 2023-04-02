@@ -51,8 +51,8 @@ class Forge:
         if not all([u, a, b]) or u.PRICE < 25:
             return 0
         chance = 100 * (
-                 (a.PRICE * (1 + 0.5 * a.upgradeCount) +
-                  b.PRICE * (1 + 0.5 * b.upgradeCount)) / 2.0 /
+                 (a.PRICE * (1 + 0.5 * a.upgradeCount * 1.2 ** min(4, a.upgradeCount // 10)) +
+                  b.PRICE * (1 + 0.5 * b.upgradeCount * 1.2 ** min(4, a.upgradeCount // 10))) / 2.0 /
                  (u.PRICE * (1 + 0.1 * u.upgradeCount)))
         if str(chance)[0] == "0":
             # Stop one short of maxDecimals to use last decimal for precision
