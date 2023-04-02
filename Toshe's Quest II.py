@@ -1650,7 +1650,7 @@ Game over? Don't fret. You can now """)
             window.gridUpgradeFrame(True)
         else:
             insertText("The crucible is not hot enough. "+
-                "You fail to forge your equipment.")
+                "You fail to upgrade your equipment.")
             window.gridUpgradeFrame(False)
             main.sound.playSound(main.sound.sounds['Failed Upgrade'])
         insertText("You feel Mount Olympus begin to shift.")
