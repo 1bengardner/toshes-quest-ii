@@ -50,7 +50,17 @@ class Shield:
 
     @property
     def displayName(self):
-        return "%s (+%s)" % (self.NAME, self.upgradeCount) if self.upgradeCount > 0 else self.NAME
+        upgradesPerAscension = 10
+        ascensionPrefixes = ["Heroic", "Blessed", "Glorious", "Legendary"]
+        name = self.NAME
+        if self.upgradeCount > 0:
+            ascensionCount = min(len(ascensionPrefixes), self.upgradeCount // upgradesPerAscension)
+            if ascensionCount > 0:
+                name = "%s %s" % (ascensionPrefixes[ascensionCount-1], name)
+            displayedUpgradeCount = self.upgradeCount - ascensionCount * upgradesPerAscension
+            if displayedUpgradeCount > 0:
+                name = "%s (+%s)" % (name, displayedUpgradeCount)
+        return name
 
     def upgrade(self):
         self.DEFENCE += 2

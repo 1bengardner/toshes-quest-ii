@@ -2063,7 +2063,15 @@ def displayItemStats():
     frame = window.topFrame.topLeftFrame
     item = main.character.items[frame.v1.get()]
     
-    frame.itemNameLabel.config(text=item.displayName, font=italicFont2)
+    remainingWords = item.displayName.split(" ")
+    abbreviatedPortion = ""
+    truncatedName = abbreviatedPortion + " ".join(remainingWords)
+    while len(truncatedName) > 30 and len(remainingWords) > 1:
+        abbreviatedWord = "%s. " % remainingWords[0][0]
+        abbreviatedPortion += abbreviatedWord
+        remainingWords = remainingWords[1:]
+        truncatedName = abbreviatedPortion + " ".join(remainingWords)
+    frame.itemNameLabel.config(text=truncatedName, font=italicFont2)
     
     frame.itemCategoryLabel['text'] = item.CATEGORY
     
@@ -2176,7 +2184,15 @@ def displayStoreItemStats():
     frame = window.topFrame.topRightFrame
     item = main.store[frame.v2.get()]
 
-    frame.itemNameLabel.config(text=item.displayName, font=italicFont2)
+    remainingWords = item.displayName.split(" ")
+    abbreviatedPortion = ""
+    truncatedName = abbreviatedPortion + " ".join(remainingWords)
+    while len(truncatedName) > 30 and len(remainingWords) > 1:
+        abbreviatedWord = "%s. " % remainingWords[0][0]
+        abbreviatedPortion += abbreviatedWord
+        remainingWords = remainingWords[1:]
+        truncatedName = abbreviatedPortion + " ".join(remainingWords)
+    frame.itemNameLabel.config(text=truncatedName, font=italicFont2)
     
     frame.itemCategoryLabel['text'] = item.CATEGORY
     
