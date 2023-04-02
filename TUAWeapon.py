@@ -2,7 +2,7 @@
 File: TUAWeapon.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: December 20, 2022
+Revised: April 2, 2023
 """
 
 
@@ -41,7 +41,7 @@ class Weapon:
 
     @property
     def displayName(self):
-        return "%s +%s" % (self.NAME, self.upgradeCount) if self.upgradeCount > 0 else self.NAME
+        return "%s (+%s)" % (self.NAME, self.upgradeCount) if self.upgradeCount > 0 else self.NAME
 
     def upgrade(self):
         self.POWER += 2

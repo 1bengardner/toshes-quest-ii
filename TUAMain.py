@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: March 26, 2023
+Revised: April 1, 2023
 """
 
 
@@ -22,6 +22,8 @@ from TUAEnemy import Enemy
 from TUACharacter import Character
 from TUABattle import Battle
 from TUAQuest import Quest
+from TUAForge import Forge
+from TUAModifiers import Modifiers
 
 from TUASound import Sound
 from TUAPreferences import Preferences
@@ -92,49 +94,6 @@ class Main:
         self.enemies = {}
         self.mercenaries = {}
         self.allQuests = []
-        weaponModifiers = {
-                1: [
-                    'Big',
-                    'Keen',
-                    'Exotic'],
-                2: [
-                    'Giant',
-                    'Deadly'],}
-        armourModifiers = {
-                1: [
-                    'Stony',
-                    'Icy',
-                    'Fiery',
-                    'Sturdy',
-                    'Exotic'],
-                2: [
-                    'Gaian',
-                    'Glacial',
-                    'Molten',
-                    'Robust'],}
-        shieldModifiers = {
-                1: [
-                    'Stony',
-                    'Icy',
-                    'Fiery',
-                    'Sturdy',
-                    'Exotic',
-                    'Heavy'],
-                2: [
-                    'Gaian',
-                    'Glacial',
-                    'Molten',
-                    'Robust',
-                    'Massive'],}
-        self.itemModifiers = {  # Category: Level: ModName
-            'Sword': weaponModifiers,
-            'Club': weaponModifiers,
-            'Axe': weaponModifiers,
-            'Spear': weaponModifiers,
-            'Bow': weaponModifiers,
-            'Wand': weaponModifiers,
-            'Armour': armourModifiers,
-            'Shield': shieldModifiers,}            
         self.populateWeapons()
         self.populateArmour()
         self.populateShields()
@@ -163,6 +122,7 @@ class Main:
             "Rumadan Village",
             "Athens",
         ])
+        self.resetForge()
 
     def markMap(self, xy = None):
         marked = self.character.flags['Marked Areas'][self.currentArea.name]
@@ -179,25 +139,6 @@ class Main:
         else:
             marked.add((self.x, self.y))
             return True
-
-
-    def modifyItemStat(self, item, modifier, value):
-        if modifier in ('Big', 'Giant'):
-            item.POWER += value
-        elif modifier in ('Keen', 'Deadly'):
-            item.C_RATE += value / 2.0
-        elif modifier == 'Exotic':
-            item.SELL_PRICE *= value
-        elif modifier in ('Stony', 'Gaian'):
-            item.EARTH_REDUCTION += value
-        elif modifier in ('Icy', 'Glacial'):
-            item.WATER_REDUCTION += value
-        elif modifier in ('Fiery', 'Molten'):
-            item.FIRE_REDUCTION += value
-        elif modifier in ('Sturdy', 'Robust'):
-            item.DEFENCE += value
-        elif modifier in ('Heavy', 'Massive'):
-            item.B_RATE += value / 2
 
     def loadGame(self, fileName):
         """Load a game from a savefile."""
@@ -1090,9 +1031,9 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         levelRoll = self.roll(10000)
         if levelRoll < item.PRICE:
             level = 2
-        modifier = random.choice(self.itemModifiers[item.CATEGORY][level])
+        modifier = random.choice(Modifiers.getByCategoryAndLevel(item.CATEGORY, level))
         value = (self.roll(3) + 1) * level
-        self.modifyItemStat(item, modifier, value)
+        Modifiers.modifyItem(item, modifier, value)
         item.NAME = "%s %s" % (modifier, item.NAME)
         return item, modifier
 
@@ -1163,3 +1104,12 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         for quest in questsToRemove:
             quests.remove(quest)
         return questsToRemove
+
+    def resetForge(self):
+        self.forge = Forge()
+
+    def setForgeItem(self, itemIndex):
+        return self.forge.setForgeItem(self.character.items[itemIndex])
+
+    def setSacrificeItem(self, key, itemIndex):
+        return self.forge.setSacrificeItem(key, self.character.items[itemIndex])

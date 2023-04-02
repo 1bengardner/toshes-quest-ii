@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: March 6, 2023
+Revised: April 2, 2023
 """
 
 
@@ -37,6 +37,7 @@ class Sound:
                        "Get Item": "FX-Collect",
                        "New Skill": "FX-Discover",
                        "Power Up": "FX-Discover",
+                       "Forge Upgrade": "FX-Discover",
                        "Deal Damage": "FX-Hit",
                        "Wand Attack": "FX-Cast",
                        "Bow Attack": "FX-Shoot",
@@ -83,6 +84,10 @@ class Sound:
                        "Drowned": "FX-Drown",
                        "Break Free": "FX-Rise",
                        "Remove Armour": "FX-Toss",
+                       "Anvil": "FX-Thud",
+                       "Crucible": "FX-Select",
+                       "Hammer": "FX-Cast",
+                       "Failed Upgrade": "FX-Ground",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)

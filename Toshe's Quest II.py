@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 1, 2023
+Revised: April 2, 2023
 """
 
 
@@ -56,6 +56,10 @@ class Window:
         self.newSkillFrame.grid(row=0)
         self.newSkillFrame.grid_remove()
         
+        self.upgradeFrame = Frame(master, bg=UPGRADE_BG, relief=RIDGE, bd=10)
+        self.upgradeFrame.grid(row=0)
+        self.upgradeFrame.grid_remove()
+        
         self.levelUpLabel = Label(self.levelUpFrame, text="LEVEL UP!",
                                   font=font5, bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
         self.levelUpLabel.grid()
@@ -102,6 +106,12 @@ class Window:
         self.newSkillLabelTop.grid(row=0, sticky=N)
         self.newSkillLabelTop.bind("<Button-1>", self.removeNewSkillFrame)
         self.newSkillCallback = None
+        
+        self.upgradeLabel = Label(self.upgradeFrame, font=font5,
+                             text="UPGRADE!", bg=UPGRADE_BG, fg=UPGRADE_FG)
+        self.upgradeLabel.grid()
+        self.upgradeLabel.bind("<Button-1>", self.removeUpgradeFrame)
+        self.upgradeCallback = None
         
         self.makeChildren(self.gameFrame, self.sideFrame)
 
@@ -166,6 +176,23 @@ class Window:
         
     def removeNewSkillFrame(self, event=None):
         self.newSkillFrame.grid_remove()
+        
+    def gridUpgradeFrame(self, success):
+        if self.upgradeCallback:
+            root.after_cancel(self.upgradeCallback)
+        if success:
+            self.upgradeLabel.config(text="UPGRADE!",
+                                     bg=UPGRADE_BG, fg=UPGRADE_FG)
+            self.upgradeFrame.config(bg=UPGRADE_BG)
+        else:
+            self.upgradeLabel.config(text="FAILURE!",
+                                     bg=FAILURE_BG, fg=FAILURE_FG)
+            self.upgradeFrame.config(bg=FAILURE_BG)
+        self.upgradeFrame.grid()
+        self.upgradeCallback = root.after(3000, window.removeUpgradeFrame)
+        
+    def removeUpgradeFrame(self, event=None):
+        self.upgradeFrame.grid_remove()
 
 
 class TopFrame:
@@ -524,6 +551,12 @@ class TopLeftFrame:
                                  command=self.clickDropButton)
         self.dropButton.grid(row=10, columnspan=3, sticky=E+W)
         self.dropButton.grid_remove()
+        self.placeButton = Button(self.inventory, text="Place", font=font2,
+                                   fg=BUTTON_FG, bg=BUTTON_BG,
+                                   command=self.clickPlaceButton)
+        self.placeButton.grid(row=10, columnspan=3, sticky=E+W)
+        # TODO uncomment
+        # self.placeButton.grid_remove()
 
     def animateToshe(self):
         interval = 125
@@ -581,6 +614,46 @@ class TopLeftFrame:
         main.character.removeItem(self.v1.get())
         main.character.addItem(main.tempItem)
         window.bottomFrame.bottomRightFrame.clickCancelDropButton()
+
+    def clickPlaceButton(self):
+        def updateWidgets():
+            if main.forge.hasAllSacrifices():
+                if forgeFrame.crucible['state'] == DISABLED:
+                    main.sound.playSound(main.sound.sounds['Burning'])
+                forgeFrame.crucible['state'] = NORMAL
+            else:
+                forgeFrame.crucible['state'] = DISABLED
+            if main.forge.isReady():
+                if forgeFrame.anvilButton['state'] == DISABLED:
+                    main.sound.playSound(main.sound.sounds['Hammer'])
+                forgeFrame.forgeSuccess['text'] = "Success chance: %s%%" % (
+                    main.forge.getSuccessChance())
+                forgeFrame.forgeSuccess.grid()
+                forgeFrame.anvilButton['state'] = NORMAL
+                forgeFrame.anvilButton['relief'] = RAISED
+                forgeFrame.anvilButton['cursor'] = "@hammer.cur"
+            else:
+                forgeFrame.forgeSuccess.grid_remove()
+                forgeFrame.anvilButton['state'] = DISABLED
+                forgeFrame.anvilButton['relief'] = FLAT
+                forgeFrame.anvilButton['cursor'] = ""
+            
+        forgeFrame = window.topFrame.topRightFrame
+        if forgeFrame.v3.get() == 0:
+            replacementIndex = main.setForgeItem(self.v1.get())
+            main.sound.playSound(main.sound.sounds['Anvil'])
+        else:
+            replacementIndex = main.setSacrificeItem(forgeFrame.v3.get(), self.v1.get())
+            main.sound.playSound(main.sound.sounds['Crucible'])
+        if replacementIndex is not None:
+            button = forgeFrame.forgeButtons[replacementIndex]
+            button['image'] = noItemImage
+            button['text'] = "Select an item to %s" % (
+                "upgrade" if replacementIndex == 0 else "sacrifice")
+        button = forgeFrame.forgeButtons[forgeFrame.v3.get()]
+        button['image'] = self.itemButtons[self.v1.get()]['image']
+        button['text'] = " "
+        updateWidgets()
 
     def updateVitalStats(self):
         """Change the current level, xp, hp and ep of the character shown in the
@@ -1331,38 +1404,57 @@ Game over? Don't fret. You can now """)
         self.forge.grid_propagate(0)
 
         self.v3 = IntVar()
-        Button(self.forge, image=anvilImage, bg=DEFAULT_BG, relief=FLAT,
-            state=DISABLED
-            ).grid(columnspan=2, pady=(64, 0))
+        self.forgeButtons = []
+        self.anvilButton = Button(self.forge, image=anvilImage, bg=DEFAULT_BG,
+                                  bd=8, relief=FLAT, state=DISABLED,
+                                  command=self.upgradeForgeEquip)
+        self.anvilButton.grid(columnspan=2, pady=(64, 0))
+        
+        def enablePlaceButton():
+            frame = window.topFrame.topLeftFrame
+            itemIndex = frame.v1.get()
+            if ( itemIndex != -1 and
+                 main.character.items[itemIndex].CATEGORY != "Miscellaneous"):
+                frame.placeButton['state'] = NORMAL
+            main.sound.playSound(main.sound.sounds['Select Item'])
+
         anvilItemButton = Radiobutton(self.forge, image=noItemImage,
-                                      variable=self.v3, value=1, width=64,
+                                      variable=self.v3, value=0, width=64,
                                       height=64, bg=BLACK, indicatoron=0,
                                       bd=4, compound=CENTER,
                                       text="Select an item to upgrade",
                                       activeforeground=WHITE,
-                                      font=font2, fg=WHITE, wrap=64)
+                                      font=font2, fg=WHITE, wrap=64,
+                                      command=enablePlaceButton)
+        self.forgeButtons.append(anvilItemButton)
         anvilItemButton.grid(columnspan=2, row=0, pady=(6, 140))
-        Label(self.forge, image=crucibleImage, bg=DEFAULT_BG, state=DISABLED
-            ).grid(columnspan=2, pady=(32, 0))
+        self.crucible = Label(self.forge, image=crucibleImage,
+                              bg=DEFAULT_BG, state=DISABLED)
+        self.crucible.grid(columnspan=2, pady=(32, 0))
         sacrificeButton1 = Radiobutton(self.forge, image=noItemImage,
+                                       variable=self.v3, value=1, width=64,
+                                       height=64, bg=BLACK, indicatoron=0,
+                                       bd=4, compound=CENTER,
+                                       text="Select an item to sacrifice",
+                                       activeforeground=WHITE,
+                                       font=font2, fg=WHITE, wrap=64,
+                                       command=enablePlaceButton)
+        self.forgeButtons.append(sacrificeButton1)
+        sacrificeButton1.grid(row=1, pady=(0, 32))
+        sacrificeButton2 = Radiobutton(self.forge, image=noItemImage,
                                        variable=self.v3, value=2, width=64,
                                        height=64, bg=BLACK, indicatoron=0,
                                        bd=4, compound=CENTER,
                                        text="Select an item to sacrifice",
                                        activeforeground=WHITE,
-                                       font=font2, fg=WHITE, wrap=64)
-        sacrificeButton1.grid(row=1, pady=(0, 32))
-        sacrificeButton2 = Radiobutton(self.forge, image=noItemImage,
-                                       variable=self.v3, value=3, width=64,
-                                       height=64, bg=BLACK, indicatoron=0,
-                                       bd=4, compound=CENTER,
-                                       text="Select an item to sacrifice",
-                                       activeforeground=WHITE,
-                                       font=font2, fg=WHITE, wrap=64)
+                                       font=font2, fg=WHITE, wrap=64,
+                                       command=enablePlaceButton)
+        self.forgeButtons.append(sacrificeButton2)
         sacrificeButton2.grid(row=1, column=1, pady=(0, 32))
         self.forgeSuccess = Label(self.forge, text="Success chance: 1%",
-            font=font2, bg=DEFAULT_BG, relief=GROOVE
-            ).grid(columnspan=2, ipadx=6, ipady=3, pady=(8, 0))
+                                  font=font2, bg=DEFAULT_BG, relief=GROOVE)
+        self.forgeSuccess.grid(columnspan=2, ipadx=6, ipady=3, pady=(8, 0))
+        self.resetForge()
 
     def animateEnemy(self):
         interval = 250
@@ -1521,6 +1613,52 @@ Game over? Don't fret. You can now """)
                     itemImage = itemImages[main.store[i*3+j].IMAGE_NAME]
                     self.storeButtons[i*3+j].config(image=itemImage,
                                                     state=NORMAL)
+
+    def resetForge(self):
+        main.resetForge()
+        self.v3.set(-1)
+        self.anvilButton.config(state=DISABLED, relief=FLAT, cursor="")
+        self.crucible.config(state=DISABLED)
+        for i, button in enumerate(self.forgeButtons):
+            button.config(image=noItemImage, text="Select an item to %s" % (
+                "upgrade" if i == 0 else "sacrifice"), state=NORMAL)
+        self.forgeSuccess.grid_remove()
+
+    def upgradeForgeEquip(self):
+        def cleanUpForge():
+            self.v3.set(-1)
+            self.anvilButton.config(state=DISABLED, relief=FLAT, cursor="")
+            self.crucible.config(state=DISABLED)
+            for button in self.forgeButtons:
+                button.config(state=DISABLED)
+            for button in self.forgeButtons[1:]:
+                button.config(image=noItemImage)
+            self.forgeSuccess.grid_remove()
+            window.topFrame.topLeftFrame.placeButton['state'] = DISABLED
+        insertText = window.bottomFrame.bottomLeftFrame.insertOutput
+        previousName = main.forge.forgeItem.displayName
+        upgradedSuccessfully = False
+        insertText("The crucible is stoked by the items it was fed. "+
+            "You strike your equipment upon the anvil with the Hammer of Hephaestus.")
+        for _ in main.forge.do():
+            newName = main.forge.forgeItem.displayName
+            insertText("Success! %s is now %s!" % (previousName, newName))
+            previousName = newName
+            main.sound.playSound(main.sound.sounds['Forge Upgrade'])
+            upgradedSuccessfully = True
+        if upgradedSuccessfully:
+            window.gridUpgradeFrame(True)
+        else:
+            insertText("The crucible is not hot enough. "+
+                "You fail to forge your equipment.")
+            window.gridUpgradeFrame(False)
+            main.sound.playSound(main.sound.sounds['Failed Upgrade'])
+        insertText("You feel Mount Olympus begin to shift.")
+        if "Mount Olympus Complete" not in main.character.flags:
+            insertText("You may now reascend Mount Olympus for another trial.",
+                       "italicize")
+            main.character.flags['Mount Olympus Complete'] = True
+        cleanUpForge()
 
     def clickMissionLog(self):
         main.sound.playSound(main.sound.sounds['Open Log'])
@@ -1721,7 +1859,10 @@ class BottomRightFrame:
             self.fleeButton['state'] = DISABLED
             self.okButton['state'] = DISABLED
             self.disableMenuBox()
-            enableInventoryView()
+            # TODO uncomment
+            # enableInventoryView()
+            # TODO remove
+            enableForgeView()
             main.sound.playSound(main.sound.sounds['Inventory'])
 
     def clickBackButton(self, event=None):
@@ -2020,6 +2161,12 @@ def displayItemStats():
         frame.equipButton['state'] = NORMAL
 
     frame.dropButton['state'] = NORMAL
+
+    if ( item.CATEGORY != "Miscellaneous" and
+         window.topFrame.topRightFrame.v3.get() != -1):
+        frame.placeButton['state'] = NORMAL
+    else:
+        frame.placeButton['state'] = DISABLED
 
     main.sound.playSound(main.sound.sounds['Select Item'])
 
@@ -2496,6 +2643,7 @@ def enableInventoryView():
 
     leftFrame.sellButton.grid_remove()
     leftFrame.dropButton.grid_remove()
+    leftFrame.placeButton.grid_remove()
     leftFrame.equipButton.grid()
     leftFrame.equipButton['state'] = DISABLED
     bottomFrame.skillButton['state'] = DISABLED
@@ -2515,6 +2663,7 @@ def enableStoreView():
 
     leftFrame.equipButton.grid_remove()
     leftFrame.dropButton.grid_remove()
+    leftFrame.placeButton.grid_remove()
     leftFrame.sellButton.grid()
     leftFrame.sellButton['state'] = DISABLED
     rightFrame.buyButton['state'] = DISABLED
@@ -2544,6 +2693,7 @@ def enableDropItemView():
     leftFrame = window.topFrame.topLeftFrame
     leftFrame.equipButton.grid_remove()
     leftFrame.sellButton.grid_remove()
+    leftFrame.placeButton.grid_remove()
     leftFrame.dropButton.grid()
     leftFrame.dropButton['state'] = DISABLED
 
@@ -2603,6 +2753,18 @@ def enableForgetSkillView():
     bottomFrame.menuBox.unbind_all('4')
 
 
+def enableForgeView():
+    enableInventoryView()
+    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
+    window.topFrame.topRightFrame.resetForge()
+    leftFrame = window.topFrame.topLeftFrame
+    leftFrame.equipButton.grid_remove()
+    leftFrame.sellButton.grid_remove()
+    leftFrame.dropButton.grid_remove()
+    leftFrame.placeButton.grid()
+    leftFrame.placeButton['state'] = DISABLED
+
+
 def hideSideGameFrames():
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
@@ -2611,7 +2773,8 @@ def hideSideGameFrames():
     rightFrame.otherStats.grid_remove()
     rightFrame.enemyStats.grid_remove()
     rightFrame.store.grid_remove()
-    rightFrame.forge.grid_remove()
+    # TODO uncomment
+    # rightFrame.forge.grid_remove()
 
 
 def hideSideIntroFrames():
@@ -2893,8 +3056,8 @@ DARKBEIGE = "#d1c29d"
 BROWN = "#704F16"
 LIGHTBEIGE = "#f4ead2"
 RED = "#90000d"
-GREEN = "#009037"
 LIGHTRED = "#d31524"
+GREEN = "#009037"
 CYAN = "#24828b"
 BLACK = "#000000"
 BLUE = "#0093DC"
@@ -2908,6 +3071,8 @@ MAGENTA = "#de6ef1"
 LIGHTPURPLE = "#958aa9"
 ORANGE = "#f8b681"
 DARKORANGE = "#a33c00"
+JADE = "#426e5b"
+LIGHTJADE = "#83ccab"
 EARTH_COLOR = "#b5e080"
 WATER_COLOR = "#a7d3e8"
 FIRE_COLOR = "#e6ba90"
@@ -2935,6 +3100,10 @@ MYSTIC_FG = MAGENTA
 MYSTIC_FG2 = LIGHTPURPLE
 SKILL_BG = ORANGE
 SKILL_FG = DARKORANGE
+UPGRADE_BG = JADE
+UPGRADE_FG = LIGHTJADE
+FAILURE_BG = LIGHTRED
+FAILURE_FG = RED
 COMMON_BD = BROWN
 RARE_BD = YELLOW
 LEGENDARY_BD = ORANGE
@@ -3019,6 +3188,7 @@ views = {'travel': enableTravelView,
          'battle': enableBattleView,
          'inventory': enableInventoryView,
          'store': enableStoreView,
+         'forge': enableForgeView,
          'battle over': enableBattleOverView,
          'game over': enableGameOverView}
 
