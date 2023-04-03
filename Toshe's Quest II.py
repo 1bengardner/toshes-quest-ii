@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 2, 2023
+Revised: April 3, 2023
 """
 
 
@@ -641,7 +641,7 @@ class TopLeftFrame:
         forgeFrame = window.topFrame.topRightFrame
         if forgeFrame.v3.get() == 0:
             replacementIndex = main.setForgeItem(self.v1.get())
-            main.sound.playSound(main.sound.sounds['Anvil'])
+            main.sound.playSound(main.sound.sounds['Place on Anvil'])
         else:
             replacementIndex = main.setSacrificeItem(forgeFrame.v3.get(), self.v1.get())
             main.sound.playSound(main.sound.sounds['Crucible'])
@@ -1407,7 +1407,8 @@ Game over? Don't fret. You can now """)
         self.forgeButtons = []
         self.anvilButton = Button(self.forge, image=anvilImage, bg=DEFAULT_BG,
                                   bd=8, relief=FLAT, state=DISABLED,
-                                  command=self.upgradeForgeEquip)
+                                  command=self.strikeAnvil)
+        self.strikeAnvilCallback = None
         self.anvilButton.grid(columnspan=2, pady=(64, 0))
         
         def enablePlaceButton():
@@ -1624,6 +1625,21 @@ Game over? Don't fret. You can now """)
                 "upgrade" if i == 0 else "sacrifice"), state=NORMAL)
         self.forgeSuccess.grid_remove()
 
+    def strikeAnvil(self):
+        insertText = window.bottomFrame.bottomLeftFrame.insertOutput
+        fiddle = 0
+        if self.strikeAnvilCallback is not None:
+            root.after_cancel(self.strikeAnvilCallback)
+            self.strikeAnvilCallback = None
+            insertText("You strike the anvil with the Hammer of Hephaestus.")
+            fiddle = main.forge.fiddleWithSuccess()
+            self.forgeSuccess['text'] = "Success chance: %s%%" % (
+                    main.forge.getSuccessChance())
+        else:
+            insertText("You stoke the flames of the crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
+        main.sound.playSound(main.sound.sounds['Strike Anvil'])
+        self.strikeAnvilCallback = root.after(875 + 125 * fiddle, self.upgradeForgeEquip)
+
     def upgradeForgeEquip(self):
         def cleanUpForge():
             self.v3.set(-1)
@@ -1635,11 +1651,10 @@ Game over? Don't fret. You can now """)
                 button.config(image=noItemImage)
             self.forgeSuccess.grid_remove()
             window.topFrame.topLeftFrame.placeButton['state'] = DISABLED
+        self.strikeAnvilCallback = None
         insertText = window.bottomFrame.bottomLeftFrame.insertOutput
         previousName = main.forge.forgeItem.displayName
         upgradedSuccessfully = False
-        insertText("The crucible is stoked by the items it was fed. "+
-            "You strike your equipment upon the anvil with the Hammer of Hephaestus.")
         for _ in main.forge.do():
             newName = main.forge.forgeItem.displayName
             insertText("Success! %s is now %s!" % (previousName, newName))
@@ -3118,8 +3133,8 @@ SKILL_BG = ORANGE
 SKILL_FG = DARKORANGE
 UPGRADE_BG = JADE
 UPGRADE_FG = LIGHTJADE
-FAILURE_BG = LIGHTRED
-FAILURE_FG = RED
+FAILURE_BG = BLACK
+FAILURE_FG = GREY
 COMMON_BD = BROWN
 RARE_BD = YELLOW
 LEGENDARY_BD = ORANGE

@@ -192,3 +192,23 @@ class Static:
             "fg": HexColors.LAIR,
             "bg": HexColors.DARKNESS},
     }
+
+class EquipUtils:
+    UPGRADES_PER_ASCENSION = 10
+
+    @staticmethod
+    def getAscensionLevel(equip):
+        return min(4, equip.upgradeCount // 10)
+
+    @classmethod
+    def getDisplayName(self, equip):
+        ascensionPrefixes = ["Heroic", "Blessed", "Glorious", "Legendary"]
+        name = equip.NAME
+        if equip.upgradeCount > 0:
+            ascensionCount = min(len(ascensionPrefixes), equip.upgradeCount // self.UPGRADES_PER_ASCENSION)
+            if ascensionCount > 0:
+                name = "%s %s" % (ascensionPrefixes[ascensionCount-1], name)
+            displayedUpgradeCount = equip.upgradeCount - ascensionCount * self.UPGRADES_PER_ASCENSION
+            if displayedUpgradeCount > 0:
+                name = "%s (+%s)" % (name, displayedUpgradeCount)
+        return name

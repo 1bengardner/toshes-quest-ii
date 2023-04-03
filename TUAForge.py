@@ -14,6 +14,7 @@ class Forge:
         self.forgeItem = None
         self.sacrificeItems = [None, None]
         self.maxDecimals = 5
+        self.fiddle = 0
 
     # Returns index where item was placed elsewhere
     def setForgeItem(self, item):
@@ -53,14 +54,20 @@ class Forge:
         chance = 100 * (
                  (a.PRICE * (1 + 0.5 * a.upgradeCount * 1.2 ** min(4, a.upgradeCount // 10)) +
                   b.PRICE * (1 + 0.5 * b.upgradeCount * 1.2 ** min(4, a.upgradeCount // 10))) / 2.0 /
-                 (u.PRICE * (1 + 0.1 * u.upgradeCount)))
-        if str(chance)[0] == "0":
+                 (u.PRICE * (1 + 0.1 * u.upgradeCount))) + self.fiddle
+        if chance < 0:
+            return 0
+        elif str(chance)[0] == "0":
             # Stop one short of maxDecimals to use last decimal for precision
             for i in range(2, min(self.maxDecimals, len(str(chance)))):
                 if str(chance)[i] != "0":
                     # Give extra decimal place after first significant decimal
                     return round(chance, i)
         return int(chance)
+
+    def fiddleWithSuccess(self):
+        self.fiddle = random.randint(-5, 5)
+        return self.fiddle
 
     def do(self):
         if not all([self.forgeItem] + self.sacrificeItems):
@@ -75,6 +82,7 @@ class Forge:
         if chance > failureThreshold:
             self.upgradeItem()
             yield True
+        self.fiddle = 0
 
     def upgradeItem(self):
         self.forgeItem.upgrade()
