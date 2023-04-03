@@ -685,8 +685,10 @@ class TopLeftFrame:
                 self.spBarLabel['image'] = spBars[int(float(c.sp) / c.spTnl *
                                                       (NUMBER_OF_BARS - 1))]
             self.spLabel['text'] = "%d/%d" % (c.sp, c.spTnl)
+        self.tosheLabel['state'] = NORMAL
         if c.hp <= 0:
             self.hpBarLabel['image'] = hpBars[0]
+            self.tosheLabel['state'] = DISABLED
         elif float(c.hp) < float(c.maxHp) / NUMBER_OF_BARS:
             self.hpBarLabel['image'] = hpBars[1]
         else:
@@ -1595,8 +1597,10 @@ Game over? Don't fret. You can now """)
         self.enemyLevelLabel['text'] = e.LEVEL
         self.enemyNameLabel['text'] = e.NAME
         self.enemyImageLabel['image'] = enemyImages[e.IDENTIFIER]
+        self.enemyImageLabel['state'] = NORMAL
         if e.hp <= 0:
             self.enemyHpBarLabel['image'] = hpBars[0]
+            self.enemyImageLabel['state'] = DISABLED
         elif float(e.hp) < float(e.maxHp) / (NUMBER_OF_BARS - 1):
             self.enemyHpBarLabel['image'] = hpBars[1]
         else:
