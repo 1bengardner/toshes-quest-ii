@@ -456,10 +456,12 @@ class TopLeftFrame:
                                      bg=DEFAULT_BG)
         self.vitalStats.grid()
         self.vitalStats.grid_propagate(0)
-    
-        self.levelLabel = Label(self.vitalStats, text="1", font=font2,
-                                width=2, bg=DEFAULT_BG, relief=RIDGE)
-        self.levelLabel.grid(column=1, padx=10, pady=10, sticky=E)
+
+        levelFrame = Frame(self.vitalStats, bd=2, relief=RIDGE, bg=LEVEL_BG)
+        levelFrame.grid(column=1, padx=10, pady=10, sticky=E)
+        self.levelLabel = Label(levelFrame, text="1", font=font2,
+                                width=2, bg=DEFAULT_BG, bd=0)
+        self.levelLabel.grid()
         self.nameLabel = Label(self.vitalStats, text="Toshe", font=italicFont4,
                                fg=BLACK, bg=DEFAULT_BG)
         self.nameLabel.grid(row=0, column=0, columnspan=2)
@@ -1337,12 +1339,14 @@ Game over? Don't fret. You can now """)
         self.enemyNameLabel = Label(self.enemyStats, text="Richard Titball",
                                     font=italicFont4, fg=BLACK, bg=DEFAULT_BG)
         self.enemyNameLabel.grid(row=0, column=0, columnspan=2)
-        self.enemyLevelLabel = Label(self.enemyStats, text="17", font=font2,
-                                     width=2, bg=DEFAULT_BG, relief=RIDGE)
-        self.enemyLevelLabel.grid(row=0, column=1, padx=10, pady=10, sticky=E)
+        levelFrame = Frame(self.enemyStats, bd=2, relief=RIDGE, bg=LEVEL_BG)
+        levelFrame.grid(row=0, column=1, padx=10, pady=10, sticky=E)
+        self.enemyLevelLabel = Label(levelFrame, text="17", font=font2,
+                                     width=2, bg=DEFAULT_BG, bd=0)
+        self.enemyLevelLabel.grid()
         self.enemyImageLabel = Label(self.enemyStats, image=None, bg=COMMON_BD,
                                      relief=RIDGE, bd=4)
-        self.enemyImageLabel.grid(columnspan=2, pady=20)
+        self.enemyImageLabel.grid(columnspan=2, pady=(10, 20))
         self.enemyImageLabel.queuedImages = []
         self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[20],
                                      bg=DEFAULT_BG, relief=SUNKEN, bd=1)
@@ -1673,7 +1677,7 @@ Game over? Don't fret. You can now """)
             insertText("You may now reascend Mount Olympus for another trial.",
                        "italicize")
             main.character.flags['Mount Olympus Complete'] = True
-        cleanUpForge()
+        # cleanUpForge()
 
     def clickMissionLog(self):
         main.sound.playSound(main.sound.sounds['Open Log'])
@@ -3090,16 +3094,15 @@ RED = "#90000d"
 LIGHTRED = "#d31524"
 GREEN = "#009037"
 CYAN = "#24828b"
-BLACK = "#000000"
-BLUE = "#0093DC"
-GREY = "#888888"
 LIGHTCYAN = "#7bb4b9"
+BLACK = "#000000"
+BLUE = "#9aaad8"
+GREY = "#888888"
 YELLOW = "#daa520"
 WHITE = "#f4f4f4"
 NAVY = "#000050"
 PURPLE = "#26065c"
 MAGENTA = "#de6ef1"
-LIGHTPURPLE = "#958aa9"
 ORANGE = "#f8b681"
 DARKORANGE = "#a33c00"
 JADE = "#426e5b"
@@ -3108,7 +3111,7 @@ EARTH_COLOR = "#b5e080"
 WATER_COLOR = "#a7d3e8"
 FIRE_COLOR = "#e6ba90"
 ENIGMATIC_COLOR = "#e2afc9"
-POISON_COLOR = "#ddfaac"
+POISON_COLOR = "#c7f054"
 LIGHTNING_COLOR = "#f2f2aa"
 ICE_COLOR = "#c0f0f0"
 PETRIFICATION_COLOR = "#ded4ca"
@@ -3128,7 +3131,7 @@ QUEST_BG = BROWN
 QUEST_FG = DARKBEIGE
 MYSTIC_BG = PURPLE
 MYSTIC_FG = MAGENTA
-MYSTIC_FG2 = LIGHTPURPLE
+MYSTIC_FG2 = BLUE
 SKILL_BG = ORANGE
 SKILL_FG = DARKORANGE
 UPGRADE_BG = JADE
@@ -3142,6 +3145,7 @@ DAMAGE_BOX_FG = WHITE
 DAMAGE_BOX_BG = RED
 HEAL_BOX_BG = GREEN
 SUNDERED_BG = DARKBEIGE
+LEVEL_BG = LIGHTCYAN
 
 root = Tk()
 
