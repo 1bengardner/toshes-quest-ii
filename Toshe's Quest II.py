@@ -1039,6 +1039,9 @@ class TopCenterFrame:
         if main.character.flags['Config']['Mission Log Open'] != window.topFrame.topRightFrame.showMissionLog.get():
             window.topFrame.topRightFrame.logButton.invoke()
 
+        window.topFrame.topLeftFrame.expandInventory(
+            True if "Chasmic Rucksack" in main.character.flags else False)
+
         interfaceActions = main.getInterfaceActions(justFought=True)
         eventActions = main.getLoginEvents()
         if eventActions is not None:
@@ -1069,9 +1072,6 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spWord.grid_remove()
             window.topFrame.topLeftFrame.spLabel.grid_remove()
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
-
-        window.topFrame.topLeftFrame.expandInventory(
-            True if "Chasmic Rucksack" in main.character.flags else False)
 
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
