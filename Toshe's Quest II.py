@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 3, 2023
+Revised: April 10, 2023
 """
 
 
@@ -1435,6 +1435,12 @@ Game over? Don't fret. You can now """)
                                       command=enablePlaceButton)
         self.forgeButtons.append(anvilItemButton)
         anvilItemButton.grid(columnspan=2, row=0, pady=(6, 140))
+        self.forgeSuccess = Label(self.forge, text="Success chance: 1%", pady=3,
+                                  font=font2, bg=DEFAULT_BG, relief=GROOVE)
+        topPad = 8
+        self.forgeSuccess.grid(row=1, columnspan=2, ipadx=6, pady=(topPad, 0))
+        self.forge.rowconfigure(1,
+            minsize=self.forgeSuccess.winfo_reqheight()+topPad)
         self.crucible = Label(self.forge, image=crucibleImage,
                               bg=DEFAULT_BG, state=DISABLED)
         self.crucible.grid(columnspan=2, pady=(32, 0))
@@ -1447,7 +1453,7 @@ Game over? Don't fret. You can now """)
                                        font=font2, fg=WHITE, wrap=64,
                                        command=enablePlaceButton)
         self.forgeButtons.append(sacrificeButton1)
-        sacrificeButton1.grid(row=1, pady=(0, 32))
+        sacrificeButton1.grid(row=2, pady=(0, 32))
         sacrificeButton2 = Radiobutton(self.forge, image=noItemImage,
                                        variable=self.v3, value=2, width=64,
                                        height=64, bg=BLACK, indicatoron=0,
@@ -1457,10 +1463,7 @@ Game over? Don't fret. You can now """)
                                        font=font2, fg=WHITE, wrap=64,
                                        command=enablePlaceButton)
         self.forgeButtons.append(sacrificeButton2)
-        sacrificeButton2.grid(row=1, column=1, pady=(0, 32))
-        self.forgeSuccess = Label(self.forge, text="Success chance: 1%",
-                                  font=font2, bg=DEFAULT_BG, relief=GROOVE)
-        self.forgeSuccess.grid(columnspan=2, ipadx=6, ipady=3, pady=(8, 0))
+        sacrificeButton2.grid(row=2, column=1, pady=(0, 32))
         self.resetForge()
 
     def animateEnemy(self):
@@ -1644,7 +1647,7 @@ Game over? Don't fret. You can now """)
             self.forgeSuccess['text'] = "Success chance: %s%%" % (
                     main.forge.getSuccessChance())
         else:
-            insertText("You stoke the flames of the crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
+            insertText("You stoke the flames of the mythical crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
         main.sound.playSound(main.sound.sounds['Strike Anvil'])
         self.strikeAnvilCallback = root.after(875 + 125 * fiddle, self.upgradeForgeEquip)
 
@@ -1661,19 +1664,23 @@ Game over? Don't fret. You can now """)
             window.topFrame.topLeftFrame.placeButton['state'] = DISABLED
         self.strikeAnvilCallback = None
         insertText = window.bottomFrame.bottomLeftFrame.insertOutput
+        upgradedCategory = main.forge.forgeItem.CATEGORY
         previousName = main.forge.forgeItem.displayName
         upgradedSuccessfully = False
         for _ in main.forge.do():
+            if not upgradedSuccessfully:
+                insertText("The anvil cools and you retrieve your bolstered %s."
+                    % (upgradedCategory.lower()))
+                upgradedSuccessfully = True
             newName = main.forge.forgeItem.displayName
-            insertText("Success! %s is now %s!" % (previousName, newName))
+            insertText("%s is now %s!" % (previousName, newName))
             previousName = newName
             main.sound.playSound(main.sound.sounds['Forge Upgrade'])
-            upgradedSuccessfully = True
         if upgradedSuccessfully:
             window.gridUpgradeFrame(True)
         else:
-            insertText("The crucible is not hot enough. "+
-                "You fail to upgrade your equipment.")
+            insertText("The crucible was not hot enough. "+
+                "You fail to upgrade your %s." % (upgradedCategory.lower()))
             window.gridUpgradeFrame(False)
             main.sound.playSound(main.sound.sounds['Failed Upgrade'])
         insertText("You feel Mount Olympus begin to shift.")
