@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: March 12, 2023
+Revised: April 11, 2023
 """
 
 
@@ -313,7 +313,7 @@ class HiddenPassage:
                 self.c.dexterity,
                 self.c.wisdom
             ])):
-                self.text = ("A voice: You are not yet worthy! Return, once" +
+                self.text = ("A Voice: You are not yet worthy! Return, once" +
                     " you are experienced enough.")
                 return self.actions()
 
@@ -322,9 +322,9 @@ class HiddenPassage:
                 self.text += ("The Ominous Orb is released from your grasp.\n")
                 self.c.removeItem(self.c.indexOfItem("Ominous Orb"))
             if "Respec" in self.c.flags:
-                self.text += ("A voice: Choose your new destiny, and erase the old!")
+                self.text += ("A Voice: Choose your new destiny, and erase the old!")
             else:
-                self.text += ("A voice: Choose your destiny!")
+                self.text += ("A Voice: Choose your destiny!")
             self.menu = map(
                 lambda specialization: "Become %s %s." % (
                     "an" if specialization[0] in ("A", "E", "I", "O", "U")
@@ -333,7 +333,7 @@ class HiddenPassage:
                 getSpecializationOptions(self.c))
             self.c.flags['Ready to Specialize'] = True
         elif selectionIndex == 0:
-            self.text = ("A voice: Your rank will be reset! Are you certain?")
+            self.text = ("A Voice: Your rank will be reset! Are you certain?")
             self.menu = ["Change specializations and reset to Rank 1."]
             self.c.flags['Respec'] = True
         elif self.c.hasItem("Ominous Orb"):
@@ -384,12 +384,12 @@ class HiddenPassage:
                                  'cost': 0,
                                  'save': True})
         elif self.c.specialization is not None and self.c.mastery > 1:
-            self.text = ("A voice: Are you not content with the path you have chosen?")
+            self.text = ("A Voice: Are you not content with the path you have chosen?")
             self.menu = ["Change your specialization."]
             if "Respec" in self.c.flags:
                 del self.c.flags['Respec']
         elif self.c.specialization is not None:
-            self.text = ("A voice: Now go and hone your new abilities.")
+            self.text = ("A Voice: Now go and hone your new abilities.")
         else:
             self.text = ("Light shines in through the cracks in the wall upon" +
                          " ancient oriental artifacts scattered about.")

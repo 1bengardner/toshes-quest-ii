@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 10, 2023
+Revised: April 11, 2023
 """
 
 
@@ -970,7 +970,7 @@ class TopCenterFrame:
         d = OpenFileDialog(root, "Start Game")
         if not hasattr(d, 'entryValue'):
             window.bottomFrame.bottomLeftFrame.insertOutput(
-                "Turtle: Come on. I promise not to bite.")
+                "Come on. I promise not to bite.")
             return
         self.tryToLoadFile(d.entryValue)
 
@@ -981,7 +981,6 @@ class TopCenterFrame:
             self.createFile(name)
         except AttributeError as e:
             window.bottomFrame.bottomLeftFrame.insertOutput(
-                "Turtle: " +
                 name +
                 ", some vital information is missing from your file." +
                 " Perhaps this can be remedied with a conversion.")
@@ -990,7 +989,6 @@ class TopCenterFrame:
                 changed = converter.update(gameFile, path)
             if changed:
                 window.bottomFrame.bottomLeftFrame.insertOutput(
-                    "Turtle: " +
                     name +
                     ", your file has been successfully converted!")
                 self.tryToLoadFile(name)
@@ -998,12 +996,10 @@ class TopCenterFrame:
                 raise e
         # except (EOFError, ValueError, KeyError, IndexError):
             # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # "Turtle: " +
                 # name +
                 # ", your file is completely garbled! This is quite unfortunate.")
         # except ImportError:
             # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # "Turtle: " +
                 # "I cannot read this file at all! What language is this?")
 
     def loadFile(self, name=None):
@@ -1720,8 +1716,17 @@ class BottomLeftFrame:
         self.outputBox.tag_config("italicize", font=italicFont2)
         self.outputBox.tag_config("grey", foreground=GREY)
         self.outputBox.tag_config("highlight", foreground=BLACK)
+        self.outputBox.tag_config("dialogue", foreground=BROWN)
+        self.outputBox.tag_config("gan", foreground=CYAN)
+        self.outputBox.tag_config("toshe", foreground=RED)
+        self.outputBox.tag_config("qendresa", foreground=DARKORANGE)
+        self.outputBox.tag_config("barrie", foreground=JADE)
+        self.outputBox.tag_config("tomas tam", foreground=LIGHTRED)
+        self.outputBox.tag_config("silvio", foreground=NAVY)
+        self.outputBox.tag_config("niplin", foreground=GREEN)
+        self.outputBox.tag_config("riplin", foreground=MAGENTA)
         self.outputBox.insert(END,
-            "Turtle: Welcome. Click on me to embark on a quest.",
+            "Welcome. Click on me to embark on a quest.",
             ("grey", "highlight"))
         self.outputBox['state'] = DISABLED
         
@@ -1762,6 +1767,15 @@ class BottomLeftFrame:
         """Change the output box contents to its original background colour."""
         self.outputBox['state'] = NORMAL
         self.outputBox.tag_remove("highlight", 1.0, END)
+        self.outputBox.tag_remove("dialogue", 1.0, END)
+        self.outputBox.tag_remove("gan", 1.0, END)
+        self.outputBox.tag_remove("toshe", 1.0, END)
+        self.outputBox.tag_remove("qendresa", 1.0, END)
+        self.outputBox.tag_remove("barrie", 1.0, END)
+        self.outputBox.tag_remove("tomas tam", 1.0, END)
+        self.outputBox.tag_remove("silvio", 1.0, END)
+        self.outputBox.tag_remove("niplin", 1.0, END)
+        self.outputBox.tag_remove("riplin", 1.0, END)
         self.outputBox['state'] = DISABLED
 
 
@@ -2446,11 +2460,35 @@ def updateInterface(updates):
             updates['text'] = ""
         updates['text'] += ("\nGame saved.")
     if ('text' in updates) and (updates['text'] is not None):
+        def eachWordIsCapitalized(string):
+            for word in string.split(" "):
+                if not word[0].isupper():
+                    return False
+            return True
+        def getTag(speaker):
+            if speaker.lower() in [
+                "gan",
+                "toshe",
+                "qendresa",
+                "barrie",
+                "tomas tam",
+                "silvio",
+                "niplin",
+                "riplin",
+            ]:
+                return speaker.lower()
+            else:
+                return "dialogue"
+        for line in updates['text'].split("\n"):
+            if len(line.split(":")) > 1:
+                possibleName = line.split(":")[0]
+                if ( not any([punc in possibleName for punc in ".!?"]) and
+                     eachWordIsCapitalized(possibleName)):
+                    bottomLeftFrame.insertOutput(line, getTag(possibleName))
+                    continue
+            bottomLeftFrame.insertOutput(line)
         if 'format text' in updates:
-            bottomLeftFrame.insertOutput(updates['text'],
-                                         updates['format text'])
-        else:
-            bottomLeftFrame.insertOutput(updates['text'])
+            bottomLeftFrame.insertOutput(updates['format text'])
     if ('italic text' in updates) and (updates['italic text'] is not None):
         bottomLeftFrame.insertOutput(updates['italic text'], "italicize")
     if ('map' in updates and
