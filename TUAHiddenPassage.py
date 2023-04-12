@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: April 11, 2023
+Revised: April 12, 2023
 """
 
 
@@ -338,7 +338,7 @@ class HiddenPassage:
             self.c.flags['Respec'] = True
         elif self.c.hasItem("Ominous Orb"):
             self.text = ("An ominous voice sounds." +
-                         "\nAn ominous voice: Are you ready?")
+                         "\nAn Ominous Voice: Are you ready?")
             self.menu = ["\"I'm ready.\""]
         elif "Animal Ascension" in self.c.flags:
             suffix = None
