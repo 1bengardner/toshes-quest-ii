@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: April 2, 2023
+Created: April 11, 2023
 """
 
 
@@ -202,12 +202,12 @@ class EquipUtils:
 
     @classmethod
     def getDisplayName(self, equip):
-        ascensionPrefixes = ["Heroic", "Blessed", "Glorious", "Legendary"]
+        forms = ["Heroic", "Blessed", "Glorious", "Legendary"]
         name = equip.NAME
         if equip.upgradeCount > 0:
-            ascensionCount = min(len(ascensionPrefixes), equip.upgradeCount // self.UPGRADES_PER_ASCENSION)
+            ascensionCount = min(len(forms), equip.upgradeCount // self.UPGRADES_PER_ASCENSION)
             if ascensionCount > 0:
-                name = "%s %s" % (ascensionPrefixes[ascensionCount-1], name)
+                name = "%s %s" % (forms[ascensionCount-1], name)
             displayedUpgradeCount = equip.upgradeCount - ascensionCount * self.UPGRADES_PER_ASCENSION
             if displayedUpgradeCount > 0:
                 name = "%s (+%s)" % (name, displayedUpgradeCount)
