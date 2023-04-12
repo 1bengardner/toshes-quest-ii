@@ -557,8 +557,7 @@ class TopLeftFrame:
                                    fg=BUTTON_FG, bg=BUTTON_BG,
                                    command=self.clickPlaceButton)
         self.placeButton.grid(row=10, columnspan=3, sticky=E+W)
-        # TODO uncomment
-        # self.placeButton.grid_remove()
+        self.placeButton.grid_remove()
 
     def animateToshe(self):
         interval = 125
@@ -1903,10 +1902,7 @@ class BottomRightFrame:
             self.fleeButton['state'] = DISABLED
             self.okButton['state'] = DISABLED
             self.disableMenuBox()
-            # TODO uncomment
-            # enableInventoryView()
-            # TODO remove
-            enableForgeView()
+            enableInventoryView()
             main.sound.playSound(main.sound.sounds['Inventory'])
 
     def clickBackButton(self, event=None):
@@ -2857,8 +2853,7 @@ def hideSideGameFrames():
     rightFrame.otherStats.grid_remove()
     rightFrame.enemyStats.grid_remove()
     rightFrame.store.grid_remove()
-    # TODO uncomment
-    # rightFrame.forge.grid_remove()
+    rightFrame.forge.grid_remove()
 
 
 def hideSideIntroFrames():
