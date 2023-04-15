@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 11, 2023
+Revised: April 14, 2023
 """
 
 
@@ -1719,9 +1719,9 @@ class BottomLeftFrame:
         self.outputBox.tag_config("gan", foreground=CYAN)
         self.outputBox.tag_config("toshe", foreground=RED)
         self.outputBox.tag_config("qendresa", foreground=DARKORANGE)
-        self.outputBox.tag_config("barrie", foreground=JADE)
+        self.outputBox.tag_config("barrie", foreground=BLUE)
         self.outputBox.tag_config("tomas tam", foreground=LIGHTRED)
-        self.outputBox.tag_config("silvio", foreground=NAVY)
+        self.outputBox.tag_config("silvio", foreground=JADE)
         self.outputBox.tag_config("niplin", foreground=GREEN)
         self.outputBox.tag_config("riplin", foreground=MAGENTA)
         self.outputBox.insert(END,
@@ -3140,12 +3140,13 @@ GREEN = "#009037"
 CYAN = "#24828b"
 LIGHTCYAN = "#7bb4b9"
 BLACK = "#000000"
-BLUE = "#9aaad8"
+BLUE = "#1250ac"
 GREY = "#888888"
 YELLOW = "#daa520"
 WHITE = "#f4f4f4"
 NAVY = "#000050"
 PURPLE = "#26065c"
+LIGHTPURPLE = "#9c76c7"
 MAGENTA = "#de6ef1"
 ORANGE = "#f8b681"
 DARKORANGE = "#a33c00"
@@ -3175,7 +3176,7 @@ QUEST_BG = BROWN
 QUEST_FG = DARKBEIGE
 MYSTIC_BG = PURPLE
 MYSTIC_FG = MAGENTA
-MYSTIC_FG2 = BLUE
+MYSTIC_FG2 = LIGHTPURPLE
 SKILL_BG = ORANGE
 SKILL_FG = DARKORANGE
 UPGRADE_BG = JADE
