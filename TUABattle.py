@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: March 29, 2023
+Revised: April 19, 2023
 """
 
 
@@ -1221,7 +1221,7 @@ class Battle(object):
         elif self.auxiliaryCharacters:
             for character in self.auxiliaryCharacters:
                 if character.isDead():
-                    self.text += character.NAME+" went unconscious!\n"
+                    self.text += character.NAME+" retreats from combat!\n"
                     self.auxiliaryCharacters.remove(character)
                     self.sounds.append("Dead")
         return False
