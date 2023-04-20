@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: April 2, 2023
+Revised: April 19, 2023
 """
 
 
@@ -85,7 +85,9 @@ class Sound:
                        "Break Free": "FX-Rise",
                        "Remove Armour": "FX-Toss",
                        "Place on Anvil": "FX-Thud",
-                       "Strike Anvil": "FX-Hit",
+                       "Strike Anvil": [
+                           ("FX-Smith-%s" % i) for i in range(11)
+                       ],
                        "Crucible": "FX-Select",
                        "Hammer": "FX-Cast",
                        "Failed Upgrade": "FX-Ground",
@@ -96,6 +98,7 @@ class Sound:
         self.previousSong = None    # For returning to the previous song after an event
         self.sfxMuted = False
         mixer.music.set_volume(Sound.MUSIC_VOLUME)
+        mixer.set_reserved(1)   # Reserve channel 0
 
     def isNewSong(self, songName):
         """Check if the given song is different from the current one."""
@@ -133,14 +136,18 @@ class Sound:
         if not self.isPlaying():
             return True
             
-    def playSound(self, soundName, count=1, pan=None):
+    def playSound(self, soundName, count=1, pan=None, interruptible=False):
         if not self.sfxMuted and count > 0:
             sound = mixer.Sound(self.path % soundName)
-            if pan is None:
+            if pan is None and not interruptible:
                 sound.play(loops=count - 1)
             else:
-                channel = mixer.find_channel(True)
-                channel.set_volume(*pan)
+                if interruptible:
+                    channel = mixer.Channel(0)
+                else:
+                    channel = mixer.find_channel(True)
+                if pan:
+                    channel.set_volume(*pan)
                 channel.play(sound, loops=count - 1)
             
     def muteSfx(self):

@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 14, 2023
+Revised: April 19, 2023
 """
 
 
@@ -1643,7 +1643,7 @@ Game over? Don't fret. You can now """)
                     main.forge.getSuccessChance())
         else:
             insertText("You stoke the flames of the mythical crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
-        main.sound.playSound(main.sound.sounds['Strike Anvil'])
+        main.sound.playSound(main.sound.sounds['Strike Anvil'][fiddle+5], interruptible=True)
         self.strikeAnvilCallback = root.after(875 + 125 * fiddle, self.upgradeForgeEquip)
 
     def upgradeForgeEquip(self):
@@ -1683,6 +1683,7 @@ Game over? Don't fret. You can now """)
             insertText("You may now reascend Mount Olympus for another trial.",
                        "italicize")
             main.character.flags['Mount Olympus Complete'] = True
+        # TODO Uncomment
         # cleanUpForge()
 
     def clickMissionLog(self):
