@@ -2,7 +2,7 @@
 File: TUAAthens.py
 Author: Ben Gardner
 Created: August 5, 2015
-Revised: December 31, 2015
+Revised: April 25, 2023
 """
 
 
@@ -286,7 +286,7 @@ class Athens:
         self.helpText = None
         self.menu = []
         npc = "Noel"
-        price = 500
+        price = 250
         if selectionIndex == 0:
             self.text = (npc+": "+random.choice(
 ["I have no advice for you, son; you seem to have wisdom beyond your" +
@@ -352,7 +352,7 @@ class Athens:
         self.helpText = None
         self.menu = []
         npc = "Noel"
-        price = 500
+        price = 250
         if selectionIndex == 0:
             self.c.flags['Rested'] = True
             self.c.hp = self.c.maxHp

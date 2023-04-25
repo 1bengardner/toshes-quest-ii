@@ -2,7 +2,7 @@
 File: TUARumadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: November 28, 2022
+Revised: April 25, 2023
 """
 
 
@@ -307,7 +307,7 @@ class RumadanVillage:
         self.helpText = None
         self.menu = []
         npc = "Bayezin"
-        price = 200
+        price = 100
         if selectionIndex == 0:
             self.text = (npc+": "+random.choice(
 ["Ok, if you wanna know something, don't forget to drink water." +
@@ -393,7 +393,7 @@ class RumadanVillage:
         self.helpText = None
         self.menu = []
         npc = "Bayezin"
-        price = 200
+        price = 100
         if selectionIndex == 0:
             self.c.flags['Rested'] = True
             self.c.hp = self.c.maxHp
