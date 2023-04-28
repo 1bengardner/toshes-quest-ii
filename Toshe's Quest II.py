@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 19, 2023
+Revised: April 27, 2023
 """
 
 
@@ -1125,6 +1125,11 @@ The lair of the dark commander """)
         newsContent.insert(END,
 """ has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
 
+The """)
+        newsContent.insert(END, "endgame", ("emphasis"))
+        newsContent.insert(END,
+""" is nigh! Completing the main game will unlock a new town with two new modes to test your might and upgrade your arsenal to its ultimate form.
+
 """)
         newsContent.insert(END, "Feature Updates", ("section"))
         newsContent.insert(END,
@@ -1139,12 +1144,12 @@ Find your way around with the new """)
         newsContent.insert(END,
 """. Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
 
-Are you thirsty? Quench that desire with a """)
+Are you thirsty? Quench that craving with a """)
         newsContent.insert(END, "potion", ("emphasis"))
         newsContent.insert(END,
 """, and heal some HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
 
-It's 2022 and people's screens are getting wider...that means it's time for a """)
+It's 2023 and people's screens are getting wider...that means it's time for a """)
         newsContent.insert(END, "Mission Log", ("emphasis"))
         newsContent.insert(END,
 """! That's right, you can now view your current missions in your very own log, at your leisure.
@@ -1153,6 +1158,11 @@ Zounds, we have """)
         newsContent.insert(END, "sounds", ("emphasis"))
         newsContent.insert(END,
 """! You can now toggle sound effects, as well as music.
+
+Check your hits and heals at a glance with """)
+        newsContent.insert(END, "damage numbers", ("emphasis"))
+        newsContent.insert(END,
+""". They're animated!
 
 Game over? Don't fret. You can now """)
         newsContent.insert(END, "resume from town", ("emphasis"))
