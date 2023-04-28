@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: April 1, 2023
+Revised: April 27, 2023
 """
 
 
@@ -72,6 +72,7 @@ from TUAYaouwVolcano import YaouwVolcano
 from TUADuneHotsPeak import DuneHotsPeak
 from TUALairOfTheMagi import LairOfTheMagi
 from TUAIgaloCathedral import IgaloCathedral
+from TUALitochoro import Litochoro
 
 
 class Main:
@@ -121,6 +122,7 @@ class Main:
             "Pristina",
             "Rumadan Village",
             "Athens",
+            "Litochoro",
         ])
         self.resetForge()
 
@@ -269,6 +271,7 @@ class Main:
                       'Dune Hots Peak': DuneHotsPeak,
                       'Lair of the Magi': LairOfTheMagi,
                       'Igalo Cathedral': IgaloCathedral,
+                      'Litochoro': Litochoro,
                       }
 
     def populateWeapons(self):

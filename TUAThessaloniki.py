@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: March 4, 2023
+Revised: April 27, 2023
 """
 
 
@@ -36,6 +36,12 @@ class Thessaloniki:
         upLt = self.upLeft
         dnLt = self.downLeft
         dnRt = self.downRight
+        if "Conclusion" in self.c.flags:
+            pthL = self.pathToLitochoro
+            lito = self.litochoro
+        else:
+            pthL = dnRt
+            lito = None
         pth1 = self.path1
         pth2 = self.path2
         gate = self.gate
@@ -46,8 +52,8 @@ class Thessaloniki:
         self.spots = [
             [None, None, None, None, None, None, None, None, None, None, None, None, None],
             [None, lair, None, None, None, None, None, None, None, None, dist, None, None],
-            [None, None, None, None, None, None, gate, None, None, None, notL, dnLt, None],
-            [None, None, None, None, None, None, pth2, None, dnRt, notU, nml2, upLt, None],
+            [None, None, None, None, None, None, gate, None, lito, None, notL, dnLt, None],
+            [None, None, None, None, None, None, pth2, None, pthL, notU, nml2, upLt, None],
             [None, None, None, None, None, dnRt, pth1, notU, nml1, nml2, notR, None, None],
             [None, None, None, dnRt, notU, nml2, nml3, nml1, nml2, nml3, upLt, None, None],
             [None, None, dnRt, nml1, nml2, nml3, nml1, nml2, nml3, upLt, None, None, None],
@@ -77,8 +83,10 @@ class Thessaloniki:
                            pth2: e,
                            gate: {},
                            dist: {},
-                           lair: {}
-                           }
+                           lair: {},
+                           pthL: {},
+                           lito: {},
+                          }
     
     def movementActions(self):
         pass
@@ -103,6 +111,12 @@ class Thessaloniki:
         X = 8
         Y = 2
         return self.actions({'area': "Greece",
+                             'coordinates': (X, Y)})
+
+    def litochoro(self, selectionIndex=None):
+        X = 1
+        Y = 5
+        return self.actions({'area': "Litochoro",
                              'coordinates': (X, Y)})
 
     def normal1(self, selectionIndex=None):
@@ -480,4 +494,12 @@ class Thessaloniki:
             else:
                 self.text = "You see your reflection."
 
+        return self.actions()
+        
+    def pathToLitochoro(self):
+        self.view = "travel"
+        self.imageIndex = 9
+        self.text = "You see a small town up ahead."
+        self.helpText = None
+        self.menu = []
         return self.actions()
