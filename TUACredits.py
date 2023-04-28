@@ -2,7 +2,7 @@
 File: TUACredits.py
 Author: Ben Gardner
 Created: December 30, 2015
-Revised: December 31, 2015
+Revised: April 27, 2023
 """
 
 
@@ -54,7 +54,7 @@ class Credits:
             Y = 3
             return self.actions({'area': "Herceg Novi",
                                  'coordinates': (X, Y)})
-        self.text = ("Game by Ben Gardner\n" +
+        self.text = ("Toshe's Quest II: A game by Ben Gardner\n" +
                      "\nSean Anderson as Sean" +
                      "\nAbdalla Khafagy as Jazidhu" +
                      "\nBayezin Selim as Bayezin" +
@@ -62,8 +62,8 @@ class Credits:
                      "\nUduak Umoeka as Big Nigel" +
                      "\nLina as Lina\n" +
                      "\nSpecial thanks to Alvin Yang, Jeff Buscarino and" +
-                     " Zain Zia for their support, and thanks to Tyler" +
+                     " Zain Zia for their support, and to Tyler" +
                      " Perris for the original game idea." +
-                     "\nThanks for playing!")
-        self.menu = ["Restart."]
+                     "\nThank you for playing!")
+        self.menu = ["Continue."]
         return self.actions()
