@@ -2,8 +2,8 @@ NAME	PRICE	INFO
 Jade Crystal	500	This gem harnesses elemental power.
 Aquamarine Shard	500	This gem harnesses elemental power.
 Garnet Fragment	500	This gem harnesses elemental power.
-Gold Ore	500	This can be refined into a valuable metal.
-Gold Bar	2000	A lightweight metal with strong*resistive properties.
+Gold Ore	1000	This can be refined into a valuable metal.
+Gold Bar	3000	A lightweight metal with strong*resistive properties.
 Syvre Leaf	500	Be re-leafed.
 Brummo Mint	1	This herb can have surprising effects*at an unexpected time.
 The Key to Macedonia	1	It is time to save your homeland.
@@ -21,4 +21,8 @@ Magical Mushroom	3000	Increases all reductions by 25%.*Consumed during an import
 Macedonian Protector	0	Increases block chance while defending.
 Oracular Orb	0	A magical orb of great energy.
 Ominous Orb	0	This orb can be fused with its*user to combine potentials.
-Chasmic Rucksack	15000	You could even fit a Telamon Shield in this thing.
+Chasmic Rucksack	15000	You could even fit a Telamon Shield in this baby.
+Scintillous Ring	0	???
+Golden Horn	0	Changes forge success chance to 95%.
+Green Horn	0	Triples forge success chance.
+Purple Horn	0	Raises forge success chance by 1000%.

@@ -1,16 +1,16 @@
 TITLE	DESCRIPTION	COMPLETION_CRITERIA	START_FLAG	END_FLAG	OPTIONAL	REPEATABLE
-Manhunt	Kill 2 Rumadan men for Bartender Daniel in Herceg Novi. They can be found in the Frolicking Fields nearby.	{'Kills': ('Rumadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete	0	0
-Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi. They can be found in the Bay of Kotor to the south.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete	0	0
-I need a doctor!	Find and kill Dr. Grabh for Bartender Daniel in Herceg Novi.	{'Kills': ('Dr. Grabh', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	0	0
-A Lovely Orcskin Jacket	Kill 1 Orc for Bartender Adam in Mojkovac Valley.	{'Kills': ('Orc', 1)}	Adam Quest 1	Adam Quest 1 Complete	0	0
-A Cute Goblinhide Coat	Kill 5 Goblins for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	0	0
-Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	0	0
-Fresh or Fowl?	Kill 1 crow for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	0	0
-A Shocking Choice	Kill 3 jellyfish for Bartender Igor in Pec.	{'Kills': ('Toxic Jellyfish', 3)}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	0	0
-"Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	0	0
-Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	0	0
-Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	0	0
-General Information	Kill General Octavius for Bartender Zhang in Pristina.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	0	0
+Manhunt	Kill 2 Rumadan men for Bartender Daniel in Herceg Novi. They can be found in the Frolicking Fields nearby.	{'Kills': ('Rumadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete	1	0
+Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi. They can be found in the Bay of Kotor to the south.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete	1	0
+I need a doctor!	Find and kill Dr. Grabh for Bartender Daniel in Herceg Novi.	{'Kills': ('Dr. Grabh', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	1	0
+A Lovely Orcskin Jacket	Kill 1 Orc for Bartender Adam in Mojkovac Valley.	{'Kills': ('Orc', 1)}	Adam Quest 1	Adam Quest 1 Complete	1	0
+A Cute Goblinhide Coat	Kill 5 Goblins for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	1	0
+Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	1	0
+Fresh or Fowl?	Kill 1 crow for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	1	0
+A Shocking Choice	Kill 3 jellyfish for Bartender Igor in Pec.	{'Kills': ('Toxic Jellyfish', 3)}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	1	0
+"Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	1	0
+Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	1	0
+Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	1	0
+General Information	Kill General Octavius for Bartender Zhang in Pristina.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	1	0
 Homeland Bound	Continue your journey north through Black Mountain to reach Mojkovac.	{'No Criteria': True}	Daniel Quest 3 Complete	Mojkovac Summit	0	0
 Father Time	Rescue Dragan's father from inside The Watchmaking Facility.	{'No Criteria': True}	Dragan	The Watchmaking Facility Complete	0	0
 Mystery of the Mages	Gather information about the disappearance of the archmages for Mayor Radoman in Igalo.	{'Kills': ('Maximilian', 1)}	Radoman	Radoman Information 1	0	0
@@ -35,15 +35,21 @@ The Key to Macedonia	Find a blacksmith who can smith the Key to Macedonia.	{'Ite
 Steps to Justice	Travel to the Thessalonian Highlands from the northeastern tip of the Greek Plains.	{'No Criteria': True}	Got Key	Thessaloniki	0	0
 Open Thessame	Open the gate to Macedonia in the Thessalonian Highlands.	{'Items': {'The Key to Macedonia': 1}}	Thessaloniki	Macedonian Gate Opened	0	0
 Liberation	Save Macedonia.	{'No Criteria': True}	Stone Banter	Conclusion	0	0
-Graveyard Shift	Defeat the Pirates in the Scutari Peninsula and the Gryphons in Western Kosovo.	{'Multiple Kills': (('Pirate Captain', "Pirates"), ('Phoenix', "Gryphons"))}	Skeleton Clan	Skeleton Clan Reward	0	0
-Bilge Duty	Defeat the Skeletons in the Mojkovac Cemetery and the Gryphons in Western Kosovo.	{'Multiple Kills': (('Skeleton Commander', "Skeletons"), ('Phoenix', "Gryphons"))}	Pirate Clan	Pirate Clan Reward	0	0
-Pecking Order	Defeat the Skeletons in the Mojkovac Cemetery and the Pirates in the Scutari Peninsula.	{'Multiple Kills': (('Skeleton Commander', "Skeletons"), ('Pirate Captain', "Pirates"))}	Gryphon Clan	Gryphon Clan Reward	0	0
+Graveyard Shift	Defeat the Pirates in the Scutari Peninsula and the Gryphons in Western Kosovo.	{'Multiple Kills': (('Pirate Captain', "Pirates"), ('Phoenix', "Gryphons"))}	Skeleton Clan	Skeleton Clan Reward	1	0
+Bilge Duty	Defeat the Skeletons in the Mojkovac Cemetery and the Gryphons in Western Kosovo.	{'Multiple Kills': (('Skeleton Commander', "Skeletons"), ('Phoenix', "Gryphons"))}	Pirate Clan	Pirate Clan Reward	1	0
+Pecking Order	Defeat the Skeletons in the Mojkovac Cemetery and the Pirates in the Scutari Peninsula.	{'Multiple Kills': (('Skeleton Commander', "Skeletons"), ('Pirate Captain', "Pirates"))}	Gryphon Clan	Gryphon Clan Reward	1	0
 Aquamarine Dreams	Bring an Aquamarine Shard to Ivana in Herceg Novi.	{'Items': {'Aquamarine Shard': 1}}	Ivana Talk 3	Necklace Fixed	1	0
 Animal Absorption	Hunt for a legendary Giant Animal and absorb its power using the altar in the Hidden Passage.	{'Wildcard Kills': (('Giant Seal2', 'Giant Shark2', 'Giant Salamander2', 'Giant Scorpion2', 'Giant Scarab2'), 1, "Legendary Animal")}	Animal Powers	Ascended	1	0
 Animal Ascension	Defeat every legendary Giant Animal and absorb their souls.	{'Multiple Kills': (('Giant Seal2', "Frostflipper the Fierce"), ('Giant Shark2', "Tidetooth the Tough"), ('Giant Salamander2', "Meltmaw the Magical"), ('Giant Scorpion2', "Poisonpinch the Piercing"), ('Giant Scarab2', "Stoneshell the Spirited"))}	Ascended	Fully Ascended	1	0
 Precious Metal	Bring a piece of Gold Ore to Goldum in the Rumadan Hideout.	{'Items': {'Gold Ore': 1}}	Met Goldum	Goldum Gold	1	0
 A Sword of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Rumadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
 Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward to Big Nigel in the Greek Plains.	{'Items': {'Jade Ward': 1, 'Garnet Ward': 1, 'Aquamarine Ward': 1}}	Big Nigel	Diamond Defence	1	1
-Delivery to an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	0	0
-Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	0	0
-Coat of Arms	Find the lost Oseku Shield somewhere in Albania and return it to the woman in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	0	0
+Delivery to an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	1	0
+Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	1	0
+Coat of Arms	Find the lost Oseku Shield somewhere in Albania and return it to the woman in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	1	0
+Rocky Road	Remove the boulders blocking the cave in the Billowing Bluffs.	{'No Criteria': True}	IGNORE Vismurg Entrance Found	Moved Boulders	1	0
+Block of Ice	Melt the frozen passage in the Adriatic Sea.	{'No Criteria': True}	IGNORE Aldreed Entrance Found	Melted Ice	1	0
+Under Pressure	Stop the active geyser in the Albanian Desert.	{'No Criteria': True}	IGNORE Oukkar Entrance Found	Plugged Geyser	1	0
+Mythical Medley	Kill 10 mythical creatures for Melanippe in Litochoro.	{'Wildcard Kills': (('Nemean Lion', 'Teumessian Fox', 'Stymphalian Bird', 'Hydra', 'Chimera', 'Cerberus', 'Cychreides', 'Skolopendra', 'Pterripus', 'Gorgon', 'Harpy', 'Minotaur', 'Centaur', 'Satyr', 'Siren'), 10, "Mythical Creatures")}	Melanippe Quest 1	Melanippe Quest 1 Complete	1	0
+Skolopendra Sauce	Kill 3 Skolopendras for Melanippe in Litochoro.	{'Kills': ('Skolopendra', 3)}	Melanippe Quest 2	Melanippe Quest 2 Complete	1	0
+Hydra-tion	Kill 9 Hydras for Melanippe in Litochoro.	{'Kills': ('Hydra', 9)}	Melanippe Quest 3	Melanippe Quest 3 Complete	1	0

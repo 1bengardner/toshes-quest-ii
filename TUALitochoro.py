@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: April 27, 2023
+Revised: April 29, 2023
 """
 
 
@@ -91,6 +91,8 @@ class Litochoro:
         self.menu = []
         npc = "Melanippe"
         price = 500
+        teaPrice = 50
+        moreActions = None
         if selectionIndex == 0:
             self.text = (npc+": "+random.choice(
 ["Deep, deep under the city lurks a minotaur. Not just any minotaur, mind you. Oh, heavens, not Daedalus's minotaur. He was...disposed of years ago. No, this minotaur is something else. Men have been driven to insanity trying to hunt it down. Never mind that. How about some tea, dear?",
@@ -100,6 +102,91 @@ class Litochoro:
  "The view here is lovely. I really enjoy my mornings watching the sun rise and sipping Earl Grey from my favourite mug."
  ]
 ))
+        elif selectionIndex == 1:
+            if self.c.euros < teaPrice:
+                self.text = (npc+": Oops, tea costs %s euros." % teaPrice)
+            else:
+                self.c.euros -= teaPrice
+                self.text = (npc+": Here is some %s, dear." % random.choice([
+                    "Earl Grey",
+                    "spearmint tea",
+                    "chamomile tea",
+                    "lavender mint tea",
+                    "ironwort tea",
+                ]))
+                mythicalCreatures = [
+                    "Nemean Lion",
+                    "Teumessian Fox",
+                    "Stymphalian Bird",
+                    "Cerberus",
+                    "Chimera",
+                    "Hydra",
+                    "Cychreides",
+                    "Skolopendra",
+                    "Pterripus",
+                    "Gorgon",
+                    "Harpy",
+                    "Minotaur",
+                    "Centaur",
+                    "Satyr",
+                    "Siren"
+                ]
+                if npc+" Quest 1" not in self.c.flags:
+                    self.text += (" Are you enjoying all the nice weather we're having? Well, I have a lovely soup I like to make from time to time. It has the flesh of Olympian beasts in it. Could you be a dear and fetch me a pile of mythical meat? Thank you so much, sweetheart.")
+                    self.c.flags[npc+' Quest 1'] = 0
+                    for creature in mythicalCreatures:
+                        if creature in self.c.flags['Kills']:
+                            self.c.flags[npc+' Quest 1'] += self.c.flags['Kills'][creature]
+                elif (npc+" Quest 1 Complete" not in self.c.flags and
+                      npc+" Quest 1" in self.c.flags):
+                    kills = 0
+                    for creature in mythicalCreatures:
+                        if creature in self.c.flags['Kills']:
+                            self.c.flags[npc+' Quest 1'] += self.c.flags['Kills'][creature]
+                    if kills >= self.c.flags[npc+' Quest 1'] + 10:
+                        self.text += (" Oh! This is just lovely. I would like you to have this."+
+                                      "\n%s gives you a scintillous ring!" % npc)
+                        moreActions = {'item': "Scintillous Ring"}
+                        self.c.flags[npc+' Quest 1 Complete'] = True
+                elif npc+" Quest 2" not in self.c.flags:
+                    self.text += (" Oh, I wanted to tell you something. I still have my grandmother's famous sauce recipe. Now, guess what's inside? That's right, Skolopendra skin! That means you get to find me some!")
+                    if "Skolopendra" in self.c.flags['Kills']:
+                        self.c.flags[npc+' Quest 2'] = \
+                                           self.c.flags['Kills']['Skolopendra']
+                    else:
+                        self.c.flags[npc+' Quest 2'] = 0
+                elif (npc+" Quest 2 Complete" not in self.c.flags and
+                      npc+" Quest 2" in self.c.flags and
+                      "Skolopendra" in self.c.flags['Kills'] and
+                      self.c.flags['Kills']['Skolopendra'] >=
+                      self.c.flags[npc+' Quest 2'] + 3):
+                    self.text += (" Wonderful! Just one moment...here, taste!"+
+                                  "\n%s gives you a taste of the thick sauce." % npc+
+                                  "\nYou gain 10 stat points!")
+                    self.c.statPoints += 10
+                    self.c.flags[npc+' Quest 2 Complete'] = True
+                elif npc+" Quest 3" not in self.c.flags:
+                    self.text += (" Now, as you know, the Hydra is a beast that can regrow its heads. Each hydra has one main head: That's the one that controls the body. It can also be steeped to brew a delicious tea. Would you be a dear and slay 9 hydra for me and bring me their main heads?")
+                    if "Hydra" in self.c.flags['Kills']:
+                        self.c.flags[npc+' Quest 3'] = \
+                                           self.c.flags['Kills']['Hydra']
+                    else:
+                        self.c.flags[npc+' Quest 3'] = 0
+                elif (npc+" Quest 3 Complete" not in self.c.flags and
+                      npc+" Quest 3" in self.c.flags and
+                      "Hydra" in self.c.flags['Kills'] and
+                      self.c.flags['Kills']['Hydra'] >=
+                      self.c.flags[npc+' Quest 3'] + 9):
+                    self.text += (" This is just splendid. You did wonderfully."+
+                                  "\n%s leans you over and pecks you on the temple, and hands you a curved object." % npc+
+                                  "\n%s: This is a special minotaur horn. It once belonged to Theseus. I hope that you can put it to use." % npc+
+                                  "\nYou got the purple horn!")
+                    moreActions = {'item': "Purple Horn"}
+                    self.c.flags[npc+' Quest 3 Complete'] = True
+                elif npc+" Quest 3 Complete" in self.c.flags:
+                    self.text += (" Enjoying all the nice weather?")
+                else:
+                    self.text += (" How is your quest?")                    
         elif selectionIndex == 2:
             if (self.c.euros >= price or
                 "Litochoro Room Level" in self.c.flags):
@@ -142,15 +229,15 @@ class Litochoro:
 
         if "Litochoro Room Level" in self.c.flags:
             self.menu = ["Ask for advice.",
-                         "TODO",#"Buy a drink (50 euros).",
+                         "Buy a drink (%s euros)." % teaPrice,
                          "Return to your room.",
                          "Leave."]
         else:
             self.menu = ["Ask for advice.",
-                         "TODO",#"Buy a drink (50 euros).",
+                         "Buy a drink (%s euros)." % teaPrice,
                          "Get a room (%s euros)." % price,
                          "Leave."]
-        return self.actions()
+        return self.actions(moreActions) if moreActions else self.actions()
 
     def bedroom(self, selectionIndex=None):
         self.view = "travel"

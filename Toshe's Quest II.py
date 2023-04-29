@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 27, 2023
+Revised: April 28, 2023
 """
 
 
@@ -1652,7 +1652,7 @@ Game over? Don't fret. You can now """)
             self.forgeSuccess['text'] = "Success chance: %s%%" % (
                     main.forge.getSuccessChance())
         else:
-            insertText("You stoke the flames of the mythical crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
+            insertText("You stoke the flames of the crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
         main.sound.playSound(main.sound.sounds['Strike Anvil'][fiddle+5], interruptible=True)
         self.strikeAnvilCallback = root.after(875 + 125 * fiddle, self.upgradeForgeEquip)
 
