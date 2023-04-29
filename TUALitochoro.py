@@ -142,7 +142,7 @@ class Litochoro:
                     kills = 0
                     for creature in mythicalCreatures:
                         if creature in self.c.flags['Kills']:
-                            self.c.flags[npc+' Quest 1'] += self.c.flags['Kills'][creature]
+                            kills += self.c.flags['Kills'][creature]
                     if kills >= self.c.flags[npc+' Quest 1'] + 10:
                         self.text += (" Oh! This is just lovely. I would like you to have this."+
                                       "\n%s gives you a scintillous ring!" % npc)
@@ -158,8 +158,7 @@ class Litochoro:
                 elif (npc+" Quest 2 Complete" not in self.c.flags and
                       npc+" Quest 2" in self.c.flags and
                       "Skolopendra" in self.c.flags['Kills'] and
-                      self.c.flags['Kills']['Skolopendra'] >=
-                      self.c.flags[npc+' Quest 2'] + 3):
+                      self.c.flags['Kills']['Skolopendra'] >= self.c.flags[npc+' Quest 2'] + 3):
                     self.text += (" Wonderful! Just one moment...here, taste!"+
                                   "\n%s gives you a taste of the thick sauce." % npc+
                                   "\nYou gain 10 stat points!")
@@ -175,8 +174,7 @@ class Litochoro:
                 elif (npc+" Quest 3 Complete" not in self.c.flags and
                       npc+" Quest 3" in self.c.flags and
                       "Hydra" in self.c.flags['Kills'] and
-                      self.c.flags['Kills']['Hydra'] >=
-                      self.c.flags[npc+' Quest 3'] + 9):
+                      self.c.flags['Kills']['Hydra'] >= self.c.flags[npc+' Quest 3'] + 9):
                     self.text += (" This is just splendid. You did wonderfully."+
                                   "\n%s leans you over and pecks you on the temple, and hands you a curved object." % npc+
                                   "\n%s: This is a special minotaur horn. It once belonged to Theseus. I hope that you can put it to use." % npc+
