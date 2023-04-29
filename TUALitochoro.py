@@ -72,6 +72,11 @@ class Litochoro:
             Y = 3
             return self.actions({'area': "Litochoro",
                                  'coordinates': (X, Y)})
+        elif selectionIndex == 1:
+            # TODO
+        elif selectionIndex == 2:
+            # TODO
+            pass
         if "Litochoro Man" not in self.c.flags:
             self.c.flags['Litochoro Man'] = True
             self.text = ("You fortunately spot a clothed man working on "+
@@ -81,6 +86,10 @@ class Litochoro:
         self.menu = [
             "Enter the inn.",
         ]
+        if "Ready for Mount Olympus" in self.c.flags:
+            self.menu.append("Travel to Mount Olympus.")
+        if "Ready for Labyrinth" in self.c.flags:
+            self.menu.append("Descend into the Labyrinth of Daedalus.")
         return self.actions()
 
     def tavern(self, selectionIndex=None):
@@ -102,6 +111,8 @@ class Litochoro:
  "The view here is lovely. I really enjoy my mornings watching the sun rise and sipping Earl Grey from my favourite mug."
  ]
 ))
+            if any(phrase in self.text for phrase in ("Olympus", "mountain")):
+                self.c.flags['Ready for Mount Olympus'] = True
         elif selectionIndex == 1:
             if self.c.euros < teaPrice:
                 self.text = (npc+": Oops, tea costs %s euros." % teaPrice)
@@ -132,6 +143,7 @@ class Litochoro:
                     "Siren"
                 ]
                 if npc+" Quest 1" not in self.c.flags:
+                    self.c.flags['Ready for Mount Olympus'] = True
                     self.text += (" Are you enjoying all the nice weather we're having? Well, I have a lovely soup I like to make from time to time. It has the flesh of Olympian beasts in it. Could you be a dear and fetch me a pile of mythical meat? Thank you so much, sweetheart.")
                     self.c.flags[npc+' Quest 1'] = 0
                     for creature in mythicalCreatures:

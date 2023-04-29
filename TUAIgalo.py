@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: December 8, 2022
+Revised: April 29, 2023
 """
 
 
@@ -698,6 +698,7 @@ class Igalo:
         elif selectionIndex == 2 and "Niplin" in self.c.flags['Kills']:
             self.text = ("Toshe: What's our current mission?"+
                          "\nKnight: Now that Niplin is dead, we can focus on building our defences. For such a mighty warrior as yourself, you may find virtuosity in Mount Olympus.")
+            self.c.flags['Ready for Mount Olympus'] = True
         elif selectionIndex == 2 and "Radoman Information 1" in self.c.flags:
             self.text = ("Toshe: What's our current mission?"+
                          "\nKnight: You must be Toshe. We are to"+
