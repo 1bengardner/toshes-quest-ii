@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: November 28, 2022
+Revised: May 1, 2023
 """
 
 
@@ -714,7 +714,7 @@ class Pristina:
         self.imageIndex = 23
         self.text = None
         self.helpText = None
-        npc = "Knight"
+        npc = "Knight Raoul"
         skill1 = "Steel Twister"
         skill2 = "Bloodrush Crush"
         skill3 = "Diamond Cutter"

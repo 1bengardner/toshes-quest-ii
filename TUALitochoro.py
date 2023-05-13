@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: April 29, 2023
+Revised: May 2, 2023
 """
 
 
@@ -73,7 +73,11 @@ class Litochoro:
             return self.actions({'area': "Litochoro",
                                  'coordinates': (X, Y)})
         elif selectionIndex == 1:
-            # TODO
+            # Mount Olympus is special
+            X = -2
+            Y = -2
+            return self.actions({'area': "Mount Olympus",
+                                 'coordinates': (X, Y)})
         elif selectionIndex == 2:
             # TODO
             pass

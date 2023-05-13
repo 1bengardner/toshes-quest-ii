@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: November 26, 2022
+Revised: May 2, 2023
 """
 
 
@@ -366,7 +366,7 @@ class Pec:
         self.imageIndex = 6
         self.text = None
         self.helpText = None
-        npc = "Knight"
+        npc = "Knight Deltraz"
         skill1 = "Shield Breaker"
         skill2 = "Steadfast Slash"
         skill3 = "Carnivorous Blow"

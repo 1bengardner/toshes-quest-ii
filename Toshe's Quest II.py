@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: April 28, 2023
+Revised: May 12, 2023
 """
 
 
@@ -1343,11 +1343,17 @@ Game over? Don't fret. You can now """)
                                      bg=DEFAULT_BG)
         self.enemyStats.grid(row=0)
         self.enemyStats.grid_propagate(0)
-        self.enemyNameLabel = Label(self.enemyStats, text="Richard Titball",
+        nameFrame = Frame(self.enemyStats, bg=DEFAULT_BG)
+        nameFrame.grid(columnspan=2)
+        self.enemyNameLabel = Label(nameFrame, text="Richard Titball",
                                     font=italicFont4, fg=BLACK, bg=DEFAULT_BG)
-        self.enemyNameLabel.grid(row=0, column=0, columnspan=2)
+        self.enemyNameLabel.grid(pady=(0, 6))
+        self.enemySubNameLabel = Label(nameFrame, text="Secret Agent",
+                                       font=italicFont1, fg=GREY, bg=DEFAULT_BG,
+                                       pady=0)
+        self.enemySubNameLabel.grid(row=0, ipady=0, pady=(32, 0), sticky=S)
         levelFrame = Frame(self.enemyStats, bd=2, relief=RIDGE, bg=LEVEL_BG)
-        levelFrame.grid(row=0, column=1, padx=10, pady=10, sticky=E)
+        levelFrame.grid(row=0, column=1, padx=10, pady=10, sticky=N+E)
         self.enemyLevelLabel = Label(levelFrame, text="17", font=font2,
                                      width=2, bg=DEFAULT_BG, bd=0)
         self.enemyLevelLabel.grid()
@@ -1604,6 +1610,13 @@ Game over? Don't fret. You can now """)
         
         self.enemyLevelLabel['text'] = e.LEVEL
         self.enemyNameLabel['text'] = e.NAME
+        if hasattr(e, "SUBNAME"):
+            self.enemySubNameLabel['text'] = e.SUBNAME
+            self.enemySubNameLabel.grid()
+            self.enemyNameLabel.grid(pady=(0, 6))
+        else:
+            self.enemySubNameLabel.grid_remove()
+            self.enemyNameLabel.grid(pady=0)
         self.enemyImageLabel['image'] = enemyImages[e.IDENTIFIER]
         self.enemyImageLabel['state'] = NORMAL
         if e.hp <= 0:
@@ -1657,44 +1670,22 @@ Game over? Don't fret. You can now """)
         self.strikeAnvilCallback = root.after(875 + 125 * fiddle, self.upgradeForgeEquip)
 
     def upgradeForgeEquip(self):
-        def cleanUpForge():
-            self.v3.set(-1)
-            self.anvilButton.config(state=DISABLED, relief=FLAT, cursor="")
-            self.crucible.config(state=DISABLED)
-            for button in self.forgeButtons:
-                button.config(state=DISABLED)
-            for button in self.forgeButtons[1:]:
-                button.config(image=noItemImage)
-            self.forgeSuccess.grid_remove()
-            window.topFrame.topLeftFrame.placeButton['state'] = DISABLED
         self.strikeAnvilCallback = None
         insertText = window.bottomFrame.bottomLeftFrame.insertOutput
-        upgradedCategory = main.forge.forgeItem.CATEGORY
-        previousName = main.forge.forgeItem.displayName
-        upgradedSuccessfully = False
-        for _ in main.forge.do():
-            if not upgradedSuccessfully:
-                insertText("The anvil cools and you retrieve your bolstered %s."
-                    % (upgradedCategory.lower()))
-                upgradedSuccessfully = True
-            newName = main.forge.forgeItem.displayName
-            insertText("%s is now %s!" % (previousName, newName))
-            previousName = newName
-            main.sound.playSound(main.sound.sounds['Forge Upgrade'])
-        if upgradedSuccessfully:
-            window.gridUpgradeFrame(True)
-        else:
-            insertText("The crucible was not hot enough. "+
-                "You fail to upgrade your %s." % (upgradedCategory.lower()))
-            window.gridUpgradeFrame(False)
-            main.sound.playSound(main.sound.sounds['Failed Upgrade'])
-        insertText("You feel Mount Olympus begin to shift.")
-        if "Mount Olympus Complete" not in main.character.flags:
-            insertText("You may now reascend Mount Olympus for another trial.",
-                       "italicize")
-            main.character.flags['Mount Olympus Complete'] = True
-        # TODO Uncomment
-        # cleanUpForge()
+        upgradedSuccessfully, interfaceActions = main.smith()
+        window.gridUpgradeFrame(upgradedSuccessfully)
+        updateInterface(interfaceActions)
+
+    def cleanUpForge(self):
+        self.v3.set(-1)
+        self.anvilButton.config(state=DISABLED, relief=FLAT, cursor="")
+        self.crucible.config(state=DISABLED)
+        for button in self.forgeButtons:
+            button.config(state=DISABLED)
+        for button in self.forgeButtons[1:]:
+            button.config(image=noItemImage)
+        self.forgeSuccess.grid_remove()
+        window.topFrame.topLeftFrame.placeButton['state'] = DISABLED
 
     def clickMissionLog(self):
         main.sound.playSound(main.sound.sounds['Open Log'])
@@ -2540,11 +2531,13 @@ def updateInterface(updates):
         for trigger in hitBoxTriggers:
             root.after_cancel(trigger)
         hitBoxTriggers = []
+    if updates['view'] == "forge":
+        topRightFrame.resetForge()
     if ('new quest' in updates):
         window.rightFrame.addMission(updates['new quest'])
         window.gridQuestFrame("MISSION!")
-        if not window.topFrame.topRightFrame.showMissionLog.get():
-            window.topFrame.topRightFrame.logButton.invoke()
+        if not topRightFrame.showMissionLog.get():
+            topRightFrame.logButton.invoke()
     if ('completed quest' in updates):
         window.rightFrame.markMission(updates['completed quest'])
     if ('uncompleted quests' in updates):
@@ -2572,6 +2565,7 @@ def enableTravelView():
     rightFrame.otherStats.grid()
     rightFrame.enemyStats.grid_remove()
     rightFrame.store.grid_remove()
+    rightFrame.forge.grid_remove()
     leftFrame.updateVitalStats()
 
     bottomFrame = window.bottomFrame.bottomRightFrame
@@ -2729,6 +2723,7 @@ def enableInventoryView():
     leftFrame.inventory.grid()
     rightFrame.otherStats.grid()
     rightFrame.enemyStats.grid_remove()
+    rightFrame.forge.grid_remove()
     rightFrame.store.grid_remove()
     leftFrame.updateInventory()
 
@@ -2845,15 +2840,25 @@ def enableForgetSkillView():
 
 
 def enableForgeView():
-    enableInventoryView()
-    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
-    window.topFrame.topRightFrame.resetForge()
+    window.topFrame.topCenterFrame.areaButton['state'] = NORMAL
+
     leftFrame = window.topFrame.topLeftFrame
+    leftFrame.vitalStats.grid_remove()
     leftFrame.equipButton.grid_remove()
     leftFrame.sellButton.grid_remove()
     leftFrame.dropButton.grid_remove()
+    leftFrame.inventory.grid()
+    leftFrame.updateInventory()
     leftFrame.placeButton.grid()
     leftFrame.placeButton['state'] = DISABLED
+
+    rightFrame = window.topFrame.topRightFrame
+    rightFrame.forge.grid()
+
+
+def enableForgeDoneView():
+    enableForgeView()
+    window.topFrame.topRightFrame.cleanUpForge()
 
 
 def hideSideGameFrames():
@@ -2889,7 +2894,7 @@ def close(event=None):
                 main.saveGame(True)
         elif main.view != "game over":
             if "no" == tkMessageBox.askquestion(
-                 "Exit without saving",
+                 "Exit without saving?",
                  "You can't save right now. Are you sure you want to quit?",
                  icon="warning",
                  parent=root):
@@ -3280,6 +3285,7 @@ views = {'travel': enableTravelView,
          'inventory': enableInventoryView,
          'store': enableStoreView,
          'forge': enableForgeView,
+         'forge done': enableForgeDoneView,
          'battle over': enableBattleOverView,
          'game over': enableGameOverView}
 

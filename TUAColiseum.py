@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: November 9, 2022
+Revised: May 12, 2023
 """
 
 
@@ -58,6 +58,7 @@ class Coliseum:
                 multiplicative = int(tokens[1])
                 stats = eval(tokens[2])
                 stats['NAME'] = name
+                stats['SUBNAME'] = "Crowd Favourite"
                 self.heroSouls.append({'Multiplicative': multiplicative,
                                        'Stats': stats})
         with open("data\\coliseumtext.txt", "r") as fileIn:
@@ -313,7 +314,14 @@ class Coliseum:
                                  " not prove mine, but I will make an" +
                                  " exception on this day.")
                 return self.actions({'enemy': enemy,
-                                     'coliseum': True})
+                                     'coliseum': True,
+                                     'enemy modifiers': {
+                                       'Multiplicative': False,
+                                       'Stats': {
+                                         'SUBNAME': "Champion"
+                                       }
+                                     }
+                                   })
         else:
             self.view = "store"
             self.text = ("Champion: Congratulations on your victory." +

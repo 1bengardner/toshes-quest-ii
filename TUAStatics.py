@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: April 11, 2023
+Created: May 8, 2023
 """
 
 
@@ -191,6 +191,9 @@ class Static:
         "Lair of the Magi": {
             "fg": HexColors.LAIR,
             "bg": HexColors.DARKNESS},
+        "Mount Olympus": {
+            "fg": HexColors.STONE_PATH,
+            "bg": HexColors.SKY},
     }
 
 class EquipUtils:

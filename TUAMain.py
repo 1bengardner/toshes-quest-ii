@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: April 27, 2023
+Revised: May 11, 2023
 """
 
 
@@ -73,6 +73,7 @@ from TUADuneHotsPeak import DuneHotsPeak
 from TUALairOfTheMagi import LairOfTheMagi
 from TUAIgaloCathedral import IgaloCathedral
 from TUALitochoro import Litochoro
+from TUAMountOlympus import MountOlympus
 
 
 class Main:
@@ -272,6 +273,7 @@ class Main:
                       'Lair of the Magi': LairOfTheMagi,
                       'Igalo Cathedral': IgaloCathedral,
                       'Litochoro': Litochoro,
+                      'Mount Olympus': MountOlympus,
                       }
 
     def populateWeapons(self):
@@ -475,6 +477,7 @@ class Main:
             self.x += 1
         elif direction == "down":
             self.y += 1
+        self.saveLocation() # Added to check Mount Olympus enemy locations
         self.character.ep += self.character.maxEp / 100
         self.currentArea.movementActions()
         self.addFlags()
@@ -591,10 +594,9 @@ class Main:
         else:
             enemyIdentifier = self.encounterEnemy()
             
-        # The definition
         if ( enemyIdentifier and not
              (self.character.equippedArmour.NAME in self.evasiveItems and
-              self.enemies[enemyIdentifier].LEVEL - 1 < self.character.level)):
+              self.enemies[enemyIdentifier].LEVEL <= self.character.level)):
             interfaceActions = {'view': "battle",
                                 'enemy': enemyIdentifier,
                                 'text': "",
@@ -697,14 +699,14 @@ class Main:
                             newSkills[self.skills[skillName]] =\
 interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                         enemy.SKILLS.update(newSkills)
-                    elif stat == "NAME":
-                        enemy.NAME =\
-                            interfaceActions['enemy modifiers']['Stats'][stat]
+                    elif stat in ("NAME", "SUBNAME", "LEVEL"):
+                        setattr(enemy, stat,
+                            interfaceActions['enemy modifiers']['Stats'][stat])
                     elif interfaceActions['enemy modifiers']['Multiplicative']:
-                        setattr(enemy, stat, getattr(enemy, stat) *
+                        setattr(enemy, stat, int(getattr(enemy, stat) *
                                 interfaceActions[
                                     'enemy modifiers']['Stats'][stat]
-                                )
+                                ))
                         # If the stat to be adjusted is max hp, set hp as well
                         if stat == "maxHp":
                             enemy.hp *= interfaceActions[
@@ -714,10 +716,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                                 interfaceActions[
                                     'enemy modifiers']['Stats'][stat]
                                 )
-            coliseum = False
-            if "coliseum" in interfaceActions:
-                coliseum = True
-            self.battle = Battle(self.character, enemy, mercenaries, coliseum)
+            self.battle = Battle(self.character, enemy, mercenaries, "coliseum" in interfaceActions)
             if 'text' not in interfaceActions or not interfaceActions['text']:
                 interfaceActions['text'] = ""
             interfaceActions['text'] += ("\nEncounter! "+enemy.NAME+
@@ -1116,3 +1115,32 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def setSacrificeItem(self, key, itemIndex):
         return self.forge.setSacrificeItem(key, self.character.items[itemIndex])
+
+    def smith(self):
+        previousName = self.forge.forgeItem.displayName
+        upgradedCategory = self.forge.forgeItem.CATEGORY
+        success = False
+        for _ in self.forge.do():
+            if not success:
+                text = ("The anvil cools and you retrieve your bolstered %s."
+                    % (upgradedCategory.lower()))
+                success = True
+            newName = self.forge.forgeItem.displayName
+            text += "\n%s is now %s!" % (previousName, newName)
+            previousName = newName
+            self.sound.playSound(self.sound.sounds['Forge Upgrade'])
+        if not success:
+            text = ("The crucible was not hot enough. "+
+                "You fail to upgrade your %s." % (upgradedCategory.lower()))
+            self.sound.playSound(self.sound.sounds['Failed Upgrade'])
+        text += "\nA seismic surge of energy emanates from the anvil, shifting the mountain and beckoning back the horde of mythological monsters."
+        self.character.flags['Just Forged'] = True
+        interfaceActions = self.getInterfaceActions()
+        interfaceActions.update({'text': text,})
+        if "Mount Olympus Complete" not in self.character.flags:
+            interfaceActions.update({
+                'italic text': "You may now reascend Mount Olympus for another trial.",
+            })
+            self.character.flags['Mount Olympus Complete'] = True
+        return success, interfaceActions
+        

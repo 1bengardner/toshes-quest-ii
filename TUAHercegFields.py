@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: November 13, 2022
+Revised: May 2, 2023
 """
 
 
@@ -383,7 +383,7 @@ class HercegFields:
         self.imageIndex = 20
         self.text = None
         self.helpText = None
-        npc = "Knight"
+        npc = "Knight Zorac"
         self.menu = ["Learn Deep Thrust (100 euros).",
                      "Learn Rumble Strike (200 euros).",
                      "Learn Helix Swing (400 euros).",

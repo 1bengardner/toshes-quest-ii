@@ -26,3 +26,4 @@ Scintillous Ring	0	???
 Golden Horn	0	Changes forge success chance to 95%.
 Green Horn	0	Triples forge success chance.
 Purple Horn	0	Raises forge success chance by 1000%.
+Olympian Ointment	200	A serum that can be applied to rock formations*...with varying results.
