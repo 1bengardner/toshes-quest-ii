@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 12, 2023
+Revised: May 16, 2023
 """
 
 
@@ -2502,6 +2502,7 @@ def updateInterface(updates):
                 parent = window.topFrame.topRightFrame.enemyStats
                 boundaryWidget = window.topFrame.topRightFrame.enemyImageLabel
             number = hit['Number'] if "Number" in hit else None
+            skill = hit['Skill'] if "Skill" in hit else False
             critical = hit['Critical'] if "Critical" in hit else False
             hitBoxTriggers.append(
                 root.after(
@@ -2511,6 +2512,7 @@ def updateInterface(updates):
                             boundaryWidget,
                             hit['Kind'],
                             number,
+                            skill,
                             critical,
                             hit['Aux']))))
         tosheHits = filter(lambda hit: hit['Target'] == "Toshe", updates['hits'])
@@ -3019,15 +3021,16 @@ def createHitBox(parent,
                  boundaryWidget,
                  kind,
                  number=0,
+                 skill=False,
                  critical=False,
                  aux=False):
     def raiseHitBox(hitBox, height, motion):
-        hitLabelMaxHeight = 32
-        hitLabel.grid(pady=(height if motion[0] == "D" else 0,
-                            height if motion[0] == "U" else 0))
-        if height > boundaryWidget.winfo_height() - hitLabelMaxHeight:
-            hitLabel.next = None
-            hitLabel.destroy()
+        hitBoxMaxHeight = 32
+        hitBox.grid(pady=(height if motion[0] == "D" else 0,
+                          height if motion[0] == "U" else 0))
+        if height > boundaryWidget.winfo_height() - hitBoxMaxHeight:
+            hitBox.next = None
+            hitBox.destroy()
         else:
             frameCount = 50.
             frameDuration = 20
@@ -3038,7 +3041,7 @@ def createHitBox(parent,
                     delta = int(delta)
             elif "Ease" in motion:
                 delta = (boundaryWidget.winfo_height() - height) / frameCount * 2
-            hitLabel.next = root.after(frameDuration,
+            hitBox.next = root.after(frameDuration,
                 lambda: raiseHitBox(hitBox, height + delta, motion))
     fgs = {
         "Physical": DAMAGE_BOX_FG,
@@ -3098,6 +3101,9 @@ def createHitBox(parent,
         "Sundered",
         "Burning",
     ])
+    healing = set([
+        "Heal"
+    ])
     font = lightFont8
     if critical:
         if aux:
@@ -3111,30 +3117,36 @@ def createHitBox(parent,
             font = font4
     elif aux:
         font = font2
-    hitLabel = Label(parent,
-                     text = ("%s!" % kind) if kind in
-                        misses | ailments else number,
+    hitBox = Frame(parent,
+                   bg=SKILL_BG if skill else bgs[kind]
+                      if number or kind in misses | ailments | healing
+                      else GREY,
+                   relief=RIDGE,
+                   bd=2)
+    hitLabel = Label(hitBox,
+                     text=("%s!" % kind) if kind in
+                          misses | ailments else number,
                      font=font,
                      fg=fgs[kind],
                      bg=bgs[kind]
-                        if number or kind in misses | ailments
+                        if number or kind in misses | ailments | healing
                         else GREY,
-                     relief=RIDGE,
-                     padx=2)
-    hitLabelMaxWidth = 64
-    pad = random.randint(0, min(boundaryWidget.winfo_width(), 190) - hitLabelMaxWidth)
+                     bd=0,
+                     padx=2).grid()
+    hitBoxMaxWidth = 64
+    pad = random.randint(0, min(boundaryWidget.winfo_width(), 190) - hitBoxMaxWidth)
     if random.randrange(100) < 50:
         padx = (pad, 0)
     else:
         padx = (0, pad)
-    hitLabel.grid(row=boundaryWidget.grid_info()['row'], columnspan=2, padx=padx)
+    hitBox.grid(row=boundaryWidget.grid_info()['row'], columnspan=2, padx=padx)
     motion = "Up/Ease"
     if kind in misses:
         motion = "Down/Linear"
     elif kind in ailments:
         motion = "Up/Linear"
-    raiseHitBox(hitLabel, 0, motion)
-    return hitLabel
+    raiseHitBox(hitBox, 0, motion)
+    return hitBox
 
 main = Main()
 

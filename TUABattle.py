@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: April 19, 2023
+Revised: May 16, 2023
 """
 
 
@@ -240,6 +240,12 @@ class Battle(object):
         The specified attacker will attack the defender with its chosen skill
         and any additional actions and effects that correspond will be executed.
         """
+        basicSkills = set([
+            "Attack",
+            "Defend",
+            "Recover"
+        ])
+
         if not self.isStunned(attacker, attackerFlags):
             # Initialize values
             damage = None
@@ -443,6 +449,7 @@ class Battle(object):
                         "Target": "Enemy" if defender is self.enemy else defender.NAME,
                         "Kind": damageElement,
                         "Number": int(damage),
+                        "Skill": False if skill.NAME in basicSkills else True,
                         "Critical": critical,
                         "Aux": attacker in self.auxiliaryCharacters,
                     })
@@ -452,6 +459,7 @@ class Battle(object):
                     "Target": "Enemy" if attacker is self.enemy else attacker.NAME,
                     "Kind": "Heal",
                     "Number": int(healing),
+                    "Skill": False if skill.NAME in basicSkills else True,
                     "Critical": critical,
                     "Aux": attacker in self.auxiliaryCharacters,
                 })
@@ -464,6 +472,7 @@ class Battle(object):
                 self.hits.append({
                     "Target": "Enemy" if defender is self.enemy else defender.NAME,
                     "Kind": "Miss",
+                    "Skill": False if skill.NAME in basicSkills else True,
                     "Aux": attacker in self.auxiliaryCharacters,
                 })
             elif blocked or parried:
@@ -620,6 +629,7 @@ class Battle(object):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Grounded",
+                                "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
                 elif (skill.ELEMENT == "Poison" and
                       "Poisoned" not in defenderFlags and
@@ -633,6 +643,7 @@ class Battle(object):
                         self.hits.append({
                             "Target": "Enemy" if defender is self.enemy else defender.NAME,
                             "Kind": "Poisoned",
+                            "Skill": False if skill.NAME in basicSkills else True,
                             "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Electricity" and ("Paralyzed" not in
                                                          defenderFlags):
@@ -646,6 +657,7 @@ class Battle(object):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Paralyzed",
+                                "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Water":
                     if self.roll() <= 50 and damage >= defender.maxHp/2:
@@ -658,6 +670,7 @@ class Battle(object):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Drowned",
+                                "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Freezing" or (
                      (skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
@@ -673,6 +686,7 @@ class Battle(object):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Frozen",
+                                "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Petrification" and ("Petrified" not in
                                                            defenderFlags):
@@ -687,6 +701,7 @@ class Battle(object):
                         self.hits.append({
                             "Target": "Enemy" if defender is self.enemy else defender.NAME,
                             "Kind": "Petrified",
+                            "Skill": False if skill.NAME in basicSkills else True,
                             "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Sunder" and ("Sundered" not in
                                                     defenderFlags):
@@ -694,6 +709,7 @@ class Battle(object):
                     self.hits.append({
                         "Target": "Enemy" if defender is self.enemy else defender.NAME,
                         "Kind": "Sundered",
+                        "Skill": False if skill.NAME in basicSkills else True,
                         "Aux": attacker in self.auxiliaryCharacters,})
                 elif ((skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
                       and ("Burning" not in defenderFlags)):
@@ -709,6 +725,7 @@ class Battle(object):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Burning",
+                                "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
 
             # Make sounds
