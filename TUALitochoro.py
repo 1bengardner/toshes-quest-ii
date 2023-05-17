@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: May 2, 2023
+Revised: May 16, 2023
 """
 
 
@@ -161,7 +161,7 @@ class Litochoro:
                             kills += self.c.flags['Kills'][creature]
                     if kills >= self.c.flags[npc+' Quest 1'] + 10:
                         self.text += (" Oh! This is just lovely. I would like you to have this."+
-                                      "\n%s gives you a scintillous ring!" % npc)
+                                      "\n%s gives you a Scintillous Ring!" % npc)
                         moreActions = {'item': "Scintillous Ring"}
                         self.c.flags[npc+' Quest 1 Complete'] = True
                 elif npc+" Quest 2" not in self.c.flags:

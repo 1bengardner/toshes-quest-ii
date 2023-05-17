@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: May 12, 2023
+Revised: May 16, 2023
 """
 
 
@@ -343,10 +343,13 @@ class MountOlympus:
                     random.seed(x + y * 100 + self.c.flags['Mount Olympus Ascensions'] * 10000)
                     enemy = random.choice(enemyLevels.keys())
                     stats['NAME'] = getRandomName()
-                    stats['LEVEL'] = self.c.level + enemyLevels[enemy]
                     stats['SUBNAME'] = enemy
-                    stats['XP'] = 1 + ((self.c.level - 30) ** 1.5 / 200)
-                    stats['maxHp'] = 1 + ((self.c.level - 30) ** 2.0 / 200)
+                    if self.c.level > 30:
+                        stats['LEVEL'] = self.c.level + enemyLevels[enemy]
+                        stats['XP'] = 1 + ((self.c.level - 30) ** 1.5 / 200)
+                        stats['maxHp'] = 1 + ((self.c.level - 30) ** 2.0 / 200)
+                        stats['damage'] = 1 + ((self.c.level - 30) * 0.1)
+                        stats['defence'] = 1 + ((self.c.level - 30) * 0.1)
                     modifiers = {
                         'Multiplicative': True,
                         'Stats': stats}
@@ -437,6 +440,7 @@ class MountOlympus:
                 del self.c.flags['Discovered Areas'][self.name]
                 if "Olympian Treasure" in self.c.flags:
                     del self.c.flags['Olympian Treasure']
+                self.__init__(self.c)
                 X = 1
                 Y = 5
                 return self.actions({'area': "Litochoro",
