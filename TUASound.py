@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: April 19, 2023
+Revised: May 16, 2023
 """
 
 
@@ -47,7 +47,10 @@ class Sound:
                        "Critical Strike": "FX-Critical",
                        "Critical Injury": "FX-Injured",
                        "Defend": "FX-Tap",
-                       "Block": "FX-Brush",
+                       "No Damage": "FX-Tick",
+                       "Miss": "FX-Miss",
+                       "Block": "FX-Ping",
+                       "Boost": "FX-Brush",
                        "Flee": "FX-Flee",
                        "Kill": "FX-Activate",
                        "Dead": "FX-Dead",
@@ -67,7 +70,7 @@ class Sound:
                        "Low HP": "FX-Alert",
                        "Mark Map": "FX-Touch",
                        "Warp": "FX-Thud",
-                       "Open Dialog": "FX-Touch",
+                       "Open Dialog": "FX-Question",
                        "Menu": "FX-Cluck",
                        "New Quest": "FX-Scribble",
                        "Quest Complete": "FX-Gracious",

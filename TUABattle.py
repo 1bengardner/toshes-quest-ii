@@ -475,6 +475,10 @@ class Battle(object):
                     "Skill": False if skill.NAME in basicSkills else True,
                     "Aux": attacker in self.auxiliaryCharacters,
                 })
+                if self.mainCharacter in (attacker, defender):
+                    self.sounds.append({
+                        "Name": "Miss",
+                        "Panning": self.getPanning(defender)})
             elif blocked or parried:
                 self.text += ("%s was %s by %s!\n" % (
                     attacker.NAME,
@@ -499,18 +503,27 @@ class Battle(object):
                         self.text += ("Adrenaline rush! %s gained a %s EP" +
                                       " boost from blocking.\n") % (
                                       defender.NAME, boost)
+                    self.sounds.append("Boost")
                 else:
                     self.hits.append({
                         "Target": "Enemy" if defender is self.enemy else defender.NAME,
                         "Kind": "Parry" if parried else "Block",
                         "Aux": attacker in self.auxiliaryCharacters,
                     })
+                if self.mainCharacter in (attacker, defender):
+                    self.sounds.append({
+                        "Name": "Block",
+                        "Panning": self.getPanning(defender)})
             else:
                 if critical:
                     if damage:
                         self.text += "Critical strike! "
                     elif healing:
                         self.text += "Critical heal! "
+                    if attacker == self.mainCharacter and (damage is not None and int(damage) > 0 or healing is not None and int(healing) > 0):
+                        self.sounds.append("Critical Strike")
+                    elif defender == self.mainCharacter and damage is not None and int(damage) > 0:
+                        self.sounds.append("Critical Injury")
 
                 if damage is not None and healing is not None:
                     self.text += (attacker.NAME+" "+skill.TEXT+" "+
@@ -532,6 +545,10 @@ class Battle(object):
                 elif healing is not None:
                     self.text += (attacker.NAME+" "+skill.TEXT+
                                   ", healing "+str(int(healing))+" HP.\n")
+                    if attacker in (self.mainCharacter, self.enemy):
+                        self.sounds.append({
+                            "Name": "Heal",
+                            "Panning": self.getPanning(attacker)})
                 elif skill.CATEGORY == "Lock On":
                         self.text += (attacker.NAME+" "+skill.TEXT+" "+
                                       defender.NAME+".\n")
@@ -622,10 +639,11 @@ class Battle(object):
                     if self.roll() <= 30:
                         self.text += defender.NAME+" was grounded!\n"
                         defenderFlags.add("Grounded")
-                        if defender in (self.mainCharacter, self.enemy):
+                        if self.mainCharacter in (attacker, defender):
                             self.sounds.append({
                                 "Name": "Grounded",
                                 "Panning": self.getPanning(defender)})
+                        if defender in (self.mainCharacter, self.enemy):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Grounded",
@@ -636,10 +654,11 @@ class Battle(object):
                       defender.LIVING):
                     self.text += defender.NAME+" was poisoned!\n"
                     defenderFlags.add("Poisoned")
-                    if defender in (self.mainCharacter, self.enemy):
+                    if self.mainCharacter in (attacker, defender):
                         self.sounds.append({
                             "Name": "Poisoned",
                             "Panning": self.getPanning(defender)})
+                    if defender in (self.mainCharacter, self.enemy):
                         self.hits.append({
                             "Target": "Enemy" if defender is self.enemy else defender.NAME,
                             "Kind": "Poisoned",
@@ -650,10 +669,11 @@ class Battle(object):
                     if self.roll() <= 20:
                         self.text += defender.NAME+" was paralyzed!\n"
                         defenderFlags.add("Paralyzed")
-                        if defender in (self.mainCharacter, self.enemy):
+                        if self.mainCharacter in (attacker, defender):
                             self.sounds.append({
                                 "Name": "Paralyzed",
                                 "Panning": self.getPanning(defender)})
+                        if defender in (self.mainCharacter, self.enemy):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Paralyzed",
@@ -663,10 +683,11 @@ class Battle(object):
                     if self.roll() <= 50 and damage >= defender.maxHp/2:
                         self.text += defender.NAME+" drowned!\n"
                         defender.hp = 0
-                        if defender in (self.mainCharacter, self.enemy):
+                        if self.mainCharacter in (attacker, defender):
                             self.sounds.append({
                                 "Name": "Drowned",
                                 "Panning": self.getPanning(defender)})
+                        if defender in (self.mainCharacter, self.enemy):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Drowned",
@@ -679,10 +700,11 @@ class Battle(object):
                         self.text += defender.NAME+" was frozen!\n"
                         defenderFlags.add("Frozen")
                         defenderFlags.discard("Burning")
-                        if defender in (self.mainCharacter, self.enemy):
+                        if self.mainCharacter in (attacker, defender):
                             self.sounds.append({
                                 "Name": "Frozen",
                                 "Panning": self.getPanning(defender)})
+                        if defender in (self.mainCharacter, self.enemy):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Frozen",
@@ -694,10 +716,11 @@ class Battle(object):
                     defenderFlags.add("Petrified")
                     defenderFlags.discard("Paralyzed")
                     defenderFlags.discard("Frozen")
-                    if defender in (self.mainCharacter, self.enemy):
+                    if self.mainCharacter in (attacker, defender):
                         self.sounds.append({
                             "Name": "Petrified",
                             "Panning": self.getPanning(defender)})
+                    if defender in (self.mainCharacter, self.enemy):
                         self.hits.append({
                             "Target": "Enemy" if defender is self.enemy else defender.NAME,
                             "Kind": "Petrified",
@@ -718,10 +741,11 @@ class Battle(object):
                         defenderFlags.add("Burning")
                         defenderFlags.discard("Frozen")
                         self.burnDamage = damage/4
-                        if defender in (self.mainCharacter, self.enemy):
+                        if self.mainCharacter in (attacker, defender):
                             self.sounds.append({
                                 "Name": "Burning",
                                 "Panning": self.getPanning(defender)})
+                        if defender in (self.mainCharacter, self.enemy):
                             self.hits.append({
                                 "Target": "Enemy" if defender is self.enemy else defender.NAME,
                                 "Kind": "Burning",
@@ -733,29 +757,25 @@ class Battle(object):
                 self.sounds.append("Defend")
             if skill.NAME == "Equip Item" and attacker == self.mainCharacter:
                 self.sounds.append("Equip")
+
             if not (miss or blocked):
-                if damage is not None and int(damage) > 0:
-                    if attacker == self.mainCharacter:
-                        if attacker.equippedWeapon.CATEGORY == "Wand":
-                            self.sounds.append("Wand Attack")
-                        elif attacker.equippedWeapon.CATEGORY == "Bow":
-                            self.sounds.append("Bow Attack")
-                        elif attacker.equippedWeapon.CATEGORY == "Gun":
-                            self.sounds.append("Gun Attack")
-                        else:
-                            self.sounds.append("Deal Damage")
-                    elif defender == self.mainCharacter:
-                        self.sounds.append("Take Damage")
-                elif healing is not None and int(healing) > 0 and attacker in (self.mainCharacter, self.enemy):
-                    self.sounds.append({
-                        "Name": "Heal",
-                        "Panning": self.getPanning(attacker)})
-                if critical and attacker == self.mainCharacter and (damage is not None and int(damage) > 0 or healing is not None and int(healing) > 0):
-                    self.sounds.append("Critical Strike")
-                elif critical and defender == self.mainCharacter and damage is not None and int(damage) > 0:
-                    self.sounds.append("Critical Injury")
-            if blocked and not miss and defender == self.mainCharacter:
-                self.sounds.append("Block")
+                if damage is not None:
+                    if int(damage) > 0:
+                        if attacker == self.mainCharacter:
+                            if attacker.equippedWeapon.CATEGORY == "Wand":
+                                self.sounds.append("Wand Attack")
+                            elif attacker.equippedWeapon.CATEGORY == "Bow":
+                                self.sounds.append("Bow Attack")
+                            elif attacker.equippedWeapon.CATEGORY == "Gun":
+                                self.sounds.append("Gun Attack")
+                            else:
+                                self.sounds.append("Deal Damage")
+                        elif defender == self.mainCharacter:
+                            self.sounds.append("Take Damage")
+                    elif self.mainCharacter in (attacker, defender):
+                        self.sounds.append({
+                            "Name": "No Damage",
+                            "Panning": self.getPanning(defender)})
 
             if ( hasattr(attacker, "specialization") and
                  attacker.specialization == "Swift Sharpshooter" and
