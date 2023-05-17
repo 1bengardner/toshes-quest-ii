@@ -643,6 +643,7 @@ class TopLeftFrame:
         if forgeFrame.v3.get() == 0:
             replacementIndex = main.setForgeItem(self.v1.get())
             main.sound.playSound(main.sound.sounds['Place on Anvil'])
+            main.sound.playSound(main.sound.sounds['Crucible'])
         else:
             replacementIndex = main.setSacrificeItem(forgeFrame.v3.get(), self.v1.get())
             main.sound.playSound(main.sound.sounds['Crucible'])
@@ -2519,7 +2520,7 @@ def updateInterface(updates):
         enemyHits = filter(lambda hit: hit['Target'] == "Enemy", updates['hits'])
         for hits in [tosheHits, enemyHits]:
             for i, hit in enumerate(hits):
-                createDelayedHitBox(i * 125, hit)
+                createDelayedHitBox(int(i * 150 / len(hits)**0.5), hit)
         if any(filter(lambda hit: hit['Kind'] == "Bloody Attack", updates['hits'])):
             window.topFrame.topLeftFrame.animateToshe()
         if any(filter(lambda hit: hit['Kind'] == "Bloody Up", updates['hits'])):
@@ -3184,7 +3185,7 @@ EARTH_COLOR = "#b5e080"
 WATER_COLOR = "#a7d3e8"
 FIRE_COLOR = "#e6ba90"
 ENIGMATIC_COLOR = "#e2afc9"
-POISON_COLOR = "#c7f054"
+POISON_COLOR = "#befa46"
 LIGHTNING_COLOR = "#f2f2aa"
 ICE_COLOR = "#c0f0f0"
 PETRIFICATION_COLOR = "#ded4ca"
