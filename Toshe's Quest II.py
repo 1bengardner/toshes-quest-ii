@@ -1131,7 +1131,7 @@ The lair of the dark commander """)
 The """)
         newsContent.insert(END, "endgame", ("emphasis"))
         newsContent.insert(END,
-""" is nigh! Completing the main game will unlock a new town with two new modes to test your might and upgrade your arsenal to its ultimate form.
+""" is nigh! Completing the main game will unlock a new town with new challenges.
 
 """)
         newsContent.insert(END, "Feature Updates", ("section"))
