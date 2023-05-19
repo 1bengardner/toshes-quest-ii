@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 11, 2023
+Revised: May 19, 2023
 """
 
 
@@ -593,7 +593,7 @@ class Main:
             enemyIdentifier = None
         else:
             enemyIdentifier = self.encounterEnemy()
-            
+
         if ( enemyIdentifier and not
              (self.character.equippedArmour.NAME in self.evasiveItems and
               self.enemies[enemyIdentifier].LEVEL <= self.character.level)):
@@ -602,9 +602,19 @@ class Main:
                                 'text': "",
                                 'mercenaries': self.character.mercenaries}
             if enemyIdentifier == "Will o Wisp":
+                enemy = random.choice(filter(lambda enemy: enemy.FLEEABLE and not enemy.UNIQUE and enemy.MUSIC is None, self.enemies.itervalues()))
+                factor = float(self.character.level) / enemy.LEVEL
+                interfaceActions['enemy'] = enemy.IDENTIFIER
+                interfaceActions['flash'] = True
                 interfaceActions['enemy modifiers'] = {
-                    'Stats': {},
-                    'Multiplicative': 1,
+                    'Multiplicative': True,
+                    'Stats': {
+                        'LEVEL': self.character.level,
+                        'XP': factor ** 1.5 * 8,
+                        'maxHp': factor ** 2.2 * 5,
+                        'damage': factor * 1.2,
+                        'defence': factor,
+                    },
                 }
             if self.currentArea.name == "Macedonia":
                 del interfaceActions['mercenaries']
@@ -716,6 +726,15 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                                 interfaceActions[
                                     'enemy modifiers']['Stats'][stat]
                                 )
+            if enemyIdentifier == "Will o Wisp":
+                for item, chance in self.enemies['Will o Wisp'].ITEMS.items():
+                    if item not in enemy.ITEMS:
+                        enemy.ITEMS[item] = 0
+                    enemy.ITEMS[item] += chance
+                enemy.IDENTIFIER = self.enemies['Will o Wisp'].IDENTIFIER
+                enemy.NAME = self.enemies['Will o Wisp'].NAME
+                enemy.IMAGE = self.enemies['Will o Wisp'].IMAGE
+                enemy.MUSIC = self.enemies['Will o Wisp'].MUSIC
             self.battle = Battle(self.character, enemy, mercenaries, "coliseum" in interfaceActions)
             if 'text' not in interfaceActions or not interfaceActions['text']:
                 interfaceActions['text'] = ""
@@ -866,8 +885,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             if enemyProbabilities:
                 if self.roll(10000) == 1:
                     return "Gigantic Crayons"
-                # if self.roll(2) == 1:
-                    # return "Will o Wisp"
+                if "Conclusion" in self.character.flags and self.roll(1000) == 1:
+                    return "Will o Wisp"
                 return self.selectRandomElement(enemyProbabilities)
         return None
 

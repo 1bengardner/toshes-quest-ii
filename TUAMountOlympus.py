@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: May 16, 2023
+Revised: May 18, 2023
 """
 
 
@@ -232,7 +232,7 @@ class MountOlympus:
                     "Holo",
                     "Hyalo",
                     "Hyper",
-                    "Id",
+                    "Ido",
                     "Iso",
                     "Kine",
                     "Litho",

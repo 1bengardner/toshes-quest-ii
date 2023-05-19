@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: January 7, 2023
+Revised: May 18, 2023
 """
 
 
@@ -283,7 +283,7 @@ class HercegNovi:
         if "Tipsy Tuesday" not in self.c.flags:
             self.text += ("You read a sign:"+
                           "\n\"Vojo's Inn and Tavern"+
-                          "\nToday's Special: "+special+"\"")
+                          "\nToday's Special - "+special+"\"")
         elif "Tipsy Tuesday" in self.c.flags:
             self.text += ("You read a sign:"+
                           "\n\"Vojo's Inn and Tavern"+
