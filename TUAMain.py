@@ -1142,13 +1142,29 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
     def resetForge(self):
         self.forge = Forge()
 
+    def setHorn(self):
+        self.forge.horn = None   # Required to get correct successChance calculation
+        
+        if self.character.hasItem("Green Horn") and (self.forge.getSuccessChance() > 1000 / 3.0 or self.forge.getSuccessChance() > 95 / 3.0 and not self.character.hasItem("Purple Horn") or not self.character.hasItem("Purple Horn") and not self.character.hasItem("Golden Horn")):
+            self.forge.horn = "Green Horn"
+        elif self.character.hasItem("Purple Horn"):
+            self.forge.horn = "Purple Horn"
+        elif self.character.hasItem("Golden Horn") and self.forge.getSuccessChance() < 95:
+            self.forge.horn = "Golden Horn"
+
     def setForgeItem(self, itemIndex):
-        return self.forge.setForgeItem(self.character.items[itemIndex])
+        replacementIndex = self.forge.setForgeItem(self.character.items[itemIndex])
+        self.setHorn()
+        return replacementIndex
 
     def setSacrificeItem(self, key, itemIndex):
-        return self.forge.setSacrificeItem(key, self.character.items[itemIndex])
+        replacementIndex = self.forge.setSacrificeItem(key, self.character.items[itemIndex])
+        self.setHorn()
+        return replacementIndex
 
     def smith(self):
+        if self.forge.horn is not None:
+            self.character.removeItem(self.character.indexOfItem(self.forge.horn))
         previousName = self.forge.forgeItem.displayName
         upgradedCategory = self.forge.forgeItem.CATEGORY
         success = False
@@ -1165,6 +1181,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             text = ("The crucible was not hot enough. "+
                 "You fail to upgrade your %s." % (upgradedCategory.lower()))
             self.sound.playSound(self.sound.sounds['Failed Upgrade'])
+        self.character.updateStats()
         text += "\nA seismic surge of energy emanates from the anvil, shifting the mountain and beckoning back the horde of mythological monsters."
         self.character.flags['Just Forged'] = True
         interfaceActions = self.getInterfaceActions()

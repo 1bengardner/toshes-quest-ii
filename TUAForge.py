@@ -2,7 +2,7 @@
 File: TUAForge.py
 Author: Ben Gardner
 Created: March 31, 2023
-Revised: April 2, 2023
+Revised: May 19, 2023
 """
 
 import random
@@ -15,6 +15,7 @@ class Forge:
         self.sacrificeItems = [None, None]
         self.maxDecimals = 5
         self.fiddle = 0
+        self.horn = None
 
     # Returns index where item was placed elsewhere
     def setForgeItem(self, item):
@@ -46,6 +47,8 @@ class Forge:
         return all([self.forgeItem] + self.sacrificeItems)
 
     def getSuccessChance(self):
+        if self.horn == "Golden Horn":
+            return 95 + self.fiddle
         u = self.forgeItem
         a = self.sacrificeItems[0]
         b = self.sacrificeItems[1]
@@ -63,6 +66,10 @@ class Forge:
                 if str(chance)[i] != "0":
                     # Give extra decimal place after first significant decimal
                     return round(chance, i)
+        if self.horn == "Purple Horn":
+            return 1000 + int(chance)
+        elif self.horn == "Green Horn":
+            return 3 * int(chance)
         return int(chance)
 
     def fiddleWithSuccess(self):

@@ -629,6 +629,13 @@ class TopLeftFrame:
                     main.sound.playSound(main.sound.sounds['Hammer'])
                 forgeFrame.forgeSuccess['text'] = "Success chance: %s%%" % (
                     main.forge.getSuccessChance())
+                successFg = {
+                    None: BLACK,
+                    "Golden Horn": BROWN,
+                    "Green Horn": GREEN,
+                    "Purple Horn": LIGHTPURPLE,
+                }
+                forgeFrame.forgeSuccess['fg'] = successFg[main.forge.horn]
                 forgeFrame.forgeSuccess.grid()
                 forgeFrame.anvilButton['state'] = NORMAL
                 forgeFrame.anvilButton['relief'] = RAISED
@@ -1672,7 +1679,7 @@ Game over? Don't fret. You can now """)
             insertText("You strike the anvil with the Hammer of Hephaestus.")
             fiddle = main.forge.fiddleWithSuccess()
             self.forgeSuccess['text'] = "Success chance: %s%%" % (
-                    main.forge.getSuccessChance())
+                main.forge.getSuccessChance())
         else:
             insertText("You stoke the flames of the crucible with your equipment and strike the anvil with the Hammer of Hephaestus.")
         main.sound.playSound(main.sound.sounds['Strike Anvil'][fiddle+5], interruptible=True)
