@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: October 26, 2022
+Revised: May 19, 2023
 """
 
 from random import choice
@@ -166,6 +166,10 @@ class Kismet:
                  not self.c.hasItem("Small Dagger")):
                 self.text += ("\nHeinz: Catch!" +
                               "\nHeinz tosses a Small Dagger to you!")
+                self.helpText = ("Click on the armour to access your "+
+                                 "inventory, where you can equip your dagger."+
+                                 "\nClick on the circular arrow to return to "+
+                                 "the game.")
                 return self.actions({'item': "Small Dagger"})
 
         elif 'Kismet Battle' not in self.c.flags:

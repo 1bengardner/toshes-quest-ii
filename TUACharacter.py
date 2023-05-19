@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: March 26, 2023
+Revised: May 19, 2023
 """
 
 
@@ -356,8 +356,8 @@ class Character(object):
     def hasSpecializedUp(self):
         """Check if the character has enough kills to specialize up."""
         if self.sp >= self.spTnl:
-            self.mastery += 1
             self.sp = self.sp - self.spTnl
+            self.mastery += 1
             self.updateStats()
             return True
         return False

@@ -394,13 +394,15 @@ class Main:
                 music = tokens[22]
                 unique = tokens[23]
                 living = tokens[24]
+                rarity = tokens[25]
                 self.enemies[identifier] = Enemy(identifier, name, image,
                                            level, hp, maxHp, damage, accuracy,
                                            cRate, cDamage, bRate, defence,
                                            earthReduction, waterReduction,
                                            fireReduction, physicalReduction,
                                            skills, items, xp, euros, fleeable,
-                                           unique, living, deathHp, music)
+                                           unique, living, rarity, deathHp,
+                                           music)
 
     def populateMercenaries(self):
         with open("data\\mercenarydata.txt", "r") as mercenaryFile:
@@ -512,8 +514,7 @@ class Main:
                 return description, criteria
 
             interfaceActions = {}
-            # TODO: Replace "Level 2" with "Conclusion"
-            if "Level 2" in self.character.flags:
+            if "Conclusion" in self.character.flags:
                 title = "Daily Challenge"
                 startFlag = "%s %s" % (title, date.today())
                 description, criteria = randomChallenge()
@@ -779,19 +780,31 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 self.character.flags[quest.END_FLAG] = True
                 def getDailyChallengeReward(interfaceActions):
                     equipmentTypes = ["Weapon", "Armour", "Shield"]
-                    while len(equipmentTypes) > 0:
-                        equipmentType = random.choice(equipmentTypes)
+                    u = 40
+                    equipToUpgrade = None
+                    for equipmentType in equipmentTypes:
                         i = self.character.equippedItemIndices[equipmentType]
                         if i is None:
-                            equipmentTypes.remove(equipmentType)
                             continue
                         else:
-                            equipToUpgrade = self.character.items[i]
-                            if 'text' not in interfaceActions or not interfaceActions['text']:
-                                interfaceActions['text'] = ""
-                            interfaceActions['text'] += ("\nDaily Challenge complete!\n%s got upgraded." % equipToUpgrade.NAME)
-                            equipToUpgrade.upgrade()
-                            break
+                            upgradeCandidate = self.character.items[i]
+                            if upgradeCandidate.upgradeCount < u:
+                                u = upgradeCandidate.upgradeCount
+                                equipToUpgrade = upgradeCandidate
+                    if 'text' not in interfaceActions or not interfaceActions['text']:
+                        interfaceActions['text'] = "\nDaily Challenge complete!"
+                    if equipToUpgrade is None or self.roll(u+1) > 10:
+                        if self.roll(2) == 1:
+                            reward = 5 + self.roll(45)
+                            interfaceActions['text'] += ("\nYou got %s potions!" % reward)
+                            self.character.potions += reward
+                        else:
+                            reward = 500 + self.roll(24500)
+                            interfaceActions['text'] += ("\nYou got %s euros!" % reward)
+                            self.character.euros += reward
+                    else:
+                        interfaceActions['text'] += ("\n%s got upgraded!" % equipToUpgrade.NAME)
+                        equipToUpgrade.upgrade()
                         
                 getDailyChallengeReward(interfaceActions)
 

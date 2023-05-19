@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 16, 2023
+Revised: May 19, 2023
 """
 
 
@@ -677,6 +677,7 @@ class TopLeftFrame:
             self.spWord.grid()
             self.spLabel.grid()
             self.spBarLabel.grid()
+            self.tosheLabel['bg'] = LEGENDARY_BD
         if c.specialization is not None:
             self.spWord['text'] = "%s %s" % (c.specialization, c.mastery)
             if c.sp > c.spTnl:
@@ -1064,6 +1065,7 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
             window.topFrame.topLeftFrame.spBarLabel.grid()
+            window.topFrame.topLeftFrame.tosheLabel['bg'] = LEGENDARY_BD
         else:
             window.topFrame.topLeftFrame.spWord.grid_remove()
             window.topFrame.topLeftFrame.spLabel.grid_remove()
@@ -1619,6 +1621,12 @@ Game over? Don't fret. You can now """)
             self.enemySubNameLabel.grid_remove()
             self.enemyNameLabel.grid(pady=0)
         self.enemyImageLabel['image'] = enemyImages[e.IDENTIFIER]
+        borderColours = {
+            "COMMON": COMMON_BD,
+            "RARE": RARE_BD,
+            "LEGENDARY": LEGENDARY_BD,
+        }
+        self.enemyImageLabel['bg'] = borderColours[e.RARITY]
         self.enemyImageLabel['state'] = NORMAL
         if e.hp <= 0:
             self.enemyHpBarLabel['image'] = hpBars[0]

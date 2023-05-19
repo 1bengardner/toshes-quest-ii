@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: February 25, 2023
+Revised: May 19, 2023
 """
 
 
@@ -66,6 +66,7 @@ class LairOfTheMagi:
         rid6 = self.riddle6
         rid7 = self.riddle7
         rid8 = self.riddle8
+        thes = self.thessaloniki
 
         self.spots = [
             [None, None, None, None, None, None, None, None, None, None, None],
@@ -88,6 +89,7 @@ class LairOfTheMagi:
             [None, None, None, None, None, arch, None, None, None, None, None],
             [None, None, None, None, None, spid, None, None, None, None, None],
             [None, None, None, None, None, entr, None, None, None, None, None],
+            [None, None, None, None, None, thes, None, None, None, None, None],
             [None, None, None, None, None, None, None, None, None, None, None]]
 
         punishers = {
@@ -157,6 +159,7 @@ class LairOfTheMagi:
             rid6: {},
             rid7: {},
             rid8: {},
+            thes: {},
         }
 
     def movementActions(self):
@@ -202,6 +205,12 @@ class LairOfTheMagi:
         self.text = "You pass through a dark, stone hall. You read a message engraved on the wall:\n\"%s\"" % phrases[colour]
 
         return self.actions()
+
+    def thessaloniki(self, selectionIndex=None):
+        X = 1
+        Y = 1
+        return self.actions({'area': "Thessaloniki",
+                             'coordinates': (X, Y)})
 
     def entrance(self, selectionIndex=None):
         self.view = "travel"
@@ -873,7 +882,7 @@ class LairOfTheMagi:
         elif "Riplin Encounter" not in self.c.flags:
             self.tempFlag = "Riplin Encounter"
             self.text = "You regain consciousness."
-            self.text += "\nA fervent figure is looming over you, ready to strike."
+            self.text += "\nA newly armoured, fervent figure is looming over you, ready to strike."
             self.text += "\nToshe: What the fuck?"
             self.menu = ["Brace yourself."]
         elif "Riplin Battle" not in self.c.flags:

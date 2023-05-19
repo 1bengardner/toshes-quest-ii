@@ -2,7 +2,7 @@
 File: TUABayOfKotor.py
 Author: Ben Gardner
 Created: May 17, 2013
-Revised: September 18, 2022
+Revised: May 19, 2023
 """
 
 
@@ -127,11 +127,20 @@ class BayOfKotor:
             del self.c.flags['Swimming HP Loss']
             self.c.flags['Bay Surface'] = True
             self.text = ("You gasp for a breath of air.")
-        if ("Matsamot Ride Offering" not in self.c.flags and
+        elif ('Bartender Daniel' not in self.c.flags and
+              'Gan Black Mountain' not in self.c.flags):
+            if "Matsamot Nap" in self.c.flags:
+                self.text = "You see Matsamot, who is sound asleep."
+            else:
+                self.c.flags['Matsamot Nap'] = True
+                self.text = ("Matsamot: ...Huh?" +
+                             "\nYou startle a napping Matsamot." +
+                             "\nMatsamot: What are you waiting for? "+
+                             "Head to the inn! You can't miss it. Vojo's Inn." +
+                             "\nMatsamot dozes off.")
+        elif ("Matsamot Ride Offering" not in self.c.flags and
             "Bay Surface" in self.c.flags):
-            if self.text:
-                self.text += "\n"
-            self.text += (
+            self.text = (
                      "Matsamot: Hey, did you just swim all the way "+
                      "from the other side? I can give you a ferry "+
                      "ride for just 40 euros. Let me know next time.")

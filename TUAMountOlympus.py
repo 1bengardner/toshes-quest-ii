@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: May 18, 2023
+Revised: May 19, 2023
 """
 
 
@@ -66,6 +66,7 @@ class MountOlympus:
         eventLocations = self.c.flags['Mount Olympus Map']['Events']
 
         if mapName == "Spiral":
+            self.audio = "The Price of Glory"
             def warp():
                 X = 7
                 Y = 15
@@ -91,6 +92,7 @@ class MountOlympus:
 [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
             ]
         elif mapName == "Blob":
+            self.audio = "Groundhog"
             def warp():
                 X = 6
                 Y = 12
@@ -121,6 +123,7 @@ class MountOlympus:
                 replaceRandomSpot(self.spots, oint, eventLocations)
                 replaceRandomSpot(self.spots, forE, eventLocations)
         elif mapName == "Snake":
+            self.audio = "Hummingbird"
             def warp():
                 X = 5
                 Y = 19

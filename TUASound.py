@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: May 16, 2023
+Revised: May 19, 2023
 """
 
 
@@ -29,11 +29,12 @@ class Sound:
                       "Guardian Battle": "Space Traveller",
                       "Final Battle": "Grandpa's Gardens",
                       "Niplin Battle": "Niplin",
+                      "Riplin Battle": "Grandpa's Gardens",
                       "Crayon Battle": "RUF",
                       "Wisp Battle": "RUF",
                      }
         self.sounds = {"Level Up": "FX-Dream",
-                       "Mercenary Up": "FX-Dream",
+                       "Mercenary Up": "FX-Frolic",
                        "Get Item": "FX-Collect",
                        "New Skill": "FX-Discover",
                        "Power Up": "FX-Discover",

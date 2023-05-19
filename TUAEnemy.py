@@ -2,7 +2,7 @@
 File: TUAEnemy.py
 Author: Ben Gardner
 Created: March 13, 2013
-Revised: December 25, 2015
+Revised: May 19, 2023
 """
 
 
@@ -41,7 +41,7 @@ class Enemy(object):
     def __init__(self, identifier, name, image, level, hp, maxHp, damage,
                  accuracy, cRate, cDamage, bRate, defence, earthReduction,
                  waterReduction, fireReduction, physicalReduction, skills,
-                 items, xp, euros, fleeable, unique, living, deathHp=0,
+                 items, xp, euros, fleeable, unique, living, rarity, deathHp=0,
                  music=None):
         self.IDENTIFIER = str(identifier)
         self.NAME = str(name)
@@ -70,6 +70,7 @@ class Enemy(object):
         self.MUSIC = music if music != "None" else None
         self.UNIQUE = int(unique)
         self.LIVING = int(living)
+        self.RARITY = rarity
 
     @property
     def hp(self):
