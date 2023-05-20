@@ -1141,6 +1141,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def resetForge(self):
         self.forge = Forge()
+        self.forge.sacrificeIndexes = [None, None]
 
     def setHorn(self):
         self.forge.horn = None   # Required to get correct successChance calculation
@@ -1158,6 +1159,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return replacementIndex
 
     def setSacrificeItem(self, key, itemIndex):
+        self.forge.sacrificeIndexes[key-1] = itemIndex
         replacementIndex = self.forge.setSacrificeItem(key, self.character.items[itemIndex])
         self.setHorn()
         return replacementIndex
@@ -1165,6 +1167,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
     def smith(self):
         if self.forge.horn is not None:
             self.character.removeItem(self.character.indexOfItem(self.forge.horn))
+        for i in self.forge.sacrificeIndexes:
+            if i in self.character.equippedItemIndices.values():
+                self.character.equip(i)
+            self.character.removeItem(i)
         previousName = self.forge.forgeItem.displayName
         upgradedCategory = self.forge.forgeItem.CATEGORY
         success = False
@@ -1191,5 +1197,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 'italic text': "You may now reascend Mount Olympus for another trial.",
             })
             self.character.flags['Mount Olympus Complete'] = True
+        self.saveGame()
         return success, interfaceActions
         
