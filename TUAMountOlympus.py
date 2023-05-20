@@ -461,10 +461,9 @@ class MountOlympus:
             self.menu = ["Return to Litochoro.",]
         else:
             if "Mount Olympus Complete" in self.c.flags:
-                self.text = "You approach the Forge of Hephaestus."
+                self.text = "You enter the Forge of Hephaestus once again, hammer at the ready."
             else:
-                # TODO Meld text with forge entrance text
-                self.text = ("You approach a colossal forge with a burning crucible as its heat source. Inside, there is a massive anvil, and alongside it lies a solid obsidian blacksmith's hammer." +
+                self.text = ("Inside the forge is a massive anvil, with a burning crucible as its heat source. Alongside it lies a solid obsidian blacksmith's hammer." +
                 "\nToshe: This must be the ancient forge that belonged to Hephaestus." +
                 "\nYou lift the hammer and prepare to work.")
             self.menu = ["Leave the forge.",]
@@ -586,10 +585,15 @@ class MountOlympus:
         self.imageIndex = 13
         self.text = None
         self.helpText = None
-        self.menu = ["Enter the Forge of Hephaestus."]
+        if "Mount Olympus Complete" in self.c.flags:
+            self.text = "You approach the Forge of Hephaestus."
+            self.menu = ["Enter the Forge of Hephaestus."]
+        else:
+            self.text = "You approach a colossal forge."
+            self.menu = ["Enter the forge."]
         if selectionIndex == 0:
             X = 1
             Y = 1
             return self.actions({'area': "Mount Olympus",
-                                 'coordinates': (X, Y)})   
+                                 'coordinates': (X, Y)})
         return self.actions()
