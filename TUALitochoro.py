@@ -198,7 +198,7 @@ class Litochoro:
                     self.text += (" This is just splendid. You did wonderfully."+
                                   "\n%s leans you over and pecks you on the temple, and hands you a curved object." % npc+
                                   "\n%s: This is a special minotaur horn. It once belonged to Theseus. I hope that you can put it to use." % npc+
-                                  "\nYou got the purple horn!")
+                                  "\nYou got the Purple Horn!")
                     moreActions = {'item': "Purple Horn"}
                     self.c.flags[npc+' Quest 3 Complete'] = True
                 elif npc+" Quest 3 Complete" in self.c.flags:
