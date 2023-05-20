@@ -30,7 +30,7 @@ class Sound:
                       "Final Battle": "Grandpa's Gardens",
                       "Niplin Battle": "Niplin",
                       "Riplin Battle": "Grandpa's Gardens",
-                      "Crayon Battle": "RUF",
+                      "Crayon Battle": "Boiling Over",
                       "Wisp Battle": "RUF",
                      }
         self.sounds = {"Level Up": "FX-Dream",

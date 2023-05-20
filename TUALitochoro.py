@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: May 16, 2023
+Revised: May 19, 2023
 """
 
 
@@ -164,7 +164,10 @@ class Litochoro:
                                       "\n%s gives you a Scintillous Ring!" % npc)
                         moreActions = {'item': "Scintillous Ring"}
                         self.c.flags[npc+' Quest 1 Complete'] = True
-                elif npc+" Quest 2" not in self.c.flags:
+                    else:
+                        self.text += (" How goes the hunt?")
+                elif (npc+" Quest 1 Complete" in self.c.flags and
+                      npc+" Quest 2" not in self.c.flags):
                     self.text += (" Oh, I wanted to tell you something. I still have my grandmother's famous sauce recipe. Now, guess what's inside? That's right, Skolopendra skin! That means you get to find me some!")
                     if "Skolopendra" in self.c.flags['Kills']:
                         self.c.flags[npc+' Quest 2'] = \
@@ -180,7 +183,8 @@ class Litochoro:
                                   "\nYou gain 10 stat points!")
                     self.c.statPoints += 10
                     self.c.flags[npc+' Quest 2 Complete'] = True
-                elif npc+" Quest 3" not in self.c.flags:
+                elif (npc+" Quest 2 Complete" in self.c.flags and
+                      npc+" Quest 3" not in self.c.flags):
                     self.text += (" Now, as you know, the Hydra is a beast that can regrow its heads. Each hydra has one main head: That's the one that controls the body. It can also be steeped to brew a delicious tea. Would you be a dear and slay 9 hydra for me and bring me their main heads?")
                     if "Hydra" in self.c.flags['Kills']:
                         self.c.flags[npc+' Quest 3'] = \
@@ -200,7 +204,7 @@ class Litochoro:
                 elif npc+" Quest 3 Complete" in self.c.flags:
                     self.text += (" Enjoying all the nice weather?")
                 else:
-                    self.text += (" How is your quest?")                    
+                    self.text += (" How is your quest?")
         elif selectionIndex == 2:
             if (self.c.euros >= price or
                 "Litochoro Room Level" in self.c.flags):

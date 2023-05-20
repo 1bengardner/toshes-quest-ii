@@ -107,7 +107,7 @@ class RumadanVillage:
         price = 0
         for i in range(1, resets + 2):
             price += 10 + self.c.level / 4 * (i - 1)
-        return price
+        return min(price, 5000)
 
     def marcianoCheck(self):
         if "Marciano4" not in self.c.flags['Kills']:

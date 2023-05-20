@@ -31,7 +31,6 @@ Swordfish
 Mystical Octopus
 Duelist
 Border Guard
-Warlock
 White Knight
 Black Knight
 Rumadan Disciple
@@ -48,3 +47,6 @@ Thessalonian Psilos
 Thessalonian Ekdromos
 Thessalonian Hoplite
 Horn Dog
+Shadow Sniper
+Shadow Hunter
+Manticore

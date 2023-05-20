@@ -617,6 +617,8 @@ class Main:
                         'defence': factor,
                     },
                 }
+            elif enemyIdentifier == "Gigantic Crayons":
+                interfaceActions['flash'] = True
             if self.currentArea.name == "Macedonia":
                 del interfaceActions['mercenaries']
         else:
