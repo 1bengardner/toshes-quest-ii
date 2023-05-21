@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 19, 2023
+Revised: May 20, 2023
 """
 
 
@@ -2264,6 +2264,7 @@ def displayStoreItemStats():
         elif "*" in item.INFORMATION:
             frame.itemRequirementLabel['text'] = item.INFORMATION.split("*")[0]
     else:
+        frame.itemRequirementLabel['font'] = font1
         frame.itemRequirementLabel['text'] = ("Requires",
                                               item.REQUIREMENT_VALUE,
                                               item.REQUIREMENT_TYPE)
