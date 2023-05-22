@@ -2,35 +2,35 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: May 8, 2023
+Created: May 22, 2023
 """
 
 
 class Static:
     ICAS = [
-        "Ica 1",
-        "Ica 2",
-        "Ica 3",
-        "Ica 4",
-        "Ica 5",
-        "Ica 6",
-        "Ica 7"
+        "Ica",
+        "Miru",
+        "Trena",
+        "Zlata",
+        "Zhaklina",
+        "Frosina",
+        "Dafina"
     ]
     ICA_DATA = {
-        "Ica 1": {'area': "Herceg Fields",
-                  'coordinates': (6, 1)},
-        "Ica 2": {'area': "Mojkovac Summit",
-                  'coordinates': (3, 3)},
-        "Ica 3": {'area': "Eastern Kosovo",
+        "Ica": {'area': "Herceg Fields",
+                'coordinates': (6, 1)},
+        "Miru": {'area': "Mojkovac Summit",
+                 'coordinates': (3, 3)},
+        "Trena": {'area': "Eastern Kosovo",
                   'coordinates': (1, 1)},
-        "Ica 4": {'area': "Greece",
+        "Zlata": {'area': "Greece",
                   'coordinates': (1, 1)},
-        "Ica 5": {'area': "Dune Hots Peak",
-                  'coordinates': (1, 10)},
-        "Ica 6": {'area': "Fartooq Hold",
-                  'coordinates': (1, 7)},
-        "Ica 7": {'area': "Simellierm Pit",
-                  'coordinates': (1, 4)}
+        "Zhaklina": {'area': "Dune Hots Peak",
+                     'coordinates': (1, 10)},
+        "Frosina": {'area': "Fartooq Hold",
+                    'coordinates': (1, 7)},
+        "Dafina": {'area': "Simellierm Pit",
+                   'coordinates': (1, 4)}
     }
     
     class HexColors:
@@ -63,7 +63,8 @@ class Static:
         ALBANIAN_DUNES = "#e8d0b4"
         CASTLE_PATH = "#db6e3f"
         CASTLE_WALL = "#8f8875"
-        MEADOW = "#59ea37"
+        MEADOW = "#8bca3d"
+        BRUSH = "#72aa7f"
         ATHENS_WALL = "#f3d3b9"
         MACEDONIA = "#a5aae6"
         ICE = "#ffffff"
@@ -140,10 +141,10 @@ class Static:
         "Old Ruins": {
             "fg": HexColors.RUINS_PATH,
             "bg": HexColors.DARKNESS},
-        "Rumadan Village": {
+        "Romadan Village": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.ALBANIAN_DUNES},
-        "Rumadan Hideout": {
+        "Romadan Hideout": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.DARKNESS},
         "Berlusconi Castle": {
@@ -154,7 +155,7 @@ class Static:
             "bg": HexColors.DARKNESS},
         "Greek Plains": {
             "fg": HexColors.MEADOW,
-            "bg": HexColors.FOREST},
+            "bg": HexColors.BRUSH},
         "Athens": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.ATHENS_WALL},

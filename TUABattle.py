@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: May 16, 2023
+Revised: May 21, 2023
 """
 
 
@@ -204,7 +204,7 @@ class Battle(object):
         """Allow Toshe and his party to attack the enemy."""
         if not self.isStunned(self.mainCharacter,
                               self.charactersFlags[self.mainCharacter.NAME]):
-            self.checkConsumables()
+            self.checkConsumables(skill)
             self.mainCharacter.ep -= skill.EP_USED
         self.takeTurn(skill, self.mainCharacter, self.enemy,
                       self.charactersFlags[self.mainCharacter.NAME],
@@ -326,7 +326,7 @@ class Battle(object):
             if ( hasattr(attacker, "specialization") and
                  attacker.specialization == "Astral Assailant" and
                  hasattr(attacker, "equippedWeapon")):
-                if attacker.equippedWeapon.ELEMENT == "Earth":
+                if attacker.equippedWeapon.ELEMENT in ("Earth", "Lightning"):
                     defender.earthReduction /= 2.0
                 elif attacker.equippedWeapon.ELEMENT == "Water":
                     defender.waterReduction /= 2.0
@@ -340,9 +340,9 @@ class Battle(object):
             if damage:
                 if (skill.ELEMENT == "Earth" or
                     skill.ELEMENT == "Poison" or
-                    skill.ELEMENT == "Electricity" or
+                    skill.ELEMENT == "Lightning" or
                     (hasattr(attacker, "equippedWeapon") and
-                     attacker.equippedWeapon.ELEMENT == "Earth" and
+                     attacker.equippedWeapon.ELEMENT in ("Earth", "Lightning") and
                      skill.ELEMENT == "Physical")):
                     damage *= (100-defender.earthReduction) / 100.
                     damageElement = "Earth"
@@ -392,7 +392,7 @@ class Battle(object):
             if ( hasattr(attacker, "specialization") and
                  attacker.specialization == "Astral Assailant" and
                  hasattr(attacker, "equippedWeapon")):
-                if attacker.equippedWeapon.ELEMENT == "Earth":
+                if attacker.equippedWeapon.ELEMENT in ("Earth", "Lightning"):
                     defender.earthReduction *= 2.0
                 elif attacker.equippedWeapon.ELEMENT == "Water":
                     defender.waterReduction *= 2.0
@@ -664,8 +664,11 @@ class Battle(object):
                             "Kind": "Poisoned",
                             "Skill": False if skill.NAME in basicSkills else True,
                             "Aux": attacker in self.auxiliaryCharacters,})
-                elif skill.ELEMENT == "Electricity" and ("Paralyzed" not in
-                                                         defenderFlags):
+                elif ((skill.ELEMENT == "Lightning" or
+                       hasattr(attacker, "equippedWeapon") and
+                       attacker.equippedWeapon.ELEMENT == "Lightning" and
+                       skill.ELEMENT == "Physical") and
+                      "Paralyzed" not in defenderFlags):
                     if self.roll() <= 20:
                         self.text += defender.NAME+" was paralyzed!\n"
                         defenderFlags.add("Paralyzed")
@@ -1263,9 +1266,9 @@ class Battle(object):
                     self.sounds.append("Dead")
         return False
 
-    def checkConsumables(self):
+    def checkConsumables(self, skill):
         """Check if any consumables should be consumed and take action."""
-        if self.enemy.MUSIC == "Important Battle":
+        if skill.NAME == "Attack":
             for item in self.consumableEffects:
                 while self.mainCharacter.hasItem(item):
                     for effects in self.consumableEffects[item]:
@@ -1351,6 +1354,16 @@ class Battle(object):
                 xpGained = int(xpGained * (1 + 0.1 * self.mainCharacter.mastery))
             if self.mainCharacter.specialization == "Alchemist":
                 eurosGained = int(eurosGained * (1 + 0.2 * self.mainCharacter.mastery))
+
+            if self.mainCharacter.hasItem("Psilocybin"):
+                roll = self.roll(11) - 1
+                xpGained *= roll
+                if roll > 1:
+                    self.text += "Psychedelic! "
+                elif roll == 0:
+                    self.text += "Bad vibes! "
+                    self.mainCharacter.removeItem(
+                        self.mainCharacter.indexOfItem("Psilocybin"))
 
             self.mainCharacter.xp += xpGained
             for character in self.auxiliaryCharacters:

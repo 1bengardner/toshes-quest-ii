@@ -2,7 +2,7 @@
 File: TUAWeapon.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: April 2, 2023
+Revised: May 21, 2023
 """
 
 from TUAStatics import EquipUtils
@@ -24,7 +24,7 @@ class Weapon:
         self.C_DAMAGE = int(cDamage)
         if category == "Sword":
             self.ACCURACY = 90
-        elif category == "Club":
+        elif category == "Bludgeon":
             self.ACCURACY = 80
         elif category == "Axe":
             self.ACCURACY = 70

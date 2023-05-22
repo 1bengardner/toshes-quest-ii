@@ -2,7 +2,7 @@
 File: TUAModifiers.py
 Author: Ben Gardner
 Created: April 2, 2023
-Revised: April 2, 2023
+Revised: May 21, 2023
 """
 
 class Modifiers:
@@ -102,7 +102,7 @@ class Modifiers:
                 self.MASSIVE],}
         return {
             'Sword': weaponModifiers,
-            'Club': weaponModifiers,
+            'Bludgeon': weaponModifiers,
             'Axe': weaponModifiers,
             'Spear': weaponModifiers,
             'Bow': weaponModifiers,

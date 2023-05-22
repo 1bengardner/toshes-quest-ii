@@ -3,7 +3,7 @@
 File: TUAGalijula.py
 Author: Ben Gardner
 Created: April 22, 2016
-Revised: November 28, 2022
+Revised: May 21, 2023
 """
 
 
@@ -76,9 +76,9 @@ class Galijula:
         
         e = {'Horn Dog': 20,
              'Horn Beast': 10,
-             'Eyeless Yeti': 10}
+             'Rockbear': 10}
         e2 = {'Horn Beast': 20,
-              'Eyeless Yeti': 10,
+              'Rockbear': 10,
               'Frost Dragon': 10}
              
         self.encounters = {wrp1: {},
@@ -217,8 +217,8 @@ class Galijula:
         if ( "Galijula Left Ambush" not in self.c.flags):
             self.c.flags['Galijula Left Ambush'] = True
             self.view = "battle"
-            self.text = "You are ambushed by a yeti!"
-            return self.actions({'enemy': "Angry Eyeless Yeti",
+            self.text = "You are ambushed by a rockbear!"
+            return self.actions({'enemy': "Rockbear Mother",
                                  'mercenaries': self.c.mercenaries})
         return self.actions()
     
@@ -231,8 +231,8 @@ class Galijula:
         if ( "Galijula Right Ambush" not in self.c.flags):
             self.c.flags['Galijula Right Ambush'] = True
             self.view = "battle"
-            self.text = "You are ambushed by a yeti!"
-            return self.actions({'enemy': "Angry Eyeless Yeti",
+            self.text = "You are ambushed by a rockbear!"
+            return self.actions({'enemy': "Rockbear Mother",
                                  'mercenaries': self.c.mercenaries})
         return self.actions()
     
@@ -384,8 +384,8 @@ class Galijula:
         if ( "Galijula Cave Ambush" not in self.c.flags):
             self.c.flags['Galijula Cave Ambush'] = True
             self.view = "battle"
-            self.text = "You are ambushed by a yeti!"
-            return self.actions({'enemy': "Angry Eyeless Yeti",
+            self.text = "You are ambushed by a rockbear!"
+            return self.actions({'enemy': "Rockbear Mother",
                                  'mercenaries': self.c.mercenaries})
         if (self.c.hasItem("Oracular Orb")):
             self.text = ("The oracular orb escapes your grasp and returns" +

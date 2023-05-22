@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: April 29, 2023
+Revised: May 22, 2023
 """
 
 
@@ -97,7 +97,7 @@ class Igalo:
              'Identifiers': ["Moghi"],
              'Description': ("The moghi is a large and peaceful beast. "+
                          "It will protect "+
-                         "its young by any means. It inhabits dry and "+
+                         "its young by any means. It lives in dry and "+
                          "mountainous regions. It is thought to have "+
                          "originated in Ethiopia. In recent times, moghis "+
                          "have become much more aggressive, sometimes "+
@@ -121,13 +121,13 @@ class Igalo:
                          "where they roam nobody knows. All that is known "+
                          "is that where there are rocks, there may be golems.")
              },
-            {'Name': "Ent",
-             'Identifiers': ["Ent"],
-             'Description': ("Ents are tree spirits that are in eternal" +
+            {'Name': "Entling",
+             'Identifiers': ["Entling"],
+             'Description': ("Entlings are tree spirits that are in eternal" +
                              " conflict with man. Most people agree the war" +
                              " started and continues with lumberjacks" +
                              " taking wood from forests, but at this point" +
-                             " we have no reason to stop, as ents provide" +
+                             " we have no reason to stop, as entlings provide" +
                              " new recruits with good combat training.")
              },
             {'Name': "Vampire Bat",
@@ -165,7 +165,7 @@ class Igalo:
                              " for magic--and jade--in the process.")
              },
             {'Name': "Orc",
-             'Identifiers': ["Orc", "Cave Orc", "Shorc", "Florc"],
+             'Identifiers': ["Orc", "Cave Orc", "Shorc", "Sporc"],
              'Description': ("Mean and vicious, but fairly unintelligent." +
                              "\nToshe: Hey!" +
                              "\nMarija: Not you--orcs. Be prepared for their" +
@@ -203,15 +203,15 @@ class Igalo:
                              " that they have a penchant for collecting" +
                              " garnet gems.")
              },
-            {'Name': "Digger",
-             'Identifiers': ["Sand Digger"],
-             'Description': ("The digger is an ancient ancestor of the common" +
-                             " mole. Diggers have lived for millennia," +
+            {'Name': "Diggler",
+             'Identifiers': ["Diggler"],
+             'Description': ("The diggler is an ancient ancestor of the common" +
+                             " mole. Digglers have lived for millennia," +
                              " relying on burrowing deep in the Earth when" +
-                             " catastrophe strikes. The only species of" +
-                             " digger remaining is the sand digger, who" +
-                             " has stood the test of time and can be found" +
-                             " scattered throughout desertous regions." +
+                             " catastrophe strikes. They can be found" +
+                             " scattered throughout desertous regions. When" +
+                             " they surface, they sometimes bring with them" +
+                             " small gems from underground." +
                              " Over time, they have adapted to harsh climate" +
                              " changes and developed an aggressive nature." +
                              " Don't upset them or they will lash out. They" +
@@ -278,6 +278,10 @@ class Igalo:
                              " The caveat is that they only" +
                              " rise to those who they deem worthy of" +
                              " a fight. Do you consider yourself worthy?")
+             },
+            {'Name': "Rockbear",
+             'Identifiers': ["Rockbear", "Rockbear Mother"],
+             'Description': "Rockbears are strong animals found on the tundral island of Galijula, sitting upon the neighbouring Adriatic Sea. Thrillseekers and treasure hunters have been known to venture to the island, only to be ambushed by an aggressive mother rockbear. If you find yourself face-to-face with one, you have a good chance to escape unscatched, as they have poor eyesight."
              },
             ]
 

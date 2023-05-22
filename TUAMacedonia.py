@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: January 7, 2023
+Revised: May 22, 2023
 """
 
 
@@ -31,7 +31,7 @@ class Macedonia(object):
             "Orc Unfleeable",
             "Moghi Unfleeable",
             "Unholy Crow Unfleeable",
-            "Sand Digger Unfleeable",
+            "Diggler Unfleeable",
             "Dust Dweller Unfleeable",
             "Dark Asp Unfleeable",
             "Manticore Unfleeable",

@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: May 2, 2023
+Revised: May 21, 2023
 """
 
 
@@ -537,7 +537,7 @@ class Pec:
                          " wiped out. Those left behind were subject to"+
                          " torture by the evil Italian president, who took"+
                          " control of Albania. This happened over two decades"+
-                         " ago and Albania is mostly inhabited by Rumadans"+
+                         " ago and Albania is mostly inhabited by Romadans"+
                          " now, but the Italian government is still looking"+
                          " for me, the last link in the Oseku family. I"+
                          " cannot go anywhere without equipment."+

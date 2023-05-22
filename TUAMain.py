@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 19, 2023
+Revised: May 21, 2023
 """
 
 
@@ -51,8 +51,8 @@ from TUAPristina import Pristina
 from TUATrafCafe import TrafCafe
 from TUAPresidentialPath import PresidentialPath
 from TUAOldRuins import OldRuins
-from TUARumadanVillage import RumadanVillage
-from TUARumadanHideout import RumadanHideout
+from TUARomadanVillage import RomadanVillage
+from TUARomadanHideout import RomadanHideout
 from TUABerlusconiCastle import BerlusconiCastle
 from TUAHiddenPassage import HiddenPassage
 from TUAGreece import Greece
@@ -121,7 +121,7 @@ class Main:
             "Mojkovac Valley",
             "Pec",
             "Pristina",
-            "Rumadan Village",
+            "Romadan Village",
             "Athens",
             "Litochoro",
         ])
@@ -251,8 +251,8 @@ class Main:
                       'Traf Cafe': TrafCafe,
                       'Presidential Path': PresidentialPath,
                       'Old Ruins': OldRuins,
-                      'Rumadan Village': RumadanVillage,
-                      'Rumadan Hideout': RumadanHideout,
+                      'Romadan Village': RomadanVillage,
+                      'Romadan Hideout': RomadanHideout,
                       'Berlusconi Castle': BerlusconiCastle,
                       'Hidden Passage': HiddenPassage,
                       'Greece': Greece,
@@ -435,7 +435,7 @@ class Main:
                 equippedArmour = self.armour[tokens[11]]
                 equippedShield = self.shields[tokens[12]]
                 blankWeapon = Weapon("Fists", 0, "Physical", 0, 5,
-                                     "Strength", "Club", 1, 250),
+                                     "Strength", "Bludgeon", 1, 250),
                 blankArmour = Armour("Cotton Shirt", 30, "Physical",
                                      0, 0, 0),
                 blankShield = Shield("Nothing", 0, "Physical", 0, 0,
@@ -553,8 +553,8 @@ class Main:
                     itemText = "The King of Elves appears and gives you a pair of Hopalong Boots."
                     item = "Hopalong Boots"
                 elif roll == 2:
-                    itemText = "The King of Elves appears and bestows upon you the Debonairiest Nowell Shirt."
-                    item = "Debonairiest Nowell Shirt"
+                    itemText = "The King of Elves appears and bestows upon you the Debonairiest Nowell Gambeson."
+                    item = "Debonairiest Nowell Gambeson"
                 elif roll == 3:
                     itemText = "The King of Elves appears and hands you a rifle that shoots."
                     item = "A rifle that shoots"
@@ -738,6 +738,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 enemy.NAME = self.enemies['Will o Wisp'].NAME
                 enemy.IMAGE = self.enemies['Will o Wisp'].IMAGE
                 enemy.MUSIC = self.enemies['Will o Wisp'].MUSIC
+                enemy.RARITY = self.enemies['Will o Wisp'].RARITY
             self.battle = Battle(self.character, enemy, mercenaries, "coliseum" in interfaceActions)
             if 'text' not in interfaceActions or not interfaceActions['text']:
                 interfaceActions['text'] = ""

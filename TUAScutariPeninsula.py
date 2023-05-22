@@ -2,7 +2,7 @@
 File: TUAScutariPeninsula.py
 Author: Ben Gardner
 Created: August 30, 2013
-Revised: December 31, 2015
+Revised: May 21, 2023
 """
 
 
@@ -47,7 +47,7 @@ class ScutariPeninsula:
 
         e1 = {'Goblin Thug': 6,
               'Earth Mage': 6,
-              'Rumadan Ruffian': 4,
+              'Romadan Ruffian': 4,
               'Golem': 4}
         e2 = {'Giant Water Spider': 10,
               'Toxic Jellyfish': 10}

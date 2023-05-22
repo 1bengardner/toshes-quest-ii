@@ -1,7 +1,7 @@
 TITLE	DESCRIPTION	COMPLETION_CRITERIA	START_FLAG	END_FLAG	OPTIONAL	REPEATABLE
-Manhunt	Kill 2 Rumadan men for Bartender Daniel in Herceg Novi. They can be found in the Frolicking Fields nearby.	{'Kills': ('Rumadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete	1	0
+Manhunt	Kill 2 Romadan men for Bartender Daniel in Herceg Novi. They can be found in the Frolicking Fields nearby.	{'Kills': ('Romadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete	1	0
 Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi. They can be found in the Bay of Kotor to the south.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete	1	0
-I need a doctor!	Find and kill Dr. Grabh for Bartender Daniel in Herceg Novi.	{'Kills': ('Dr. Grabh', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	1	0
+Stalkin' Mr. Pockins	Find and kill Mr. Pockins for Bartender Daniel in Herceg Novi.	{'Kills': ('Mr. Pockins', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	1	0
 A Lovely Orcskin Jacket	Kill 1 Orc for Bartender Adam in Mojkovac Valley.	{'Kills': ('Orc', 1)}	Adam Quest 1	Adam Quest 1 Complete	1	0
 A Cute Goblinhide Coat	Kill 5 Goblins for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	1	0
 Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	1	0
@@ -41,8 +41,8 @@ Pecking Order	Defeat the Skeletons in the Mojkovac Cemetery and the Pirates in t
 Aquamarine Dreams	Bring an Aquamarine Shard to Ivana in Herceg Novi.	{'Items': {'Aquamarine Shard': 1}}	Ivana Talk 3	Necklace Fixed	1	0
 Animal Absorption	Hunt for a legendary Giant Animal and absorb its power using the altar in the Hidden Passage.	{'Wildcard Kills': (('Giant Seal2', 'Giant Shark2', 'Giant Salamander2', 'Giant Scorpion2', 'Giant Scarab2'), 1, "Legendary Animal")}	Animal Powers	Ascended	1	0
 Animal Ascension	Defeat every legendary Giant Animal and absorb their souls.	{'Multiple Kills': (('Giant Seal2', "Frostflipper the Fierce"), ('Giant Shark2', "Tidetooth the Tough"), ('Giant Salamander2', "Meltmaw the Magical"), ('Giant Scorpion2', "Poisonpinch the Piercing"), ('Giant Scarab2', "Stoneshell the Spirited"))}	Ascended	Fully Ascended	1	0
-Precious Metal	Bring a piece of Gold Ore to Goldum in the Rumadan Hideout.	{'Items': {'Gold Ore': 1}}	Met Goldum	Goldum Gold	1	0
-A Sword of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Rumadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
+Precious Metal	Bring a piece of Gold Ore to Goldum in the Romadan Hideout.	{'Items': {'Gold Ore': 1}}	Met Goldum	Goldum Gold	1	0
+A Sword of Ice and Fire	Bring a Garnet Fragment and an Aquamarine Shard to the Sword Man in the Romadan Village.	{'Items': {'Garnet Fragment': 1, 'Aquamarine Shard': 1}}	Swordcraft	Magnificent Blade	1	1
 Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward to Big Nigel in the Greek Plains.	{'Items': {'Jade Ward': 1, 'Garnet Ward': 1, 'Aquamarine Ward': 1}}	Big Nigel	Diamond Defence	1	1
 Delivery to an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	1	0
 Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	1	0

@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: November 24, 2022
+Revised: May 21, 2023
 """
 
 
@@ -431,7 +431,7 @@ class MojkovacValley:
                                                 "Alder Bow",
                                                 "Long Sword",
                                                 "Flanged Mace",
-                                                "Spear",
+                                                "Lancet",
                                                 "Espadon",
                                                 "Great Axe",
                                                 "Defender",

@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: May 2, 2023
+Revised: May 22, 2023
 """
 
 
@@ -73,11 +73,11 @@ class HercegFields:
 
         e1 = {'Goblin': 5,
               'Sean': 5,
-              'Rumadan Man': 5,
-              'Ent': 2,
-              'Rumadan Warrior': 3}
+              'Romadan Man': 5,
+              'Entling': 2,
+              'Romadan Warrior': 3}
         e2 = {'Goblin': 8,
-              'Ent': 15,
+              'Entling': 15,
               'Arcane Asp': 2}
         self.encounters = {wrp1: {},
                            entr: {},
@@ -250,12 +250,12 @@ class HercegFields:
         self.text = None
         self.helpText = None
         self.menu = []
-        if ( 'Dr. Grabh' not in self.c.flags['Kills'] and
+        if ( 'Mr. Pockins' not in self.c.flags['Kills'] and
              'Daniel Quest 3' in self.c.flags and
              "In Battle" not in self.c.flags):
             self.c.flags['In Battle'] = True
             self.view = "battle"
-            return self.actions({'enemy': "Dr. Grabh",
+            return self.actions({'enemy': "Mr. Pockins",
                                  'mercenaries': self.c.mercenaries,
                                  'flash': True,})
         if "In Battle" in self.c.flags:
@@ -301,7 +301,7 @@ class HercegFields:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Ica 1']
+            return Static.ICA_DATA['Ica']
         if self.c.dexterity >= 15:
             self.text = ("You notice a small opening in the tree roots that "+
                          "you could squeeze through.")
@@ -321,7 +321,7 @@ class HercegFields:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        thisIca = "Ica 1"
+        thisIca = "Ica"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 19

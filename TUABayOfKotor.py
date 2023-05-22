@@ -2,7 +2,7 @@
 File: TUABayOfKotor.py
 Author: Ben Gardner
 Created: May 17, 2013
-Revised: May 19, 2023
+Revised: May 21, 2023
 """
 
 
@@ -301,7 +301,7 @@ class BayOfKotor:
         elif "Greek Wall" in self.c.flags:
             self.text += ("\"It would be wise to enter the desert castle" +
                           " if you wish to succeed in your endeavor.\"")
-        elif "Rumadan Village" in self.c.flags:
+        elif "Romadan Village" in self.c.flags:
             self.text += ("\"Keep going south past the desert village to" +
                           " Greece.\"")
         elif "Old Ruins Complete" in self.c.flags:

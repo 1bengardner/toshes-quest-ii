@@ -2,7 +2,7 @@
 File: TUASkill.py
 Author: Ben Gardner
 Created: March 14, 2013
-Revised: November 23, 2022
+Revised: May 21, 2023
 """
 
 
@@ -30,11 +30,11 @@ class Skill:
         if "Melee" in permittedWeapons:
             permittedWeapons.remove("Melee")
             self.PERMITTED_WEAPONS = permittedWeapons |\
-                                     set(["Sword", "Club", "Axe", "Spear"])
+                                     set(["Sword", "Bludgeon", "Axe", "Spear"])
         elif "All" in permittedWeapons:
             permittedWeapons.remove("All")
             self.PERMITTED_WEAPONS = permittedWeapons |\
-                                     set(["Sword", "Club", "Axe", "Spear",
+                                     set(["Sword", "Bludgeon", "Axe", "Spear",
                                           "Bow", "Wand", "Gun"])
         else:
             self.PERMITTED_WEAPONS = permittedWeapons

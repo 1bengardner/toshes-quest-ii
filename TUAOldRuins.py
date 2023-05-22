@@ -2,7 +2,7 @@
 File: TUAOldRuins.py
 Author: Ben Gardner
 Created: June 28, 2015
-Revised: October 26, 2022
+Revised: May 22, 2023
 """
 
 
@@ -51,7 +51,7 @@ class OldRuins:
             ]
 
         e = {'Ancient Goblin': 26,
-             'Florc': 8,
+             'Sporc': 8,
              'Shorc': 10,
              'Hermit': 6}
 
@@ -101,7 +101,7 @@ class OldRuins:
             self.text = ("You noisily lose your footing on a step, alerting a" +
                          " nearby hungry beast.")
             self.view = "battle"
-            return self.actions({'enemy': "Florc",
+            return self.actions({'enemy': "Sporc",
                                  'mercenaries': self.c.mercenaries})
         elif selectionIndex == 0:
             X = 8

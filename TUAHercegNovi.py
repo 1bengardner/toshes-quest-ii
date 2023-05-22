@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: May 18, 2023
+Revised: May 22, 2023
 """
 
 
@@ -664,20 +664,20 @@ class HercegNovi:
                 self.text = ("Bartender Daniel: Here you are.")
                 if 'Daniel Quest 1' not in self.c.flags:
                     self.text += (" Hey, let me let you in on something. "+
-                                  "The Rumadan men roaming the fields outside "+
+                                  "The Romadan men roaming the fields outside "+
                                   "have been pillaging the gin and Vojo is "+
                                   "getting upset. You're a mercenary, right? "+
-                                  "Take care of 2 Rumadan men for me to teach "+
+                                  "Take care of 2 Romadan men for me to teach "+
                                   "them a lesson.")
-                    if 'Rumadan Man' in self.c.flags['Kills']:
+                    if 'Romadan Man' in self.c.flags['Kills']:
                         self.c.flags['Daniel Quest 1'] = \
-                                            self.c.flags['Kills']['Rumadan Man']
+                                            self.c.flags['Kills']['Romadan Man']
                     else:
                         self.c.flags['Daniel Quest 1'] = 0
                 elif ('Daniel Quest 1 Complete' not in self.c.flags and
                       'Daniel Quest 1' in self.c.flags and
-                      'Rumadan Man' in self.c.flags['Kills'] and
-                      self.c.flags['Kills']['Rumadan Man']-2 >=
+                      'Romadan Man' in self.c.flags['Kills'] and
+                      self.c.flags['Kills']['Romadan Man']-2 >=
                       self.c.flags['Daniel Quest 1']):
                     self.text += (" Oh, you did it? You killed them? Nice! "+
                                   "Here, take this. No need to thank me."+
@@ -707,14 +707,17 @@ class HercegNovi:
                     self.c.flags['Daniel Quest 2 Complete'] = True
                 elif ('Daniel Quest 2 Complete' in self.c.flags and
                       'Daniel Quest 3' not in self.c.flags):
-                    self.text += (" Hey. There's a wanted man in Herceg Novi "+
-                                  "known only as \"Dr. Grabh.\" Do what you "+
-                                  "will with that information.")
+                    self.text += (" Hey. There's this goblin, "+
+                                  "roaming around the fields nearby, "+
+                                  "stealing from "+
+                                  "unwitting citizens of Herceg Novi. "+
+                                  "He is known only as \"Mr. Pockins.\" "+
+                                  "Do what you will with that information.")
                     self.c.flags['Daniel Quest 3'] = True
                 elif ('Daniel Quest 3 Complete' not in self.c.flags and
                       'Daniel Quest 3' in self.c.flags and
-                      'Dr. Grabh' in self.c.flags['Kills']):
-                    self.text += (" I heard you finished off Dr. Grabh. "+
+                      'Mr. Pockins' in self.c.flags['Kills']):
+                    self.text += (" I heard you finished off Mr. Pockins. "+
                                   "Here's the bounty."+
                                   "\nDaniel gives you 100 euros.")
                     self.c.euros += 100

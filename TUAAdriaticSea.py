@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: November 28, 2022
+Revised: May 22, 2023
 """
 
 
@@ -77,12 +77,15 @@ class AdriaticSea:
             boat = nrml
             e = {'Giant Shark1': 5,
                  'Swordfish': 10,
+                 'Lion\'s Mane Jellyfish': 3,
                  'Mystical Octopus': 2,
                  'Barracuda': 2,
-                 'Sponge': 1}
+                 'Man o War': 1,
+                 'Spongefish': 1}
             e2 = {'Hungry Bear': 25,
                   'Galijula Crab': 8,
-                  'Sponge': 1}
+                  'Man o War': 2,
+                  'Spongefish': 1}
             e3 = {'Ice Guardian': 10}
             self.encounters = {wrp1: {},
                                wrp2: {},
@@ -390,7 +393,7 @@ class AdriaticSea:
             self.text = ("As you near the boat, you feel something sharp "+
                          "puncture your leg. It's a swordfish!")
             self.helpText = ("Click the sword to attack, "+
-                             "the shield to defend, or the boot to try "+
+                             "the shield to defend, or the fleeing man to try "+
                              "running away.")
             self.c.flags['Boat'] = True
             return self.actions({'enemy': "Wounded Swordfish"})            
@@ -453,7 +456,7 @@ class AdriaticSea:
                 ["Mace",
                  "Double Axe",
                  "Long Sword",
-                 "Spear",
+                 "Lancet",
                  "Heavy Mace",
                  "Macedonian Mace",
                  "Steel Hauberk",

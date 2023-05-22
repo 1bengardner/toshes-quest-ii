@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: November 14, 2022
+Revised: May 22, 2023
 """
 
 
@@ -409,7 +409,7 @@ class Greece:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Ica 4']
+            return Static.ICA_DATA['Zlata']
         if self.c.dexterity >= 60:
             self.text = ("You see a tiny hole in the wall that "+
                          "you could crawl through.")
@@ -443,13 +443,13 @@ class Greece:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        thisIca = "Ica 4"
+        thisIca = "Zlata"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 19
         self.text = None
         self.helpText = None
-        npc = "Ica"
+        npc = "Zlata"
         skill1 = "Piercing Quad"
         skill2 = "Freezing Arrow"
         skillPrice1 = 3000

@@ -12,12 +12,12 @@ Letter from the Mayor	1	This letter bears the signature of the*Herceg Novi mayor
 Mysterious Parchment	1	Sunken Writings Opaquely Reveal*Death Fictitious Inside Soulless Hearts.
 Presidential Map	1	This map indicates an X,*two paces west of Pristina.
 Greek Wall Blueprint	1	These drawings depict the layout*of the wall of Greece.
-Nutritious Mushroom	500	Restores all HP.*Consumed during an important battle.
-Delicious Mushroom	500	Restores all EP.*Consumed during an important battle.
-Big Mushroom	2000	Multiplies damage by 2.*Consumed during an important battle.
-Jagged Mushroom	2000	Increases crit chance by 25%.*Consumed during an important battle.
-Thick Mushroom	2000	Multiplies defence by 2.*Consumed during an important battle.
-Magical Mushroom	3000	Increases all reductions by 25%.*Consumed during an important battle.
+Nutritious Mushroom	500	Restores all HP.*Attack to consume.
+Delicious Mushroom	500	Restores all EP.*Attack to consume.
+Big Mushroom	1000	Multiplies damage by 2.*Attack to consume.
+Jagged Mushroom	1000	Increases crit chance by 25%.*Attack to consume.
+Thick Mushroom	1000	Multiplies defence by 2.*Attack to consume.
+Magical Mushroom	1500	Increases all reductions by 25%.*Attack to consume.
 Macedonian Protector	0	Increases block chance while defending.
 Oracular Orb	0	A magical orb of great energy.
 Ominous Orb	0	This orb can be fused with its*user to combine potentials.
@@ -26,4 +26,5 @@ Scintillous Ring	0	Not even I know what this does.
 Golden Horn	0	Changes forge success chance to 95%.
 Green Horn	0	Triples forge success chance.
 Purple Horn	0	Raises forge success chance by 1000%.
-Olympian Ointment	200	A mysterious serum.
+Olympian Ointment	200	A serum that can be applied to rock formations*...with varying results.
+Psilocybin	3000	May alter your experience.

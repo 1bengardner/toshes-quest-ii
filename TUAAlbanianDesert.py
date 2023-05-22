@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: November 28, 2022
+Revised: May 22, 2023
 """
 
 
@@ -36,8 +36,8 @@ class AlbanianDesert:
         wrp3 = self.westernKosovo3
         wrp4 = self.westernKosovo4
         wrp5 = self.westernKosovo5
-        wrp6 = self.rumadanVillageEntrance
-        wrp7 = self.rumadanVillageExit
+        wrp6 = self.romadanVillageEntrance
+        wrp7 = self.romadanVillageExit
         scut = self.scutariPassage
         nml1 = self.normal1
         nml2 = self.normal2
@@ -115,11 +115,11 @@ class AlbanianDesert:
             [None, None, None, None, None, None, None, None, None, None, None, None]]
         
         if self.c.level < 14:       # 25%
-            e = {'Sand Digger': 13,
-                 'Rumadan Horseman': 7,
+            e = {'Diggler': 13,
+                 'Romadan Horseman': 7,
                  'Warlock': 3}
         elif self.c.level == 14:    # 24%
-            e = {'Rumadan Horseman': 6,
+            e = {'Romadan Horseman': 6,
                  'Warlock': 10,
                  'Gold Golem': 6,
                  'Adurbid': 2}
@@ -255,16 +255,16 @@ class AlbanianDesert:
         return self.actions({'area': "Western Kosovo",
                              'coordinates': (X, Y)})
 
-    def rumadanVillageEntrance(self, selectionIndex=None):
+    def romadanVillageEntrance(self, selectionIndex=None):
         X = 2
         Y = 2
-        return self.actions({'area': "Rumadan Village",
+        return self.actions({'area': "Romadan Village",
                              'coordinates': (X, Y)})
 
-    def rumadanVillageExit(self, selectionIndex=None):
+    def romadanVillageExit(self, selectionIndex=None):
         X = 2
         Y = 6
-        return self.actions({'area': "Rumadan Village",
+        return self.actions({'area': "Romadan Village",
                              'coordinates': (X, Y)})
 
     def scutariPassage(self, selectionIndex=None):
@@ -390,7 +390,7 @@ class AlbanianDesert:
         self.menu = []
             
         if selectionIndex == 0:
-            return Static.ICA_DATA['Ica 5']
+            return Static.ICA_DATA['Zhaklina']
         if "Oukkar" in self.c.flags['Kills'] and self.c.dexterity >= 75:
             self.text = ("\nYou spot a hidden passage up into the dune "+
                          "that appears to be accessible.")

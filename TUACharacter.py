@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: May 19, 2023
+Revised: May 21, 2023
 """
 
 
@@ -89,7 +89,7 @@ class Character(object):
             self.specialization == "Astral Assailant" or
             (self.specialization == "Weird Warlock" and
              self.equippedWeapon.CATEGORY not in
-             set(["Sword", "Club", "Axe", "Spear"])) or
+             set(["Sword", "Bludgeon", "Axe", "Spear"])) or
             (self.specialization == "Magic Marksman" and
              self.equippedWeapon.CATEGORY == "Bow")):
             power += 2 * (self.mastery - 1)

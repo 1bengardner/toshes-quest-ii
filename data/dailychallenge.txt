@@ -2,10 +2,10 @@ Sea Goblin
 Crab
 Sean
 Blood Carp
-Rumadan Man
+Romadan Man
 Kotor Crab
-Rumadan Warrior
-Ent
+Romadan Warrior
+Entling
 Vampire Bat
 Skeleton
 Arcane Asp
@@ -24,16 +24,17 @@ Unholy Crow
 Earth Mage
 Toxic Jellyfish
 Rebel Archer
-Rumadan Assassin
-Rumadan Ruffian
+Romadan Assassin
+Romadan Ruffian
 Barracuda
 Swordfish
+Large Jellyfish
 Mystical Octopus
 Duelist
 Border Guard
 White Knight
 Black Knight
-Rumadan Disciple
+Romadan Disciple
 Turbid Adurbid
 Dark Asp
 Skeleton Arcanist
@@ -50,3 +51,6 @@ Horn Dog
 Shadow Sniper
 Shadow Hunter
 Manticore
+Shorc
+Sporc
+Ancient Goblin

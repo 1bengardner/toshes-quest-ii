@@ -2,7 +2,7 @@
 File: TUAWesternKosovo.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: November 17, 2022
+Revised: May 21, 2023
 """
 
 
@@ -71,7 +71,7 @@ class WesternKosovo:
         e = {'Goblin Thug': 5,
              'Rebel Archer': 5,
              'Earth Mage': 4,
-             'Rumadan Assassin': 4,
+             'Romadan Assassin': 4,
              'Unholy Crow': 2}
              
         self.encounters = {wrp1: {},

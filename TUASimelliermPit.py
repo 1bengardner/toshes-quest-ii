@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: November 28, 2022
+Revised: May 21, 2023
 """
 
 
@@ -229,7 +229,7 @@ class SimelliermPit:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Ica 7']
+            return Static.ICA_DATA['Dafina']
         if self.c.dexterity >= 75:
             self.text = ("You notice a disturbance in the leaves that "+
                          "you could pry into.")
@@ -241,13 +241,13 @@ class SimelliermPit:
         return self.actions()
     
     def nook(self, selectionIndex=None):
-        thisIca = "Ica 7"
+        thisIca = "Dafina"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 10
         self.text = None
         self.helpText = None
-        npc = "Ica"
+        npc = "Dafina"
         skill1 = "Venom Arrow"
         skillPrice1 = 5000
         tunic = "Earth Tunic"

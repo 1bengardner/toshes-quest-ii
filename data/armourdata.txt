@@ -33,10 +33,10 @@ Glowing Mail	5000	Elemental	35	20	20
 Gemmed Habiliment	4000	Elemental	0	12	25
 Arcane Vestment	4000	Elemental	0	6	30
 Sentinel Plate	5000	Physical	90	33	10
-Gaia Suit	8000	Earth	55	35	35
+Gaia Garb	8000	Earth	55	35	35
 Frost Dragon Skin	8000	Water	55	35	35
 Dragon Skin	8000	Fire	55	35	35
-Prismatic Garb	8000	Elemental	55	25	30
+Prismatic Mantle	8000	Elemental	55	25	30
 Guardian Plate	8000	Physical	90	38	20
 Moon Armour	1	Elemental	15	10	10
 Cotton Shirt	30	Physical	0	0	0
@@ -54,5 +54,5 @@ Ugly Disguise	1225	Fire	12	25	-100
 Shamanic Robes	8000	Physical	0	6	15
 Dark Plate	8000	Elemental	90	38	20
 Hopalong Boots	1225	Water	1	12	25
-Debonairiest Nowell Shirt	1225	Water	0	0	40
+Debonairiest Nowell Gambeson	1225	Water	0	0	40
 Dark Mail	7000	Elemental	35	20	25

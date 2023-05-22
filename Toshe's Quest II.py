@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 20, 2023
+Revised: May 21, 2023
 """
 
 
@@ -659,9 +659,11 @@ class TopLeftFrame:
             button['image'] = noItemImage
             button['text'] = "Select an item to %s" % (
                 "upgrade" if replacementIndex == 0 else "sacrifice")
+            button['bg'] = BUTTON_BG
         button = forgeFrame.forgeButtons[forgeFrame.v3.get()]
         button['image'] = self.itemButtons[self.v1.get()]['image']
         button['text'] = " "
+        button['bg'] = ITEM_BG
         updateWidgets()
 
     def updateVitalStats(self):
@@ -730,8 +732,8 @@ class TopLeftFrame:
             for j in range(0, rows):
                 if not main.character.items[i*rows+j]:
                     self.itemButtons[i*rows+j].config(image=noItemImage,
-                                                   state=DISABLED,
-                                                   bg=BLACK)
+                                                      state=DISABLED,
+                                                      bg=BLACK)
                 elif i*rows+j in main.character.equippedItemIndices.values():
                     try:
                         itemImage = itemImages[
@@ -750,8 +752,8 @@ class TopLeftFrame:
                         print "Missing image: %s" % e
                         itemImage = defaultImage
                     self.itemButtons[i*rows+j].config(image=itemImage,
-                                                   state=NORMAL,
-                                                   bg=BLACK)
+                                                      state=NORMAL,
+                                                      bg=ITEM_BG)
         self.equipButton['text'] = "Equip"
 
         
@@ -1138,7 +1140,7 @@ The lair of the dark commander """)
 The """)
         newsContent.insert(END, "endgame", ("emphasis"))
         newsContent.insert(END,
-""" is nigh! Completing the main game will unlock a new town with new challenges.
+""" is nigh! Completing the main game will unlock a new town with two new modes to test your might and upgrade your arsenal to its ultimate form.
 
 """)
         newsContent.insert(END, "Feature Updates", ("section"))
@@ -1308,7 +1310,7 @@ Game over? Don't fret. You can now """)
                                         font=font2, bg=WATER_COLOR,
                                         relief=GROOVE)
         self.weaponElementLabel.grid(row=9, columnspan=5, sticky=E+W,
-            ipady=3, padx=6, pady=14)
+            ipady=3, padx=6, pady=(10, 26))
 
         self.showMissionLog = BooleanVar()
         self.logButton = Checkbutton(self.otherStats,
@@ -1327,12 +1329,14 @@ Game over? Don't fret. You can now """)
         self.logButton.bind_all("Q", lambda _: self.logButton.invoke())
 
         self.potionButton = Button(self.otherStats, image=potionImage,
-                                   text="104", font=font2,
-                                   fg=WHITE, activeforeground=WHITE,
-                                   bg=BUTTON_BG, command=self.clickPotionButton,
-                                   compound=CENTER, state=DISABLED)
-        self.potionButton.grid(row=10, column=3, columnspan=2, sticky=E,
-            padx=6)
+                                   text="104", font=font1,
+                                   fg=BUTTON_FG, activeforeground=GREEN,
+                                   bg=BUTTON_BG, activebackground=BUTTON_BG,
+                                   command=self.clickPotionButton,
+                                   compound=BOTTOM, padx=0, pady=0,
+                                   relief=FLAT, bd=0, state=DISABLED)
+        self.potionButton.grid(row=9, column=3, rowspan=2, columnspan=2,
+            sticky=SE, padx=6)
         self.potionButton.bind_all('p', self.clickPotionButton)
         self.potionButton.bind_all('P', self.clickPotionButton)
 
@@ -1451,8 +1455,8 @@ Game over? Don't fret. You can now """)
                                       height=64, bg=BLACK, indicatoron=0,
                                       bd=4, compound=CENTER,
                                       text="Select an item to upgrade",
-                                      activeforeground=WHITE,
-                                      font=font2, fg=WHITE, wrap=64,
+                                      activeforeground=BUTTON_FG,
+                                      font=font2, fg=BUTTON_FG, wrap=64,
                                       command=enablePlaceButton)
         self.forgeButtons.append(anvilItemButton)
         anvilItemButton.grid(columnspan=2, row=0, pady=(6, 140))
@@ -1470,8 +1474,8 @@ Game over? Don't fret. You can now """)
                                        height=64, bg=BLACK, indicatoron=0,
                                        bd=4, compound=CENTER,
                                        text="Select an item to sacrifice",
-                                       activeforeground=WHITE,
-                                       font=font2, fg=WHITE, wrap=64,
+                                       activeforeground=BUTTON_FG,
+                                       font=font2, fg=BUTTON_FG, wrap=64,
                                        command=enablePlaceButton)
         self.forgeButtons.append(sacrificeButton1)
         sacrificeButton1.grid(row=2, pady=(0, 32))
@@ -1480,8 +1484,8 @@ Game over? Don't fret. You can now """)
                                        height=64, bg=BLACK, indicatoron=0,
                                        bd=4, compound=CENTER,
                                        text="Select an item to sacrifice",
-                                       activeforeground=WHITE,
-                                       font=font2, fg=WHITE, wrap=64,
+                                       activeforeground=BUTTON_FG,
+                                       font=font2, fg=BUTTON_FG, wrap=64,
                                        command=enablePlaceButton)
         self.forgeButtons.append(sacrificeButton2)
         sacrificeButton2.grid(row=2, column=1, pady=(0, 32))
@@ -1567,11 +1571,13 @@ Game over? Don't fret. You can now """)
             self.weaponElementLabel['bg'] = {
                 'Earth': EARTH_COLOR,
                 'Water': WATER_COLOR,
-                'Fire': FIRE_COLOR
+                'Fire': FIRE_COLOR,
+                'Lightning': LIGHTNING_COLOR,
             }[c.equippedWeapon.ELEMENT] if c.equippedWeapon.ELEMENT in (
                 "Earth",
                 "Water",
-                "Fire"
+                "Fire",
+                "Lightning",
             ) else ENIGMATIC_COLOR
             self.weaponElementLabel['relief'] = GROOVE
             self.weaponElementLabel['text'] = (c.equippedWeapon.ELEMENT
@@ -1608,9 +1614,8 @@ Game over? Don't fret. You can now """)
         
         state = NORMAL if c.potions > 0 and (
             main.view in ("travel", "inventory", "battle")) else DISABLED
-        font = font2 if c.potions < 100 else font1
-        text = c.potions if c.potions > 0 else " "
-        self.potionButton.config(state=state, font=font, text=text)
+        text = c.potions if c.potions > 0 else ""
+        self.potionButton.config(state=state, text=text)
 
     def updateEnemyStats(self):
         """Show the level, name, hp bar, and hp of the current enemy in the
@@ -1654,10 +1659,12 @@ Game over? Don't fret. You can now """)
             for j in range(0, 3):
                 if not main.store[i*3+j]:
                     self.storeButtons[i*3+j].config(image=noItemImage,
+                                                    bg=BLACK,
                                                     state=DISABLED)
                 else:
                     itemImage = itemImages[main.store[i*3+j].IMAGE_NAME]
                     self.storeButtons[i*3+j].config(image=itemImage,
+                                                    bg=ITEM_BG,
                                                     state=NORMAL)
 
     def resetForge(self):
@@ -1667,7 +1674,9 @@ Game over? Don't fret. You can now """)
         self.crucible.config(state=DISABLED)
         for i, button in enumerate(self.forgeButtons):
             button.config(image=noItemImage, text="Select an item to %s" % (
-                "upgrade" if i == 0 else "sacrifice"), state=NORMAL)
+                "upgrade" if i == 0 else "sacrifice"),
+                bg=BUTTON_BG,
+                state=NORMAL)
         self.forgeSuccess.grid_remove()
 
     def strikeAnvil(self):
@@ -1697,7 +1706,7 @@ Game over? Don't fret. You can now """)
         self.anvilButton.config(state=DISABLED, relief=FLAT, cursor="")
         self.crucible.config(state=DISABLED)
         for button in self.forgeButtons:
-            button.config(state=DISABLED)
+            button.config(text=" ", state=DISABLED, bg=BLACK)
         for button in self.forgeButtons[1:]:
             button.config(image=noItemImage)
         self.forgeSuccess.grid_remove()
@@ -3178,6 +3187,7 @@ BEIGE = "#ebdec0"
 MEDIUMBEIGE = "#E5D7B7"
 DARKBEIGE = "#d1c29d"
 BROWN = "#704F16"
+MAHOGANY = "#5f3717"
 LIGHTBEIGE = "#f4ead2"
 RED = "#90000d"
 LIGHTRED = "#d31524"
@@ -3209,6 +3219,7 @@ PETRIFICATION_COLOR = "#ded4ca"
 DEFAULT_BG = BEIGE
 BUTTON_BG = DARKBEIGE
 BUTTON_FG = BROWN
+ITEM_BG = MAHOGANY
 TEXTBOX_BG = LIGHTBEIGE
 MAP_BG = TEXTBOX_BG
 LEVEL_UP_BG = CYAN

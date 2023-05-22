@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: September 19, 2022
+Revised: May 22, 2023
 """
 
 import random
@@ -66,8 +66,9 @@ class YaouwVolcano:
             'Fire Demon': 3
         }
         regular = {
-            'Fire Imp': 13,
+            'Fire Imp': 12,
             'Fire Demon': 7,
+            'Fire Cacodemon': 2,
             'Hellhound': 5
         }
         guards = {
@@ -75,14 +76,16 @@ class YaouwVolcano:
         }
         magical = {
             'Fire Imp': 35,
-            'Fire Demon': 5
+            'Fire Demon': 5,
+            'Fire Cacodemon': 3,
         }
         fiery = {
-            'Fire Demon': 30,
-            'Fire Imp': 10
+            'Fire Demon': 24,
+            'Fire Cacodemon': 18,
+            'Fire Imp': 8
         }
         rare = {
-            'Animated Magma': 5
+            'Tectonic Beast': 5
         }
         
         self.encounters = {
@@ -186,10 +189,10 @@ class YaouwVolcano:
         self.text = None
         self.helpText = None
         self.menu = []
-        boss = "Tectonic Beast"
+        boss = "Magma Planet"
         if len(self.c.flags['Lava Spouts Hit']) == 4 and boss not in self.c.flags['Kills'] and "In Battle" not in self.c.flags:
             self.view = "battle"
-            self.text = "You are ambushed by an ancient beast!"
+            self.text = "You are ambushed by an ancient being!"
             self.c.flags['In Battle'] = True
             return self.actions({'enemy': boss,
                                  'mercenaries': self.c.mercenaries})
@@ -208,7 +211,7 @@ class YaouwVolcano:
                                      'coordinates': (X[i], Y[i])})
             else:
                 self.view = "battle"
-                self.text = "You awaken an ancient beast!\nTectonic Beast: Groooooar!!"
+                self.text = "You awaken an ancient being!\nMagma Planet: Oooooer!!"
                 self.c.flags['In Battle'] = True
                 return self.actions({'enemy': boss,
                                      'mercenaries': self.c.mercenaries,
@@ -314,7 +317,7 @@ class YaouwVolcano:
             Y = 9
             return self.actions({'area': "Dune Hots Peak",
                                  'coordinates': (X, Y)})
-        if "Tectonic Beast" in self.c.flags['Kills']:
+        if "Magma Planet" in self.c.flags['Kills']:
             self.imageIndex = 8
             self.text = "You approach a magical growth on the volcano wall giving way to the peak."
             self.menu = ["Scale the wall."]

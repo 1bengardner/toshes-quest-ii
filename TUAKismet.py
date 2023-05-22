@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: May 19, 2023
+Revised: May 21, 2023
 """
 
 from random import choice
@@ -137,7 +137,7 @@ class Kismet:
                           "nothing like it was five years ago. No monsters or "+
                           "beasts. I remember I could still go get a slice of "+
                           "pizza without being mugged by goblins. I would just get "+
-                          "mugged by Rumadans."+
+                          "mugged by Romadans."+
                           "\nMarciano seems to be on edge.")
             self.menu = ["Admit that it was all your brother's fault.",
                          "Laugh."]
