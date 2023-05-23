@@ -81,9 +81,11 @@ class Greece:
         e = {'Psilos': 7,
              'Ekdromos': 5,
              'Hoplite': 3,
-             'Giant Scarab1': 5}
+             'Giant Scarab1': 5,
+             'Chelonian Coleopteran': 2}
 
-        gs = {'Giant Scarab1': 5}
+        gs = {'Giant Scarab1': 5,
+              'Chelonian Coleopteran': 2}
              
         self.encounters1 = {wrp1: {},
                            wrp2: {},

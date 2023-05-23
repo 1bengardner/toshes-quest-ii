@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 21, 2023
+Revised: May 23, 2023
 """
 
 
@@ -81,14 +81,16 @@ class EasternKosovo:
              'Border Guard': 5,
              'White Knight': 3,
              'Black Knight': 3,
-             'Giant Salamander1': 5
+             'Giant Salamander1': 5,
+             'Tortoise Beetle': 2,
              }
 
         e2 = {'Duelist': 2,
               'Border Guard': 5,
               'White Knight': 5,
               'Black Knight': 5,
-              'Giant Salamander1': 5
+              'Giant Salamander1': 5,
+              'Tortoise Beetle': 2,
               }
 
         self.encounters = {wrp1: {},
