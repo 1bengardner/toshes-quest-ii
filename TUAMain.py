@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 21, 2023
+Revised: May 23, 2023
 """
 
 
@@ -543,7 +543,7 @@ class Main:
             if ( isChristmasSeason and
                  self.character.hasRoom() and
                  "Christmas %i" % year not in self.character.flags):
-                differentItems = 4
+                differentItems = 5
                 rewardText = "Thank you for playing during this holiday season!"
                 roll = (year + hash(self.fileName.lower())) % differentItems
                 if roll == 0:
@@ -558,6 +558,9 @@ class Main:
                 elif roll == 3:
                     itemText = "The King of Elves appears and hands you a rifle that shoots."
                     item = "A rifle that shoots"
+                elif roll == 4:
+                    itemText = "The King of Elves appears and presents you with a Festive Tunic."
+                    item = "Festive Tunic"
                 interfaceActions.update({
                     'text': itemText,
                     'italic text': rewardText,

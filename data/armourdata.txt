@@ -46,9 +46,9 @@ Niplin's Breastplate	10000	Elemental	130	40	25
 Riplin's Breastplate	10000	Physical	150	40	25
 Riplin's Mageplate	10000	Physical	0	0	25
 Riplin's Greatvest	10000	Physical	25	40	0
-Earth Tunic	5000	Earth	25	20	30
-Water Tunic	5000	Water	25	20	30
-Fire Tunic	5000	Fire	25	20	30
+Earth Tunic	5000	Earth	25	20	35
+Water Tunic	5000	Water	25	20	35
+Fire Tunic	5000	Fire	25	20	35
 Beast Hide	8000	Physical	50	25	25
 Ugly Disguise	1225	Fire	12	25	-100
 Shamanic Robes	8000	Physical	0	6	15
@@ -56,3 +56,4 @@ Dark Plate	8000	Elemental	90	38	20
 Hopalong Boots	1225	Water	1	12	25
 Debonairiest Nowell Gambeson	1225	Water	0	0	40
 Dark Mail	7000	Elemental	35	20	25
+Festive Tunic	1225	Elemental	25	20	25
