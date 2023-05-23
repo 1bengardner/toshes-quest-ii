@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: May 22, 2023
+Revised: May 23, 2023
 """
 
 
@@ -351,6 +351,7 @@ class Greece:
             self.text = (npc+random.choice([
                 ": Nah, I don't know \"Old Nigel.\" Who the hell is that?",
                 ": Do you have wards?",
+                ": Am I a Jamalogist? I ain't Jamal. Who the hell is that? I'm Big Nigel.",
                 ": In Pristina, you can make wards out of gems."]))
         return self.actions()
 
