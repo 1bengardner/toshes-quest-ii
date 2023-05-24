@@ -1,5 +1,5 @@
 # Toshe Save File Converter
-# Updates 0.0-1.0 characters to 2.0
+# Updates 0.0-2.0 characters to 2.1
 
 import pickle
 
@@ -76,6 +76,13 @@ def update(gameFile, path):
     for item in character.items:
         if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
             item.upgradeCount = 0
+            changed = True
+        if item.CATEGORY == "Club":
+            item.CATEGORY = "Bludgeon"
+            changed = True
+    for skill in character.skills:
+        if skill.ELEMENT == "Electricity":
+            skill.ELEMENT = "Lightning"
             changed = True
     changed = updateChangedAreaNames(character) or changed
     if changed:
