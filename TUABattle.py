@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: May 21, 2023
+Revised: May 28, 2023
 """
 
 
@@ -667,7 +667,8 @@ class Battle(object):
                 elif ((skill.ELEMENT == "Lightning" or
                        hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Lightning" and
-                       skill.ELEMENT == "Physical") and
+                       skill.ELEMENT == "Physical" and
+                       "Damage" in skill.CATEGORY) and
                       "Paralyzed" not in defenderFlags):
                     if self.roll() <= 20:
                         self.text += defender.NAME+" was paralyzed!\n"
