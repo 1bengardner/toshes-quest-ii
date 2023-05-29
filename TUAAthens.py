@@ -2,7 +2,7 @@
 File: TUAAthens.py
 Author: Ben Gardner
 Created: August 5, 2015
-Revised: April 25, 2023
+Revised: May 28, 2023
 """
 
 
@@ -12,7 +12,7 @@ import random
 class Athens:
 
     name = "Athens"
-    audio = "Nemea"
+    audio = "Soldier of Fortune"
 
     def __init__(self, character):
         self.view = None

@@ -160,11 +160,11 @@ Greek Hero6	Greek Hero6	Greek Hero6	30	19000	19000	80	30	20	300	1	200	0	0	0	0	{'
 Greek Hero7	Greek Hero7	Greek Hero7	30	16000	16000	60	70	4	200	7	220	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
 Greek Hero8	Greek Hero8	Greek Hero8	30	21000	21000	55	50	4	200	2	150	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
 Greek Hero9	Greek Hero9	Greek Hero9	30	15000	15000	60	50	40	200	3	100	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Duelist	Greek Duelist	Duelist	26	5000	5000	65	90	2	200	6	100	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 5, 'Deadly Stab': 5}	{}	1200	0	0	100	Mob Battle	0	1	COMMON
-Greek Swordsman	Greek Swordsman	Greek Swordsman	27	6000	6000	70	90	2	200	0	160	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 10, 'Steel Twister': 10}	{}	1300	0	0	100	Mob Battle	0	1	COMMON
-Greek Fighter	Greek Fighter	Greek Fighter	27	7000	7000	65	80	10	200	0	180	0	0	0	0	{'Rumble Strike': 30, 'Aerial Assault': 10}	{}	1300	0	0	100	Mob Battle	0	1	COMMON
-Greek Gladiator	Greek Gladiator	Albanian Gladiator	28	8000	8000	60	90	4	200	5	150	0	0	0	0	{'Deep Thrust': 30, 'Rumble Strike': 40, 'Reckless Rack': 3, 'Helix Swing': 20}	{}	1400	0	0	100	Mob Battle	0	1	COMMON
-Greek Knight	Greek Knight	Greek Knight	28	9000	9000	65	90	2	200	2	200	0	0	0	10	{'Defend': 20, 'Deep Thrust': 10, 'Steadfast Slash': 10, 'Helix Swing': 10}	{}	1400	0	0	100	Mob Battle	0	1	COMMON
+Greek Duelist	Greek Duelist	Duelist	26	5000	5000	65	90	2	200	6	100	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 5, 'Deadly Stab': 5}	{}	1200	0	0	100	Coliseum Battle	0	1	COMMON
+Greek Swordsman	Greek Swordsman	Greek Swordsman	27	6000	6000	70	90	2	200	0	160	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 10, 'Steel Twister': 10}	{}	1300	0	0	100	Coliseum Battle	0	1	COMMON
+Greek Fighter	Greek Fighter	Greek Fighter	27	7000	7000	65	80	10	200	0	180	0	0	0	0	{'Rumble Strike': 30, 'Aerial Assault': 10}	{}	1300	0	0	100	Coliseum Battle	0	1	COMMON
+Greek Gladiator	Greek Gladiator	Albanian Gladiator	28	8000	8000	60	90	4	200	5	150	0	0	0	0	{'Deep Thrust': 30, 'Rumble Strike': 40, 'Reckless Rack': 3, 'Helix Swing': 20}	{}	1400	0	0	100	Coliseum Battle	0	1	COMMON
+Greek Knight	Greek Knight	Greek Knight	28	9000	9000	65	90	2	200	2	200	0	0	0	10	{'Defend': 20, 'Deep Thrust': 10, 'Steadfast Slash': 10, 'Helix Swing': 10}	{}	1400	0	0	100	Coliseum Battle	0	1	COMMON
 The Bladedriver	The Bladedriver	The Bladedriver	33	55000	55000	70	90	4	200	10	400	66	66	66	10	{'Bladedriver\'s Barbarity': 5, 'Steadfast Slash': 5, 'Deep Thrust': 5, 'Scarab Slice': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
 The Gashmaster	The Gashmaster	The Gashmaster	33	40000	40000	80	70	6	200	0	200	33	100	33	10	{'Gashmaster\'s Grace': 5, 'Shield Breaker': 20, 'Diamond Cutter': 20, 'Seal Sever': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
 The Impaler	The Impaler	The Impaler	33	60000	60000	75	60	8	200	3	500	33	33	100	10	{'Impaler\'s Impulse': 5, 'Expunging Lunge': 5, 'Deep Thrust': 25, 'Salamander Stab': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY

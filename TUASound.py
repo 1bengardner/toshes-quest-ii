@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: May 19, 2023
+Revised: May 28, 2023
 """
 
 
@@ -15,13 +15,14 @@ from TUAPreferences import Preferences
 class Sound:
     """Plays music."""
     
-    MUSIC_VOLUME = 0.7
+    MUSIC_VOLUME = 0.6
     
     def __init__(self):
         self.path = "audio\\%s.ogg"
         self.songs = {"Intro Theme": "Daring Feat",
                       "Game Over Theme": "Overcast",
                       "Mob Battle": "Mosquitoes",
+                      "Coliseum Battle": "Nemea",
                       "Important Battle": "Dungeon Escape",
                       "Canonical Battle": "Fearless Fighter",
                       "Rival Battle": "Tango Town",
