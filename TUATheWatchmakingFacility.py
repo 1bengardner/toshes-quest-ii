@@ -2,7 +2,7 @@
 File: TUATheWatchmakingFacility.py
 Author: Ben Gardner
 Created: August 24, 2013
-Revised: October 26, 2022
+Revised: May 29, 2023
 """
 
 
@@ -199,7 +199,7 @@ class TheWatchmakingFacility:
 
     def boss(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 9
+        self.imageIndex = 10
         self.text = None
         self.helpText = None
         self.menu = []
