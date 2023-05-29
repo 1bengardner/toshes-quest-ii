@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: May 23, 2023
+Revised: May 26, 2023
 """
 
 
@@ -443,6 +443,10 @@ class Greece:
         if ( "Coliseum Complete" in self.c.flags and
              "Greek Fortress" not in self.c.flags):
             self.text = ("Escort: We shall continue to march left, sir.")
+        else:
+            self.text = "You see a lighthouse on the peninsula."
+            if self.c.hasMercenary("Qendresa"):
+                self.text += "\nQendresa: That looks like Litochoro, but Litochoro is very far north from here."
         return self.actions()
 
     def nook(self, selectionIndex=None):
@@ -537,7 +541,7 @@ class Greece:
 
     def marciano(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 18
+        self.imageIndex = 24
         self.text = None
         self.helpText = None
         self.menu = []

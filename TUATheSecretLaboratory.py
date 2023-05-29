@@ -2,7 +2,7 @@
 File: TUATheSecretLaboratory.py
 Author: Ben Gardner
 Created: September 8, 2013
-Revised: October 26, 2022
+Revised: May 26, 2023
 """
 
 
@@ -353,7 +353,7 @@ class TheSecretLaboratory:
                                      'coordinates': (X, Y)})
                 
             self.text = ("You enter the final room and see two switches: a "+
-                         "keyboard with a power button and a large lever at "+
+                         "glowing button and a large lever at "+
                          "the back of the room. Between these is a tube "+
                          "containing a massive creature you've never "+
                          "seen before."+
@@ -416,6 +416,7 @@ class TheSecretLaboratory:
             
         elif ("Secret Lab Boss" in self.c.flags and
               "Secret Lab Lever" not in self.c.flags and not selectionIndex):
+            self.imageIndex = 17
             self.text = ("Toshe: Wow. How did I survive?")
             self.menu += ["Pull the lever (game will save)."]
             

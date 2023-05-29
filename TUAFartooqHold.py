@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 21, 2023
+Revised: May 28, 2023
 """
 
 
@@ -242,7 +242,7 @@ class FartooqHold:
         
     def emptyOrb(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 14
+        self.imageIndex = 99
         self.text = None
         self.helpText = None
         self.menu = []
@@ -252,6 +252,8 @@ class FartooqHold:
             Y = 3
             return self.actions({'area': "Fartooq Hold",
                                  'coordinates': (X, Y)})
+
+        return self.actions()
 
     def orb(self, selectionIndex=None):
         self.view = "travel"

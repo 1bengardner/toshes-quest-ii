@@ -2,7 +2,7 @@
 File: TUARomadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: May 21, 2023
+Revised: May 26, 2023
 """
 
 
@@ -175,14 +175,11 @@ class RomadanVillage:
             Y = 11
             return self.actions({'area': "Romadan Village",
                                  'coordinates': (X, Y)})
-        if "Inviting Hut" not in self.c.flags:
-            self.text = ("You see an inviting hut up ahead.")
-            self.c.flags['Inviting Hut'] = True
-            
         if "Sword Man" not in self.c.flags:
-            self.menu = ["Enter the hut."]
+            self.text = ("You see a man training up ahead.")
+            self.menu = ["Talk to the man."]
         else:
-            self.menu = ["Enter the Sword Man's hut."]
+            self.menu = ["Visit the Sword Man."]
         return self.actions()
 
     def tavernEntrance(self, selectionIndex=None):
@@ -565,7 +562,7 @@ class RomadanVillage:
 
     def marciano(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 5
+        self.imageIndex = 16
         self.text = None
         self.helpText = None
         self.menu = []

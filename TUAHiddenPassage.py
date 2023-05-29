@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: April 12, 2023
+Revised: May 26, 2023
 """
 
 
@@ -391,8 +391,8 @@ class HiddenPassage:
         elif self.c.specialization is not None:
             self.text = ("A Voice: Now go and hone your new abilities.")
         else:
-            self.text = ("Light shines in through the cracks in the wall upon" +
-                         " ancient oriental artifacts scattered about.")
+            self.text = ("Light shines in faintly through a singular round" +
+                         " window in the cavern wall.")
         return self.actions()
 
     def glow(self, selectionIndex=None):

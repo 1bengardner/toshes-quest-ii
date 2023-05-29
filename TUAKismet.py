@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: May 21, 2023
+Revised: May 28, 2023
 """
 
 from random import choice
@@ -31,17 +31,18 @@ class Kismet:
         barr = self.bar
         upst = self.upstairs
         dnst = self.downstairs
+        bedE = self.bedroomEntrance
         bedr = self.bedroom
         abov = self.aboveFoodBar
         wrp1 = self.warp1
         wrp2 = self.warp2
         
-        self.spots = [[None, None, None, None, None, None, None, None],
-                      [None, loby, None, upst, bedr, abov, None, None],
-                      [None, None, None, wrp2, None, None, None, None],
-                      [None, outs, None, wrp1, None, fbr2, None, None],
-                      [None, None, None, dnst, barr, fbar, entr, None],
-                      [None, None, None, None, None, None, None, None]]
+        self.spots = [[None, None, None, None, None, None, None, None, None],
+                      [None, loby, None, upst, bedE, abov, None, bedr, None],
+                      [None, None, None, wrp2, None, None, None, None, None],
+                      [None, outs, None, wrp1, None, fbr2, None, None, None],
+                      [None, None, None, dnst, barr, fbar, entr, None, None],
+                      [None, None, None, None, None, None, None, None, None]]
 
         self.encounters = None
 
@@ -346,6 +347,22 @@ class Kismet:
         self.text = "There's a flight of stairs going down."
         return self.actions()
 
+    def bedroomEntrance(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 8
+        self.text = None
+        self.helpText = None
+        self.menu = []
+        if selectionIndex == 0:
+            X = 7
+            Y = 1
+            return self.actions({'area': "Kismet II",
+                                         'coordinates': (X, Y)})
+        else:
+            self.text = "Here's the door to your room."
+        self.menu = ["Enter your room."]
+        return self.actions()
+
     def bedroom(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 7
@@ -356,9 +373,15 @@ class Kismet:
             self.c.hp = self.c.maxHp
             self.text = "You take a quick nap."
             self.c.flags['Kismet Nap'] = True
+        elif selectionIndex == 1:
+            X = 4
+            Y = 1
+            return self.actions({'area': "Kismet II",
+                                         'coordinates': (X, Y)})
         else:
-            self.text = "Here's your room."
-        self.menu = ["Nap."]
+            self.text = "Toshe: Sweet room."
+        self.menu = ["Nap.",
+                     "Leave your room."]
         return self.actions()
 
     def aboveFoodBar(self, selectionIndex=None):

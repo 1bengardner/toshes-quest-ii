@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: November 28, 2022
+Revised: May 28, 2023
 """
 
 
@@ -570,7 +570,7 @@ class BlackMountain:
         self.imageIndex = 16
         self.text = None
         self.helpText = None
-        npc = "Sorceress"
+        npc = "Medea"
         skill1 = "Fireball"
         skill2 = "Icicles"
         skill3 = "Quicksand"
@@ -599,6 +599,9 @@ class BlackMountain:
             Y = 2
             return self.actions({'area': "Black Mountain",
                                  'coordinates': (X, Y)})
+        elif npc not in self.c.flags:
+            self.c.flags[npc] = True
+            self.text = (npc+": My name is %s. Does magic interest you?" % npc)
         else:
             self.text = (npc+": Does magic interest you?")
         return self.actions({'items for sale': items})

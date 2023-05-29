@@ -5,13 +5,14 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 21, 2023
+Revised: May 28, 2023
 """
 
 
 from Tkinter import *
 import tkFont
 import tkMessageBox
+from TUAPreferences import Preferences
 from TUAMain import Main
 from TUADialog import OpenFileDialog
 from TUAStatics import Static
@@ -770,12 +771,30 @@ class TopCenterFrame:
         self.makeFrameElements(frameD)
 
     def makeFrameElements(self, master):
+        def writeAnimationsPrefs(on):
+            try:
+                with open("prefs\\preferences.tqp", "r") as existingPreferences:
+                    preferences = pickle.load(existingPreferences)
+            except IOError:
+                preferences = Preferences()
+            preferences.animationsOn = on
+            with open("prefs\\preferences.tqp", "w") as preferencesFile:
+                pickle.dump(preferences, preferencesFile)
+
+        self.showAnimations = BooleanVar(value=True)
+        self.animationsButton = Checkbutton(master, indicatoron=False,
+                                            bg=BUTTON_BG, relief=SUNKEN,
+                                            image=animationsImage,
+                                            variable=self.showAnimations,
+                                            command=(
+            lambda: writeAnimationsPrefs(self.showAnimations.get())))
+        self.animationsButton.grid(row=0, padx=42, pady=(0, 20), sticky=W)
         self.playMusic = BooleanVar(value=True)
         self.musicButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=musicImage,
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
-        self.musicButton.grid(row=0, padx=16, sticky=W)
+        self.musicButton.grid(row=0, padx=22, pady=(20, 0), sticky=W)
         self.musicButton.bind_all("<Control-m>", lambda _: self.musicButton.invoke())
         self.musicButton.bind_all("<Control-M>", lambda _: self.musicButton.invoke())
         self.playSfx = BooleanVar(value=True)
@@ -790,23 +809,20 @@ class TopCenterFrame:
                     self.musicButton.invoke()
                 if not preferences.sfxOn:
                     self.sfxButton.invoke()
+                if not preferences.animationsOn:
+                    self.animationsButton.invoke()
         except IOError:
             pass
-        self.sfxButton.grid(row=0, padx=40, sticky=W)
+        self.sfxButton.grid(row=0, padx=42, pady=(20, 0), sticky=W)
         self.sfxButton.bind_all("<Alt-m>", lambda _: self.sfxButton.invoke())
         self.sfxButton.bind_all("<Alt-M>", lambda _: self.sfxButton.invoke())
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(row=0, pady=6)
-        self.showMap = BooleanVar()
-        self.mapButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
-                                     relief=SUNKEN, image=mapImage,
-                                     variable=self.showMap, state=DISABLED,
-                                     command=self.updateMapVisibility)
-        self.mapButton.bind_all("m", lambda _: self.mapButton.invoke())
-        self.mapButton.bind_all("M", lambda _: self.mapButton.invoke())
-        self.mapButton.grid(row=0, padx=22, sticky=E)
-        self.mapButton.grid_remove()
+        self.saveButton = Button(master, bg=BUTTON_BG, image=saveImage,
+                                 state=DISABLED, command=self.saveFile)
+        self.saveButton.grid(ipadx=2, ipady=2, row=0, padx=22, sticky=E)
+        self.saveButton.grid_remove()
         self.areaButton = Button(master, image=welcomeImage, bg=DEFAULT_BG,
                                  relief=RAISED, bd=6, command=self.openFile)
         self.areaButton.grid(row=1, sticky=N)
@@ -848,14 +864,6 @@ class TopCenterFrame:
                                     fill=baseColor, outline=BLACK, width=0,
                                     dash=(), stipple='', activedash=(),
                                     activeoutline=BLACK)
-        
-    def updateMapVisibility(self, event=None):
-        main.character.flags['Config']['Automap On'] = self.showMap.get()
-        if self.showMap.get():
-            self.updateMap()
-        else:
-            self.areaButton.grid()
-            self.map.grid_remove()
             
     def updateMap(self):
         def updateCell(row, col, y, x):
@@ -924,9 +932,6 @@ class TopCenterFrame:
             self.areaButton.grid()
             self.map.grid_remove()
             return
-        else:
-            self.areaButton.grid_remove()
-            self.map.grid()
         
         # Set up colors
         markValue = -32
@@ -1020,8 +1025,9 @@ class TopCenterFrame:
             name = main.fileName
         main.loadGame(name)
         self.startGame(name)
-        window.topFrame.topCenterFrame.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
-        window.topFrame.topCenterFrame.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
+        # TODO Remove this debugging code
+        self.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
+        self.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
 
     def restoreFile(self):
         window.bottomFrame.bottomRightFrame.okButton['command'] = \
@@ -1064,11 +1070,7 @@ class TopCenterFrame:
             if quest.isCompletedBy(main.character):
                 window.rightFrame.markMission(quest)
         
-        self.mapButton['state'] = NORMAL
-        self.mapButton.grid()
-        if main.character.flags['Config']['Automap On'] != self.showMap.get():
-            self.mapButton.invoke()
-        self.updateMapVisibility()
+        self.updateMap()
         
         if main.character.specialization is not None:
             window.topFrame.topLeftFrame.spWord.grid()
@@ -1084,10 +1086,15 @@ class TopCenterFrame:
         self.areaButton['command'] = self.saveFile
         self.areaButton.bind_all("<Control-s>", lambda _: self.areaButton.invoke())
         self.areaButton.bind_all("<Control-S>", lambda _: self.areaButton.invoke())
+        self.saveButton.grid()
         
         root.title("Toshe's Quest II | "+name)
         
         requireExitConfirmation(stateChanged)
+
+    def toggleSaving(self, on):
+        self.areaButton['state'] = (NORMAL if on else DISABLED)
+        self.saveButton['state'] = (NORMAL if on else DISABLED)
         
 class TopRightFrame:
     """Contains frames for other stats, enemy stats and store items
@@ -2278,6 +2285,7 @@ def displayStoreItemStats():
                                               item.REQUIREMENT_VALUE,
                                               item.REQUIREMENT_TYPE)
     
+    frame.itemQualityLabel['font'] = font1
     if item.CATEGORY == "Armour" or item.CATEGORY == "Shield":
         frame.itemQualityLabel['text'] = item.DEFENCE, "Defence"
     elif item.CATEGORY == "Miscellaneous" and "*" not in item.INFORMATION:
@@ -2356,15 +2364,14 @@ def clearItemStats(frame, store):
 
 def flash():
     frame = window.topFrame.topCenterFrame
-    if frame.showMap.get():
-        frame.map.grid_remove()
-        frame.areaButton.grid()
-        root.update()
+    frame.areaButton['image'] = battleImage
+    frame.map.grid_remove()
+    frame.areaButton.grid()
+    root.update()
     for i in range(0, 5):
         frame.areaButton.flash()
-    if frame.showMap.get():
-        frame.areaButton.grid_remove()
-        frame.map.grid()
+    frame.areaButton.grid_remove()
+    frame.map.grid()
 
 
 def updateInterface(updates):
@@ -2384,31 +2391,21 @@ def updateInterface(updates):
         
     if ('image index' in updates) and (updates['image index'] is not None):
         areaName = main.currentArea.name
-        if len(areaImages[areaName]) == 0:
-            def incrementProgress(complete=False):
-                global loadProgress
-                if complete:
-                    loadProgress = FULL_PROGRESS
-                else:
-                    loadProgress += float(FULL_PROGRESS) / worstCaseAssetCount
-                root.update()
-            enableLoadingView()
-            updateLoadingScreen(*displayLoadingScreen())
-            worstCaseAssetCount = 99
-            for i in range(0, worstCaseAssetCount):
-                try:
-                    areaImages[areaName].append(PhotoImage(
-                        file="images\\areas\\"+areaName+"\\"+str(i)+".gif"
-                    ))
-                    incrementProgress()
-                except TclError:
-                    incrementProgress(True)
-                    break
-            bottomRightFrame.bindChoices()
-            window.gameFrame.grid()
-            topRightFrame.updateMissionLog()
-        topCenterFrame.areaButton['image'] =\
-            areaImages[areaName][updates['image index']]
+        def fetchAreaImage(image):
+            if image not in areaImages[areaName]:
+                areaImages[areaName][image] = PhotoImage(
+                    file="images\\areas\\"+areaName+"\\"+str(image)+".gif"
+                )
+        try:
+            fetchAreaImage(updates['image index'])
+            topCenterFrame.areaButton['image'] =\
+                areaImages[areaName][updates['image index']]
+            topCenterFrame.areaButton.grid()
+            topCenterFrame.map.grid_remove()
+        except TclError:
+            #topCenterFrame.areaButton['image'] = welcomeImage
+            topCenterFrame.areaButton.grid_remove()
+            topCenterFrame.map.grid()
 
     bottomLeftFrame.unhighlightOutputBox()
     topCenterFrame.changeTitle(main.currentArea.name)
@@ -2515,11 +2512,9 @@ def updateInterface(updates):
             bottomLeftFrame.insertOutput(updates['format text'])
     if ('italic text' in updates) and (updates['italic text'] is not None):
         bottomLeftFrame.insertOutput(updates['italic text'], "italicize")
-    if ('map' in updates and
-         topCenterFrame.showMap.get() and
-         'game over' != updates['view']):
+    if ('map' in updates and 'game over' != updates['view']):
         topCenterFrame.updateMap()
-    if ('hits' in updates):
+    if ('hits' in updates and topCenterFrame.showAnimations.get()):
         def createDelayedHitBox(delay, hit):
             if hit['Target'] == "Toshe":
                 parent = window.topFrame.topLeftFrame.vitalStats
@@ -2579,13 +2574,16 @@ def updateInterface(updates):
     requireExitConfirmation(True)
     if ('flash' in updates):
         lastState = topCenterFrame.areaButton['state']
+        lastCommand = topCenterFrame.areaButton['command']
         topCenterFrame.areaButton['state'] = NORMAL
+        topCenterFrame.areaButton['command'] = None
         flash()
         topCenterFrame.areaButton['state'] = lastState
+        topCenterFrame.areaButton['command'] = lastCommand
         
 
 def enableTravelView():
-    window.topFrame.topCenterFrame.areaButton['state'] = NORMAL
+    window.topFrame.topCenterFrame.toggleSaving(True)
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
     leftFrame.vitalStats.grid()
@@ -2616,7 +2614,7 @@ def enableTravelView():
 
 
 def enableBattleView():
-    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
+    window.topFrame.topCenterFrame.toggleSaving(False)
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
     leftFrame.vitalStats.grid()
@@ -2713,8 +2711,6 @@ def enableGameOverView():
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
     window.topFrame.topCenterFrame.areaButton.grid()
     window.topFrame.topCenterFrame.map.grid_remove()
-    window.topFrame.topCenterFrame.mapButton['state'] = DISABLED
-    window.topFrame.topCenterFrame.mapButton.grid_remove()
     
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
@@ -2723,7 +2719,7 @@ def enableGameOverView():
 def enableLoadingView():
     window.topFrame.topRightFrame.updateMissionLog(False)
     window.gameFrame.grid_remove()
-    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
+    window.topFrame.topCenterFrame.toggleSaving(False)
     bottomFrame = window.bottomFrame.bottomRightFrame
     bottomFrame.upButton['state'] = DISABLED
     bottomFrame.leftButton['state'] = DISABLED
@@ -2743,7 +2739,6 @@ def enableLoadingView():
 
 
 def enableInventoryView():
-    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
     bottomFrame = window.bottomFrame.bottomRightFrame
@@ -2764,7 +2759,7 @@ def enableInventoryView():
 
 
 def enableStoreView():
-    window.topFrame.topCenterFrame.areaButton['state'] = NORMAL
+    window.topFrame.topCenterFrame.toggleSaving(True)
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
     leftFrame.vitalStats.grid_remove()
@@ -2803,7 +2798,6 @@ def enableStoreView():
 
 def enableDropItemView():
     enableInventoryView()
-    window.topFrame.topCenterFrame.areaButton['state'] = DISABLED
     leftFrame = window.topFrame.topLeftFrame
     leftFrame.equipButton.grid_remove()
     leftFrame.sellButton.grid_remove()
@@ -2868,7 +2862,7 @@ def enableForgetSkillView():
 
 
 def enableForgeView():
-    window.topFrame.topCenterFrame.areaButton['state'] = NORMAL
+    window.topFrame.topCenterFrame.toggleSaving(True)
 
     leftFrame = window.topFrame.topLeftFrame
     leftFrame.vitalStats.grid_remove()
@@ -2908,7 +2902,7 @@ def hideSideIntroFrames():
 
 def close(event=None):
     if requireExitConfirmation():
-        canSave = (window.topFrame.topCenterFrame.areaButton['state'] == NORMAL
+        canSave = (window.topFrame.topCenterFrame.saveButton['state'] == NORMAL
                    and main.view != "game over")
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         if canSave:
@@ -2998,7 +2992,7 @@ def loadAssets():
         incrementProgress()
     
     for area in main.areas.itervalues():
-        areaImages[area.name] = []
+        areaImages[area.name] = {}
 
     for enemyId in main.enemies:
         enemyImages[enemyId] = (PhotoImage(file="images\\enemies\\"+
@@ -3279,7 +3273,8 @@ potionImage = PhotoImage(file="images\\icons\\potion.gif")
 logImage = PhotoImage(file="images\\icons\\mission log.gif")
 sfxImage = PhotoImage(file="images\\icons\\sfx.gif")
 musicImage = PhotoImage(file="images\\icons\\music.gif")
-mapImage = PhotoImage(file="images\\icons\\map.gif")
+animationsImage = PhotoImage(file="images\\icons\\animations.gif")
+saveImage = PhotoImage(file="images\\icons\\save.gif")
 vBorderImage1 = PhotoImage(file="images\\other\\border21.gif")
 vBorderImage2 = PhotoImage(file="images\\other\\border22.gif")
 hBorderImage = PhotoImage(file="images\\other\\border3.gif")
@@ -3301,6 +3296,8 @@ defaultImage = PhotoImage(file="images\\other\\default.gif")
 
 anvilImage = PhotoImage(file="images\\other\\anvil.gif")
 crucibleImage = PhotoImage(file="images\\other\\crucible.gif")
+
+battleImage = PhotoImage(file="images\\other\\battle.gif")
 
 xpBars = []
 hpBars = []

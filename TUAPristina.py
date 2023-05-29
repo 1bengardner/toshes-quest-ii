@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: May 1, 2023
+Revised: May 28, 2023
 """
 
 
@@ -244,7 +244,7 @@ class Pristina:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("Toshe: What a menacing wolf." +
+        self.text = ("You see a statue of a vicious animal.\nToshe: What a menacing wolf." +
                      " Or is that some sort of hyena?")
         return self.actions()
 
@@ -254,7 +254,7 @@ class Pristina:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("Toshe: Good bear.")
+        self.text = ("You see a statue of a bear.\nToshe: Good bear.")
         return self.actions()
 
     def gate1(self, selectionIndex=None):
@@ -419,9 +419,9 @@ class Pristina:
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
         if "Jewelcrafter Entrance" not in self.c.flags:
-            self.text = ("You see a very old stone house.")
+            self.text = ("You see a very old straw house.")
             self.c.flags['Jewelcrafter Entrance'] = True
-        self.menu = ["Enter the jewelcrafter's."]
+        self.menu = ["Visit the jewelcrafter."]
         return self.actions()
 
     def house(self, selectionIndex=None):
@@ -954,7 +954,7 @@ class Pristina:
             if self.c.hasMercenary(npc2):
                 self.text += ("\n%s: " % npc2 +
                               choice(
-                                  ["What a lovely hovel!",
+                                  ["What an interesting hovel.",
                                    "We shall continue in a moment.",
                                    "I shall clean my blade. It has been" +
                                    " bloodied by my foes.",
@@ -969,7 +969,7 @@ class Pristina:
 
     def marciano(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 0
+        self.imageIndex = 27
         self.text = None
         self.helpText = None
         self.menu = []

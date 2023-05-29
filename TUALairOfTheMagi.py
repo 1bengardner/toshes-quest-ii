@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: May 19, 2023
+Revised: May 28, 2023
 """
 
 
@@ -105,15 +105,15 @@ class LairOfTheMagi:
         }
 
         zealots = {
-            "Abomination": 32,
+            "Abomination": 26,
         }
 
         conjurers = {
-            "Choronzon": 40,
+            "Choronzon": 30,
         }
 
         magi = {
-            "Corporeal Magus": 36,
+            "Corporeal Magus": 28,
         }
 
         self.encounters = {
@@ -202,7 +202,7 @@ class LairOfTheMagi:
 
         colour = random.choice([phrase for phrase in phrases if phrase not in self.c.flags['Colours']])
         self.c.flags['Colours'].add(colour)
-        self.text = "You pass through a dark, stone hall. You read a message engraved on the wall:\n\"%s\"" % phrases[colour]
+        self.text = "You pass through a dark, stone corridor. You read a message engraved on the wall:\n\"%s\"" % phrases[colour]
 
         return self.actions()
 
@@ -401,7 +401,7 @@ class LairOfTheMagi:
             return self.actions({'area': "Lair of the Magi",
                                  'coordinates': (X, Y)})
 
-        self.text = "There is a gate to the left with greenery just beyond it."
+        self.text = "There is a gate to the left leading to a vacant hall."
         self.menu = ["Open the gate."]
 
         return self.actions()
@@ -426,7 +426,7 @@ class LairOfTheMagi:
             return self.actions({'area': "Lair of the Magi",
                                  'coordinates': (X, Y)})
 
-        self.text = "There is a gate to the right with greenery just beyond it."
+        self.text = "There is a gate to the right leading to a vacant hall."
         self.menu = ["Open the gate."]
 
         return self.actions()
@@ -556,7 +556,7 @@ class LairOfTheMagi:
         if selectionIndex is not None:
             selectedLever = levers[selectionIndex]
             if selectedLever in self.c.flags['Levers']:
-                self.text = "You attempt to reverse the %s lever, but it won't budge." % selectedLever                
+                self.text = "You have already deactivated the %s ring." % selectedLever
             elif len(self.c.flags['Levers']) < leverOrder.index(selectedLever):
                 if len(self.c.flags['Levers']) < 3:
                     self.c.flags['Get A Clue 1'] = True
@@ -567,11 +567,11 @@ class LairOfTheMagi:
                 self.view = "battle"
                 self.c.flags['Levers'].clear()
                 if self.roll(30) == 1:
-                    self.text = "As you flip the %s lever, the switches all quickly reverse and the ground emits a deep rumble." % selectedLever
+                    self.text = "As you touch the %s ring, all the rings suddenly relight and the ground emits a deep rumble." % selectedLever
                     return self.actions({'enemy': "Dougou",
                                          'mercenaries': self.c.mercenaries})
                 else:
-                    self.text = "As you flip the %s lever, the switches all quickly reverse. A guard rushes in." % selectedLever
+                    self.text = "As you touch the %s ring, all the rings suddenly relight. A guard rushes in." % selectedLever
                     if "Last Guard Fight" in self.c.flags and self.c.flags['Last Guard Fight'] == "Touin DePenk":
                         guard = "Wonnen Daztinque"
                     else:
@@ -589,7 +589,7 @@ class LairOfTheMagi:
                                          'mercenaries': self.c.mercenaries})
             else:
                 self.c.flags['Levers'].add(selectedLever)
-                self.text = "You flip the %s lever and it begins to shine." % selectedLever
+                self.text = "You touch the %s ring and it fades." % selectedLever
                 if len(self.c.flags['Levers']) == len(leverOrder):
                     self.c.flags['Lair Levers Complete'] = True
                     self.text += "\nYou hear a pop sound not too far away."
@@ -609,11 +609,11 @@ class LairOfTheMagi:
             del self.c.flags['Get A Clue 3']
             self.text = "Toshe: Fuck! So close."
         else:
-            self.text = "You enter a room with three levers."
+            self.text = "You enter a hall with two prominent columns. Between them is a system of three magical, coloured rings."
 
         self.imageIndex += len([colour for colour in levers if colour in self.c.flags['Levers']])
-        self.menu = ["Switch %s the %s lever." % ("off" if lever in self.c.flags['Levers'] else "on", lever) for lever in levers]
-        self.menu.append("Leave the room.")
+        self.menu = ["Touch the %s ring." % lever for lever in levers]
+        self.menu.append("Leave the hall.")
 
         return self.actions()
         
@@ -1073,7 +1073,7 @@ class LairOfTheMagi:
             return self.actions({'enemy': "Magus's Henchman",
                                  'mercenaries': self.c.mercenaries})
         else:
-            self.text = "You read a message engraved on a wall of the stone hall:\n\"%s\"" % phrase
+            self.text = "You read a message engraved on a wall of the stone corridor:\n\"%s\"" % phrase
         return self.actions()
 
     def riddle1(self, selectionIndex=None):

@@ -2,7 +2,7 @@
 File: TUAPresidentialPath.py
 Author: Ben Gardner
 Created: June 20, 2015
-Revised: November 28, 2022
+Revised: May 26, 2023
 """
 
 
@@ -284,7 +284,7 @@ class PresidentialPath:
 
     def presidentsOutpost(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 14
+        self.imageIndex = 13
         self.text = None
         self.helpText = None
         self.menu = ["Leave."]
@@ -303,7 +303,7 @@ class PresidentialPath:
             self.c.flags['Finding President'] = True
             self.text = ("You enter the outpost and see no sign of the" +
                          " president." +
-                         "\nToshe: \"Out to lunch?\" How did he manage to get out" +
+                         "\nToshe: How did he manage to get out" +
                          " so easily?")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: He's probably a really high level!")
@@ -313,7 +313,6 @@ class PresidentialPath:
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Sounds like wishful thinking to me.")
         if "Took Map" not in self.c.flags:
-            self.imageIndex = 13
             self.menu.append("Take the map.")
         return self.actions()
 

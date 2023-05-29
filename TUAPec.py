@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: May 21, 2023
+Revised: May 28, 2023
 """
 
 
@@ -407,7 +407,7 @@ class Pec:
         self.imageIndex = 7
         self.text = None
         self.helpText = None
-        npc = "Bill Fulton"
+        npc = "Drumbol"
         skill1 = "Smoulder"
         skill2 = "Avalanche"
         skill3 = "Whirlpool"
@@ -436,15 +436,13 @@ class Pec:
             Y = 1
             return self.actions({'area': "Pec",
                                  'coordinates': (X, Y)})
-        elif "Bill Fulton" not in self.c.flags:
-            self.text = (npc+": I am the world renowned Bill Fulton: "+
-                         "Master of Amazement and Demystifier of Magic. "+
-                         "Satisfaction is guaranteed.")
-            self.c.flags['Bill Fulton'] = True
+        elif "Drumbol" not in self.c.flags:
+            self.text = (npc+": I am the renowned Drumbol the smoulderer. According to the dictionary, that means I am handsome and also darkly passionate. I'm getting a little old for that nonsense. However, I am darkly passionate about magic. I can teach you to smoulder, too.")
+            self.c.flags['Drumbol'] = True
         else:
             self.text = npc+": "+choice(
-                ["Satisfaction guaranteed.",
-                 "Prepare to be amazed.",
+                ["Back in my heyday, I would cast dastardly storms and ice spells with ease.",
+                 "Have you come across any lightning magic? No? I'm stunned. Colour me shocked.",
                  "Alakazam!"])
         return self.actions({'items for sale': items})
 
@@ -675,6 +673,7 @@ class Pec:
             self.menu = ["Leave."]
 
         elif ('Qendresa' in self.c.flags):
+            self.imageIndex = 11
             self.text = ("%s: We shall take a quick rest then" % npc+
                          " continue our quest."+
                          "\nToshe: "+

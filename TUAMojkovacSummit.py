@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: May 21, 2023
+Revised: May 26, 2023
 """
 
 
@@ -331,7 +331,7 @@ class MojkovacSummit:
 
     def marciano(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 6
+        self.imageIndex = 13
         self.text = None
         self.helpText = None
         self.menu = []

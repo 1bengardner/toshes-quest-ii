@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: May 22, 2023
+Revised: May 26, 2023
 """
 
 
@@ -764,12 +764,12 @@ class HercegNovi:
                              "It's Tipsy Tuesday! Time to drink, my friend!")
             else:
                 self.text = ("Bartender Daniel: "+
-                             choice(["This drink is taking forever to pour!",
+                             choice(["This drink is taking forever to make!",
                                      "Good afternoon!",
                                      "It's a pleasure to see you once again!",
                                      "Well, if it isn't my favourite customer!",
                                      "I swear, this is the longest day of the "+
-                                     "year, and I decide to put on suspenders.",
+                                     "year, and I decide wear a vest.",
                                      "I'll keep grinning as long as I'm "+
                                      "ginning!"]
                                     )

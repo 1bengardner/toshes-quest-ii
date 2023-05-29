@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: May 22, 2023
+Revised: May 28, 2023
 """
 
 
@@ -537,10 +537,9 @@ class Igalo:
                                      + selectionIndex]['Description'])
         elif 'Marija' not in self.c.flags:
             self.creaturePage = 1
-            self.text = ("Marija: Hello. I'm Marija. I'm the town historian. "+
-                         "I like to do landscape paintings on the side, so I "+
-                         "have accumulated a good amount of information about "+
-                         "the local area. Ask me about any species and I will "+
+            self.text = ("Marija: Hello. I'm Marija. I'm the town "+
+                         "monsterologist. Yes, I am young, but I read a lot. "+
+                         "Ask me about any species and I will "+
                          "tell you all there is to know.")
             self.c.flags['Marija'] = True
         else:
@@ -817,7 +816,9 @@ class Igalo:
                 self.text = (npc+": I can't make it for you without the bars.")
                 
         elif self.c.hasItem("Gold Bar") and "Gold Man" not in self.c.flags:
-            self.text = (npc+": Wowee! Is that gold? I'm a goldsmith "+
+            self.text = ("The shield man sniffs the air and scurries "+
+                         "toward you.\n"+
+                         npc+": Wowee! Is that gold? I'm a goldsmith "+
                          "don'cha know? It's just that nobody ever brings "+
                          "me a hunk of gold to hammer away at! Let me make "+
                          "you something special!")
@@ -842,7 +843,7 @@ class Igalo:
                          "I'm probably disturbing the neighbourhood. They "+
                          "call me %s. I'm sort of a traveling " % npc+
                          "merchant, because shields are a bit of a "+
-                         "fad, you see.")
+                         "fad, you see. I'm at the back if you need me.")
             self.c.flags[npc] = True
         else:
             self.text = choice([npc+": Get your designer shields here.",
