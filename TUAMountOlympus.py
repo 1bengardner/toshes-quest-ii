@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: May 19, 2023
+Revised: May 28, 2023
 """
 
 
@@ -436,7 +436,10 @@ class MountOlympus:
         self.menu = []
         if selectionIndex == 0:
             if "Just Forged" in self.c.flags:
+                self.c.flags['Mount Olympus Complete'] = True
                 self.c.flags['Mount Olympus Ascensions'] += 1
+                if self.c.flags['Mount Olympus Ascensions'] == 100:
+                    self.c.flags['Legend'] = True
                 del self.c.flags['Just Forged']
                 del self.c.flags['Mount Olympus Map']
                 del self.c.flags['Marked Areas'][self.name]

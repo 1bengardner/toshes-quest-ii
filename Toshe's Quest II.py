@@ -687,6 +687,8 @@ class TopLeftFrame:
             self.spWord.grid()
             self.spLabel.grid()
             self.spBarLabel.grid()
+            self.tosheLabel['bg'] = RARE_BD
+        if "Legend" in main.character.flags:
             self.tosheLabel['bg'] = LEGENDARY_BD
         if c.specialization is not None:
             self.spWord['text'] = "%s %s" % (c.specialization, c.mastery)
@@ -1076,11 +1078,13 @@ class TopCenterFrame:
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
             window.topFrame.topLeftFrame.spBarLabel.grid()
-            window.topFrame.topLeftFrame.tosheLabel['bg'] = LEGENDARY_BD
+            window.topFrame.topLeftFrame.tosheLabel['bg'] = RARE_BD
         else:
             window.topFrame.topLeftFrame.spWord.grid_remove()
             window.topFrame.topLeftFrame.spLabel.grid_remove()
             window.topFrame.topLeftFrame.spBarLabel.grid_remove()
+        if "Legend" in main.character.flags:
+            window.topFrame.topLeftFrame.tosheLabel['bg'] = LEGENDARY_BD
 
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile

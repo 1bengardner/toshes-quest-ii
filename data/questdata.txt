@@ -53,3 +53,4 @@ Under Pressure	Stop the active geyser in the Albanian Desert.	{'No Criteria': Tr
 Mythical Medley	Kill 10 mythical creatures for Melanippe in Litochoro.	{'Wildcard Kills': (('Nemean Lion', 'Teumessian Fox', 'Stymphalian Bird', 'Hydra', 'Chimera', 'Cerberus', 'Cychreides', 'Skolopendra', 'Pterripus', 'Gorgon', 'Harpy', 'Minotaur', 'Centaur', 'Satyr', 'Siren'), 10, "Mythical Creatures")}	Melanippe Quest 1	Melanippe Quest 1 Complete	1	0
 Skolopendra Sauce	Kill 3 Skolopendras for Melanippe in Litochoro.	{'Kills': ('Skolopendra', 3)}	Melanippe Quest 2	Melanippe Quest 2 Complete	1	0
 Hydra-tion	Kill 9 Hydras for Melanippe in Litochoro.	{'Kills': ('Hydra', 9)}	Melanippe Quest 3	Melanippe Quest 3 Complete	1	0
+Ain't No Mountain High Enough	Ascend Mount Olympus.	{'No Criteria': True}	Ready for Mount Olympus	Mount Olympus Complete	0	0
