@@ -2345,8 +2345,11 @@ def displayStoreItemStats():
     else:
         frame.itemRequirementLabel['fg'] = RED
 
+    frame.buyButton['text'] = "Buy"
     if main.character.euros < item.PRICE or not main.character.hasRoom() and item.NAME != "Chasmic Rucksack":
         frame.buyButton['state'] = DISABLED
+        if not main.character.hasRoom():
+            frame.buyButton['text'] = "No Room!"
     else:
         frame.buyButton['state'] = NORMAL
 
@@ -2358,6 +2361,11 @@ def clearItemStats(frame, store):
     if main.character.hasNoItems() and not store:
         frame.itemNameLabel.config(text="Your inventory is empty.",
                                    font=italicFont2)
+    elif store and not any(main.store):
+        frame.itemNameLabel.config(text="There's nothing to buy.",
+                                   font=italicFont2)
+    if store:
+        frame.buyButton['text'] = "Buy"
     frame.itemCategoryLabel['text'] = ""
     frame.itemValueLabel['text'] = ""
     frame.itemRequirementLabel['text'] = ""
