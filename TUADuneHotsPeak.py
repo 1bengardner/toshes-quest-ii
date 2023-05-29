@@ -334,26 +334,26 @@ class DuneHotsPeak:
                        if ica in self.c.flags][0]
             return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
-            self.text = (npc+" transports you to the next nook.")
+            self.text = "You are transported into %s's nook." % npc
             del self.c.flags['Nooking']
         elif npc not in self.c.flags:
-            self.text = ("You crawl through the gap and find yourself "+
+            self.text = ("You crawl through the shiftsand and find yourself "+
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
-                         "\nWoman: Quick, get in here. It is not safe outside. "+
-                         "There are monsters."+
-                         "\nToshe: Yeah, I noticed. Who are you?"+
-                         "\n"+npc+": I am "+npc+". I take refuge in the "+
-                         "trees. I protect the peace and serenity of the "+
-                         "forest. I craft special tunics for use by fellow "+
-                         "archers. I can teach you the way of the bow.")
-            self.c.flags['Ica'] = True
+                         "\nWoman: Well met, bowman."+
+                         "\nToshe: Yo."+
+                         "\n"+npc+": You may address me as "+npc+", "+
+                         "navigator of the dune. If you wish "+
+                         "to survive, you had best take one of my Fire "+
+                         "Tunics. Those who solve my riddle are also privy "+
+                         "to a special skill.")
+            self.c.flags[npc] = True
         elif not ableToLearn:
-            self.text = "\n"+npc+": Archer, you must clean the land of a flaming amphibian. Then, what I can teach you in this dune will be a boon."
+            self.text = npc+": Bowman, it's time to win again by disposing of a fiery amphibian. Then, what I can teach you in this dune will be a boon."
         else:
-            self.text = ("You crawl through the gap and find yourself "+
+            self.text = ("You crawl through the shiftsand and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, archer?")
+                         "\n"+npc+": Bowman, come here, quick.")
         return self.actions({'items for sale': [tunic]+[None]*8})
         
     def clearing(self, selectionIndex=None):

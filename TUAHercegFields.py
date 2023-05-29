@@ -358,7 +358,7 @@ class HercegFields:
                        if ica in self.c.flags][0]
             return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
-            self.text = (npc+" transports you to the next nook.")
+            self.text = "You are transported into %s's nook." % npc
             del self.c.flags['Nooking']
         elif npc not in self.c.flags:
             self.text = ("You crawl through the tree roots and find yourself "+
@@ -371,11 +371,11 @@ class HercegFields:
                          "trees. I protect the peace and serenity of the "+
                          "forest. I craft special tunics for use by fellow "+
                          "archers. I can teach you the way of the bow.")
-            self.c.flags['Ica'] = True
+            self.c.flags[npc] = True
         else:
             self.text = ("You crawl through the tree roots and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, archer?")
+                         "\n"+npc+": What do you seek, archer?")
         return self.actions({'items for sale': [tunic]+[None]*8})
 
     def outpost(self, selectionIndex=None):

@@ -476,29 +476,28 @@ class EasternKosovo:
                        if ica in self.c.flags][0]
             return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
-            self.text = (npc+" transports you to the next nook.")
+            self.text = "You are transported into %s's nook." % npc
             del self.c.flags['Nooking']
-        elif npc == "Ica" and npc not in self.c.flags:
+        elif npc == "Trena" and npc not in self.c.flags:
             self.imageIndex = 14
             self.text = ("You crawl through the bushes and find yourself "+
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
-                         "\nWoman: Quick, get in here. It is not safe outside. "+
-                         "There are monsters."+
-                         "\nToshe: Yeah, I noticed. Who are you?"+
-                         "\n"+npc+": I am "+npc+". I take refuge in the "+
-                         "trees. I protect the peace and serenity of the "+
-                         "forest. I craft special tunics for use by fellow "+
-                         "archers. I can teach you the way of the bow.")
-            self.c.flags['Ica'] = True
-        elif npc == "Ica":
+                         "\nGirl: Are you a hunter?"+
+                         "\nToshe: Sort of."+
+                         "\n"+npc+": Call me "+npc+". You have to be "+
+                         "careful here. Even the bees can be deadly. "+
+                         "Need a tunic? Oh, you'll want to learn "+
+                         "these shots. One heals, one kills.")
+            self.c.flags[npc] = True
+        elif npc == "Trena":
             self.text = ("You crawl through the bushes and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, archer?")
+                         "\n"+npc+": What do you need today, hunter?")
         elif npc == "Old Nigel":
             self.text = ("You crawl through the bushes and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, friend?")
+                         "\n"+npc+": What do you need today, friend?")
         return self.actions({'items for sale': [tunic]+[None]*8})
 
     def wizardEntrance(self, selectionIndex=None):

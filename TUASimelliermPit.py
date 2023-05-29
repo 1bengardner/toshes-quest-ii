@@ -273,24 +273,22 @@ class SimelliermPit:
                        if ica in self.c.flags][0]
             return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
-            self.text = (npc+" transports you to the next nook.")
+            self.text = "You are transported into %s's nook." % npc
             del self.c.flags['Nooking']
         elif npc not in self.c.flags:
-            self.text = ("You crawl through the gap and find yourself "+
+            self.text = ("You crawl through the disturbance and find yourself "+
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
-                         "\nWoman: Quick, get in here. It is not safe outside. "+
-                         "There are monsters."+
-                         "\nToshe: Yeah, I noticed. Who are you?"+
-                         "\n"+npc+": I am "+npc+". I take refuge in the "+
-                         "trees. I protect the peace and serenity of the "+
-                         "forest. I craft special tunics for use by fellow "+
-                         "archers. I can teach you the way of the bow.")
-            self.c.flags['Ica'] = True
+                         "\nWoman: My friend! What brings you to this place? "+
+                         "\nToshe: I was looking for a good beast to kill."+
+                         "\n"+npc+": Then I, "+npc+", shall lead you to it. "+
+                         "Rest with some Syvre, and harness some earthen "+
+                         "defences. Then, trek forward, into the waterfall.")
+            self.c.flags[npc] = True
         elif not ableToLearn:
-            self.text = "\n"+npc+": Archer, you must lay claim to where an earthen arthropod once trod. Then, in this pit, I can show you how to deliver a stinging hit."
+            self.text = npc+": My friend, you must lay claim to where an earthen arthropod once trod. Then, in this pit, I can show you how to deliver a stinging hit."
         else:
-            self.text = ("You crawl through the gap and find yourself "+
+            self.text = ("You crawl through the disturbance and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, archer?")
+                         "\n"+npc+": My friend! How may I serve?")
         return self.actions({'items for sale': [tunic]+[None]*8})

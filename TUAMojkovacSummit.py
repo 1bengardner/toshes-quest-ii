@@ -309,24 +309,22 @@ class MojkovacSummit:
                        if ica in self.c.flags][0]
             return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
-            self.text = (npc+" transports you to the next nook.")
+            self.text = "You are transported into %s's nook." % npc
             del self.c.flags['Nooking']
         elif npc not in self.c.flags:
             self.text = ("You crawl through the rock passage and find yourself "+
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
-                         "\nWoman: Quick, get in here. It is not safe outside. "+
-                         "There are monsters."+
-                         "\nToshe: Yeah, I noticed. Who are you?"+
-                         "\n"+npc+": I am "+npc+". I take refuge in the "+
-                         "trees. I protect the peace and serenity of the "+
-                         "forest. I craft special tunics for use by fellow "+
-                         "archers. I can teach you the way of the bow.")
-            self.c.flags['Ica'] = True
+                         "\nGirl: What are you doing?"+
+                         "\nToshe: I was going to ask you that."+
+                         "\n"+npc+": My name is "+npc+". I hide here to "+
+                         "practice making tunics so that I don't cause "+
+                         "trouble. Do you want to see my shot?")
+            self.c.flags[npc] = True
         else:
             self.text = ("You crawl through the rock passage and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, archer?")
+                         "\n"+npc+": Hi.")
         return self.actions({'items for sale': [tunic]+[None]*8})
 
     def marciano(self, selectionIndex=None):

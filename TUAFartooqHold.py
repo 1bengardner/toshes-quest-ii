@@ -499,24 +499,23 @@ class FartooqHold:
                        if ica in self.c.flags][0]
             return self.actions(Static.ICA_DATA[nextIca])
         elif "Nooking" in self.c.flags:
-            self.text = (npc+" transports you to the next nook.")
+            self.text = "You are transported into %s's nook." % npc
             del self.c.flags['Nooking']
         elif npc not in self.c.flags:
             self.text = ("You crawl through the gap and find yourself "+
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
-                         "\nWoman: Quick, get in here. It is not safe outside. "+
-                         "There are monsters."+
-                         "\nToshe: Yeah, I noticed. Who are you?"+
-                         "\n"+npc+": I am "+npc+". I take refuge in the "+
-                         "trees. I protect the peace and serenity of the "+
-                         "forest. I craft special tunics for use by fellow "+
-                         "archers. I can teach you the way of the bow.")
-            self.c.flags['Ica'] = True
+                         "\nWoman: A visitor. You must be from a foreign land."+
+                         "\nToshe: I could use a hot chocolate."+
+                         "\n"+npc+": Well, I am "+npc+". I have no chocolate; "+
+                         "I can only offer a word of advice..."+
+                         "take my tunic into battle with you. "+
+                         "It may save you if set against the bitter cold.")
+            self.c.flags[npc] = True
         elif not ableToLearn:
-            self.text = "\n"+npc+": Archer, you must make peace with an aquatic beast. Then, I can teach you a devastating technique in this keep."
+            self.text = npc+": Visitor, you must make peace with an aquatic beast. Then, I can teach you a devastating technique in this keep."
         else:
             self.text = ("You crawl through the gap and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": What do you seek today, archer?")
+                         "\n"+npc+": Welcome, visitor.")
         return self.actions({'items for sale': [tunic]+[None]*8})
