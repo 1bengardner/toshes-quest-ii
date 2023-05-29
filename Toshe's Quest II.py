@@ -797,8 +797,8 @@ class TopCenterFrame:
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
         self.musicButton.grid(row=0, padx=22, pady=(20, 0), sticky=W)
-        self.musicButton.bind_all("<Control-m>", lambda _: self.musicButton.invoke())
-        self.musicButton.bind_all("<Control-M>", lambda _: self.musicButton.invoke())
+        self.musicButton.bind_all("m", lambda _: self.musicButton.invoke())
+        self.musicButton.bind_all("M", lambda _: self.musicButton.invoke())
         self.playSfx = BooleanVar(value=True)
         self.sfxButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=sfxImage,
@@ -816,16 +816,16 @@ class TopCenterFrame:
         except IOError:
             pass
         self.sfxButton.grid(row=0, padx=42, pady=(20, 0), sticky=W)
-        self.sfxButton.bind_all("<Alt-m>", lambda _: self.sfxButton.invoke())
-        self.sfxButton.bind_all("<Alt-M>", lambda _: self.sfxButton.invoke())
+        self.sfxButton.bind_all("<Control-m>", lambda _: self.sfxButton.invoke())
+        self.sfxButton.bind_all("<Control-M>", lambda _: self.sfxButton.invoke())
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(row=0, pady=6)
         self.saveButton = Button(master, bg=BUTTON_BG, image=saveImage,
-                                 state=DISABLED, command=self.saveFile)
+                                 state=DISABLED, command=self.saveWithoutAsking)
         self.saveButton.grid(ipadx=2, ipady=2, row=0, padx=22, sticky=E)
         self.saveButton.grid_remove()
-        self.areaButton = Button(master, image=welcomeImage, bg=DEFAULT_BG,
+        self.areaButton = Button(master, image=welcomeImage, bg=BUTTON_BG,
                                  relief=RAISED, bd=6, command=self.openFile)
         self.areaButton.grid(row=1, sticky=N)
         
@@ -979,8 +979,11 @@ class TopCenterFrame:
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         if tkMessageBox.askokcancel("Save Game", "Do you want to save?",
                                     parent=root):
-            main.saveGame()
-            requireExitConfirmation(False)
+            self.saveWithoutAsking()
+
+    def saveWithoutAsking(self):
+        main.saveGame()
+        requireExitConfirmation(False)
 
     def openFile(self):
         main.sound.playSound(main.sound.sounds['Open Dialog'])
