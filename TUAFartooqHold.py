@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 28, 2023
+Revised: May 29, 2023
 """
 
 
@@ -173,7 +173,7 @@ class FartooqHold:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Frosina']
+            return Static.ICA_DATA['Ica 6']
         if self.c.dexterity >= 75:
             self.text = ("You come across a gap in the wall that "+
                          "you could crouch into.")
@@ -467,7 +467,7 @@ class FartooqHold:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        thisIca = "Frosina"
+        thisIca = "Ica 6"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 24

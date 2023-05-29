@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: May 22, 2023
+Revised: May 29, 2023
 """
 
 
@@ -301,7 +301,7 @@ class HercegFields:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Ica']
+            return Static.ICA_DATA['Ica 1']
         if self.c.dexterity >= 15:
             self.text = ("You notice a small opening in the tree roots that "+
                          "you could squeeze through.")
@@ -321,7 +321,7 @@ class HercegFields:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        thisIca = "Ica"
+        thisIca = "Ica 1"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 19

@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 23, 2023
+Revised: May 29, 2023
 """
 
 
@@ -286,7 +286,7 @@ class EasternKosovo:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Trena']
+            return Static.ICA_DATA['Ica 3']
         if self.c.dexterity >= 45:
             self.text = ("You see a tiny opening in the bushes that "+
                          "you could sneak into.")
@@ -429,7 +429,7 @@ class EasternKosovo:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        thisIca = "Trena"
+        thisIca = "Ica 3"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 14

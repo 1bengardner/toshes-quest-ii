@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: May 21, 2023
+Revised: May 29, 2023
 """
 
 import random
@@ -289,7 +289,7 @@ class DuneHotsPeak:
             del self.c.flags['Fazed Text']
             
         if selectionIndex == 0:
-            return Static.ICA_DATA['Zhaklina']
+            return Static.ICA_DATA['Ica 5']
         if self.c.dexterity >= 75:
             self.text += ("\nYou encounter a shiftsand that "+
                           "you can sink into.")
@@ -302,7 +302,7 @@ class DuneHotsPeak:
         return self.actions()
     
     def nook(self, selectionIndex=None):
-        thisIca = "Zhaklina"
+        thisIca = "Ica 5"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 7

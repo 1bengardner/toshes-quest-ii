@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: May 26, 2023
+Revised: May 29, 2023
 """
 
 
@@ -160,7 +160,7 @@ class MojkovacSummit:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            return Static.ICA_DATA['Miru']
+            return Static.ICA_DATA['Ica 2']
         if self.c.dexterity >= 30:
             self.text = ("You notice a small passage between the rocks where "+
                          "you could fit through.")
@@ -272,7 +272,7 @@ class MojkovacSummit:
         return self.actions()
 
     def nook(self, selectionIndex=None):
-        thisIca = "Miru"
+        thisIca = "Ica 2"
         self.c.flags[thisIca] = True
         self.view = "store"
         self.imageIndex = 12
