@@ -84,6 +84,10 @@ def update(gameFile, path):
         if skill.ELEMENT == "Electricity":
             skill.ELEMENT = "Lightning"
             changed = True
+        if "Club" in skill.PERMITTED_WEAPONS:
+            skill.PERMITTED_WEAPONS.add("Bludgeon")
+            skill.PERMITTED_WEAPONS.remove("Club")
+            changed = True
     changed = updateChangedAreaNames(character) or changed
     if changed:
         with open(path, "w") as gameFile:
