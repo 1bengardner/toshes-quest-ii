@@ -2,7 +2,7 @@
 File: TUATrafCafe.py
 Author: Ben Gardner
 Created: June 24, 2015
-Revised: December 31, 2015
+Revised: May 29, 2023
 """
 
 
@@ -97,6 +97,7 @@ class TrafCafe:
         self.helpText = None
         self.menu = []
         npc = "Dealer"
+        hits = []
 
         if selectionIndex == 3:
             X = 3
@@ -120,7 +121,13 @@ class TrafCafe:
         elif selectionIndex == 0:
             self.text = self.game.play()
             if self.game.rouge:
-                self.c.euros += int(self.bet) * 2
+                winnings = int(self.bet) * 2
+                self.c.euros += winnings
+                hits.append({
+                    "Target": "Toshe",
+                    "Kind": "Money",
+                    "Number": winnings,
+                })
             elif not self.game.rouge:
                 pass
         elif selectionIndex == 1:
@@ -128,8 +135,14 @@ class TrafCafe:
             if self.game.rouge:
                 pass
             elif not self.game.rouge:
-                self.c.euros += int(self.bet) * 2
-                            
+                winnings = int(self.bet) * 2
+                self.c.euros += winnings
+                hits.append({
+                    "Target": "Toshe",
+                    "Kind": "Money",
+                    "Number": winnings,
+                })
+
         if not hasattr(self, "game"):
             if self.c.euros < 0:
                 X = 7
@@ -151,7 +164,9 @@ class TrafCafe:
             else:
                 self.text += "\n%s: Bet again?" % npc
                 self.menu = ["Bet " + bet + "." for bet in self.bets] + ["Leave."]
-            
+
+        if hits:
+            return self.actions({'hits': hits})
         return self.actions()
 
     def blackjack(self, selectionIndex=None):
@@ -161,6 +176,7 @@ class TrafCafe:
         self.helpText = None
         self.menu = []
         npc = "Dealer"
+        hits = []
 
         if selectionIndex == 3:
             X = 3
@@ -183,13 +199,32 @@ class TrafCafe:
                              "Stand."]
             else:
                 if self.game.outcome == "Natural":
-                    self.c.euros += int(int(self.bet) * 2.5)
+                    winnings = int(int(self.bet) * 2.5)
+                    self.c.euros += winnings
+                    hits.append({
+                        "Target": "Toshe",
+                        "Kind": "Money",
+                        "Number": winnings,
+                        "Critical": True,
+                    })
                 elif self.game.outcome == "Win":
-                    self.c.euros += int(self.bet) * 2
+                    winnings = int(self.bet) * 2
+                    self.c.euros += winnings
+                    hits.append({
+                        "Target": "Toshe",
+                        "Kind": "Money",
+                        "Number": winnings,
+                    })
                 elif self.game.outcome == "Lose":
                     pass
                 elif self.game.outcome == "Push":
-                    self.c.euros += int(self.bet)
+                    winnings = int(self.bet)
+                    self.c.euros += winnings
+                    hits.append({
+                        "Target": "Toshe",
+                        "Kind": "Money",
+                        "Number": winnings,
+                    })
                 self.bet = 0
                 del self.game
                 if self.c.euros < 0:
@@ -200,7 +235,10 @@ class TrafCafe:
                 else:
                     self.text += "\n%s: Bet again?" % npc
                     self.menu = ["Bet " + bet + "." for bet in self.bets] + ["Leave."]
-            return self.actions({'save': True})
+            actions = {'save': True}
+            if hits:
+                actions.update({'hits': hits})
+            return self.actions(actions)
         elif selectionIndex == 0:
             self.text = self.game.takeTurn("hit")
             self.menu = ["Hit.",
@@ -221,14 +259,24 @@ class TrafCafe:
                          " to bet?")
             self.menu = ["Bet " + bet + "." for bet in self.bets] + ["Leave."]
         elif self.game.outcome is not None:
-            if self.game.outcome == "Natural":
-                self.c.euros += int(int(self.bet) * 2.5)
-            elif self.game.outcome == "Win":
-                self.c.euros += int(self.bet) * 2
+            if self.game.outcome == "Win":
+                winnings = int(self.bet) * 2
+                self.c.euros += winnings
+                hits.append({
+                    "Target": "Toshe",
+                    "Kind": "Money",
+                    "Number": winnings,
+                })
             elif self.game.outcome == "Lose":
                 pass
             elif self.game.outcome == "Push":
-                self.c.euros += int(self.bet)
+                winnings = int(self.bet)
+                self.c.euros += winnings
+                hits.append({
+                    "Target": "Toshe",
+                    "Kind": "Money",
+                    "Number": winnings,
+                })
             self.bet = 0
             del self.game
             if self.c.euros < 0:
@@ -239,5 +287,7 @@ class TrafCafe:
             else:
                 self.text += "\n%s: Bet again?" % npc
                 self.menu = ["Bet " + bet + "." for bet in self.bets] + ["Leave."]
-            
+
+        if hits:
+            return self.actions({'hits': hits})
         return self.actions()

@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 28, 2023
+Revised: May 29, 2023
 """
 
 
@@ -2537,6 +2537,7 @@ def updateInterface(updates):
             number = hit['Number'] if "Number" in hit else None
             skill = hit['Skill'] if "Skill" in hit else False
             critical = hit['Critical'] if "Critical" in hit else False
+            aux = hit['Aux'] if "Aux" in hit else False
             hitBoxTriggers.append(
                 root.after(
                     delay,
@@ -2547,7 +2548,7 @@ def updateInterface(updates):
                             number,
                             skill,
                             critical,
-                            hit['Aux']))))
+                            aux))))
         tosheHits = filter(lambda hit: hit['Target'] == "Toshe", updates['hits'])
         enemyHits = filter(lambda hit: hit['Target'] == "Enemy", updates['hits'])
         for hits in [tosheHits, enemyHits]:
@@ -3095,6 +3096,8 @@ def createHitBox(parent,
         "Petrified": BLACK,
         "Sundered": BLACK,
         "Burning": BLACK,
+
+        "Money": YELLOW,
     }
     bgs = {
         "Physical": DAMAGE_BOX_BG,
@@ -3116,6 +3119,8 @@ def createHitBox(parent,
         "Petrified": PETRIFICATION_COLOR,
         "Sundered": SUNDERED_BG,
         "Burning": FIRE_COLOR,
+        
+        "Money": BROWN,
     }
     misses = set([
         "Miss",
@@ -3132,6 +3137,9 @@ def createHitBox(parent,
         "Petrified",
         "Sundered",
         "Burning",
+    ])
+    misc = set([
+        "Money"
     ])
     healing = set([
         "Heal"
@@ -3151,17 +3159,18 @@ def createHitBox(parent,
         font = font2
     hitBox = Frame(parent,
                    bg=SKILL_BG if skill else bgs[kind]
-                      if number or kind in misses | ailments | healing
+                      if number or kind in misses | ailments | healing | misc
                       else GREY,
                    relief=RIDGE,
                    bd=2)
     hitLabel = Label(hitBox,
                      text=("%s!" % kind) if kind in
-                          misses | ailments else number,
+                          misses | ailments else
+                          ("+%s" % number) if kind == "Money" else number,
                      font=font,
                      fg=fgs[kind],
                      bg=bgs[kind]
-                        if number or kind in misses | ailments | healing
+                        if number or kind in misses | ailments | healing | misc
                         else GREY,
                      bd=0,
                      padx=2).grid()
