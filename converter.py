@@ -73,14 +73,14 @@ def update(gameFile, path):
             setattr(mercenary, "_maxHp", max(mercenary.level * 20 + 80, mercenary.hp))
             setattr(mercenary, "_maxEp", max(mercenary.level * 20 + 80, mercenary.ep))
         changed = True
-    for item in character.items:
+    for item in filter(lambda item: item is not None, character.items):
         if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
             item.upgradeCount = 0
             changed = True
         if item.CATEGORY == "Club":
             item.CATEGORY = "Bludgeon"
             changed = True
-    for skill in character.skills:
+    for skill in filter(lambda skill: skill is not None, character.skills):
         if skill.ELEMENT == "Electricity":
             skill.ELEMENT = "Lightning"
             changed = True
