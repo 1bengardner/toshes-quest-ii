@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: May 29, 2023
+Created: May 30, 2023
 """
 
 
@@ -195,6 +195,9 @@ class Static:
         "Mount Olympus": {
             "fg": HexColors.STONE_PATH,
             "bg": HexColors.SKY},
+        "Labyrinth of Daedalus": {
+            "fg": HexColors.DARKNESS,
+            "bg": HexColors.DIRT_PATH},
     }
 
 class EquipUtils:
