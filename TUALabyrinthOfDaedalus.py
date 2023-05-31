@@ -2,7 +2,7 @@
 File: TUALabyrinthOfDaedalus.py
 Author: Ben Gardner
 Created: May 19, 2023
-Revised: May 30, 2023
+Revised: May 31, 2023
 """
 
 import random
@@ -153,9 +153,22 @@ class LabyrinthOfDaedalus:
             return self.actions({'area': "Litochoro",
                                  'coordinates': (X, Y)})
 
+        multiplier = (LabyrinthOfDaedalus.getSizeFor(self.c) - 1) / 10.0
+        modifiers = {
+            'Multiplicative': True,
+            'Stats': {
+                'LEVEL': 10 * LabyrinthOfDaedalus.getSizeFor(self.c),
+                'XP': multiplier,
+                'maxHp': multiplier,
+                'damage': multiplier,
+                'defence': multiplier,
+            },
+        }
+
         del self.c.flags['In Labyrinth']
 
         return self.actions({'enemy': random.choice([
                                  "Gold Minotaur",
                                  "Green Minotaur",]),
-                             'mercenaries': self.c.mercenaries})
+                             'mercenaries': self.c.mercenaries,
+                             'enemy modifiers': modifiers,})
