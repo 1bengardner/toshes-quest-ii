@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: May 30, 2023
+Revised: May 31, 2023
 """
 
 
@@ -95,7 +95,6 @@ class Litochoro:
             self.menu.append("Travel to Mount Olympus.")
             if "Ready for Labyrinth" in self.c.flags:
                 self.menu.append("Descend into the Labyrinth of Daedalus.")
-            self.menu.append("Descend into the Labyrinth of Daedalus.")
         return self.actions()
 
     def tavern(self, selectionIndex=None):
@@ -230,6 +229,9 @@ class Litochoro:
                     self.text += "\n%s: Oh, madam. You must not worry. We are safe now." % "Qendresa"
                 if self.c.hasMercenary("Barrie"):
                     self.text += "\n%s: %s, did you forget? You almost got us lost down there, you crazy fool!" % ("Barrie", "Toshe")
+            elif "Mount Olympus Complete" in self.c.flags and "Ready for Labyrinth" not in self.c.flags:
+                self.c.flags['Ready for Labyrinth'] = True
+                self.text = (npc+": Ah, Toshe! Are you up for a challenge? Deep below Litochoro is a big labyrinth. Somewhere inside, there lives a minotaur, ready to swallow men. In fact, there are two minotaurs, rumour has it. Their horns are prized for their potency in blacksmithing. Now, these bull-men are tough, but I think they would be no match for the likes of you!")
             elif "Rested" in self.c.flags:
                 self.text = ("You fall asleep."+
                              "\nWhen you wake up, you return to the front "+

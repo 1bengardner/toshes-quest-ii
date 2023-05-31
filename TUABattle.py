@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: May 28, 2023
+Revised: May 31, 2023
 """
 
 
@@ -1381,6 +1381,8 @@ class Battle(object):
             self.mainCharacter.flags['Kills'][self.enemy.IDENTIFIER] += 1
             if self.mainCharacter.specialization is not None:
                 self.mainCharacter.sp += 1
+            if self.enemy.IDENTIFIER == "Will o Wisp" and "Labyrinth Size" in self.mainCharacter.flags:
+                self.mainCharacter.flags['Labyrinth Size'] -= 1
             self.sounds.append("Kill")
         elif (self.coliseumMode and
               self.mainCharacter.hp <= self.CHARACTER_DEATH_HP):

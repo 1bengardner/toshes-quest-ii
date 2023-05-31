@@ -14,7 +14,7 @@ class LabyrinthOfDaedalus:
 
     @staticmethod
     def getSizeFor(character):
-        if "Labyrinth Size" not in character.flags:
+        if "Labyrinth Size" not in character.flags or character.flags['Labyrinth Size'] < 1:
             character.flags['Labyrinth Size'] = 1
         return 9 + 2 * character.flags['Labyrinth Size']
 
@@ -123,9 +123,6 @@ class LabyrinthOfDaedalus:
             actions.update(newActions)
         return actions
 
-    def complete(self):
-        self.c.flags['Labyrinth Size'] += 1
-
     def entrance(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = -1
@@ -133,7 +130,20 @@ class LabyrinthOfDaedalus:
         self.helpText = None
         self.menu = []
 
-        # TODO Add one-time (if not In Labyrinth) text (e.g. door closes shut behind you)
+        self.text = "You descend the town cellar, climbing down a ladder and a series of murky stone steps before stepping into an elaborate labyrinth. The one-way door shuts loudly behind you."
+        if "Labyrinth Door" not in self.c.flags:
+            self.c.flags['Labyrinth Door'] = True
+            self.text += "\n%s: Oh, shit. What do we do?" % "Toshe"
+            if self.c.hasMercenary("Qendresa"):
+                self.text += ("\n%s: We must find the exit. Swiftly, before we go mad." % "Qendresa")
+            if self.c.hasMercenary("Barrie"):
+                self.text += ("\n%s: I kinda like it down here. Suits me." % "Barrie")
+        elif random.randint(1, 2) == 1:
+            self.text += "\n%s: Here we go again." % "Toshe"
+            if random.randint(1, 4) == 1 and self.c.hasMercenary("Barrie"):
+                    self.text += ("\n%s: I hope you brought potions." % "Barrie")
+            if random.randint(1, 4) == 1 and self.c.hasMercenary("Qendresa"):
+                self.text += ("\n%s: Why must we torture ourselves down here?" % "Qendresa")
 
         self.c.flags['In Labyrinth'] = True
 
@@ -156,6 +166,7 @@ class LabyrinthOfDaedalus:
         self.menu = []
 
         if "In Labyrinth" not in self.c.flags:
+            self.c.flags['Labyrinth Complete'] = True
             self.c.flags['Labyrinth Size'] += 1
             del self.c.flags['Marked Areas'][self.name]
             del self.c.flags['Discovered Areas'][self.name]

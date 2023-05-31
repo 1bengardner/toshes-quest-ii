@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: May 30, 2023
+Created: May 31, 2023
 """
 
 
@@ -70,6 +70,7 @@ class Static:
         ICE = "#ffffff"
         THIN_ICE = "#7fd2db"
         LAIR = "#747799"
+        LABYRINTH = "#6b3b2b"
 
     AREA_COLORS = {
         "Adriatic Sea": {
@@ -197,7 +198,7 @@ class Static:
             "bg": HexColors.SKY},
         "Labyrinth of Daedalus": {
             "fg": HexColors.DARKNESS,
-            "bg": HexColors.DIRT_PATH},
+            "bg": HexColors.LABYRINTH},
     }
 
 class EquipUtils:
