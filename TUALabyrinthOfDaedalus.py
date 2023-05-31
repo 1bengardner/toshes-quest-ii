@@ -50,8 +50,6 @@ class LabyrinthOfDaedalus:
         startX, startY = LabyrinthOfDaedalus.getOriginFor(self.c)
         grid[startY][startX] = start
 
-        cellsToCheck = [(startX, startY - 1)]
-
         def isValid():
             def outOfBounds(X, Y):
                 return X < 1 or Y < 1 or X >= columns - 1 or Y >= rows - 1
@@ -81,20 +79,31 @@ class LabyrinthOfDaedalus:
             cells.append((X, Y-1))
             return cells
 
+        cellsToCheck = [(startX, startY - 1)]
+        invalidInARow = 0
+        lastCell = None
+        lastValid = None
+
         while (cellsToCheck):
             X, Y = cellsToCheck.pop()
             if not isValid():
+                invalidInARow += 1
+                if invalidInARow == 4 and lastCell is None:
+                    lastCell = lastValid
                 continue
+            invalidInARow = 0
+            lastValid = (X, Y)
             grid[Y][X] = live
-            lastCell = (X, Y)
             checkSurroundingCells()
 
+        if lastCell is None:
+            lastCell = (X, Y)
         X, Y = lastCell
         grid[Y][X] = final
         return grid
 
     def movementActions(self):
-        self.c.hp -= 20
+        self.c.hp -= 10
         
     def actions(self, newActions=None):
         if "Kicked Out" in self.c.flags:
@@ -123,6 +132,8 @@ class LabyrinthOfDaedalus:
         self.text = None
         self.helpText = None
         self.menu = []
+
+        # TODO Add one-time (if not In Labyrinth) text (e.g. door closes shut behind you)
 
         self.c.flags['In Labyrinth'] = True
 
