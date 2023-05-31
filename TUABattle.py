@@ -51,7 +51,7 @@ class Battle(object):
               self.roll() >= 50 and not self.enemy.UNIQUE):
             self.characterFirst = True
         elif self.enemy.UNIQUE:
-            self.characterFirst = random.seed(self.mainCharacter.seed2 + self.enemy.IDENTIFIER)
+            self.characterFirst = random.seed(self.mainCharacter.rareSeed + self.enemy.IDENTIFIER)
         else:
             self.characterFirst = False
 
@@ -1411,7 +1411,7 @@ class Battle(object):
         probabilities.
         """
         if fixed:
-            random.seed(self.mainCharacter.seed2 + self.enemy.IDENTIFIER)
+            random.seed(self.mainCharacter.rareSeed + self.enemy.IDENTIFIER)
         randomNumber = self.roll()
         chanceCounter = 0
         for element in probabilities:

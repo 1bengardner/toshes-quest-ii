@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: May 21, 2023
+Revised: May 31, 2023
 """
 
 
@@ -445,13 +445,10 @@ class Character(object):
         return True in [merc.NAME == name for merc in self.mercenaries]
 
     @property
-    def seed1(self):
+    def normalSeed(self):
         return self.level + self.level * len(
             [i for i in self.items if i is not None])
 
     @property
-    def seed2(self):
-        return (str(self.level) +
-                self.equippedWeapon.NAME +
-                self.equippedArmour.NAME +
-                self.equippedShield.NAME)
+    def rareSeed(self):
+        return "".join(skill.NAME for skill in self.skills)

@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 29, 2023
+Revised: May 31, 2023
 """
 
 
@@ -306,7 +306,7 @@ class EasternKosovo:
         beehiveText = "You agitate a beehive of angry bees."
         if selectionIndex == 0:            
             if "Tree Roll" not in self.c.flags:
-                random.seed(self.c.seed1)
+                random.seed(self.c.normalSeed)
                 self.setTreeEvent()                
 
             # Acorns

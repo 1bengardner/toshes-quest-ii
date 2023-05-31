@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: May 22, 2023
+Revised: May 31, 2023
 """
 
 
@@ -450,7 +450,7 @@ class AdriaticSea:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            random.seed(self.c.seed1)
+            random.seed(self.c.normalSeed)
             self.c.flags['Adriatic Sea Treasure'] = True
             treasure = random.choice(
                 ["Mace",
@@ -488,7 +488,7 @@ class AdriaticSea:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            random.seed(self.c.seed1)
+            random.seed(self.c.normalSeed)
             self.c.flags['Crack Treasure'] = True
             treasure = random.choice(
                 ["Macedonian Mace",
