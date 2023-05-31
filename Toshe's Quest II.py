@@ -798,8 +798,8 @@ class TopCenterFrame:
                                      variable=self.playMusic,
                                      command=main.sound.muteMusic)
         self.musicButton.grid(row=0, padx=22, pady=(20, 0), sticky=W)
-        self.musicButton.bind_all("m", lambda _: self.musicButton.invoke())
-        self.musicButton.bind_all("M", lambda _: self.musicButton.invoke())
+        self.musicButton.bind_all("<Control-m>", lambda _: self.musicButton.invoke())
+        self.musicButton.bind_all("<Control-M>", lambda _: self.musicButton.invoke())
         self.playSfx = BooleanVar(value=True)
         self.sfxButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
                                      relief=SUNKEN, image=sfxImage,
@@ -817,8 +817,7 @@ class TopCenterFrame:
         except IOError:
             pass
         self.sfxButton.grid(row=0, padx=42, pady=(20, 0), sticky=W)
-        self.sfxButton.bind_all("<Control-m>", lambda _: self.sfxButton.invoke())
-        self.sfxButton.bind_all("<Control-M>", lambda _: self.sfxButton.invoke())
+        self.sfxButton.bind_all("<Control-comma>", lambda _: self.sfxButton.invoke())
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(row=0, pady=6)
