@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 29, 2023
+Revised: May 30, 2023
 """
 
 
@@ -675,6 +675,7 @@ class TopLeftFrame:
         c = main.character
         
         self.levelLabel['text'] = c.level
+        self.levelLabel['width'] = len(str(c.level))
         if c.xp > c.xpTnl:
             self.xpBarLabel['image'] = xpBars[-1]
         else:
@@ -1638,6 +1639,7 @@ Game over? Don't fret. You can now """)
         e = main.battle.enemy
         
         self.enemyLevelLabel['text'] = e.LEVEL
+        self.enemyLevelLabel['width'] = len(str(e.LEVEL))
         self.enemyNameLabel['text'] = e.NAME
         if hasattr(e, "SUBNAME"):
             self.enemySubNameLabel['text'] = e.SUBNAME

@@ -2,11 +2,12 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: May 19, 2023
+Revised: May 30, 2023
 """
 
 
 import random
+from TUALabyrinthOfDaedalus import LabyrinthOfDaedalus
 
 
 class Litochoro:
@@ -79,8 +80,8 @@ class Litochoro:
             return self.actions({'area': "Mount Olympus",
                                  'coordinates': (X, Y)})
         elif selectionIndex == 2:
-            # TODO
-            pass
+            return self.actions({'area': "Labyrinth of Daedalus",
+                                 'coordinates': LabyrinthOfDaedalus.getOriginFor(self.c)})
         if "Litochoro Man" not in self.c.flags:
             self.c.flags['Litochoro Man'] = True
             self.text = ("You fortunately spot a clothed man working on "+
@@ -92,7 +93,8 @@ class Litochoro:
         ]
         if "Ready for Mount Olympus" in self.c.flags:
             self.menu.append("Travel to Mount Olympus.")
-        if "Ready for Labyrinth" in self.c.flags:
+            if "Ready for Labyrinth" in self.c.flags:
+                self.menu.append("Descend into the Labyrinth of Daedalus.")
             self.menu.append("Descend into the Labyrinth of Daedalus.")
         return self.actions()
 
@@ -220,7 +222,15 @@ class Litochoro:
             return self.actions({'area': "Litochoro",
                                  'coordinates': (X, Y)})
         else:
-            if "Rested" in self.c.flags:
+            if "In Labyrinth" in self.c.flags:
+                del self.c.flags['In Labyrinth']
+                self.text = "%s: Oh, dear! You're awake. We were worried! We found you out cold on the street. What happened?" % npc
+                self.text += "\nYou scratch your head, confused as to how you ended up back in Litochoro."
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += "\n%s: Oh, madam. You must not worry. We are safe now." % "Qendresa"
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\n%s: %s, did you forget? You almost got us lost down there, you crazy fool!" % ("Barrie", "Toshe")
+            elif "Rested" in self.c.flags:
                 self.text = ("You fall asleep."+
                              "\nWhen you wake up, you return to the front "+
                              "to give %s your key." % npc+

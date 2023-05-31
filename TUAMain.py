@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 23, 2023
+Revised: May 30, 2023
 """
 
 
@@ -74,6 +74,7 @@ from TUALairOfTheMagi import LairOfTheMagi
 from TUAIgaloCathedral import IgaloCathedral
 from TUALitochoro import Litochoro
 from TUAMountOlympus import MountOlympus
+from TUALabyrinthOfDaedalus import LabyrinthOfDaedalus
 
 
 class Main:
@@ -274,6 +275,7 @@ class Main:
                       'Igalo Cathedral': IgaloCathedral,
                       'Litochoro': Litochoro,
                       'Mount Olympus': MountOlympus,
+                      'Labyrinth of Daedalus': LabyrinthOfDaedalus,
                       }
 
     def populateWeapons(self):

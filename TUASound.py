@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: May 28, 2023
+Revised: May 30, 2023
 """
 
 
@@ -33,6 +33,7 @@ class Sound:
                       "Riplin Battle": "Grandpa's Gardens",
                       "Crayon Battle": "Boiling Over",
                       "Wisp Battle": "RUF",
+                      "Minotaur Battle": "Leebyrinth",
                      }
         self.sounds = {"Level Up": "FX-Dream",
                        "Mercenary Up": "FX-Frolic",
