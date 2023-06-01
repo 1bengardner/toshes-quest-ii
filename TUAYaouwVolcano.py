@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: May 22, 2023
+Revised: May 31, 2023
 """
 
 import random
@@ -44,10 +44,11 @@ class YaouwVolcano:
         pitt = self.pit
         esca = self.escapeRoute
         frag = self.fragment
+        otis = self.otis
         
         self.spots = [
             [None, None, None, None, None, None, None, None, None, None, None, None, None],
-            [None, spo1, None, pitt, tpRt, None, wall, tpRt, dcln, lake, tpRt, spo2, None],
+            [None, spo1, None, otis, tpRt, None, wall, tpRt, dcln, lake, tpRt, spo2, None],
             [None, dcln, None, None, lake, None, pitt, None, None, None, None, None, None],
             [None, btLt, fall, None, dcln, fall, lake, tpRt, fall, wall, tpRt, fall, None],
             [None, None, dcln, None, btLt, None, dcln, None, lake, None, None, pitt, None],
@@ -107,7 +108,8 @@ class YaouwVolcano:
             danc: rare,
             exit: {},
             esca: {},
-            frag: entrance
+            frag: entrance,
+            otis: {},
         }
     
     def movementActions(self):
@@ -453,4 +455,48 @@ class YaouwVolcano:
         if "Volcanic Fragment" not in self.c.flags:
             self.text = ("You see something glowing wedged in the fissure.")
             self.menu = ["Pry out the glowing object."]
+        return self.actions()
+
+    def otis(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 16
+        self.text = None
+        self.helpText = None
+        self.menu = []
+        npc = "Otis"
+        fusionFlags = set([
+            "Fusing Carnivorous Blow",
+            "Fusing Sap Shot",
+        ])
+
+        if selectionIndex == 0 and all(flag not in self.c.flags for flag in fusionFlags):
+            if "Sap Shot" not in [skill.NAME for skill in self.c.skills]:
+                self.c.flags['Fusing Carnivorous Blow'] = True
+            else:
+                self.c.flags['Fusing Sap Shot'] = True
+                # TODO Text and menu (filter out fusion skills)
+        elif selectionIndex == 1 and all(flag not in self.c.flags for flag in fusionFlags):
+            self.c.flags['Fusing Sap Shot'] = True
+            # TODO Text and menu (filter out fusion skills)
+        elif selectionIndex is not None:
+            fusedSkill = filter(skill not in fusionSkills, self.c.skills)[selectionIndex]
+            # TODO Modify fused skill and remove fusion skill
+        else:
+            for flag in fusionFlags:
+                if flag in self.c.flags:
+                    del self.c.flags[flag]
+            if "Otis" not in self.c.flags:
+                self.c.flags['Otis'] = True
+                self.text = "{0}: Hiya! I'm {0} the myotis. You can refer to me as \"The Friendly Vampire Bat.\" I'm here to help! If you have that awesome skill Carnivorous Blow, I can combine it with another skill to give that skill...life-sucking power! If you're an archer, I can do you too with Sap Shot. Mages, screw you. You get nothin' from me.".format(npc)
+            else:
+                self.text = npc+": "+random.choice([
+                    "I suck.",
+                    "Bloody heck, I'm parched!",
+                    "You red-dy for some Transylvanian transfusion?...Nah, didn't like that one.",
+                ])
+            if "Carnivorous Blow" in [skill.NAME for skill in self.c.skills]:
+                self.menu.append("Combine Carnivorous Blow with another skill.")
+            if "Sap Shot" in [skill.NAME for skill in self.c.skills]:
+                self.menu.append("Combine Sap Shot with another skill.")
+
         return self.actions()
