@@ -73,7 +73,10 @@ def update(gameFile, path):
             setattr(mercenary, "_maxHp", max(mercenary.level * 20 + 80, mercenary.hp))
             setattr(mercenary, "_maxEp", max(mercenary.level * 20 + 80, mercenary.ep))
         changed = True
-    for item in filter(lambda item: item is not None, character.items):
+    itemsToCheck = character.items
+    if "Buyback Items" in character.flags:
+        itemsToCheck += character.flags['Buyback Items']
+    for item in filter(lambda item: item is not None, itemsToCheck):
         if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
             item.upgradeCount = 0
             changed = True
