@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: May 31, 2023
+Revised: June 1, 2023
 """
 
 
@@ -414,6 +414,8 @@ class Battle(object):
 
             if skill.CATEGORY == "Life Steal Damage":
                 healing = damage * skill.MULTIPLIER / 100.
+            elif "Damage" in skill.CATEGORY and hasattr(skill, "VAMPIRIC"):
+                healing = damage * 0.025
 
             bruhMoment = False
             if ( self.mainCharacter.hasItem("Brummo Mint") and

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: May 30, 2023
+Revised: June 1, 2023
 """
 
 
@@ -674,6 +674,14 @@ class Main:
             else:
                 interfaceActions['text'] += ("\nYou learned "+skill.NAME+"!")
             self.character.euros -= interfaceActions['cost']
+            interfaceActions['new skill'] = True
+            self.sound.playSound(self.sound.sounds['New Skill'])
+        elif ('fusion skill' in interfaceActions):
+            interfaceActions['skill'] = interfaceActions['fusion skill']
+            if 'text' not in interfaceActions or not interfaceActions['text']:
+                interfaceActions['text'] = ("You learned "+interfaceActions['skill']+"!")
+            else:
+                interfaceActions['text'] += ("\nYou learned "+interfaceActions['skill']+"!")
             interfaceActions['new skill'] = True
             self.sound.playSound(self.sound.sounds['New Skill'])
 

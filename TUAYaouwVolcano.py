@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: May 31, 2023
+Revised: June 1, 2023
 """
 
 import random
@@ -464,39 +464,68 @@ class YaouwVolcano:
         self.helpText = None
         self.menu = []
         npc = "Otis"
-        fusionFlags = set([
-            "Fusing Carnivorous Blow",
-            "Fusing Sap Shot",
-        ])
-
-        if selectionIndex == 0 and all(flag not in self.c.flags for flag in fusionFlags):
-            if "Sap Shot" not in [skill.NAME for skill in self.c.skills]:
-                self.c.flags['Fusing Carnivorous Blow'] = True
-            else:
-                self.c.flags['Fusing Sap Shot'] = True
-                # TODO Text and menu (filter out fusion skills)
-        elif selectionIndex == 1 and all(flag not in self.c.flags for flag in fusionFlags):
-            self.c.flags['Fusing Sap Shot'] = True
-            # TODO Text and menu (filter out fusion skills)
-        elif selectionIndex is not None:
-            fusedSkill = filter(skill not in fusionSkills, self.c.skills)[selectionIndex]
-            # TODO Modify fused skill and remove fusion skill
-        else:
-            for flag in fusionFlags:
+        fusions = {
+            "Carnivorous Blow": "Fusing Carnivorous Blow",
+            "Sap Shot": "Fusing Sap Shot",
+        }
+        def isFusionCandidate(skill):
+            return ("Wand" not in skill.PERMITTED_WEAPONS and
+                "Damage" in skill.CATEGORY and
+                "Carnivorous" not in skill.NAME and
+                "Sap" not in skill.NAME)
+        def removeFusionFlags():
+            for flag in fusions.values():
                 if flag in self.c.flags:
                     del self.c.flags[flag]
+        def populateFusionsMenu():
+            # I'd like to just iterate over fusions, but I can't because it's not ordered
+            if "Carnivorous Blow" in [skill.NAME for skill in self.c.skills]:
+                self.menu.append("Combine Carnivorous Blow with another skill.")
+            if "Sap Shot" in [skill.NAME for skill in self.c.skills]:
+                self.menu.append("Combine Sap Shot with another skill.")
+
+        if selectionIndex is not None and all((flag not in self.c.flags for flag in fusions.values())):
+            if selectionIndex == 0 and "Carnivorous Blow" in [skill.NAME for skill in self.c.skills]:
+                self.c.flags[fusions['Carnivorous Blow']] = True
+                self.text = "{0}: Fire it up! Which skill are you gonna make carnivorous?".format(npc)
+            elif "Sap Shot" in [skill.NAME for skill in self.c.skills]:
+                self.c.flags[fusions['Sap Shot']] = True
+                self.text = "{0}: Hot stuff! Which skill are you gonna sap up?".format(npc)
+
+            self.menu = ["Combine with %s." % skill.NAME for skill in filter(isFusionCandidate, self.c.skills)]
+
+        elif selectionIndex is not None:
+            fusedSkill = filter(isFusionCandidate, self.c.skills)[selectionIndex]
+            if fusions['Carnivorous Blow'] in self.c.flags:
+                fusedSkill.NAME = "Carnivorous " + fusedSkill.NAME.split(" ")[1]
+            elif fusions['Sap Shot'] in self.c.flags:
+                fusedSkill.NAME = fusedSkill.NAME.split(" ")[0] + " Sap"
+            fusedSkill.EP_USED *= 2
+            fusedSkill.VAMPIRIC = True
+            for skill in self.c.skills:
+                if skill.NAME in fusions and fusions[skill.NAME] in self.c.flags:
+                    self.c.forgetSkill(skill)
+                    break
+            self.text = "{0}: Now that's what I call healthy eating!".format(npc)
+
+            removeFusionFlags()
+            populateFusionsMenu()
+
+            return self.actions({'fusion skill': fusedSkill.NAME})
+
+        else:
+            removeFusionFlags()
+
             if "Otis" not in self.c.flags:
                 self.c.flags['Otis'] = True
-                self.text = "{0}: Hiya! I'm {0} the myotis. You can refer to me as \"The Friendly Vampire Bat.\" I'm here to help! If you have that awesome skill Carnivorous Blow, I can combine it with another skill to give that skill...life-sucking power! If you're an archer, I can do you too with Sap Shot. Mages, screw you. You get nothin' from me.".format(npc)
+                self.text = "{0}: Hiya! I'm {0}, the myotis. You can call me \"The Friendly Vampire Bat.\" I'm here to help! If you have that awesome skill Carnivorous Blow, I can combine it with another skill to give that skill...life-sucking power! If you're an archer, I can do you too with Sap Shot. Mages, screw you. You get nothin' from me.".format(npc)
             else:
                 self.text = npc+": "+random.choice([
                     "I suck.",
                     "Bloody heck, I'm parched!",
                     "You red-dy for some Transylvanian transfusion?...Nah, didn't like that one.",
                 ])
-            if "Carnivorous Blow" in [skill.NAME for skill in self.c.skills]:
-                self.menu.append("Combine Carnivorous Blow with another skill.")
-            if "Sap Shot" in [skill.NAME for skill in self.c.skills]:
-                self.menu.append("Combine Sap Shot with another skill.")
+
+            populateFusionsMenu()
 
         return self.actions()
