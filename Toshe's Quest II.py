@@ -784,6 +784,8 @@ class TopCenterFrame:
             with open("prefs\\preferences.tqp", "w") as preferencesFile:
                 pickle.dump(preferences, preferencesFile)
 
+        cogLabel = Label(master, bg=DEFAULT_BG, image=settingsImage)
+        cogLabel.grid(row=0, padx=22, pady=(0, 21), sticky=W)
         self.showAnimations = BooleanVar(value=True)
         self.animationsButton = Checkbutton(master, indicatoron=False,
                                             bg=BUTTON_BG, relief=SUNKEN,
@@ -3299,6 +3301,7 @@ logImage = PhotoImage(file="images\\icons\\mission log.gif")
 sfxImage = PhotoImage(file="images\\icons\\sfx.gif")
 musicImage = PhotoImage(file="images\\icons\\music.gif")
 animationsImage = PhotoImage(file="images\\icons\\animations.gif")
+settingsImage = PhotoImage(file="images\\icons\\settings.gif")
 saveImage = PhotoImage(file="images\\icons\\save.gif")
 vBorderImage1 = PhotoImage(file="images\\other\\border21.gif")
 vBorderImage2 = PhotoImage(file="images\\other\\border22.gif")
