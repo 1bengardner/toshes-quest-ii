@@ -606,7 +606,8 @@ class Main:
             interfaceActions = {'view': "battle",
                                 'enemy': enemyIdentifier,
                                 'text': "",
-                                'mercenaries': self.character.mercenaries}
+                                'mercenaries': self.character.mercenaries,
+                                'image index': -999,}
             if enemyIdentifier == "Will o Wisp":
                 enemy = random.choice(filter(lambda enemy: enemy.FLEEABLE and not enemy.UNIQUE and enemy.MUSIC is None, self.enemies.itervalues()))
                 factor = float(self.character.level) / enemy.LEVEL
