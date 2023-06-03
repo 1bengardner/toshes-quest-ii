@@ -2285,7 +2285,7 @@ def displayStoreItemStats():
     
     frame.itemCategoryLabel['text'] = item.CATEGORY
     
-    frame.itemValueLabel['text'] = "%d / %d Euros" % (item.PRICE,
+    frame.itemValueLabel['text'] = "Costs %d Euros (You have %d)" % (item.PRICE,
                                                       main.character.euros)
     
     if item.CATEGORY == "Miscellaneous":
