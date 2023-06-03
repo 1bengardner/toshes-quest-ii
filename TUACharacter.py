@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: May 31, 2023
+Revised: June 3, 2023
 """
 
 
@@ -329,7 +329,14 @@ class Character(object):
 
     def hasLeveledUp(self):
         """Check if the character has enough xp to level up."""
-        if self.xp >= self.xpTnl:
+        if self.ring is not None:
+            if self.ring.xp >= self.ring.xpTnl:
+                self.ring.level += 1
+                self.ring.xp = self.ring.xp - self.ring.xpTnl
+                self.ring.xpTnl += 20*self.ring.level**2 - 20*self.ring.level + 100
+                return True
+            return False
+        elif self.xp >= self.xpTnl:
             hpGainedOnLevelUp = 20
             epGainedOnLevelUp = 20
             
@@ -377,7 +384,12 @@ class Character(object):
         """
         item = self.items[itemIndex]
         if itemIndex not in self.equippedItemIndices.values(): # Equipping
-            if item.CATEGORY == "Armour":
+            if item.NAME == "Scintillous Ring":
+                self.equippedItemIndices['Ring'] = itemIndex
+                item.level = 1
+                item.xp = 0
+                item.xpTnl = 100
+            elif item.CATEGORY == "Armour":
                 if self.equippedItemIndices['Armour'] is not None:
                     self.equip(self.equippedItemIndices['Armour'])
                 self.equippedItemIndices['Armour'] = itemIndex
@@ -393,7 +405,9 @@ class Character(object):
                 self.equippedItemIndices['Weapon'] = itemIndex
                 self.equippedWeapon = item
         else:                                           # Unequipping
-            if item.CATEGORY == "Armour":
+            if item.NAME == "Scintillous Ring":
+                self.equippedItemIndices['Ring'] = None                
+            elif item.CATEGORY == "Armour":
                 self.equippedItemIndices['Armour'] = None
                 self.equippedArmour = self.blankArmour
             elif item.CATEGORY == "Shield":
@@ -443,6 +457,12 @@ class Character(object):
 
     def hasMercenary(self, name):
         return True in [merc.NAME == name for merc in self.mercenaries]
+
+    @property
+    def ring(self):
+        if "Ring" in self.equippedItemIndices and self.equippedItemIndices['Ring'] is not None:
+            return self.items[self.equippedItemIndices['Ring']]
+        return None
 
     @property
     def normalSeed(self):

@@ -22,9 +22,9 @@ Macedonian Protector	0	Increases block chance while defending.
 Oracular Orb	0	A magical orb of great energy.
 Ominous Orb	0	This orb can be fused with its*user to combine potentials.
 Chasmic Rucksack	15000	You could even fit a Telamon Shield in this baby.
-Scintillous Ring	0	Not even I know what this does.
-Golden Horn	0	Changes forge success chance to 95%.*One-time use.
-Green Horn	0	Triples forge success chance.*One-time use.
-Purple Horn	0	Raises forge success chance by 1000%.*One-time use.
+Scintillous Ring	1	Absorbs XP and increases luck while worn.*Resets when unequipped.
+Golden Horn	1	Changes forge success chance to 95%.*One-time use.
+Green Horn	1	Triples forge success chance.*One-time use.
+Purple Horn	1	Raises forge success chance by 1000%.*One-time use.
 Olympian Ointment	200	A serum that can be applied to rock formations*...with varying results.
 Psilocybin	3000	May alter your experience.

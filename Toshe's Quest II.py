@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: May 31, 2023
+Revised: June 3, 2023
 """
 
 
@@ -2202,6 +2202,8 @@ def displayItemStats():
           item.ELEMENT != "Physical"):
         frame.itemElementLabel['text'] = ("Item imbued with "+
                                           str(item.ELEMENT))
+    elif item.NAME == "Scintillous Ring" and main.character.ring is not None:
+        frame.itemElementLabel['text'] = "Level %s" % main.character.ring.level
     else:
         frame.itemElementLabel['text'] = ""
 
@@ -2234,7 +2236,9 @@ def displayItemStats():
         frame.equipButton['text'] = "Equip"
         frame.sellButton['state'] = NORMAL
 
-    if (item.CATEGORY == "Miscellaneous" or
+    if item.NAME == "Scintillous Ring":
+        frame.equipButton['state'] = NORMAL
+    elif (item.CATEGORY == "Miscellaneous" or
         (item.REQUIREMENT_TYPE == "Strength" and
          main.character.strength < item.REQUIREMENT_VALUE) or
         (item.REQUIREMENT_TYPE == "Dexterity" and
@@ -2434,10 +2438,19 @@ def updateInterface(updates):
         hasLeveledUp = True
         if not updates['text']:
             updates['text'] = ""
-        updates['text'] += "\nToshe has reached level "+str(
-            main.character.level)+"!"
+        if main.character.ring is not None:
+            updates['text'] += "\nScintillous Ring has reached level "+str(
+                main.character.ring.level)+"!"
+            window.levelUpLabel['text'] = "Scintillous %d!" % main.character.ring.level
+            window.levelUpLabel['fg'] = LEVEL_UP_BG
+            window.levelUpLabel['bg'] = LEVEL_UP_FG
+        else:
+            updates['text'] += "\nToshe has reached level "+str(
+                main.character.level)+"!"
+            window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
+            window.levelUpLabel['fg'] = LEVEL_UP_FG
+            window.levelUpLabel['bg'] = LEVEL_UP_BG
         window.gridLevelUpFrame()
-        window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
     if hasLeveledUp:
         main.sound.playSound(main.sound.sounds['Level Up'])
 

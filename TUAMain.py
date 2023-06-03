@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 1, 2023
+Revised: June 3, 2023
 """
 
 
@@ -1075,7 +1075,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                                              "Choose an item to drop.")
 
     def randomizeItem(self, item):
-        if self.roll(100) > 25:
+        successChance = 25
+        if self.character.ring is not None:
+            successChance += self.character.ring.level
+        if self.roll(100) > successChance:
             return item, None
         level = 1
         levelRoll = self.roll(10000)

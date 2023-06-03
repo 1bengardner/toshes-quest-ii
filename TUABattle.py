@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 1, 2023
+Revised: June 3, 2023
 """
 
 
@@ -1368,11 +1368,16 @@ class Battle(object):
                     self.mainCharacter.removeItem(
                         self.mainCharacter.indexOfItem("Psilocybin"))
 
-            self.mainCharacter.xp += xpGained
+            if self.mainCharacter.ring is not None:
+                self.mainCharacter.ring.xp += xpGained
+                xpGainString = "Scintillous Ring gains "+str(xpGained)+" XP.\n"
+            else:
+                self.mainCharacter.xp += xpGained
+                xpGainString = "You gain "+str(xpGained)+" XP.\n"
             for character in self.auxiliaryCharacters:
                 character.xp += xpGained
             self.mainCharacter.euros += eurosGained
-            self.text += ("You gain "+str(xpGained)+" XP.\n"+
+            self.text += (xpGainString+
                           "You gain "+str(eurosGained)+" euros.\n")
             if ( eurosGained == 0 and self.enemy.LIVING
                  and self.enemy.DEATH_HP <= 0 and self.roll() <= 20 - self.mainCharacter.level + self.enemy.LEVEL):
