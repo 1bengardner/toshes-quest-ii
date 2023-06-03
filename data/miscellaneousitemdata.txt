@@ -28,3 +28,4 @@ Green Horn	1	Triples forge success chance.*One-time use.
 Purple Horn	1	Raises forge success chance by 1000%.*One-time use.
 Olympian Ointment	200	A serum that can be applied to rock formations*...with varying results.
 Psilocybin	3000	May alter your experience.
+The good stuff!	6000	Improves fortune.*May also kill you.

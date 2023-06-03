@@ -2,7 +2,7 @@
 File: TUARomadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: May 26, 2023
+Revised: June 3, 2023
 """
 
 
@@ -597,6 +597,10 @@ class RomadanVillage:
             Y = 5
             return self.actions({'area': "Romadan Village",
                                  'coordinates': (X, Y)})
+        elif "Conclusion" in self.c.flags and "New Shipment" not in self.c.flags:
+            self.c.flags['New Shipment'] = True
+            self.text = (npc + ": Oh, boy. I just got this new shipment" +
+                         " in. You're gonna love it.")
         elif npc not in self.c.flags:
             self.text = (npc + ": I travelled here all the way from the" +
                          " Orient with just my fungi. The Romadans wanted me" +
@@ -607,14 +611,17 @@ class RomadanVillage:
             self.text = npc+": " + random.choice(
                 ["Look at my Big Mushroom.",
                  "Check out my Thick Mushroom.",
-                 "Do you like what you see?"])
+                 "Do you like what you see?",
+                 "Wanna know why my mushrooms are so expensive?"+
+                 " Because they're good shit. That's why.",])
         self.menu = ["Leave."]
-        return self.actions({'items for sale': ["Nutritious Mushroom",
-                                                "Delicious Mushroom",
-                                                "Big Mushroom",
-                                                "Thick Mushroom",
-                                                "Jagged Mushroom",
-                                                "Magical Mushroom",
-                                                "Psilocybin",
-                                                None,
-                                                None]})
+        stock = ["Nutritious Mushroom",
+                 "Delicious Mushroom",
+                 "Big Mushroom",
+                 "Thick Mushroom",
+                 "Jagged Mushroom",
+                 "Magical Mushroom",
+                 "Psilocybin",
+                 "The good stuff!" if "Conclusion" in self.c.flags else None,
+                 None]
+        return self.actions({'items for sale': stock})

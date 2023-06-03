@@ -1380,7 +1380,8 @@ class Battle(object):
             self.text += (xpGainString+
                           "You gain "+str(eurosGained)+" euros.\n")
             if ( eurosGained == 0 and self.enemy.LIVING
-                 and self.enemy.DEATH_HP <= 0 and self.roll() <= 20 - self.mainCharacter.level + self.enemy.LEVEL):
+                 and self.enemy.DEATH_HP <= 0
+                 and self.roll() <= max(1, 20 - self.mainCharacter.level + self.enemy.LEVEL)):
                 self.mainCharacter.potions += 1
                 self.text += ("You collect a hearty vial of life fluid.\n")
             if self.enemy.IDENTIFIER not in self.mainCharacter.flags['Kills']:
@@ -1390,7 +1391,20 @@ class Battle(object):
                 self.mainCharacter.sp += 1
             if self.enemy.IDENTIFIER == "Will o Wisp" and "Labyrinth Size" in self.mainCharacter.flags:
                 self.mainCharacter.flags['Labyrinth Size'] -= 1
-            self.sounds.append("Kill")
+            if self.mainCharacter.hasItem("The good stuff!") and self.roll(15) == 1:
+                event = random.choice([
+                    "Your heart starts beating increasingly faster until it explodes.",
+                    "You haven't drank water in over 72 hours.",
+                    "You trip over a pebble and forget to catch yourself, landing head-first.",
+                ])
+                self.text += ("Unfortunately, %s\n" % event.lower())
+                self.mainCharacter.hp = 0
+                self.view = "game over"
+                self.sounds.append("Dead")
+                if self.mainCharacter.checkpoint.hasItem("The good stuff!"):
+                    self.mainCharacter.checkpoint.removeItem(self.mainCharacter.checkpoint.indexOfItem("The good stuff!"))
+            else:
+                self.sounds.append("Kill")
         elif (self.coliseumMode and
               self.mainCharacter.hp <= self.CHARACTER_DEATH_HP):
             self.text += "Toshe surrenders!"
@@ -1423,6 +1437,8 @@ class Battle(object):
         chanceCounter = 0
         for element in probabilities:
             chanceCounter += probabilities[element]
+            if self.mainCharacter.hasItem("The good stuff!"):
+                chanceCounter += probabilities[element]
             if chanceCounter >= randomNumber:
                 return element
         return None
