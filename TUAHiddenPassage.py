@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: May 26, 2023
+Revised: June 3, 2023
 """
 
 
@@ -297,15 +297,18 @@ class HiddenPassage:
         self.menu = []
         if "Ready to Specialize" in self.c.flags and selectionIndex is not None:
             self.c.flags['Newly Specialized'] = True
+            del self.c.flags['Ready to Specialize']
             if self.c.specialization is None:
                 self.helpText = "You have chosen a specialization! As you defeat enemies, your specialization will rank up and grant you a bonus."
-            self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
-            del self.c.flags['Ready to Specialize']
-            if "Respec" in self.c.flags:
+            if self.c.specialization == getSpecializationOptions(self.c)[selectionIndex]:
+                self.text = "Toshe: Wow...I feel exactly the same. Maybe a little worse."
+            elif "Respec" in self.c.flags:
                 del self.c.flags['Respec']
                 self.text = "Toshe: I feel like a new man."
             else:
                 self.text = "Toshe: I feel strong."
+            self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
+            return self.actions({'specialize': True})
         elif (selectionIndex == 0 and (self.c.hasItem("Ominous Orb") or "Respec" in self.c.flags) or
               "Ready to Specialize" in self.c.flags):
             if not any(filter(lambda stat: stat >= 50, [
@@ -333,8 +336,8 @@ class HiddenPassage:
                 getSpecializationOptions(self.c))
             self.c.flags['Ready to Specialize'] = True
         elif selectionIndex == 0:
-            self.text = ("A Voice: Your rank will be reset! Are you certain?")
-            self.menu = ["Change specializations and reset to Rank 1."]
+            self.text = ("A Voice: Your rank will be recalibrated! Are you certain?")
+            self.menu = ["Change specializations and recalibrate rank."]
             self.c.flags['Respec'] = True
         elif self.c.hasItem("Ominous Orb"):
             self.text = ("An ominous voice sounds." +

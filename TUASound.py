@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: May 30, 2023
+Revised: June 3, 2023
 """
 
 
@@ -36,10 +36,10 @@ class Sound:
                       "Minotaur Battle": "Leebyrinth",
                      }
         self.sounds = {"Level Up": "FX-Dream",
-                       "Mercenary Up": "FX-Frolic",
+                       "Mercenary Up": "FX-Discover",
                        "Get Item": "FX-Collect",
-                       "New Skill": "FX-Discover",
-                       "Power Up": "FX-Discover",
+                       "New Skill": "FX-Frolic",
+                       "Power Up": "FX-Frolic",
                        "Forge Upgrade": "FX-Discover",
                        "Deal Damage": "FX-Hit",
                        "Wand Attack": "FX-Cast",
@@ -97,6 +97,7 @@ class Sound:
                        "Crucible": "FX-Select",
                        "Hammer": "FX-Cast",
                        "Failed Upgrade": "FX-Ground",
+                       "Specialize": "FX-Frolic",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)

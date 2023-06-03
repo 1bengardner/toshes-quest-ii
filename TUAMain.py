@@ -842,6 +842,9 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if uncompletedQuests:
             interfaceActions['uncompleted quests'] = uncompletedQuests
 
+        if 'specialize' in interfaceActions:
+            self.sound.playSound(self.sound.sounds['Specialize'])
+
         self.view = interfaceActions['view']
 
         self.updateMusic(interfaceActions['view'])

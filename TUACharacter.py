@@ -310,7 +310,14 @@ class Character(object):
 
     @specialization.setter
     def specialization(self, value):
-        self.mastery = 1
+        if not hasattr(self, "pastSpecializations"):
+            self.pastSpecializations = {}
+        self.pastSpecializations[self._specialization] = self.mastery
+        if value in self.pastSpecializations:
+            self.mastery = self.pastSpecializations[value]
+        else:
+            self.mastery = 1
+
         self.sp = 0
         if self._specialization == "Paladin":
             extraPoints = self.level - 1
