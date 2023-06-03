@@ -1035,11 +1035,13 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             self.character.addItem(self.store[itemIndex])
         if self.buyback:
             self.character.flags['Buyback Items'][itemIndex] = None
+            self.store[itemIndex].PRICE = int((self.store[itemIndex].PRICE + 0.6) * 2)
             self.store[itemIndex] = None
         self.sound.playSound(self.sound.sounds['Buy'])
 
     def sell(self, itemIndex):
         if self.buyback:
+            self.character.items[itemIndex].PRICE /= 2
             if None in self.character.flags['Buyback Items']:
                 self.character.flags['Buyback Items'].remove(None)
                 self.store.remove(None)

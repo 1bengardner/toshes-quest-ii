@@ -1557,6 +1557,7 @@ Game over? Don't fret. You can now """)
         window.topFrame.topLeftFrame.updateInventory()
         self.buyButton['state'] = DISABLED
         self.updateStore()
+        self.updateOtherStats()
 
     def updateOtherStats(self):
         """Change the Other Stats frame so its values reflect the character's
