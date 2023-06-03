@@ -54,7 +54,7 @@ class HiddenPassage:
         e = {'Turbid Adurbid': 5,
              'Dark Asp': 6,
              'Skeleton Arcanist': 6,
-             'Ninja': 2}
+             'Ninja': 4}
              
         self.encounters = {wrp1: {},
                            wrp2: {},
