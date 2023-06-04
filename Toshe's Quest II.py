@@ -362,7 +362,7 @@ class TopLeftFrame:
                 "\nClick the turtle to start one."))
 
         try:
-            with open("prefs\\recent_games.tqp", "r") as preferencesFile:
+            with open("prefs/recent_games.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
 
             if len(recentCharacters) == 0:
@@ -776,12 +776,12 @@ class TopCenterFrame:
     def makeFrameElements(self, master):
         def writeAnimationsPrefs(on):
             try:
-                with open("prefs\\preferences.tqp", "r") as existingPreferences:
+                with open("prefs/preferences.tqp", "r") as existingPreferences:
                     preferences = pickle.load(existingPreferences)
             except IOError:
                 preferences = Preferences()
             preferences.animationsOn = on
-            with open("prefs\\preferences.tqp", "w") as preferencesFile:
+            with open("prefs/preferences.tqp", "w") as preferencesFile:
                 pickle.dump(preferences, preferencesFile)
 
         cogLabel = Label(master, bg=DEFAULT_BG, image=settingsImage)
@@ -808,7 +808,7 @@ class TopCenterFrame:
                                      variable=self.playSfx,
                                      command=main.sound.muteSfx)
         try:
-            with open("prefs\\preferences.tqp", "r") as preferencesFile:
+            with open("prefs/preferences.tqp", "r") as preferencesFile:
                 preferences = pickle.load(preferencesFile)
                 if not preferences.musicOn:
                     self.musicButton.invoke()
@@ -1006,7 +1006,7 @@ class TopCenterFrame:
                 name +
                 ", some vital information is missing from your file." +
                 " Perhaps this can be remedied with a conversion.")
-            path = "saves\\"+name+".tq"
+            path = "saves/"+name+".tq"
             with open(path, "r") as gameFile:
                 changed = converter.update(gameFile, path)
             if changed:
@@ -2418,7 +2418,7 @@ def updateInterface(updates):
         def fetchAreaImage(image):
             if image not in areaImages[areaName]:
                 areaImages[areaName][image] = PhotoImage(
-                    file="images\\areas\\"+areaName+"\\"+str(image)+".gif"
+                    file="images/areas/"+areaName+"/"+str(image)+".gif"
                 )
         try:
             fetchAreaImage(updates['image index'])
@@ -3018,13 +3018,13 @@ def loadAssets():
     # assetsToLoad += len(main.areas)
     
     for i in range(1, NUMBER_OF_BARS):
-        xpBars.append(PhotoImage(file="images\\bars\\xpbar"+
+        xpBars.append(PhotoImage(file="images/bars/xpbar"+
                                  str(i)+".gif"))
-        hpBars.append(PhotoImage(file="images\\bars\\hpbar"+
+        hpBars.append(PhotoImage(file="images/bars/hpbar"+
                                  str(NUMBER_OF_BARS - i - 1)+".gif"))
-        epBars.append(PhotoImage(file="images\\bars\\epbar"+
+        epBars.append(PhotoImage(file="images/bars/epbar"+
                                  str(NUMBER_OF_BARS - i - 1)+".gif"))
-        spBars.append(PhotoImage(file="images\\bars\\spbar"+
+        spBars.append(PhotoImage(file="images/bars/spbar"+
                                  str(i)+".gif"))
         incrementProgress()
     
@@ -3032,25 +3032,25 @@ def loadAssets():
         areaImages[area.name] = {}
 
     for enemyId in main.enemies:
-        enemyImages[enemyId] = (PhotoImage(file="images\\enemies\\"+
+        enemyImages[enemyId] = (PhotoImage(file="images/enemies/"+
                                            main.enemies[enemyId].IMAGE+".gif"))
         incrementProgress()
 
     for weaponName in main.weapons:
         itemImages[main.weapons[weaponName].IMAGE_NAME] = (
-            PhotoImage(file="images\\weapons\\"+weaponName+".gif"))
+            PhotoImage(file="images/weapons/"+weaponName+".gif"))
         incrementProgress()
     for armourName in main.armour:
         itemImages[main.armour[armourName].IMAGE_NAME] = (
-            PhotoImage(file="images\\armour\\"+armourName+".gif"))
+            PhotoImage(file="images/armour/"+armourName+".gif"))
         incrementProgress()
     for shieldName in main.shields:
         itemImages[main.shields[shieldName].IMAGE_NAME] = (
-            PhotoImage(file="images\\shields\\"+shieldName+".gif"))
+            PhotoImage(file="images/shields/"+shieldName+".gif"))
         incrementProgress()
     for itemName in main.miscellaneousItems:
         itemImages[main.miscellaneousItems[itemName].IMAGE_NAME] = (
-            PhotoImage(file="images\\miscellaneous\\"+itemName+".gif"))
+            PhotoImage(file="images/miscellaneous/"+itemName+".gif"))
         incrementProgress()
         
     incrementProgress(True)
@@ -3305,45 +3305,45 @@ font7 = tkFont.Font(family="Garamond", size=66, weight="bold")
 font8 = tkFont.Font(family="Garamond", size=16, weight="bold")
 lightFont8 = tkFont.Font(family="Garamond", size=16)
 
-welcomeImage = PhotoImage(file="images\\other\\turtle.gif")
-tosheImage = PhotoImage(file="images\\other\\toshe.gif")
-bloodDropImages = [PhotoImage(file="images\\other\\blood_drop%s.gif" % (i+1))
+welcomeImage = PhotoImage(file="images/other/turtle.gif")
+tosheImage = PhotoImage(file="images/other/toshe.gif")
+bloodDropImages = [PhotoImage(file="images/other/blood_drop%s.gif" % (i+1))
     for i in range(3)]
-bloodSlashImages = [PhotoImage(file="images\\other\\blood_slash%s.gif" % (i+1))
+bloodSlashImages = [PhotoImage(file="images/other/blood_slash%s.gif" % (i+1))
     for i in range(4)]
-gameOverImage = PhotoImage(file="images\\other\\gameover.gif")
+gameOverImage = PhotoImage(file="images/other/gameover.gif")
 
-euroImage = PhotoImage(file="images\\icons\\euro.gif")
-potionImage = PhotoImage(file="images\\icons\\potion.gif")
-logImage = PhotoImage(file="images\\icons\\mission log.gif")
-sfxImage = PhotoImage(file="images\\icons\\sfx.gif")
-musicImage = PhotoImage(file="images\\icons\\music.gif")
-animationsImage = PhotoImage(file="images\\icons\\animations.gif")
-settingsImage = PhotoImage(file="images\\icons\\settings.gif")
-saveImage = PhotoImage(file="images\\icons\\save.gif")
-vBorderImage1 = PhotoImage(file="images\\other\\border21.gif")
-vBorderImage2 = PhotoImage(file="images\\other\\border22.gif")
-hBorderImage = PhotoImage(file="images\\other\\border3.gif")
-waveBorderImage = PhotoImage(file="images\\other\\border1.gif")
+euroImage = PhotoImage(file="images/icons/euro.gif")
+potionImage = PhotoImage(file="images/icons/potion.gif")
+logImage = PhotoImage(file="images/icons/mission log.gif")
+sfxImage = PhotoImage(file="images/icons/sfx.gif")
+musicImage = PhotoImage(file="images/icons/music.gif")
+animationsImage = PhotoImage(file="images/icons/animations.gif")
+settingsImage = PhotoImage(file="images/icons/settings.gif")
+saveImage = PhotoImage(file="images/icons/save.gif")
+vBorderImage1 = PhotoImage(file="images/other/border21.gif")
+vBorderImage2 = PhotoImage(file="images/other/border22.gif")
+hBorderImage = PhotoImage(file="images/other/border3.gif")
+waveBorderImage = PhotoImage(file="images/other/border1.gif")
 
-upImage = PhotoImage(file="images\\icons\\up.gif")
-leftImage = PhotoImage(file="images\\icons\\left.gif")
-rightImage = PhotoImage(file="images\\icons\\right.gif")
-downImage = PhotoImage(file="images\\icons\\down.gif")
-inventoryImage = PhotoImage(file="images\\icons\\inventory.gif")
-backImage = PhotoImage(file="images\\icons\\back.gif")
-cancelImage = PhotoImage(file="images\\icons\\cancel.gif")
-attackImage = PhotoImage(file="images\\icons\\attack.gif")
-defendImage = PhotoImage(file="images\\icons\\defend.gif")
-fleeImage = PhotoImage(file="images\\icons\\flee.gif")
+upImage = PhotoImage(file="images/icons/up.gif")
+leftImage = PhotoImage(file="images/icons/left.gif")
+rightImage = PhotoImage(file="images/icons/right.gif")
+downImage = PhotoImage(file="images/icons/down.gif")
+inventoryImage = PhotoImage(file="images/icons/inventory.gif")
+backImage = PhotoImage(file="images/icons/back.gif")
+cancelImage = PhotoImage(file="images/icons/cancel.gif")
+attackImage = PhotoImage(file="images/icons/attack.gif")
+defendImage = PhotoImage(file="images/icons/defend.gif")
+fleeImage = PhotoImage(file="images/icons/flee.gif")
 
-noItemImage = PhotoImage(file="images\\other\\empty.gif")
-defaultImage = PhotoImage(file="images\\other\\default.gif")
+noItemImage = PhotoImage(file="images/other/empty.gif")
+defaultImage = PhotoImage(file="images/other/default.gif")
 
-anvilImage = PhotoImage(file="images\\other\\anvil.gif")
-crucibleImage = PhotoImage(file="images\\other\\crucible.gif")
+anvilImage = PhotoImage(file="images/other/anvil.gif")
+crucibleImage = PhotoImage(file="images/other/crucible.gif")
 
-battleImage = PhotoImage(file="images\\other\\battle.gif")
+battleImage = PhotoImage(file="images/other/battle.gif")
 
 xpBars = []
 hpBars = []
@@ -3354,13 +3354,13 @@ itemImages = {}
 enemyImages = {}
 FULL_PROGRESS = 100
 
-xpBars.append(PhotoImage(file="images\\bars\\xpbar"+
+xpBars.append(PhotoImage(file="images/bars/xpbar"+
                          str(0)+".gif"))
-hpBars.append(PhotoImage(file="images\\bars\\hpbar"+
+hpBars.append(PhotoImage(file="images/bars/hpbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
-epBars.append(PhotoImage(file="images\\bars\\epbar"+
+epBars.append(PhotoImage(file="images/bars/epbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
-spBars.append(PhotoImage(file="images\\bars\\spbar"+
+spBars.append(PhotoImage(file="images/bars/spbar"+
                          str(0)+".gif"))
         
 views = {'travel': enableTravelView,
@@ -3378,7 +3378,7 @@ hitBoxes = []
 hitBoxTriggers = []
 
 root.protocol('WM_DELETE_WINDOW', close)
-root.iconbitmap("images\\icons\\tq.ico")
+root.iconbitmap("images/icons/tq.ico")
 root.title("Toshe's Quest II")
 root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT)+"+"+str(root.winfo_screenwidth()/2-WINDOW_WIDTH/2)+"+"+str(root.winfo_screenheight()/2-WINDOW_HEIGHT/2))
 root.resizable(0, 0)

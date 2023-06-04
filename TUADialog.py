@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 6, 2020
+Revised: June 4, 2023
 """
 
 from Tkinter import *
@@ -16,7 +16,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
     """
 
     def body(self, master):
-        self.iconbitmap("images\\icons\\tq.ico")
+        self.iconbitmap("images/icons/tq.ico")
         Label(master, text=("Enter the name of the savefile you want to "+
                             "load/create.\n"+
                             "A new file will be created if it does not exist.")
@@ -32,7 +32,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
             tkMessageBox.showerror(self.title(), "Please enter a name.")
             return 0
         try:
-            open("saves\\"+self.entry.get()+".tq")
+            open("saves/"+self.entry.get()+".tq")
             return 1
         except IOError:
             if tkMessageBox.askokcancel("Create New | "+self.entry.get(), "Start a new game?",

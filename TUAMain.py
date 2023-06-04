@@ -147,7 +147,7 @@ class Main:
     def loadGame(self, fileName):
         """Load a game from a savefile."""
         self.fileName = fileName
-        with open("saves\\"+self.fileName+".tq", "r") as gameFile:
+        with open("saves/"+self.fileName+".tq", "r") as gameFile:
             self.character = pickle.load(gameFile)
         self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
@@ -207,7 +207,7 @@ class Main:
 
     def saveGame(self, sync=False):
         self.saveLocation()
-        with open("saves\\"+self.fileName+".tq", "w") as gameFile:
+        with open("saves/"+self.fileName+".tq", "w") as gameFile:
             pickle.dump(self.character, gameFile)
         self.sound.playSound(self.sound.sounds['Save'])
         if sync:
@@ -217,7 +217,7 @@ class Main:
 
     def writeGameToPreferences(self):
         try:
-            with open("prefs\\recent_games.tqp", "r") as existingPreferences:
+            with open("prefs/recent_games.tqp", "r") as existingPreferences:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
@@ -225,7 +225,7 @@ class Main:
         paredDownChar.flags = {}
         paredDownChar.checkpoint = None
         preferences.recentCharacters[self.fileName] = paredDownChar
-        with open("prefs\\recent_games.tqp", "w") as preferencesFile:
+        with open("prefs/recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
 
     def populateAreas(self):
@@ -279,7 +279,7 @@ class Main:
                       }
 
     def populateWeapons(self):
-        with open("data\\weapondata.txt", "r") as weaponFile:
+        with open("data/weapondata.txt", "r") as weaponFile:
             weaponFile.readline()
             for line in weaponFile:
                 tokens = line.strip().split("\t")
@@ -298,7 +298,7 @@ class Main:
                                              cDamage))
     
     def populateArmour(self):
-        with open("data\\armourdata.txt", "r") as armourFile:
+        with open("data/armourdata.txt", "r") as armourFile:
             armourFile.readline()
             for line in armourFile:
                 tokens = line.strip().split("\t")
@@ -313,7 +313,7 @@ class Main:
                                             reduction))
 
     def populateShields(self):
-        with open("data\\shielddata.txt", "r") as shieldFile:
+        with open("data/shielddata.txt", "r") as shieldFile:
             shieldFile.readline()
             for line in shieldFile:
                 tokens = line.strip().split("\t")
@@ -329,7 +329,7 @@ class Main:
                                              reduction, bRate))
 
     def populateMiscellaneousItems(self):
-        with open("data\\miscellaneousitemdata.txt", "r") as rFile:
+        with open("data/miscellaneousitemdata.txt", "r") as rFile:
             rFile.readline()
             for line in rFile:
                 tokens = line.strip().split("\t")
@@ -341,7 +341,7 @@ class Main:
                                                                   info)
 
     def populateSkills(self):
-        with open("data\\skilldata.txt", "r") as skillFile:
+        with open("data/skilldata.txt", "r") as skillFile:
             skillFile.readline()
             for line in skillFile:
                 tokens = line.strip().split("\t")
@@ -361,7 +361,7 @@ class Main:
                                           flag)
 
     def populateEnemies(self):
-        with open("data\\enemydata.txt", "r") as enemyFile:
+        with open("data/enemydata.txt", "r") as enemyFile:
             enemyFile.readline()
             for line in enemyFile:
                 tokens = line.strip().split("\t")
@@ -407,7 +407,7 @@ class Main:
                                            music)
 
     def populateMercenaries(self):
-        with open("data\\mercenarydata.txt", "r") as mercenaryFile:
+        with open("data/mercenarydata.txt", "r") as mercenaryFile:
             mercenaryFile.readline()
             for line in mercenaryFile:
                 tokens = line.strip().split("\t")
@@ -455,7 +455,7 @@ class Main:
                  statPoints, flags, area, x, y, 0)
 
     def populateQuests(self):
-        with open("data\\questdata.txt", "r") as file:
+        with open("data/questdata.txt", "r") as file:
             file.readline()
             for line in file:
                 tokens = line.strip().split("\t")
@@ -499,7 +499,7 @@ class Main:
         def getDailyChallenge():
             def randomChallenge():
                 enemies = []
-                with open("data\\dailychallenge.txt", "r") as enemyFile:
+                with open("data/dailychallenge.txt", "r") as enemyFile:
                     for line in enemyFile:
                         enemies.append(line.strip())
                 enemy = None

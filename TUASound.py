@@ -18,7 +18,7 @@ class Sound:
     MUSIC_VOLUME = 0.6
     
     def __init__(self):
-        self.path = "audio\\%s.ogg"
+        self.path = "audio/%s.ogg"
         self.songs = {"Intro Theme": "Daring Feat",
                       "Game Over Theme": "Overcast",
                       "Mob Battle": "Mosquitoes",
@@ -174,11 +174,11 @@ class Sound:
         
     def writePreferences(self):
         try:
-            with open("prefs\\preferences.tqp", "r") as existingPreferences:
+            with open("prefs/preferences.tqp", "r") as existingPreferences:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
         preferences.musicOn = mixer.music.get_volume() > 0
         preferences.sfxOn = not self.sfxMuted
-        with open("prefs\\preferences.tqp", "w") as preferencesFile:
+        with open("prefs/preferences.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)

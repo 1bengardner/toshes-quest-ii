@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: May 12, 2023
+Revised: June 4, 2023
 """
 
 
@@ -49,7 +49,7 @@ class Coliseum:
         self.foeText = []
         self.heroText = []
         self.championText = []
-        with open("data\\coliseumdata.txt", "r") as fileIn:
+        with open("data/coliseumdata.txt", "r") as fileIn:
             # Strip header
             fileIn.readline()
             for line in fileIn:
@@ -61,7 +61,7 @@ class Coliseum:
                 stats['SUBNAME'] = "Crowd Favourite"
                 self.heroSouls.append({'Multiplicative': multiplicative,
                                        'Stats': stats})
-        with open("data\\coliseumtext.txt", "r") as fileIn:
+        with open("data/coliseumtext.txt", "r") as fileIn:
             fileIn.readline()
             for line in fileIn:
                 tokens = line.strip().split("\t")

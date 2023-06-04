@@ -105,12 +105,12 @@ if __name__ == "__main__":
         fileName = raw_input("What's the name of the character to update? ")
 
         try:
-            path = "saves\\"+fileName+".tq"
+            path = "saves/"+fileName+".tq"
             with open(path, "r") as gameFile:
                 changed = update(gameFile, path)
         except (IOError):
             try:
-                path = "saves\\"+fileName+".toshe"
+                path = "saves/"+fileName+".toshe"
                 with open(path, "r") as gameFile:
                     changed = update(gameFile, fileName)
             except (IOError):
