@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: May 28, 2023
+Revised: June 4, 2023
 """
 
 
@@ -303,7 +303,7 @@ class Igalo:
         self.helpText = None
         self.menu = []
         if "Niplin" in self.c.flags['Kills']:
-            self.text = ("Pavle: Look, the cathedral gates have opened up!"+
+            self.text = ("Pavle: Look, the cathedral has opened up!"+
                          "\nVuk: I wonder why.")
         else:
             self.text = choice([
@@ -436,7 +436,7 @@ class Igalo:
             self.imageIndex = 19
             self.menu = ["Enter the cathedral."]
         else:
-            self.text = ("The entrance to the cathedral is fenced off.")
+            self.text = ("The entrance to the cathedral is sealed shut.")
         return self.actions()
 
     def archway3(self, selectionIndex=None):
