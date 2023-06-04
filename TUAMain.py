@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 3, 2023
+Revised: June 4, 2023
 """
 
 
@@ -843,8 +843,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if uncompletedQuests:
             interfaceActions['uncompleted quests'] = uncompletedQuests
 
-        if 'specialize' in interfaceActions:
-            self.sound.playSound(self.sound.sounds['Specialize'])
+        if 'sound' in interfaceActions:
+            self.sound.playSound(self.sound.sounds[interfaceActions['sound']])
 
         self.view = interfaceActions['view']
 

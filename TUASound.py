@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 3, 2023
+Revised: June 4, 2023
 """
 
 
@@ -98,6 +98,7 @@ class Sound:
                        "Hammer": "FX-Cast",
                        "Failed Upgrade": "FX-Ground",
                        "Specialize": "FX-Frolic",
+                       "100 Ascensions": "FX-Gracious",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)

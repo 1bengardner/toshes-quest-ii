@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: June 3, 2023
+Revised: June 4, 2023
 """
 
 
@@ -308,7 +308,7 @@ class HiddenPassage:
             else:
                 self.text = "Toshe: I feel strong."
             self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
-            return self.actions({'specialize': True})
+            return self.actions({'sound': "Specialize"})
         elif (selectionIndex == 0 and (self.c.hasItem("Ominous Orb") or "Respec" in self.c.flags) or
               "Ready to Specialize" in self.c.flags):
             if not any(filter(lambda stat: stat >= 50, [
