@@ -2,11 +2,11 @@
 File: TUAScutariPeninsula.py
 Author: Ben Gardner
 Created: August 30, 2013
-Revised: May 21, 2023
+Revised: June 4, 2023
 """
 
 
-from random import choice
+from random import choice, randint
 
 
 class ScutariPeninsula:
@@ -210,17 +210,38 @@ class ScutariPeninsula:
         return self.actions()
 
     def desertEntrance(self, selectionIndex=None):
+        self.view = "travel"
+        self.imageIndex = 10
+        self.text = None
+        self.helpText = None
+        self.menu = []
         if selectionIndex == 0:
             self.c.flags['Crawling'] = True
             X = 1
             Y = 4
             return self.actions({'area': "Albanian Desert",
                                  'coordinates': (X, Y)})
-        self.view = "travel"
-        self.imageIndex = 10
-        self.text = None
-        self.helpText = None
-        self.menu = []
+        elif selectionIndex == 1:
+            self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
+            self.text = "You apply a jar of Olympian Ointment to the hole."
+            if randint(1, 10) == 1:
+                self.text += "\nA Diggler crawls out!"
+                self.view = "battle"
+                return self.actions({'enemy': "Diggler",
+                                     'mercenaries': self.c.mercenaries,})
+            elif randint(1, 4) == 1:
+                self.text += "\nA Garnet Fragment rolls out!"
+                return self.actions({'item': "Garnet Fragment"})
+            elif randint(1, 3) == 1:
+                self.text += "\nA Jade Crystal rolls out!"
+                return self.actions({'item': "Jade Crystal"})
+            elif randint(1, 2) == 1:
+                self.text += "\nAn Aquamarine Shard rolls out!"
+                return self.actions({'item': "Aquamarine Shard"})
+            else:
+                self.text += "\nA piece of gold ore rolls out!"
+                return self.actions({'item': "Gold Ore"})
+                
         if "Sliding" in self.c.flags and "Desert Passage" not in self.c.flags:
             self.c.flags['Desert Passage'] = True
             del self.c.flags['Sliding']
@@ -236,6 +257,8 @@ class ScutariPeninsula:
         elif "Desert Passage" in self.c.flags:
             self.text = ("There is a small hole in the mountain.")
             self.menu = ["Crawl through the hole."]
+            if self.c.hasItem("Olympian Ointment"):
+                self.menu.append("Apply Olympian Ointment.")
         else:
             self.imageIndex = 9
             self.text = ("There is a small hole in the mountain, but it is "+
