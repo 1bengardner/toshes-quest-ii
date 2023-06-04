@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: May 22, 2023
+Revised: June 4, 2023
 """
 
 
@@ -72,7 +72,7 @@ class AlbanianDesert:
         wal1 = self.wall1
         wal2 = self.wall2
         geys = self.geyser
-        paca = None if "Oukkar" in self.c.flags['Kills'] or "Plugged Geyser" not in self.c.flags else self.alpaca
+        paca = None if "Volcano Ointment" not in self.c.flags and ("Oukkar" in self.c.flags['Kills'] or "Plugged Geyser" not in self.c.flags) else self.alpaca
         
         
         self.spots = [
@@ -733,6 +733,9 @@ class AlbanianDesert:
         
         if selectionIndex == 0:
             self.c.flags['Plugged Geyser'] = True
+            if "Niplin" in self.c.flags['Kills']:
+                self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
+                self.c.flags['Volcano Ointment'] = True
             X = 2
             Y = 27
             return self.actions({'area': "Albanian Desert",
@@ -767,10 +770,26 @@ class AlbanianDesert:
                 self.text = ("The hot sun still shines mightily.")
                 if self.c.hasMercenary("Qendresa"):
                     self.text += ("\nQendresa: Come, let us continue our quest.")
+        elif "Volcano Ointment" in self.c.flags:
+            self.imageIndex = 31
+            if "Volcano Ointment Aftermath" in self.c.flags:
+                self.text = "You see Yaouw Volcano in the distance."
+            else:
+                self.c.flags['Volcano Ointment Aftermath'] = True
+                self.text = "You apply a jar of Olympian Ointment to the area."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: And what do you think that's gonna do?"
+                self.text += "\nYaouw Volcano re-emerges!"
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += ("\nQendresa: Yaouw!")
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: Wow. Really didn't expect that to work."
         else:
             self.imageIndex = 33
             self.text = ("You stare into the horizon in wonder.")
-            if self.c.hasMercenary("Qendresa"):
+            if self.c.hasItem("Olympian Ointment"):
+                self.menu = ["Apply Olympian Ointment."]
+            elif self.c.hasMercenary("Qendresa"):
                 self.text += random.choice(
                     ["\nQendresa: We have certainly come a long way.",
                      "\nQendresa: What are you thinking about?",
@@ -799,4 +818,7 @@ class AlbanianDesert:
                          "\nIt looks like there is transportation" +
                          " conveniently waiting for you.")
             self.menu = ["Ride the alpaca up to the volcano."]
+        elif "Volcano Ointment" in self.c.flags:
+            self.text = "Alpaca: Wehh..."
+            self.menu = ["Ride the alpaca up to Yaouw Volcano."]
         return self.actions()

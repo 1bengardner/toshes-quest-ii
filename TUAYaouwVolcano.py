@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: June 1, 2023
+Revised: June 4, 2023
 """
 
 import random
@@ -163,9 +163,10 @@ class YaouwVolcano:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.c.flags["Volcano Turn Back"] = True
-        self.text = ("You feel an intense heat from the crevice as you near the summit." +
-                     "\nToshe: I can still turn back now.")
+        self.text = "You feel an intense heat from the crevice as you near the summit."
+        if "Volcano Turn Back" not in self.c.flags:
+            self.c.flags["Volcano Turn Back"] = True
+            self.text += "\nToshe: I can still turn back now."
         return self.actions()
 
     def dropHole(self, selectionIndex=None):

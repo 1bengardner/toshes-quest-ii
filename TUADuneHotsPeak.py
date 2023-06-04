@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: May 29, 2023
+Revised: June 4, 2023
 """
 
 import random
@@ -262,15 +262,15 @@ class DuneHotsPeak:
                     "Fall"])
             }
             secondRoll = self.roll()
-            if self.c.hasMercenary("Qendresa") and secondRoll > 70:
+            if self.c.hasMercenary("Qendresa") and secondRoll > 80:
                 self.text += ("\n%s: Proceed. However, we must keep quiet." % "Qendresa")
-            if self.c.hasMercenary("Qendresa") and self.c.hasMercenary("Barrie") and 70 < secondRoll < 90:
+            if self.c.hasMercenary("Qendresa") and self.c.hasMercenary("Barrie") and 80 < secondRoll < 90:
                 self.text += ("\n%s: My lips are sealed." % "Barrie")
-            if self.c.hasMercenary("Qendresa") and 71 > secondRoll > 50:
+            if self.c.hasMercenary("Qendresa") and 81 > secondRoll > 60:
                 self.text += ("\n%s: Careful. Slow feet will help keep our balance." % "Qendresa")
-            if self.c.hasMercenary("Qendresa") and self.c.hasMercenary("Barrie") and secondRoll < 51:
+            if self.c.hasMercenary("Qendresa") and self.c.hasMercenary("Barrie") and secondRoll < 81:
                 self.text += ("\n%s: I'm on my tippy-toes!" % "Barrie")
-            if self.c.hasMercenary("Qendresa") and secondRoll < 25:
+            if self.c.hasMercenary("Qendresa") and secondRoll < 20:
                 self.text += ("\n%s: Softly. We must not make any sound." % "Qendresa")
             if secondRoll < 15:
                 self.text += "\nToshe: Sh-shit!"
