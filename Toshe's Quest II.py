@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 3, 2023
+Revised: June 4, 2023
 """
 
 
@@ -2051,7 +2051,7 @@ class BottomRightFrame:
         self.menuBox.bind_all('4', self.selectChoice)
 
     def selectChoice(self, event=None):
-        if self.menuBox['state'] != DISABLED:
+        if self.menuBox['state'] != DISABLED and event.char:
             tempSelection = self.menuBox.curselection()
             self.menuBox.selection_clear(0, 'end')
             self.menuBox.selection_set(int(event.char)-1)
@@ -2062,7 +2062,7 @@ class BottomRightFrame:
                 self.menuBox.selection_set(int(tempSelection[0]))
 
     def selectSkill(self, event=None):
-        if self.menuBox['state'] != DISABLED:
+        if self.menuBox['state'] != DISABLED and event.char:
             tempSelection = self.menuBox.curselection()
             self.menuBox.selection_clear(0, 'end')
             self.menuBox.selection_set(int(event.char)-1)
