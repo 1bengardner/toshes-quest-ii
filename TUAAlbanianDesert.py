@@ -787,7 +787,7 @@ class AlbanianDesert:
         else:
             self.imageIndex = 33
             self.text = ("You stare into the horizon in wonder.")
-            if self.c.hasItem("Olympian Ointment"):
+            if self.c.hasItem("Olympian Ointment") and "Volcano Ointment" not in self.c.flags:
                 self.menu = ["Apply Olympian Ointment."]
             elif self.c.hasMercenary("Qendresa"):
                 self.text += random.choice(

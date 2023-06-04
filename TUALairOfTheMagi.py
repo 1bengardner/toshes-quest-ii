@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: May 28, 2023
+Revised: June 4, 2023
 """
 
 
@@ -223,6 +223,9 @@ class LairOfTheMagi:
             self.text = "You reach the palace entrance and see four spires atop its face."
             if self.c.hasMercenary("Barrie"):
                 self.text += "\nBarrie: It's go time, baby."
+        elif "Teleporting" in self.c.flags:
+            del self.c.flags['Teleporting']
+            self.text = "You enter the teleporter and find yourself at the entrance to the lair."
         else:
             self.text = "You reach the entrance to the lair."
 
@@ -688,7 +691,12 @@ class LairOfTheMagi:
         self.helpText = None
         self.menu = []
 
-        if "Lair Archmages" not in self.c.flags:
+        if selectionIndex == 1 or selectionIndex == 0 and "Palace Ointment" in self.c.flags:
+            X = 3
+            Y = 1
+            return self.actions({'area': "Lair of the Magi",
+                                 'coordinates': (X, Y)})
+        elif "Lair Archmages" not in self.c.flags:
             self.tempFlag = "Lair Archmages"
             self.text = "You slip through the sewer hole below and fall into a torchlit chamber several feet below. You are flanked by prison cells containing captive high wizards."
             if self.c.hasMercenary("Qendresa"):
@@ -754,13 +762,12 @@ class LairOfTheMagi:
                 "You look for holes in the cell wall to attempt a break-in, but find nothing.",
                 "Before you strike the cell bars once more, an archmage speaks.\nArchmage: It is no use. Perhaps you shall find a way out for yourself and alert others."
             ])
-        elif selectionIndex == 1:
-            X = 3
-            Y = 1
-            return self.actions({'area': "Lair of the Magi",
-                                 'coordinates': (X, Y)})
 
-        if "Time Wizard" in self.c.flags:
+        if "Palace Ointment" in self.c.flags:
+            self.menu = [
+                "Enter the next chamber."
+            ]
+        elif "Time Wizard" in self.c.flags:
             self.menu = [
                 "Attempt to free the archmages again.",
                 "Enter the next chamber."
@@ -915,18 +922,55 @@ class LairOfTheMagi:
                     self.text = "You find %s!" % armour
                     self.menu = ["Explore the throne room."]
                     return self.actions({'item': armour})
+                elif "Palace Ointment" in self.c.flags:
+                    self.c.flags['Touincounter'] = True
+                    self.view = "battle"
+                    if self.roll(30) == 1:
+                        self.text = "As you explore the throne room, you notice the ground emitting a deep rumble."
+                        return self.actions({'enemy': "Dougou",
+                                             'mercenaries': self.c.mercenaries})
+                    else:
+                        self.text = "You look around the throne room and hear footsteps getting louder. A guard rushes in."
+                        if "Last Guard Fight" in self.c.flags and self.c.flags['Last Guard Fight'] == "Touin DePenk":
+                            guard = "Wonnen Daztinque"
+                        else:
+                            guard = "Touin DePenk"
+                        self.c.flags['Last Guard Fight'] = guard
+                        phrase = random.choice([
+                            "Trying to mess with the teleporter, eh?",
+                            "You're cornered. There's no escape!",
+                            "Trying to get out? You'll feel this one for sure!",
+                            "You can't leave if I snatch you up!",
+                            "You won't be able to move after I rip you open.",
+                        ])
+                        self.text += "\n%s: %s" % (guard.split(" ")[0], phrase)
+                        return self.actions({'enemy': guard,
+                                             'mercenaries': self.c.mercenaries})
                 else:
                     X = 9
                     Y = 2
                     return self.actions({'area': "Lair of the Magi",
                                          'coordinates': (X, Y)})
+            elif selectionIndex == 1 and "Teleporter" in self.c.flags:
+                self.c.flags['Teleporting'] = True
+                X = 5
+                Y = 19
+                return self.actions({'area': "Lair of the Magi",
+                                     'coordinates': (X, Y)})
             elif selectionIndex == 1:
                 self.text = "You search the throne room for interesting artifacts. Every decoration seems cursed."
                 if self.c.hasMercenary("Qendresa"):
                     self.text += "\nQendresa: Come, Toshe. Let us proceed."
                 elif self.c.hasMercenary("Barrie"):
                     self.text += "\nBarrie: You did it, bud. Now let's get a move on."
-            if "Niplin's Armour" in self.c.flags:
+            if "Palace Ointment" in self.c.flags:
+                self.menu = ["Explore the throne room."]
+                if "Touincounter" in self.c.flags:
+                    if "Teleporter" not in self.c.flags:
+                        self.c.flags['Teleporter'] = True
+                        self.text = "You notice a teleporter in the corner of the room."
+                    self.menu.append("Teleport out.")
+            elif "Niplin's Armour" in self.c.flags:
                 self.menu = ["Explore the throne room."]
             else:
                 self.menu = [

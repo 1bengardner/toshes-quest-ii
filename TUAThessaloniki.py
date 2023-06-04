@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: April 27, 2023
+Revised: June 4, 2023
 """
 
 
@@ -361,8 +361,27 @@ class Thessaloniki:
             Y = 1
             return self.actions({'area': "Thessaloniki",
                                  'coordinates': (X, Y)})
-        
-        if "Niplin" in self.c.flags['Kills']:
+
+        if selectionIndex == 2 or "Palace Ointment" in self.c.flags:
+            self.menu = [
+                "Enter Niplin's Lair.",
+                "Head back."
+            ]
+            self.imageIndex = 26
+            if "Palace Ointment" in self.c.flags:
+                self.text = "You see Niplin's Lair across the river with a bridge leading to it."
+            else:
+                self.c.flags['Palace Ointment'] = True
+                self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
+                self.text = "You pour a jar of Olympian Ointment into the river."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: Toshe, what are you thinking, man?"
+                self.text += "\nThe bridge to Niplin's Lair rises from the water!"
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += "\nQendresa: Brilliant."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: Ok, that happened."
+        elif "Niplin" in self.c.flags['Kills']:
             self.imageIndex = 24
             if selectionIndex is None:
                 if "Gargoyle Trip" not in self.c.flags:
@@ -393,6 +412,8 @@ class Thessaloniki:
                             self.text += "\nFang growls softly."
                     else:
                         self.text += "\nToshe: The world is a better place now."
+                    if self.c.hasItem("Olympian Ointment") and "Palace Ointment" not in self.c.flags and self.c.specialization is not None:
+                        self.menu.append("Apply Olympian Ointment.")
         elif False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed", "Vismurg"]]:
             self.menu = [
                 "Enter the palace.",
@@ -482,7 +503,8 @@ class Thessaloniki:
                 self.text += "\nQendresa: It seems that a mage-like force is obstructing us. Bear with me...perhaps we can combat magic with magic? Pristina is brimming with wizardry. We may be able to find help there."
 
         if selectionIndex == 0:
-            if "Niplin" not in self.c.flags['Kills'] and "All Beacons Lit" in self.c.flags:
+            if ("Niplin" not in self.c.flags['Kills'] and "All Beacons Lit" in self.c.flags
+                or "Palace Ointment" in self.c.flags):
                 X = 5
                 Y = 19
                 return self.actions({'area': "Lair of the Magi",
