@@ -2,7 +2,7 @@
 File: TUACredits.py
 Author: Ben Gardner
 Created: December 30, 2015
-Revised: April 27, 2023
+Revised: June 3, 2023
 """
 
 
@@ -49,6 +49,7 @@ class Credits:
         self.text = None
         self.helpText = None
         self.menu = []
+        self.c.flags['Credits'] = True
         if selectionIndex == 0:
             X = 5
             Y = 3

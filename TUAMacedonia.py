@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: May 22, 2023
+Revised: June 3, 2023
 """
 
 
@@ -665,11 +665,50 @@ class Macedonia(object):
                          " am willing to pay it.")
             self.menu = ["Continue."]
 
-        elif ("Conclusion" in self.c.flags):
+        elif ("Conclusion" in self.c.flags and "Credits" not in self.c.flags):
             X = 1
             Y = 1
             return self.actions({'area': "Credits",
                                  'coordinates': (X, Y)})
+
+        elif ("Conclusion" in self.c.flags):
+            if selectionIndex == 0:
+                if "Macedonia Ointment" in self.c.flags:
+                    self.view = "battle"
+                    self.imageIndex = 14
+                    del self.c.flags['Macedonia Ointment']
+                    self.text = "You enter the sanctum and encounter a Will-o'-Wisp!"
+                    return self.actions({'enemy': "Will o Wisp",
+                                         'mercenaries': self.c.mercenaries,})
+                else:
+                    X = 1
+                    Y = 1
+                    return self.actions({'area': "Credits",
+                                         'coordinates': (X, Y)})
+            elif selectionIndex == 1 or "Macedonia Ointment" in self.c.flags:
+                if selectionIndex == 1:
+                    self.c.flags['Macedonia Ointment'] = True
+                    self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
+                    self.text = "You apply a jar of Olympian Ointment to the Stone of Macedonia."
+                    self.text += "\nIt returns to its original vibrant hue. It begins to shake, pulling itself apart to reveal what appears to be an inner sanctum."
+                    if "Inner Sanctum" not in self.c.flags:
+                        self.c.flags['Inner Sanctum'] = True
+                        self.text += "\nToshe: Holy fuck."
+                else:
+                    self.text = "You approach the Stone of Macedonia, now with a door leading to its inner sanctum."
+                self.imageIndex = 14
+                self.menu = ["Enter the sanctum."]
+            else:
+                self.text = ("Toshe: This tired stone is all that's left.")
+                if self.c.hasMercenary("Barrie"):
+                    self.text += ("\nBarrie: Toshe, you alright, bud? That sounded way too poetic for you.")
+                    if self.c.hasMercenary("Qendresa"):
+                        self.text += ("\nQendresa: There is no greater love than for one's homeland.")
+                    else:
+                        self.text += ("\nToshe: Shut the fuck up. I love Macedonia.")
+                self.menu = ["Proceed to Credits."]
+                if self.c.hasItem("Olympian Ointment"):
+                    self.menu.append("Apply Olympian Ointment.")
 
         else:
             X = 3

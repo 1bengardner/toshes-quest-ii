@@ -608,23 +608,6 @@ class Main:
                                 'text': "",
                                 'mercenaries': self.character.mercenaries,
                                 'image index': -999,}
-            if enemyIdentifier == "Will o Wisp":
-                enemy = random.choice(filter(lambda enemy: enemy.FLEEABLE and not enemy.UNIQUE and enemy.MUSIC is None, self.enemies.itervalues()))
-                factor = float(self.character.level) / enemy.LEVEL
-                interfaceActions['enemy'] = enemy.IDENTIFIER
-                interfaceActions['flash'] = True
-                interfaceActions['enemy modifiers'] = {
-                    'Multiplicative': True,
-                    'Stats': {
-                        'LEVEL': self.character.level,
-                        'XP': factor ** 1.5 * 8,
-                        'maxHp': factor ** 2.2 * 5,
-                        'damage': factor * 1.2,
-                        'defence': factor,
-                    },
-                }
-            elif enemyIdentifier == "Gigantic Crayons":
-                interfaceActions['flash'] = True
             if self.currentArea.name == "Macedonia":
                 del interfaceActions['mercenaries']
         else:
@@ -701,6 +684,24 @@ class Main:
                 self.sound.playSound(self.sound.sounds['Sleep'])
             return self.getInterfaceActions()
         elif interfaceActions['view'] == "battle":
+            if interfaceActions['enemy'] == "Will o Wisp":
+                enemyIdentifier = "Will o Wisp"
+                enemy = random.choice(filter(lambda enemy: enemy.FLEEABLE and not enemy.UNIQUE and enemy.MUSIC is None, self.enemies.itervalues()))
+                factor = float(self.character.level) / enemy.LEVEL
+                interfaceActions['enemy'] = enemy.IDENTIFIER
+                interfaceActions['flash'] = True
+                interfaceActions['enemy modifiers'] = {
+                    'Multiplicative': True,
+                    'Stats': {
+                        'LEVEL': self.character.level,
+                        'XP': factor ** 1.5 * 8,
+                        'maxHp': factor ** 2.2 * 5,
+                        'damage': factor * 1.2,
+                        'defence': factor,
+                    },
+                }
+            elif interfaceActions['enemy'] == "Gigantic Crayons":
+                interfaceActions['flash'] = True
             interfaceActions['menu'] = None
             mercenaries = []
             # Mercenaries must explicitly be added to interfaceActions

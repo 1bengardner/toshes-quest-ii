@@ -2385,16 +2385,16 @@ def clearItemStats(frame, store):
     frame.itemElementLabel['text'] = ""
 
 
-def flash():
+def flash(showMap):
     frame = window.topFrame.topCenterFrame
-    frame.areaButton['image'] = battleImage
     frame.map.grid_remove()
     frame.areaButton.grid()
     root.update()
     for i in range(0, 5):
         frame.areaButton.flash()
-    frame.areaButton.grid_remove()
-    frame.map.grid()
+    if showMap:
+        frame.areaButton.grid_remove()
+        frame.map.grid()
 
 
 def updateInterface(updates):
@@ -2411,7 +2411,8 @@ def updateInterface(updates):
     topRightFrame = window.topFrame.topRightFrame
     topCenterFrame = window.topFrame.topCenterFrame
     bottomLeftFrame = window.bottomFrame.bottomLeftFrame
-        
+    
+    areaButtonVisible = False
     if ('image index' in updates) and (updates['image index'] is not None):
         areaName = main.currentArea.name
         def fetchAreaImage(image):
@@ -2425,8 +2426,8 @@ def updateInterface(updates):
                 areaImages[areaName][updates['image index']]
             topCenterFrame.areaButton.grid()
             topCenterFrame.map.grid_remove()
+            areaButtonVisible = True
         except TclError:
-            #topCenterFrame.areaButton['image'] = welcomeImage
             topCenterFrame.areaButton.grid_remove()
             topCenterFrame.map.grid()
 
@@ -2608,11 +2609,14 @@ def updateInterface(updates):
     if ('flash' in updates):
         lastState = topCenterFrame.areaButton['state']
         lastCommand = topCenterFrame.areaButton['command']
+        lastImage = topCenterFrame.areaButton['image']
         topCenterFrame.areaButton['state'] = NORMAL
         topCenterFrame.areaButton['command'] = None
-        flash()
-        topCenterFrame.areaButton['state'] = lastState
+        topCenterFrame.areaButton['image'] = battleImage
+        flash(not areaButtonVisible)
+        topCenterFrame.areaButton['image'] = lastImage
         topCenterFrame.areaButton['command'] = lastCommand
+        topCenterFrame.areaButton['state'] = lastState
         
 
 def enableTravelView():
