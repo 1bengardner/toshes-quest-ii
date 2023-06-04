@@ -2,7 +2,7 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: December 6, 2022
+Revised: June 4, 2023
 """
 
 
@@ -346,8 +346,16 @@ class HercegBluffs:
             X = 3
             Y = 11
             return self.actions({'area': "Golem Cavern: Floor 1",
-                                 'coordinates': (X, Y)})            
-            
+                                 'coordinates': (X, Y)})
+        elif selectionIndex == 1:
+            self.imageIndex = 34
+            self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
+            self.text = "You apply a jar of Olympian Ointment to the cave."
+            self.text += "\nThe nearby earth begins to shake and morphs into a Psionic Beast!"
+            self.view = "battle"
+            return self.actions({'enemy': "Psionic Beast",
+                                 'mercenaries': self.c.mercenaries,})
+
         if "Moved Boulders" not in self.c.flags:
             self.c.flags['Vismurg Entrance Found'] = True
             self.text = ("There is a large cave in the mountainside. The "+
@@ -378,6 +386,8 @@ class HercegBluffs:
             self.menu = ["Cast Avalanche."]
         elif "Moved Boulders" in self.c.flags:
             self.menu = ["Enter the cave."]
+            if self.c.hasItem("Olympian Ointment"):
+                self.menu.append("Apply Olympian Ointment.")
 
         return self.actions()
 
