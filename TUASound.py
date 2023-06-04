@@ -99,6 +99,8 @@ class Sound:
                        "Failed Upgrade": "FX-Ground",
                        "Specialize": "FX-Frolic",
                        "100 Ascensions": "FX-Gracious",
+                       "Bolster Attack": "FX-Danger",
+                       "Bolster Defence": "FX-Morph",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)

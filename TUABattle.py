@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 3, 2023
+Revised: June 4, 2023
 """
 
 
@@ -989,7 +989,10 @@ class Battle(object):
         if "Golden Fur" in flags:
             flags.remove("Golden Fur")
             flags.add("Golden Fur Active")
-            
+            self.sounds.append({
+                "Name": "Bolster Defence",
+                "Panning": self.getPanning(target)})
+
         if "Silvio Defending" in flags:
             pass
         elif "Silvio Defending Active" in flags:
@@ -1035,6 +1038,9 @@ class Battle(object):
         if "Hiding" in flags:
             flags.remove("Hiding")
             flags.add("Hiding Active")
+            self.sounds.append({
+                "Name": "Bolster Defence",
+                "Panning": self.getPanning(target)})
 
         if "Aggression Active" in flags and "Aggression" not in flags:
             self.text += target.NAME+" returned to guarding position.\n"
@@ -1044,6 +1050,9 @@ class Battle(object):
         if "Aggression" in flags:
             flags.remove("Aggression")
             flags.add("Aggression Active")
+            self.sounds.append({
+                "Name": "Bolster Attack",
+                "Panning": self.getPanning(target)})
 
         if "Homing Active" in flags and "Homing" not in flags:
             self.text += target.NAME+" stopped homing.\n"
@@ -1058,6 +1067,9 @@ class Battle(object):
             flags.add("Recovering")
             if "Recovering Active" in flags:
                 flags.remove("Recovering Active")
+            self.sounds.append({
+                "Name": "Bolster Attack",
+                "Panning": self.getPanning(target)})
 
         if "Escaping 2" in flags and False not in [
             flag not in flags for flag in [
@@ -1076,6 +1088,9 @@ class Battle(object):
             flags.remove("Escaping")
             flags.add("Escaping Active")
             flags.add("Auto Avoid")
+            self.sounds.append({
+                "Name": "Bolster Defence",
+                "Panning": self.getPanning(target)})
 
         if "Regenerating 2" in flags:
             self.text += target.NAME+" is regenerating.\n"
@@ -1102,6 +1117,9 @@ class Battle(object):
         if "Winding Up" in flags:
             flags.remove("Winding Up")
             flags.add("Winding Up Active")
+            self.sounds.append({
+                "Name": "Bolster Attack",
+                "Panning": self.getPanning(target)})
 
         if "Bloody Socket Active" in flags:
             flags.remove("Bloody Socket Active")
