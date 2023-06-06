@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: June 4, 2023
+Revised: June 5, 2023
 """
 
 
@@ -179,6 +179,11 @@ class HiddenPassage:
                 self.text = ("Gan: Toshe, you are ready now." +
                              " Go right when you are prepared to ascend.")
                 self.c.flags['Animal Ascension'] = True
+            elif len(self.c.flags['Animal Powers']) == 5 and "Got Sigil" not in self.c.flags:
+                self.c.flags['Got Sigil'] = True
+                self.text = ("Gan: You are a true hero.")
+                self.text += "\nGan gives you the Sigil of Ascension!"
+                return self.actions({'item': "Sigil of Ascension"})
             elif len(self.c.flags['Animal Powers']) == 5:
                 self.text = ("Gan: True power is a lifelong quest.")
             else:
@@ -381,8 +386,6 @@ class HiddenPassage:
                              " energy flows into you.")
                 self.c.flags['Animal Powers']['Giant Scarab2'] = 1
                 animal = "Scarab"
-            if len(self.c.flags['Animal Powers']) == 5:
-                self.c.flags['Fully Ascended'] = True
             return self.actions({'skill': "%s %s" % (animal, suffix),
                                  'cost': 0,
                                  'save': True})

@@ -1407,6 +1407,8 @@ class Battle(object):
             self.mainCharacter.flags['Kills'][self.enemy.IDENTIFIER] += 1
             if self.mainCharacter.specialization is not None:
                 self.mainCharacter.sp += 1
+                if self.mainCharacter.hasItem("Sigil of Ascension"):
+                    self.mainCharacter.sp += 4
             if self.enemy.IDENTIFIER == "Will o Wisp" and "Labyrinth Size" in self.mainCharacter.flags:
                 self.mainCharacter.flags['Labyrinth Size'] -= 1
             if self.mainCharacter.hasItem("The good stuff!") and self.roll(15) == 1:
