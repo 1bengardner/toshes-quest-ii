@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-#Toshe's Underwater Adventures 1.1
+#Toshe's Underwater Adventures 2.1
 
 """
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 4, 2023
+Revised: June 6, 2023
 """
 
 
@@ -1066,11 +1066,7 @@ class TopCenterFrame:
         if eventActions is not None:
             interfaceActions.update(eventActions)
             stateChanged = True
-        # We must clear missions when reloading
-        window.rightFrame.clearMissions()
-        updateInterface(interfaceActions)
-
-        # We must clear again so that new missions from updateInterface() are not shown twice
+        updateInterface(interfaceActions, True)
         window.rightFrame.clearMissions()
         for quest in main.character.quests:
             window.rightFrame.addMission(quest, pushToTop=False)
@@ -2397,11 +2393,14 @@ def flash(showMap):
         frame.map.grid()
 
 
-def updateInterface(updates):
+def updateInterface(updates, skipQuests=False):
     """Update the interface to reflect current game events.
 
     actions is a dictionary that may contain updates to the textbox, menu,
     center image, or current view.
+    
+    skipQuests is a hacky workaround for updating the interface before quests
+    are loaded in.
     """
 
     global hitBoxes
@@ -2462,7 +2461,7 @@ def updateInterface(updates):
             hasSpecializedUp = True
             if not updates['text']:
                 updates['text'] = ""
-            updates['text'] += "\nToshe is now %s %s rank %s!" % (
+            updates['text'] += "\nToshe is now %s %s, rank %s!" % (
                 "an" if main.character.specialization[0]
                     in ("A", "E", "I", "O", "U") else "a",
                 main.character.specialization,
@@ -2590,20 +2589,21 @@ def updateInterface(updates):
         hitBoxTriggers = []
     if updates['view'] == "forge":
         topRightFrame.resetForge()
-    if ('new quest' in updates):
-        window.rightFrame.addMission(updates['new quest'])
-        window.gridQuestFrame("MISSION!")
-        if not topRightFrame.showMissionLog.get():
-            topRightFrame.logButton.invoke()
-    if ('completed quest' in updates):
-        window.rightFrame.markMission(updates['completed quest'])
-    if ('uncompleted quests' in updates):
-        for quest in updates['uncompleted quests']:
-            window.rightFrame.unmarkMission(quest)
-    if ('remove quest' in updates):
-        window.rightFrame.removeMission(updates['remove quest'])
-        window.gridQuestFrame("MISSION\nCOMPLETE!")
-    window.rightFrame.updateMissions()
+    if not skipQuests:
+        if ('new quest' in updates):
+            window.rightFrame.addMission(updates['new quest'])
+            window.gridQuestFrame("MISSION!")
+            if not topRightFrame.showMissionLog.get():
+                topRightFrame.logButton.invoke()
+        if ('completed quest' in updates):
+            window.rightFrame.markMission(updates['completed quest'])
+        if ('uncompleted quests' in updates):
+            for quest in updates['uncompleted quests']:
+                window.rightFrame.unmarkMission(quest)
+        if ('remove quest' in updates):
+            window.rightFrame.removeMission(updates['remove quest'])
+            window.gridQuestFrame("MISSION\nCOMPLETE!")
+        window.rightFrame.updateMissions()
     topRightFrame.updateOtherStats()
     requireExitConfirmation(True)
     if ('flash' in updates):
