@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 4, 2023
+Revised: June 6, 2023
 """
 
 
@@ -53,7 +53,7 @@ from TUAPresidentialPath import PresidentialPath
 from TUAOldRuins import OldRuins
 from TUARomadanVillage import RomadanVillage
 from TUARomadanHideout import RomadanHideout
-from TUABerlusconiCastle import BerlusconiCastle
+from TUAGambinoCastle import GambinoCastle
 from TUAHiddenPassage import HiddenPassage
 from TUAGreece import Greece
 from TUAAthens import Athens
@@ -254,7 +254,7 @@ class Main:
                       'Old Ruins': OldRuins,
                       'Romadan Village': RomadanVillage,
                       'Romadan Hideout': RomadanHideout,
-                      'Berlusconi Castle': BerlusconiCastle,
+                      'Gambino Castle': GambinoCastle,
                       'Hidden Passage': HiddenPassage,
                       'Greece': Greece,
                       'Athens': Athens,

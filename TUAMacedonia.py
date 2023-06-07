@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: June 3, 2023
+Revised: June 6, 2023
 """
 
 
@@ -60,7 +60,7 @@ class Macedonia(object):
             ]
 
         if ( "Dark Voice 3" in self.c.flags and
-             "Silvio Slain" not in self.c.flags):
+             "Giacomo Slain" not in self.c.flags):
             self.audio = "Castle Stronghold"
         elif ("Demon Slayer" in self.c.flags):
             self.audio = "Wrathful Warrior"
@@ -514,15 +514,15 @@ class Macedonia(object):
                 return self.actions({'area': "Macedonia",
                                      'coordinates': (X, Y)})
 
-        elif ("Silvio Slain" not in self.c.flags and
+        elif ("Giacomo Slain" not in self.c.flags and
               "Left Summoner Complete" in self.c.flags and
               "Right Summoner Complete" in self.c.flags):
             
-            if ( "Silvio Macedonia Complete" in self.c.flags and
-                 "Silvio Slain" not in self.c.flags):
-                self.c.flags['Silvio Slain'] = True
+            if ( "Giacomo Macedonia Complete" in self.c.flags and
+                 "Giacomo Slain" not in self.c.flags):
+                self.c.flags['Giacomo Slain'] = True
                 self.view = "battle"
-                return self.actions({'enemy': "Silvio Berlusconi4"})
+                return self.actions({'enemy': "Giacomo Gambino4"})
             
             elif ("Dark Voice 3" not in self.c.flags):
                 self.tempFlag = "Dark Voice 3"
@@ -537,56 +537,56 @@ class Macedonia(object):
                 self.audio = "Castle Stronghold"
                 self.tempFlag = "Dark Voice 4"
                 self.text = ("As he emerges from the fog, you recognize the" +
-                             " pompous gait of none other than Silvio" +
-                             " Berlusconi." +
+                             " pompous gait of none other than Giacomo" +
+                             " Gambino." +
                              "\nToshe: The Italian president?" +
-                             "\nSilvio: The secret is out.")
-                self.menu = ["Ask Silvio what he is doing here.",
-                             "Fight Silvio."]
+                             "\nGiacomo: The secret is out.")
+                self.menu = ["Ask Giacomo what he is doing here.",
+                             "Fight Giacomo."]
                 
-            elif ("Silvio Macedonia 1" not in self.c.flags and
+            elif ("Giacomo Macedonia 1" not in self.c.flags and
                   (selectionIndex == 0 or
-                   "Silvio Macedonia 1-0" in self.c.flags)):
-                self.tempFlag = "Silvio Macedonia 1"
-                self.c.flags['Silvio Macedonia 1-0'] = True
+                   "Giacomo Macedonia 1-0" in self.c.flags)):
+                self.tempFlag = "Giacomo Macedonia 1"
+                self.c.flags['Giacomo Macedonia 1-0'] = True
                 self.text = ("Toshe: What...what are you doing here?" +
-                             "\nSilvio: One of my henchmen informed me of" +
+                             "\nGiacomo: One of my henchmen informed me of" +
                              " your imminent arrival, so I thought I would" +
                              " treat you to a personal visit. One on" +
                              " one. I charge by the hour." +
                              "\nToshe: One of your henchmen?" +
-                             "\nSilvio: What was his name...ah, yes!" +
+                             "\nGiacomo: What was his name...ah, yes!" +
                              " Martian...Marciano!" +
                              "\nToshe: Marciano, that rat bastard!" +
-                             "\nSilvio: Kind of a nuisance, is he not?" +
+                             "\nGiacomo: Kind of a nuisance, is he not?" +
                              "\nToshe: You're the real nuisance here." +
-                             "\nSilvio: Being the important man I am," +
+                             "\nGiacomo: Being the important man I am," +
                              " my time isn't free. If you'd like" +
                              " to cut our talk short, please say so." +
-                             "\nSilvio turns his nose up at you.")
-                self.menu = ["Ask Silvio why he is doing this.",
-                             "Fight Silvio."]
+                             "\nGiacomo turns his nose up at you.")
+                self.menu = ["Ask Giacomo why he is doing this.",
+                             "Fight Giacomo."]
 
-            elif ("Silvio Macedonia 1" not in self.c.flags and
+            elif ("Giacomo Macedonia 1" not in self.c.flags and
                   (selectionIndex == 1 or
-                   "Silvio Macedonia 1-1" in self.c.flags)):
+                   "Giacomo Macedonia 1-1" in self.c.flags)):
                 self.c.flags['New Song'] = "Drat"
-                self.tempFlag = "Silvio Macedonia Complete"
-                self.c.flags['Silvio Macedonia 1-1'] = True
+                self.tempFlag = "Giacomo Macedonia Complete"
+                self.c.flags['Giacomo Macedonia 1-1'] = True
                 self.text = ("Toshe: I'm going to dispose of you like I" +
                              " did your mages." +
-                             "\nSilvio: You ruined my plans once. Now" +
+                             "\nGiacomo: You ruined my plans once. Now" +
                              " I will ruin you.")
                 self.menu = ["Brace yourself."]
 
-            elif ("Silvio Macedonia 2" not in self.c.flags and
+            elif ("Giacomo Macedonia 2" not in self.c.flags and
                   (selectionIndex == 0 or
-                   "Silvio Macedonia 2-0" in self.c.flags)):
-                self.tempFlag = "Silvio Macedonia 2"
-                self.c.flags['Silvio Macedonia 2-0'] = True
+                   "Giacomo Macedonia 2-0" in self.c.flags)):
+                self.tempFlag = "Giacomo Macedonia 2"
+                self.c.flags['Giacomo Macedonia 2-0'] = True
                 self.text = ("Toshe: Why have you brought such destruction" +
                              " to my country?" +
-                             "\nSilvio: Conquering Greater Albania has been a" +
+                             "\nGiacomo: Conquering Greater Albania has been a" +
                              " long and arduous process. As you know, I took" +
                              " Albania with ease. I then infiltrated" +
                              " Greece and imprisoned the president," +
@@ -600,23 +600,23 @@ class Macedonia(object):
                              " this!")
                 self.menu = ["Continue."]
 
-            elif ("Silvio Macedonia 2" not in self.c.flags and
+            elif ("Giacomo Macedonia 2" not in self.c.flags and
                   (selectionIndex == 1 or
-                   "Silvio Macedonia 2-1" in self.c.flags)):
+                   "Giacomo Macedonia 2-1" in self.c.flags)):
                 self.c.flags['New Song'] = "Drat"
-                self.tempFlag = "Silvio Macedonia Complete"
-                self.c.flags['Silvio Macedonia 2-1'] = True
+                self.tempFlag = "Giacomo Macedonia Complete"
+                self.c.flags['Giacomo Macedonia 2-1'] = True
                 self.text = ("Toshe: I'm going to destroy you, you prick." +
-                             "\nSilvio: You will be paying dearly for" +
+                             "\nGiacomo: You will be paying dearly for" +
                              " this visit.")
                 self.menu = ["Brace yourself."]
 
-            elif ("Silvio Macedonia 3" not in self.c.flags and
+            elif ("Giacomo Macedonia 3" not in self.c.flags and
                   (selectionIndex == 0 or
-                   "Silvio Macedonia 3-0" in self.c.flags)):
-                self.tempFlag = "Silvio Macedonia Complete"
-                self.c.flags['Silvio Macedonia 3-0'] = True
-                self.text = ("Silvio: Hahaha! Yes, and to make matters worse" +
+                   "Giacomo Macedonia 3-0" in self.c.flags)):
+                self.tempFlag = "Giacomo Macedonia Complete"
+                self.c.flags['Giacomo Macedonia 3-0'] = True
+                self.text = ("Giacomo: Hahaha! Yes, and to make matters worse" +
                              " for this Macedonian, I made a deal with a" +
                              " soulless ghost, granting him a demonic" +
                              " reincarnation in exchange for the recipe to" +
@@ -624,7 +624,7 @@ class Macedonia(object):
                              " bidding. Now all of my mages can summon at" +
                              " will!" +
                              "\nToshe: Tomas?" +
-                             "\nSilvio: Your brother, if I'm not mistaken." +
+                             "\nGiacomo: Your brother, if I'm not mistaken." +
                              " If you weren't such a simpleton, you could" +
                              " have figured all of this out already. But now" +
                              " it's" +
@@ -636,14 +636,14 @@ class Macedonia(object):
                              " control." +
                              "\nToshe: Македонците се борат," +
                              " за своите правдини!")
-                self.menu = ["Fight Silvio."]
+                self.menu = ["Fight Giacomo."]
 
-        elif ("Silvio Slain" in self.c.flags and
+        elif ("Giacomo Slain" in self.c.flags and
               "Conclusion" not in self.c.flags):
             self.audio = "Daring Feat"
             self.tempFlag = "Conclusion"
             self.text = ("Toshe: It's over. He's dead." +
-                         "\nYou look at Silvio's corpse. You scan" +
+                         "\nYou look at Giacomo's corpse. You scan" +
                          " the rocky Macedonian terrain," +
                          " destroyed." +
                          "\nToshe: What have I done?...I have failed" +
@@ -658,7 +658,7 @@ class Macedonia(object):
                          "\nToshe: Macedonia is liberated...Macedonia is" +
                          " free. Free to live!" +
                          "\nYou rise with fists tightly clenched." +
-                         "\nA tear rolls down your face, landing in Silvio's" +
+                         "\nA tear rolls down your face, landing in Giacomo's" +
                          " blood pool. You look once more at the wreckage" +
                          " that was once your country." +
                          "\nToshe: If this is the price of freedom...then I" +

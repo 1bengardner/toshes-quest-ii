@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 4, 2023
+Revised: June 6, 2023
 """
 
 
@@ -993,21 +993,21 @@ class Battle(object):
                 "Name": "Bolster Defence",
                 "Panning": self.getPanning(target)})
 
-        if "Silvio Defending" in flags:
+        if "Giacomo Defending" in flags:
             pass
-        elif "Silvio Defending Active" in flags:
+        elif "Giacomo Defending Active" in flags:
             self.text += target.NAME+" resumes parrying.\n"
-        elif "Silvio Defending 2" in flags:
+        elif "Giacomo Defending 2" in flags:
             self.text += target.NAME+"'s guard goes down.\n"
-        if "Silvio Defending 2" in flags:
-            flags.remove("Silvio Defending 2")
+        if "Giacomo Defending 2" in flags:
+            flags.remove("Giacomo Defending 2")
             target.defence -= 500
-        if "Silvio Defending Active" in flags:
-            flags.add("Silvio Defending 2")
-            flags.remove("Silvio Defending Active")
-        if "Silvio Defending" in flags:
-            flags.remove("Silvio Defending")
-            flags.add("Silvio Defending Active")
+        if "Giacomo Defending Active" in flags:
+            flags.add("Giacomo Defending 2")
+            flags.remove("Giacomo Defending Active")
+        if "Giacomo Defending" in flags:
+            flags.remove("Giacomo Defending")
+            flags.add("Giacomo Defending Active")
         
         if "Defending Active" in flags and "Defending" not in flags:
             self.text += target.NAME+"'s guard goes down.\n"

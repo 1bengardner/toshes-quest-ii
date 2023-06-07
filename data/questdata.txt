@@ -25,7 +25,7 @@ Gated Content	Get a letter bearing the signature of Mayor Mirko in Herceg Novi f
 The President	Speak to the President of Macedonia.	{'Items': {'Presidential Map': 1}}	Unguarded Gate	Finding President	0	0
 The Key to Macedonia?	Follow the Presidential Map to see where it leads.	{'No Criteria': True}	Took Map	Old Ruins	0	0
 The Quest for Truth	Explore the Old Ruins.	{'Items': {'Macedonian Protector': 1}}	Old Ruins	Old Ruins Complete	0	0
-The Italian Job	Find and defeat Silvio Berlusconi in his castle.	{'Kills': ('Silvio Berlusconi3', 1)}	Silvio Coward 1	Blueprint	0	0
+The Italian Job	Find and defeat Giacomo Gambino in his castle.	{'Kills': ('Giacomo Gambino3', 1)}	Giacomo Coward 1	Blueprint	0	0
 Alternate Plans	Find a way beyond the Greek border.	{'Items': {'Greek Wall Blueprint': 1}}	Greek Wall	Greek Wall Hole	0	0
 Act like you belong	Sneak into the Coliseum.	{'Items': {'Greek Armour': 1, 'Greek Robe': 1}}	Not Disguised	Coliseum	0	0
 I want to be the very best	Win the coliseum.	{'No Criteria': True}	Coliseum	Coliseum Complete	0	0

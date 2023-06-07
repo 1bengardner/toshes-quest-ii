@@ -146,7 +146,7 @@ Spire	Critical Damage	{"All"}	0	150	Earth	{'hp': -100}	{}	has a spire break off 
 Icicle	Critical Damage	{"All"}	0	200	Ice	{'defence': -3}	{}	crumbles and a large icicle falls, striking	None
 Molten Rocks	Multi-Hit Damage	{"All"}	0	3	Fire	{'hp': -100}	{}	breaks and a molten rock falls on	None
 Wind Up	Miscellaneous	{"All"}	0	0	Physical	{'defence': -1200, 'damage': 70, 'cRate': 100}	{}	winds up	Winding Up
-Silvio Defend	Miscellaneous	{"All"}	0	0	Physical	{'defence': 500}	{}	is parrying	Silvio Defending
+Giacomo Defend	Miscellaneous	{"All"}	0	0	Physical	{'defence': 500}	{}	is parrying	Giacomo Defending
 Crystal Explosion Earth	Critical Damage	{"All"}	0	200	Earth	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None
 Crystal Explosion Water	Critical Damage	{"All"}	0	200	Water	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None
 Crystal Explosion Fire	Critical Damage	{"All"}	0	200	Fire	{'physicalReduction': -25}	{}	casts Crystal Explosion on	None

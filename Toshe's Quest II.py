@@ -1762,7 +1762,7 @@ class BottomLeftFrame:
         self.outputBox.tag_config("qendresa", foreground=DARKORANGE)
         self.outputBox.tag_config("barrie", foreground=BLUE)
         self.outputBox.tag_config("tomas tam", foreground=LIGHTRED)
-        self.outputBox.tag_config("silvio", foreground=JADE)
+        self.outputBox.tag_config("giacomo", foreground=JADE)
         self.outputBox.tag_config("niplin", foreground=GREEN)
         self.outputBox.tag_config("riplin", foreground=MAGENTA)
         self.outputBox.insert(END,
@@ -1813,7 +1813,7 @@ class BottomLeftFrame:
         self.outputBox.tag_remove("qendresa", 1.0, END)
         self.outputBox.tag_remove("barrie", 1.0, END)
         self.outputBox.tag_remove("tomas tam", 1.0, END)
-        self.outputBox.tag_remove("silvio", 1.0, END)
+        self.outputBox.tag_remove("giacomo", 1.0, END)
         self.outputBox.tag_remove("niplin", 1.0, END)
         self.outputBox.tag_remove("riplin", 1.0, END)
         self.outputBox['state'] = DISABLED
@@ -2525,7 +2525,7 @@ def updateInterface(updates, skipQuests=False):
                 "qendresa",
                 "barrie",
                 "tomas tam",
-                "silvio",
+                "giacomo",
                 "niplin",
                 "riplin",
             ]:

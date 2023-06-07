@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: June 4, 2023
+Revised: June 6, 2023
 """
 
 
@@ -664,9 +664,9 @@ class AlbanianDesert:
         if selectionIndex == 0:
             X = 1
             Y = 13
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
-        if "Berlusconi Castle" not in self.c.flags:
+        if "Gambino Castle" not in self.c.flags:
             self.text = ("Toshe: Why is there a giant castle in the middle of" +
                          " the desert?")
             if self.c.hasMercenary("Qendresa"):
@@ -674,7 +674,7 @@ class AlbanianDesert:
                               " place of that despicable Italian president.")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: That's a weird place to live.")
-            self.c.flags['Berlusconi Castle'] = True
+            self.c.flags['Gambino Castle'] = True
         self.menu = ["Enter the castle."]
         return self.actions()
 

@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: May 26, 2023
+Revised: June 6, 2023
 """
 
 
@@ -901,7 +901,7 @@ class HercegNovi:
         elif selectionIndex == 1:
             self.imageIndex = 24
             self.view = "battle"
-            if "Silvio Slain" in self.c.flags:
+            if "Giacomo Slain" in self.c.flags:
                 enemy = "Lina3"
             else:
                 enemy = choice(["Lina1", "Lina2"])

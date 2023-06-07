@@ -1,17 +1,17 @@
 """
-File: TUABerlusconiCastle.py
+File: TUAGambinoCastle.py
 Author: Ben Gardner
 Created: July 14, 2015
-Revised: November 23, 2022
+Revised: June 6, 2023
 """
 
 
 import random
 
 
-class BerlusconiCastle:
+class GambinoCastle:
 
-    name = "Berlusconi Castle"
+    name = "Gambino Castle"
     audio = "Castle Stronghold"
 
     def __init__(self, character):
@@ -57,9 +57,9 @@ class BerlusconiCastle:
         lect = self.lectern
         wrp2 = self.warp2
         wrp3 = self.warp3
-        sil1 = self.silvio1
-        sil2 = self.silvio2
-        sil3 = self.silvio3
+        sil1 = self.giacomo1
+        sil2 = self.giacomo2
+        sil3 = self.giacomo3
         
         
         self.spots = [
@@ -156,22 +156,22 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        npc = "Silvio"
+        npc = "Giacomo"
         merc1 = "Qendresa"
-        if "Silvio Berlusconi1" not in self.c.flags['Kills']:
+        if "Giacomo Gambino1" not in self.c.flags['Kills']:
             X = 4
             Y = 1
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
-        elif "Silvio Coward 1" not in self.c.flags:
+        elif "Giacomo Coward 1" not in self.c.flags:
             self.text = ("%s: Oh dear, it's getting late. I am" % npc +
                          " an important man, after all, so I must get" +
                          " back to my business. Hope you have a lovely time" +
                          " in my castle! Hahaha!" +
-                         "\nSilvio vanishes from sight.")
-            self.c.flags['Silvio Coward 1'] = True    
+                         "\nGiacomo vanishes from sight.")
+            self.c.flags['Giacomo Coward 1'] = True    
             if self.c.hasMercenary(merc1):
-                self.text += ("\n%s: We shall find you, Silvio." % merc1 +
+                self.text += ("\n%s: We shall find you, Giacomo." % merc1 +
                               " You shall pay for your crimes against" +
                               " humanity.")
         return self.actions()
@@ -227,7 +227,7 @@ class BerlusconiCastle:
         if selectionIndex == 0:
             X = 2
             Y = 1
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
         self.text = ("You see a set of stairs zigzagging downward.")
         self.menu = ["Descend to the lower level."]
@@ -242,7 +242,7 @@ class BerlusconiCastle:
         if selectionIndex == 0:
             X = 3
             Y = 10
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
         self.text = ("You reach a set of stairs going up.")
         self.menu = ["Ascend to the upper level."]
@@ -270,13 +270,13 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        if "Berlusconi Heat" not in self.c.flags:
+        if "Gambino Heat" not in self.c.flags:
             self.text = ("Toshe: Woah, it's getting hot.")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Woo, boy!")
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: I am quite familiar with the heat.")
-            self.c.flags['Berlusconi Heat'] = True
+            self.c.flags['Gambino Heat'] = True
         return self.actions()
 
     def bend(self, selectionIndex=None):
@@ -301,9 +301,9 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        if "Berlusconi Menacing" not in self.c.flags:
+        if "Gambino Menacing" not in self.c.flags:
             self.text = ("Toshe: These tunnels are menacing.")   
-            self.c.flags['Berlusconi Menacing'] = True         
+            self.c.flags['Gambino Menacing'] = True         
         return self.actions()
 
     def tunnel5(self, selectionIndex=None):
@@ -330,7 +330,7 @@ class BerlusconiCastle:
         self.menu = []
         merc1 = "Qendresa"
         merc2 = "Barrie"
-        if ( "Silvio Berlusconi2" in self.c.flags['Kills'] and
+        if ( "Giacomo Gambino2" in self.c.flags['Kills'] and
              "Lesser Dragon" not in self.c.flags['Kills']):
             self.text = "Toshe: Of course there's a dragon in this dungeon."
             if self.c.hasMercenary(merc1):
@@ -345,15 +345,15 @@ class BerlusconiCastle:
         if selectionIndex == 0:
             self.text = ("You pull down the lever." +
                          "\nThe castle walls rumble.")
-            self.c.flags['Berlusconi Lever Pulled'] = True
-        elif "Berlusconi Lever Pulled" in self.c.flags:
+            self.c.flags['Gambino Lever Pulled'] = True
+        elif "Gambino Lever Pulled" in self.c.flags:
             self.text = ("You enter a room with a pulled down lever" +
                          " protruding from the wall.")
-        elif ( "Silvio Berlusconi2" not in self.c.flags['Kills']):
+        elif ( "Giacomo Gambino2" not in self.c.flags['Kills']):
             self.text = ("You enter a room with a" +
                          " lever in the corner." +
                          "\nToshe: Hmpf. A dead end.")
-        elif "Berlusconi Lever Pulled" not in self.c.flags:
+        elif "Gambino Lever Pulled" not in self.c.flags:
             self.imageIndex = 16
             self.text = ("You enter a room with a lever protruding from the" +
                          " wall.")
@@ -392,8 +392,8 @@ class BerlusconiCastle:
         self.menu = []
         merc1 = "Qendresa"
         if ( self.c.hasMercenary(merc1) and
-             "Silvio Berlusconi2" not in self.c.flags['Kills']):
-            self.text = ("%s: I can sense Silvio's corrupt presence." % merc1)
+             "Giacomo Gambino2" not in self.c.flags['Kills']):
+            self.text = ("%s: I can sense Giacomo's corrupt presence." % merc1)
         return self.actions()
 
     def jailCells(self, selectionIndex=None):
@@ -412,11 +412,11 @@ class BerlusconiCastle:
         elif selectionIndex == 0:
             self.text = ("You smash your weapon against the surprisingly" +
                          " flimsy cell bar. It bends a little bit.")
-            self.c.flags['Berlusconi Prisoners Freed'] += 1
+            self.c.flags['Gambino Prisoners Freed'] += 1
             self.menu = ["Help the prisoners."]
-        elif ( "Berlusconi Prisoners Freed" not in self.c.flags or
-             self.c.flags['Berlusconi Prisoners Freed'] < 3):
-            self.c.flags['Berlusconi Prisoners Freed'] = 0
+        elif ( "Gambino Prisoners Freed" not in self.c.flags or
+             self.c.flags['Gambino Prisoners Freed'] < 3):
+            self.c.flags['Gambino Prisoners Freed'] = 0
             self.text = "%s" % npc + random.choice([
                 "s: Please, help us!",
                 "s: Save our souls!",
@@ -427,7 +427,7 @@ class BerlusconiCastle:
                 ": Get me out of here!"])
             self.menu = ["Help the prisoners."]
             
-        if ( self.c.flags['Berlusconi Prisoners Freed'] == 3 and
+        if ( self.c.flags['Gambino Prisoners Freed'] == 3 and
              "Prisoners Freed" not in self.c.flags):
             self.text += ("\n%ss: Bless your soul!" % npc +
                           "\nThe prisoners break free from the cell.")
@@ -441,11 +441,11 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        if ( "Silvio Berlusconi2" in self.c.flags['Kills'] and
-             "Berlusconi Lever Thought" not in self.c.flags):
+        if ( "Giacomo Gambino2" in self.c.flags['Kills'] and
+             "Gambino Lever Thought" not in self.c.flags):
             self.text = ("Toshe: There's probably a switch that opens" +
                          " up that door.")
-            self.c.flags['Berlusconi Lever Thought'] = True
+            self.c.flags['Gambino Lever Thought'] = True
         return self.actions()
 
     def hall(self, selectionIndex=None):
@@ -473,21 +473,21 @@ class BerlusconiCastle:
         return self.actions()
 
     def warp2(self, selectionIndex=None):
-        if "Berlusconi Lever Pulled" not in self.c.flags:
+        if "Gambino Lever Pulled" not in self.c.flags:
             X = 1
             Y = 16
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
         else:
             X = 5
             Y = 11
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
 
     def warp3(self, selectionIndex=None):
         X = 5
         Y = 15
-        return self.actions({'area': "Berlusconi Castle",
+        return self.actions({'area': "Gambino Castle",
                              'coordinates': (X, Y)})
 
     def archway1(self, selectionIndex=None):
@@ -496,20 +496,20 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        npc = "Silvio"
+        npc = "Giacomo"
         merc1 = "Qendresa"
-        if "Silvio Berlusconi2" not in self.c.flags['Kills']:
+        if "Giacomo Gambino2" not in self.c.flags['Kills']:
             X = 4
             Y = 3
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
-        elif "Silvio Coward 2" not in self.c.flags:
+        elif "Giacomo Coward 2" not in self.c.flags:
             self.text = ("%s: Well, it was nice getting to know" % npc +
                          " one another. I really must go now."
-                         "\nSilvio escapes into his chamber. The" +
+                         "\nGiacomo escapes into his chamber. The" +
                          " large stone door slams shut behind him." +
                          "\nToshe: Come out, you fucking pussy!")
-            self.c.flags['Silvio Coward 2'] = True    
+            self.c.flags['Giacomo Coward 2'] = True    
             if self.c.hasMercenary(merc1):
                 self.text += ("\n%s: He cannot hide forever." % merc1)
         return self.actions()
@@ -520,9 +520,9 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        if "Berlusconi Door Opened" not in self.c.flags:
+        if "Gambino Door Opened" not in self.c.flags:
             self.text = ("Toshe: Looks like that lever did something good.")
-            self.c.flags['Berlusconi Door Opened'] = True            
+            self.c.flags['Gambino Door Opened'] = True            
         return self.actions()
 
     def doorway(self, selectionIndex=None):
@@ -531,8 +531,8 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        npc = "Silvio"
-        if "Silvio Berlusconi3" not in self.c.flags['Kills']:
+        npc = "Giacomo"
+        if "Giacomo Gambino3" not in self.c.flags['Kills']:
             self.text = ("%s: Oops! I forgot to feed the dragon again!" % npc)
         return self.actions()
 
@@ -542,30 +542,30 @@ class BerlusconiCastle:
         self.text = None
         self.helpText = None
         self.menu = []
-        npc = "Silvio"
+        npc = "Giacomo"
         merc1 = "Qendresa"
         merc2 = "Barrie"
-        if "Silvio Berlusconi3" not in self.c.flags['Kills']:
+        if "Giacomo Gambino3" not in self.c.flags['Kills']:
             X = 4
             Y = 5
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
         elif selectionIndex == 0:
             self.text = ("You find the Greek Wall Blueprint!" +
                          "\nToshe: Why would he have this?")
             self.c.flags['Blueprint'] = True
             return self.actions({'item': "Greek Wall Blueprint"})
-        elif "Silvio Coward 3" not in self.c.flags:
+        elif "Giacomo Coward 3" not in self.c.flags:
             self.text = ("%s: Albania is already mine." % npc +
                          " I cannot be stopped! Hahahaha!"
-                         "\nSilvio disappears in a puff of smoke." +
+                         "\nGiacomo disappears in a puff of smoke." +
                          "\nToshe: ...What was he talking about?")
-            self.c.flags['Silvio Coward 3'] = True
+            self.c.flags['Giacomo Coward 3'] = True
             if self.c.hasMercenary(merc2):
                 self.text += ("\n%s: Does he think he can conquer" % merc2 +
                               " the world or somethin'?")
             if self.c.hasMercenary(merc1):
-                self.text += ("\n%s: It sounds like Silvio has larger" % merc1 +
+                self.text += ("\n%s: It sounds like Giacomo has larger" % merc1 +
                               " plans. We must stop him before it's too late.")
             self.text += ("\nYou notice a scroll on the lectern.")
             self.menu = ["Take the scroll."]
@@ -574,25 +574,25 @@ class BerlusconiCastle:
             self.menu = ["Take the scroll."]
         return self.actions()
 
-    def silvio1(self, selectionIndex=None):
+    def giacomo1(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 0
         self.text = None
         self.helpText = None
         self.menu = []
         npc = "Man"
-        npcU = "Silvio"
+        npcU = "Giacomo"
         merc1 = "Qendresa"
         merc2 = "Barrie"
         if selectionIndex == 0:
-            self.c.flags['Met Silvio'] = True
+            self.c.flags['Met Giacomo'] = True
             self.view = "battle"
-            return self.actions({'enemy': "Silvio Berlusconi1",
+            return self.actions({'enemy': "Giacomo Gambino1",
                                  'mercenaries': self.c.mercenaries})
-        elif "Silvio Berlusconi1" in self.c.flags['Kills']:
+        elif "Giacomo Gambino1" in self.c.flags['Kills']:
             X = 1
             Y = 13
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
 
         self.c.flags['New Song'] = "Drat"
@@ -600,7 +600,7 @@ class BerlusconiCastle:
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: Welcome to my castle." % npc +
                          "\nToshe: Thank you. Who are you?" +
-                         "\n%s: I am Silvio." % npcU +
+                         "\n%s: I am Giacomo." % npcU +
                          "\nToshe: The Italian president?" +
                          "\n%s: You must have seen me on TV! This must" % npcU +
                          " be exciting for you." +
@@ -612,7 +612,7 @@ class BerlusconiCastle:
                          " I'll make it exciting just for you.")            
         elif self.c.hasMercenary(merc1):
             self.text = ("%s: Welcome to my castle, friends!" % npc +
-                         "\n%s: Silence, Silvio! You brought war to a" % merc1 +
+                         "\n%s: Silence, Giacomo! You brought war to a" % merc1 +
                          " once-peaceful country. You are the reason" +
                          " my homeland is in ruin!" +
                          "\n%s: Feisty little Albanian. All that" % npcU +
@@ -626,29 +626,29 @@ class BerlusconiCastle:
                          "\n%s: Hahaha! Very well, very well." % npcU)
         if self.c.hasMercenary(merc2):
             self.text += ("\n%s: Quit stalling and fight already!" % merc2)
-        self.text += ("\nSilvio advances toward you.")
+        self.text += ("\nGiacomo advances toward you.")
         
         return self.actions()
 
-    def silvio2(self, selectionIndex=None):
+    def giacomo2(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 28
         self.text = None
         self.helpText = None
         self.menu = []
-        npc = "Silvio"
+        npc = "Giacomo"
         merc1 = "Qendresa"
         merc2 = "Barrie"
         if selectionIndex == 0:
             self.text = "%s: Shall we dance?" % npc
-            self.c.flags['Silvio Pursuit'] = True
+            self.c.flags['Giacomo Pursuit'] = True
             self.view = "battle"
-            return self.actions({'enemy': "Silvio Berlusconi2",
+            return self.actions({'enemy': "Giacomo Gambino2",
                                  'mercenaries': self.c.mercenaries})
-        elif "Silvio Berlusconi2" in self.c.flags['Kills']:
+        elif "Giacomo Gambino2" in self.c.flags['Kills']:
             X = 1
             Y = 16
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
 
         self.c.flags['New Song'] = "Drat"
@@ -656,13 +656,13 @@ class BerlusconiCastle:
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: Well, look who's still here!" % npc +
                          "\nToshe: You're a real menace." +
-                         "\n%s: I am Silvio." % npc +
+                         "\n%s: I am Giacomo." % npc +
                          "\nToshe: No shit." +
                          "\n%s: Such language. Anyway, I believe" % npc +
                          " we had some unfinished business. Let's" +
                          " bring closure to this agreement.")            
         elif self.c.hasMercenary(merc1):
-            self.text = ("Toshe: Ok Silvio, it's time to end this bullshit." +
+            self.text = ("Toshe: Ok Giacomo, it's time to end this bullshit." +
                          "\n%s: But I've only just begun!" % npc +
                          "\n%s: You need to be taught a lesson." % merc1 +
                          "\n%s: I'm not a very good listener." % npc +
@@ -681,24 +681,24 @@ class BerlusconiCastle:
         return self.actions()
 
 
-    def silvio3(self, selectionIndex=None):
+    def giacomo3(self, selectionIndex=None):
         self.view = "travel"
         self.imageIndex = 30
         self.text = None
         self.helpText = None
         self.menu = []
-        npc = "Silvio"
+        npc = "Giacomo"
         merc1 = "Qendresa"
         merc2 = "Barrie"
         if selectionIndex == 0:
-            self.c.flags['Silvio Vanquished'] = True
+            self.c.flags['Giacomo Vanquished'] = True
             self.view = "battle"
-            return self.actions({'enemy': "Silvio Berlusconi3",
+            return self.actions({'enemy': "Giacomo Gambino3",
                                  'mercenaries': self.c.mercenaries})
-        elif "Silvio Berlusconi3" in self.c.flags['Kills']:
+        elif "Giacomo Gambino3" in self.c.flags['Kills']:
             X = 5
             Y = 9
-            return self.actions({'area': "Berlusconi Castle",
+            return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
 
         self.c.flags['New Song'] = "Drat"
@@ -706,7 +706,7 @@ class BerlusconiCastle:
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: You're a persistent one. Hahaha!" % npc +
                          "\nToshe: And you're still a menace." +
-                         "\n%s: I am still Silvio." % npc +
+                         "\n%s: I am still Giacomo." % npc +
                          "\nToshe: ...Why are you here?" +
                          "\n%s: That's the question, is it not?" % npc +
                          " Who would inhabit such a place? This desolate" +
@@ -730,6 +730,6 @@ class BerlusconiCastle:
                           " world crumbles before you.")      
             if self.c.hasMercenary(merc2):
                 self.text += ("\n%s: He's just talkin' nonsense!" % merc2)
-            self.text += ("\nSilvio rushes toward you.")
+            self.text += ("\nGiacomo rushes toward you.")
         
         return self.actions()

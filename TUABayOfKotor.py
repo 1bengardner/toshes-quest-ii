@@ -2,7 +2,7 @@
 File: TUABayOfKotor.py
 Author: Ben Gardner
 Created: May 17, 2013
-Revised: May 21, 2023
+Revised: June 6, 2023
 """
 
 
@@ -260,7 +260,7 @@ class BayOfKotor:
         self.menu = []
         self.text = ("You hear a deep voice that reverberates throughout "+
                      "the church.\n")
-        if "Silvio Slain" in self.c.flags:
+        if "Giacomo Slain" in self.c.flags:
             self.text += ("\"I sense great peace in the lands.\"")
         elif "Got Key" in self.c.flags:
             self.text += ("\"Now is the time to save your homeland.\"")
@@ -288,15 +288,15 @@ class BayOfKotor:
         elif "Blueprint" in self.c.flags:
             self.text += ("\"Use the blueprint to guide you to a hole" +
                           " in the Greek wall, south of the castle.\"")
-        elif "Silvio Vanquished" in self.c.flags:
+        elif "Giacomo Vanquished" in self.c.flags:
             self.text += ("\"Take the scroll from the castle lectern.\"")
         elif "Lesser Dragon" in self.c.flags:
-            self.text += ("\"Find Silvio and vanquish him once and for all.\"")
-        elif "Silvio Pursuit" in self.c.flags:
-            self.text += ("\"Activate a switch on Silvio's castle dungeon" +
+            self.text += ("\"Find Giacomo and vanquish him once and for all.\"")
+        elif "Giacomo Pursuit" in self.c.flags:
+            self.text += ("\"Activate a switch on Giacomo's castle dungeon" +
                           " floor to advance to his chamber.\"")
-        elif "Met Silvio" in self.c.flags:
-            self.text += ("\"Catch Silvio in his castle to end his evil" +
+        elif "Met Giacomo" in self.c.flags:
+            self.text += ("\"Catch Giacomo in his castle to end his evil" +
                           " pursuits.\"")
         elif "Greek Wall" in self.c.flags:
             self.text += ("\"It would be wise to enter the desert castle" +

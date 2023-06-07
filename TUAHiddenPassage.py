@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: June 5, 2023
+Revised: June 6, 2023
 """
 
 
@@ -114,7 +114,7 @@ class HiddenPassage:
             self.text = ("Toshe: I need to get to Greece and find out who" +
                          " really has the Key to Macedonia.")
             if self.c.hasMercenary(merc1):
-                self.text += ("\n%s: Yes. We must also stop Silvio." % merc1 +
+                self.text += ("\n%s: Yes. We must also stop Giacomo." % merc1 +
                               " It is likely that he escaped through this" +
                               " wall.")
             elif self.c.hasMercenary(merc2):

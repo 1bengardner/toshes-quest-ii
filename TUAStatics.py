@@ -2,7 +2,7 @@
 File: TUAStatics.py
 Author: Ben Gardner
 Created: May 25, 2020
-Created: May 31, 2023
+Created: June 6, 2023
 """
 
 
@@ -148,7 +148,7 @@ class Static:
         "Romadan Hideout": {
             "fg": HexColors.TOWN_PATH,
             "bg": HexColors.DARKNESS},
-        "Berlusconi Castle": {
+        "Gambino Castle": {
             "fg": HexColors.CASTLE_PATH,
             "bg": HexColors.CASTLE_WALL},
         "Hidden Passage": {
