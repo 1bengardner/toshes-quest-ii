@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: June 6, 2023
+Revised: June 7, 2023
 """
 
 
@@ -614,6 +614,7 @@ class Macedonia(object):
             elif ("Giacomo Macedonia 3" not in self.c.flags and
                   (selectionIndex == 0 or
                    "Giacomo Macedonia 3-0" in self.c.flags)):
+                self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Giacomo Macedonia Complete"
                 self.c.flags['Giacomo Macedonia 3-0'] = True
                 self.text = ("Giacomo: Hahaha! Yes, and to make matters worse" +

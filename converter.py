@@ -76,6 +76,9 @@ def update(gameFile, path):
     itemsToCheck = character.items
     if "Buyback Items" in character.flags:
         itemsToCheck += character.flags['Buyback Items']
+    if "Dark Voice 4" in character.flags and "Giacomo Macedonia 1" not in character.flags:
+        del character.flags['Dark Voice 4']
+        changed = True
     for item in filter(lambda item: item is not None, itemsToCheck):
         if item is not None and item.CATEGORY != "Miscellaneous" and not hasattr(item, "upgradeCount"):
             item.upgradeCount = 0
