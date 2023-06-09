@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 3, 2023
+Revised: June 9, 2023
 """
 
 
@@ -44,7 +44,7 @@ class Character(object):
                  items, equippedItemIndices,
                  equippedWeapon, equippedArmour, equippedShield,
                  blankWeapon, blankArmour, blankShield,
-                 statPoints, flags, area, x, y, potions):
+                 statPoints, flags, area, x, y, potions, portrait=None, mode=None):
         self.NAME = str(name)
         self.level = int(level)
         self.xp = int(xp)
@@ -79,6 +79,8 @@ class Character(object):
         self._specialization = None
         self.mastery = 1
         self.sp = 0
+        self.portrait = portrait
+        self.mode = mode
         self.updateStats()
 
     def updateStats(self):

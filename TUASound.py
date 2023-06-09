@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 4, 2023
+Revised: June 9, 2023
 """
 
 
@@ -20,6 +20,7 @@ class Sound:
     def __init__(self):
         self.path = "audio/%s.ogg"
         self.songs = {"Intro Theme": "Daring Feat",
+                      "Menu Theme": "Sacred Dream",
                       "Game Over Theme": "Overcast",
                       "Mob Battle": "Mosquitoes",
                       "Coliseum Battle": "Nemea",

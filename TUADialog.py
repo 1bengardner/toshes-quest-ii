@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 4, 2023
+Revised: June 9, 2023
 """
 
 from Tkinter import *
@@ -17,37 +17,173 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
 
     def body(self, master):
         self.iconbitmap("images/icons/tq.ico")
-        Label(master, text=("Enter the name of the savefile you want to "+
-                            "load/create.\n"+
-                            "A new file will be created if it does not exist.")
+        Label(master, text=("Enter the name of the character you want to load/create."+
+                            "\nA new character will be created if it does not exist.")
               ).grid()
         validateInput = self.parent.register(self.isValid), '%d', '%s', '%S'
         self.entry = Entry(master,
                            validate="key", validatecommand=validateInput)
         self.entry.grid()
-        self.entry.focus_set()
+        return self.entry
 
     def validate(self):
         if self.entry.get() == "":
             tkMessageBox.showerror(self.title(), "Please enter a name.")
             return 0
-        try:
-            open("saves/"+self.entry.get()+".tq")
-            return 1
-        except IOError:
-            if tkMessageBox.askokcancel("Create New | "+self.entry.get(), "Start a new game?",
-                                        parent=self):
-                return 1
-            return 0
+        return 1
         
     def apply(self):
-        self.entryValue = self.entry.get()
+        self.fileName = self.entry.get()
 
     def isValid(self, insertOrDelete, currentInput, newInput):
-        invalidCharacters = set('\\/:*?"<>|.')
+        validCharacters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ')
         if int(insertOrDelete) == 1 and len(currentInput) > 50:
             return False
         for c in newInput:
-            if c in invalidCharacters:
+            if c not in validCharacters:
                 return False
         return True
+
+class NewGameDialog(tkSimpleDialog.Dialog):
+
+    def body(self, master):
+        self.iconbitmap("images/icons/tq.ico")
+        import tkFont
+
+        for fontFamily in ["Garamond", "Times"]:
+            if fontFamily in tkFont.families():
+                break
+        titleFont = tkFont.Font(family=fontFamily, size=18)
+        blurbFont = tkFont.Font(family=fontFamily, size=14, slant="italic")
+        boldBlurb = tkFont.Font(family=fontFamily, size=14, slant="italic", weight="bold")
+        modeFont = tkFont.Font(family=fontFamily, size=14)
+
+        def updateBlurb():
+            def getBlurb(character):
+                return {
+"Toshe":
+    ", the eponymous warrior, uses his brawn to strike powerful blows.",
+"Toshette":
+    " has a high chance to land hits using quick and precise maneuvers.",
+"Nome":
+    " is smart. It doesn't look like it, but he's got wisdom beyond his ears.",
+"Pyroshe":
+    " hails from the depths of Yaouw. He can withstand fire damage.",
+"Reese":
+    " had a rough childhood and as a result he can take more hits.",
+"Chris":
+    " is always trying to show off, so he can use skills more often.",
+"Toady":
+    " has a natural defence against earth and water from his swampy upbringing.",
+"Foxy":
+    " is a Maine Coon who can evade damage with her unpredictable movements.",
+"Lily":
+    " is protected by a thick layer of soil.",
+"Gumball Machine":
+    " can do anything.",
+"Wizzard":
+    " is resilient against magic of all kinds.",
+"Apoc":
+    " can mitigate attacks with his suit of armour.",
+                }[character]
+
+            blurb['state'] = NORMAL
+            blurb.delete(1.0, END)
+            blurb.insert(1.0, self.portraitVar.get(), ("bold"))
+            blurb.insert(END, getBlurb(self.portraitVar.get()))
+            blurb['state'] = DISABLED
+
+        Label(master, text=("Choose Your Character"), font=titleFont
+              ).grid(pady=6)
+        portraitsFrame = Frame(master)
+        portraitsFrame.grid()
+        characters = [
+            "Apoc",
+            "Toshe",
+            "Toshette",
+            "Pyroshe",
+            "Toady",
+            "Wizzard",
+            "Gumball Machine",
+            "Nome",
+            "Reese",
+            "Chris",
+            "Foxy",
+            "Lily",
+        ]
+        if not hasattr(NewGameDialog, "images"):
+            NewGameDialog.images = {}
+            for character in characters:
+                NewGameDialog.images[character] = PhotoImage(file=("images/other/%s.gif" % character))
+        width = 126
+        height = 158
+        rows = 2
+        cols = 6
+        self.portraitVar = StringVar()
+        for i in range(0, rows):
+            for j in range(0, cols):
+                portraitName = characters[i*cols+j]
+                Radiobutton(
+                    portraitsFrame,
+                    image=NewGameDialog.images[portraitName],
+                    variable=self.portraitVar,
+                    value=portraitName,
+                    width=width,
+                    height=height,
+                    indicatoron=0,
+                    bd=4,
+                    bg="#0d0706",
+                    command=updateBlurb,
+                ).grid(row=i, column=j)
+
+        blurb = Text(
+            master,
+            fg="#efece2",
+            bg="#694138",
+            height=1,
+            font=blurbFont,
+            wrap=WORD,
+            bd=4,
+            relief=RIDGE,
+            state=DISABLED,
+        )
+        blurb.grid()
+        blurb.tag_config("bold", font=boldBlurb)
+        self.portraitVar.set("Toshe")
+        updateBlurb()
+
+        modeFrame = Frame(master)
+        modeFrame.grid()
+        self.modeVar = StringVar()
+        Radiobutton(
+            modeFrame,
+            text="Easy Mode",
+            font=modeFont,
+            variable=self.modeVar,
+            value="Easy",
+            indicatoron=0,
+            fg="#704F16",
+            bg="#d1c29d",
+            padx=8,
+            pady=4,
+            bd=4,
+        ).grid(padx=12, pady=24)
+        Radiobutton(
+            modeFrame,
+            text="Hard Mode",
+            font=modeFont,
+            variable=self.modeVar,
+            value="Hard",
+            indicatoron=0,
+            fg="#704F16",
+            bg="#daa520",
+            padx=8,
+            pady=4,
+            bd=4,
+        ).grid(padx=12, pady=24, row=0, column=1)
+        self.modeVar.set("Hard")
+
+    def apply(self):
+        self.portrait = self.portraitVar.get()
+        self.mode = self.modeVar.get()
+        self.complete = True

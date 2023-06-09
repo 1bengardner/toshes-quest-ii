@@ -76,6 +76,10 @@ def update(gameFile, path):
     if "Dark Voice 4" in character.flags and "Giacomo Macedonia 1" not in character.flags:
         del character.flags['Dark Voice 4']
         changed = True
+    if not hasattr(character, "portrait"):
+        character.portrait = "Toshe"
+        character.mode = "Hard"
+        changed = True
     if "Buyback Items" in character.flags:
         itemsToCheck = character.items + character.flags['Buyback Items']
     else:

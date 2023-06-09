@@ -14,7 +14,7 @@ import tkFont
 import tkMessageBox
 from TUAPreferences import Preferences
 from TUAMain import Main
-from TUADialog import OpenFileDialog
+from TUADialog import OpenFileDialog, NewGameDialog
 from TUAStatics import Static
 import converter
 import random
@@ -348,7 +348,7 @@ class TopLeftFrame:
     def makeRecentGamesFrame(self, master):
         self.recentGames = LabelFrame(master, text="Recent Games", font=font3,
                                  width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
-                                 bg=DEFAULT_BG)
+                                 bg=DEFAULT_BG, pady=3)
         self.recentGames.grid()
         self.recentGames.grid_propagate(0)
         self.recentGames.columnconfigure(0, weight=1)
@@ -374,12 +374,28 @@ class TopLeftFrame:
                 name, character = recentCharacters.popitem()
                 gameDetailFrame = Frame(self.recentGames,
                     bg=DEFAULT_BG,
-                    pady=6,)
+                    pady=3,)
                 gameDetailFrame.columnconfigure(1, weight=1)
-                portrait = Label(gameDetailFrame,
-                    bg=DEFAULT_BG,
-                    image=itemImages[character.equippedWeapon.IMAGE_NAME],)
-                portrait.grid(row=0, column=0)
+                if "Legend" in character.flags:
+                    portraitBorder = LEGENDARY_BD
+                elif character.specialization is not None:
+                    portraitBorder = RARE_BD
+                else:
+                    portraitBorder = COMMON_BD
+                portraitCanvas = Canvas(gameDetailFrame,
+                                        width=64,
+                                        height=64,
+                                        bd=4,
+                                        relief=RIDGE,
+                                        bg=portraitBorder,
+                                        highlightthickness=0)
+                portraitCanvas.grid()
+                portraitCanvas.create_image(22, 70, image=portraitImages[character.portrait])
+                portraitCanvas.create_image(58, 12, image=scaledItems[character.equippedWeapon.IMAGE_NAME])
+                if character.equippedArmour.IMAGE_NAME != "Cotton Shirt":
+                    portraitCanvas.create_image(58, 30, image=scaledItems[character.equippedArmour.IMAGE_NAME])
+                if character.equippedShield.IMAGE_NAME != "Nothing":
+                    portraitCanvas.create_image(58, 48, image=scaledItems[character.equippedShield.IMAGE_NAME])
                 gameInfo = Button(gameDetailFrame,
                     bg=BUTTON_BG,
                     fg=BUTTON_FG,
@@ -387,7 +403,7 @@ class TopLeftFrame:
                     justify=LEFT,
                     anchor=W,
                     command=lambda n=name: window.topFrame.topCenterFrame.tryToLoadFile(n),)
-                gameInfo.grid(row=0, column=1, padx=(0, 4), sticky=EW)
+                gameInfo.grid(row=0, column=1, padx=(0, 1), sticky=EW)
 
                 def getTitle(character):
                     str = character.strength
@@ -479,7 +495,7 @@ class TopLeftFrame:
         self.spLabel = Label(self.vitalStats, text="80",
                              bg=DEFAULT_BG, font=font1, bd=0)
         self.spLabel.grid(row=4, column=1, sticky=E+N, padx=(0, 1))
-        self.tosheLabel = Label(self.vitalStats, image=tosheImage, bg=COMMON_BD,
+        self.tosheLabel = Label(self.vitalStats, image=defaultImage, bg=COMMON_BD,
                                 relief=RIDGE, bd=4)
         self.tosheLabel.grid(columnspan=2, pady=20)
         self.tosheLabel.queuedImages = []
@@ -565,13 +581,14 @@ class TopLeftFrame:
         for event in self.tosheLabel.queuedImages:
             root.after_cancel(event)
         self.tosheLabel.queuedImages = []
+        oldImage = self.tosheLabel['image']
         def updateImageDelayed(delay, image):
             self.tosheLabel.queuedImages.append(
                 root.after(delay, lambda: self.tosheLabel.config(image=image)))
         for i, image in enumerate(bloodSlashImages):
             updateImageDelayed(i * interval, image)
         self.tosheLabel.queuedImages.append(
-            root.after((i+1) * interval, lambda: self.tosheLabel.config(image=tosheImage)))
+            root.after((i+1) * interval, lambda: self.tosheLabel.config(image=oldImage)))
 
     def expandInventory(self, expand=True):
         for button in self.itemButtons:
@@ -990,17 +1007,29 @@ class TopCenterFrame:
     def openFile(self):
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         d = OpenFileDialog(root, "Start Game")
-        if not hasattr(d, 'entryValue'):
+        if not hasattr(d, 'fileName'):
             window.bottomFrame.bottomLeftFrame.insertOutput(
-                "Come on. I promise not to bite.")
+                "Come on! I promise not to bite.")
             return
-        self.tryToLoadFile(d.entryValue)
+        fileName = d.fileName
+        try:
+            open("saves/"+fileName+".tq")
+        except IOError:
+            main.sound.playSound(main.sound.sounds['Open Dialog'])
+            main.sound.playMusic(main.sound.songs['Menu Theme'])
+            d = NewGameDialog(root, "Create New | "+fileName)
+            if hasattr(d, "complete"):
+                self.createFile(fileName, d.portrait, d.mode)
+            else:
+                main.sound.playMusic(main.sound.songs['Intro Theme'])
+                window.bottomFrame.bottomLeftFrame.insertOutput(
+                    "Come on. I promise not to bite.")
+            return
+        self.tryToLoadFile(fileName)
 
     def tryToLoadFile(self, name):
         try:
             self.loadFile(name)
-        except IOError:
-            self.createFile(name)
         except AttributeError as e:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 name +
@@ -1044,8 +1073,8 @@ class TopCenterFrame:
         main.loadFromCheckpoint()
         self.startGame(name)
 
-    def createFile(self, name):
-        main.startNewGame(name)
+    def createFile(self, name, portrait, mode):
+        main.startNewGame(name, portrait, mode)
         self.startGame(name)
         
     def startGame(self, name):
@@ -1075,6 +1104,7 @@ class TopCenterFrame:
         
         self.updateMap()
         
+        window.topFrame.topLeftFrame.tosheLabel['image'] = portraitImages[main.character.portrait]
         if main.character.specialization is not None:
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
@@ -3037,21 +3067,45 @@ def loadAssets():
         incrementProgress()
 
     for weaponName in main.weapons:
-        itemImages[main.weapons[weaponName].IMAGE_NAME] = (
+        imageName = main.weapons[weaponName].IMAGE_NAME
+        itemImages[imageName] = (
             PhotoImage(file="images/weapons/"+weaponName+".gif"))
+        scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
     for armourName in main.armour:
-        itemImages[main.armour[armourName].IMAGE_NAME] = (
+        imageName = main.armour[armourName].IMAGE_NAME
+        itemImages[imageName] = (
             PhotoImage(file="images/armour/"+armourName+".gif"))
+        scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
     for shieldName in main.shields:
-        itemImages[main.shields[shieldName].IMAGE_NAME] = (
+        imageName = main.shields[shieldName].IMAGE_NAME
+        itemImages[imageName] = (
             PhotoImage(file="images/shields/"+shieldName+".gif"))
+        scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
     for itemName in main.miscellaneousItems:
-        itemImages[main.miscellaneousItems[itemName].IMAGE_NAME] = (
+        imageName = main.miscellaneousItems[itemName].IMAGE_NAME
+        itemImages[imageName] = (
             PhotoImage(file="images/miscellaneous/"+itemName+".gif"))
+        scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
+    for portrait in [
+        "Apoc",
+        "Toshe",
+        "Toshette",
+        "Pyroshe",
+        "Toady",
+        "Wizzard",
+        "Gumball Machine",
+        "Nome",
+        "Reese",
+        "Chris",
+        "Foxy",
+        "Lily",
+    ]:
+        portraitImages[portrait] = PhotoImage(file="images/other/%s.gif"
+            % portrait)
         
     incrementProgress(True)
     
@@ -3313,7 +3367,6 @@ font8 = tkFont.Font(family=fontFamily, size=16, weight="bold")
 lightFont8 = tkFont.Font(family=fontFamily, size=16)
 
 welcomeImage = PhotoImage(file="images/other/turtle.gif")
-tosheImage = PhotoImage(file="images/other/toshe.gif")
 bloodDropImages = [PhotoImage(file="images/other/blood_drop%s.gif" % (i+1))
     for i in range(3)]
 bloodSlashImages = [PhotoImage(file="images/other/blood_slash%s.gif" % (i+1))
@@ -3356,8 +3409,10 @@ xpBars = []
 hpBars = []
 epBars = []
 spBars = []
+portraitImages = {}
 areaImages = {}
 itemImages = {}
+scaledItems = {}
 enemyImages = {}
 FULL_PROGRESS = 100
 

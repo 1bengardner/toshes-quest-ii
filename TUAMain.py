@@ -163,7 +163,7 @@ class Main:
         self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
 
-    def startNewGame(self, fileName):
+    def startNewGame(self, fileName, portrait, mode):
         """Create a new character and record it in a savefile."""
         STARTING_X = 3
         STARTING_Y = 17
@@ -188,7 +188,7 @@ class Main:
                                    }},
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y,
-                                   0)
+                                   0, portrait, mode)
         self.initGame()
         self.saveGame()
 
