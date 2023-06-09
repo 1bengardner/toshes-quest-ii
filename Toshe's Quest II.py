@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 6, 2023
+Revised: June 9, 2023
 """
 
 
@@ -3288,22 +3288,29 @@ SUNDERED_BG = DARKBEIGE
 LEVEL_BG = LIGHTCYAN
 
 root = Tk()
+root['bg'] = MEDIUMBEIGE
+root.protocol('WM_DELETE_WINDOW', close)
+root.iconbitmap("images/icons/tq.ico")
+root.title("Loading...")
 
 # Initialize variables
-font1 = tkFont.Font(family="Garamond", size=10)
-italicFont1 = tkFont.Font(family="Garamond", size=10, slant="italic")
-boldFont1 = tkFont.Font(family="Garamond", size=10, weight="bold")
-font2 = tkFont.Font(family="Garamond", size=11)
-italicFont2 = tkFont.Font(family="Garamond", size=11, slant="italic", weight="bold")
-boldFont2 = tkFont.Font(family="Garamond", size=11, weight="bold")
-font3 = tkFont.Font(family="Garamond", size=12, weight="bold")
-font4 = tkFont.Font(family="Garamond", size=14)
-italicFont4 = tkFont.Font(family="Garamond", size=14, slant="italic")
-font5 = tkFont.Font(family="Garamond", size=80, weight="bold")
-font6 = tkFont.Font(family="Garamond", size=18)
-font7 = tkFont.Font(family="Garamond", size=66, weight="bold")
-font8 = tkFont.Font(family="Garamond", size=16, weight="bold")
-lightFont8 = tkFont.Font(family="Garamond", size=16)
+for fontFamily in ["Garamond", "Times"]:
+    if fontFamily in tkFont.families():
+        break
+font1 = tkFont.Font(family=fontFamily, size=10)
+italicFont1 = tkFont.Font(family=fontFamily, size=10, slant="italic")
+boldFont1 = tkFont.Font(family=fontFamily, size=10, weight="bold")
+font2 = tkFont.Font(family=fontFamily, size=11)
+italicFont2 = tkFont.Font(family=fontFamily, size=11, slant="italic", weight="bold")
+boldFont2 = tkFont.Font(family=fontFamily, size=11, weight="bold")
+font3 = tkFont.Font(family=fontFamily, size=12, weight="bold")
+font4 = tkFont.Font(family=fontFamily, size=14)
+italicFont4 = tkFont.Font(family=fontFamily, size=14, slant="italic")
+font5 = tkFont.Font(family=fontFamily, size=80, weight="bold")
+font6 = tkFont.Font(family=fontFamily, size=18)
+font7 = tkFont.Font(family=fontFamily, size=66, weight="bold")
+font8 = tkFont.Font(family=fontFamily, size=16, weight="bold")
+lightFont8 = tkFont.Font(family=fontFamily, size=16)
 
 welcomeImage = PhotoImage(file="images/other/turtle.gif")
 tosheImage = PhotoImage(file="images/other/toshe.gif")
@@ -3377,8 +3384,6 @@ askToSave = False
 hitBoxes = []
 hitBoxTriggers = []
 
-root.protocol('WM_DELETE_WINDOW', close)
-root.iconbitmap("images/icons/tq.ico")
 root.title("Toshe's Quest II")
 root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT)+"+"+str(root.winfo_screenwidth()/2-WINDOW_WIDTH/2)+"+"+str(root.winfo_screenheight()/2-WINDOW_HEIGHT/2))
 root.resizable(0, 0)
