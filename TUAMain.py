@@ -8,7 +8,7 @@ Revised: June 10, 2023
 
 import pickle
 import random
-from copy import deepcopy
+from copy import deepcopy, copy
 from collections import Counter
 from datetime import date
 from threading import Thread
@@ -221,7 +221,7 @@ class Main:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
-        paredDownChar = deepcopy(self.character)
+        paredDownChar = copy(self.character)
         paredDownChar.flags = {}
         paredDownChar.checkpoint = None
         preferences.recentCharacters[self.fileName] = paredDownChar
