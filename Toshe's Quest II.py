@@ -391,11 +391,11 @@ class TopLeftFrame:
                                         highlightthickness=0)
                 portraitCanvas.grid()
                 portraitCanvas.create_image(22, 70, image=portraitImages[character.portrait])
-                portraitCanvas.create_image(58, 12, image=scaledItems[character.equippedWeapon.IMAGE_NAME])
+                portraitCanvas.create_image(58, 14, image=scaledItems[character.equippedWeapon.IMAGE_NAME])
                 if character.equippedArmour.IMAGE_NAME != "Cotton Shirt":
-                    portraitCanvas.create_image(58, 30, image=scaledItems[character.equippedArmour.IMAGE_NAME])
+                    portraitCanvas.create_image(58, 32, image=scaledItems[character.equippedArmour.IMAGE_NAME])
                 if character.equippedShield.IMAGE_NAME != "Nothing":
-                    portraitCanvas.create_image(58, 48, image=scaledItems[character.equippedShield.IMAGE_NAME])
+                    portraitCanvas.create_image(58, 50, image=scaledItems[character.equippedShield.IMAGE_NAME])
                 gameInfo = Button(gameDetailFrame,
                     bg=BUTTON_BG,
                     fg=BUTTON_FG,
