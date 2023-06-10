@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 9, 2023
+Revised: June 10, 2023
 """
 
 
@@ -362,7 +362,7 @@ class TopLeftFrame:
                 "\nClick the turtle to start one."))
 
         try:
-            with open("prefs/recent_games.tqp", "r") as preferencesFile:
+            with open("settings/recent_games.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
 
             if len(recentCharacters) == 0:
@@ -793,12 +793,12 @@ class TopCenterFrame:
     def makeFrameElements(self, master):
         def writeAnimationsPrefs(on):
             try:
-                with open("prefs/preferences.tqp", "r") as existingPreferences:
+                with open("settings/preferences.tqp", "r") as existingPreferences:
                     preferences = pickle.load(existingPreferences)
             except IOError:
                 preferences = Preferences()
             preferences.animationsOn = on
-            with open("prefs/preferences.tqp", "w") as preferencesFile:
+            with open("settings/preferences.tqp", "w") as preferencesFile:
                 pickle.dump(preferences, preferencesFile)
 
         cogLabel = Label(master, bg=DEFAULT_BG, image=settingsImage)
@@ -825,7 +825,7 @@ class TopCenterFrame:
                                      variable=self.playSfx,
                                      command=main.sound.muteSfx)
         try:
-            with open("prefs/preferences.tqp", "r") as preferencesFile:
+            with open("settings/preferences.tqp", "r") as preferencesFile:
                 preferences = pickle.load(preferencesFile)
                 if not preferences.musicOn:
                     self.musicButton.invoke()

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 6, 2023
+Revised: June 10, 2023
 """
 
 
@@ -217,7 +217,7 @@ class Main:
 
     def writeGameToPreferences(self):
         try:
-            with open("prefs/recent_games.tqp", "r") as existingPreferences:
+            with open("settings/recent_games.tqp", "r") as existingPreferences:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
@@ -225,7 +225,7 @@ class Main:
         paredDownChar.flags = {}
         paredDownChar.checkpoint = None
         preferences.recentCharacters[self.fileName] = paredDownChar
-        with open("prefs/recent_games.tqp", "w") as preferencesFile:
+        with open("settings/recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
 
     def populateAreas(self):

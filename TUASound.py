@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 9, 2023
+Revised: June 10, 2023
 """
 
 
@@ -175,11 +175,11 @@ class Sound:
         
     def writePreferences(self):
         try:
-            with open("prefs/preferences.tqp", "r") as existingPreferences:
+            with open("settings/preferences.tqp", "r") as existingPreferences:
                 preferences = pickle.load(existingPreferences)
         except IOError:
             preferences = Preferences()
         preferences.musicOn = mixer.music.get_volume() > 0
         preferences.sfxOn = not self.sfxMuted
-        with open("prefs/preferences.tqp", "w") as preferencesFile:
+        with open("settings/preferences.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
