@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 9, 2023
+Revised: June 10, 2023
 """
 
 
@@ -140,6 +140,24 @@ class Character(object):
         self.defence = int(self.equippedArmour.DEFENCE +
                            self.equippedShield.DEFENCE)
 
+        if self.portrait == "Pyroshe":
+            self.fireReduction += 12
+        elif self.portrait == "Toady":
+            self.earthReduction += 7
+            self.waterReduction += 7
+        elif self.portrait == "Foxy":
+            self.physicalReduction += 7
+        elif self.portrait == "Lily":
+            self.earthReduction += 15
+            self.waterReduction += 5
+            self.fireReduction -= 5
+        elif self.portrait == "Apoc":
+            self.defence += 10
+        elif self.portrait == "M. Wizzard":
+            self.earthReduction += 5
+            self.waterReduction += 5
+            self.fireReduction += 5
+
         if self.specialization == "Flame Knight":
             self.fireReduction += 2 * (self.mastery - 1)
         if self.specialization == "Reckless Lancer":
@@ -203,11 +221,16 @@ class Character(object):
         
     @property
     def strength(self):
+        value = self._strength
+        if self.portrait == "Toshe":
+            value += 5
+        elif self.portrait == "Gumball Machine":
+            value += 3
         if self.specialization == "Stalwart Slayer":
-            return self._strength + 2 * (self.mastery - 1)
+            return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return self._strength + 1 * (self.mastery - 1)
-        return self._strength
+            return value + 1 * (self.mastery - 1)
+        return value
 
     @strength.setter
     def strength(self, value):
@@ -221,11 +244,16 @@ class Character(object):
 
     @property
     def dexterity(self):
+        value = self._dexterity
+        if self.portrait == "Toshette":
+            value += 5
+        elif self.portrait == "Gumball Machine":
+            value += 3
         if self.specialization == "Executioner":
-            return self._dexterity + 2 * (self.mastery - 1)
+            return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return self._dexterity + 1 * (self.mastery - 1)
-        return self._dexterity
+            return value + 1 * (self.mastery - 1)
+        return value
 
     @dexterity.setter
     def dexterity(self, value):
@@ -241,11 +269,16 @@ class Character(object):
 
     @property
     def wisdom(self):
+        value = self._wisdom
+        if self.portrait == "Nome":
+            value += 5
+        elif self.portrait == "Gumball Machine":
+            value += 3
         if self.specialization == "Snow Sorcerer":
-            return self._wisdom + 2 * (self.mastery - 1)
+            return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return self._wisdom + 1 * (self.mastery - 1)
-        return self._wisdom
+            return value + 1 * (self.mastery - 1)
+        return value
 
     @wisdom.setter
     def wisdom(self, value):
@@ -259,9 +292,12 @@ class Character(object):
 
     @property
     def maxHp(self):
+        value = self._maxHp
+        if self.portrait == "Reese":
+            value += 50
         if self.specialization == "Paladin":
-            return self._maxHp + 20 * (self.mastery - 1)
-        return self._maxHp
+            return value + 20 * (self.mastery - 1)
+        return value
 
     @maxHp.setter
     def maxHp(self, value):
@@ -269,9 +305,12 @@ class Character(object):
 
     @property
     def maxEp(self):
+        value = self._maxEp
+        if self.portrait == "Chris":
+            value += 50
         if self.specialization == "Hermit":
-            return self._maxEp + 20 * (self.mastery - 1)
-        return self._maxEp
+            return value + 20 * (self.mastery - 1)
+        return value
 
     @maxEp.setter
     def maxEp(self, value):

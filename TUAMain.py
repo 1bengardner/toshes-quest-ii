@@ -168,7 +168,7 @@ class Main:
         STARTING_X = 3
         STARTING_Y = 17
         self.fileName = fileName
-        self.character = Character("Toshe", 1, 0, 100, 50, 100, 100, 100,
+        self.character = Character("Toshe", 1, 0, 100, 100, 100, 100, 100,
                                    10, 10, 10, [], 0, [], [None]*9,
                                    {'Weapon': None, 'Armour': None,
                                     'Shield': None},
@@ -189,6 +189,8 @@ class Main:
                                    self.areas['Adriatic Sea'],
                                    STARTING_X, STARTING_Y,
                                    0, portrait, mode)
+        self.character.hp = self.character.maxHp - 50
+        self.character.ep = self.character.maxEp    # Chris
         self.initGame()
         self.saveGame()
 

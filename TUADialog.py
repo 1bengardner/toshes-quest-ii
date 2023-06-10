@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 9, 2023
+Revised: June 10, 2023
 """
 
 from Tkinter import *
@@ -76,12 +76,12 @@ class NewGameDialog(tkSimpleDialog.Dialog):
 "Toady":
     " has a natural defence against earth and water from his swampy upbringing.",
 "Foxy":
-    " is a Maine Coon who can evade damage with her unpredictable movements.",
+    ", the Maine Coon, evades physical damage with her unpredictable movements.",
 "Lily":
     " is protected by a thick layer of soil.",
 "Gumball Machine":
     " can do anything.",
-"Wizzard":
+"M. Wizzard":
     " is resilient against magic of all kinds.",
 "Apoc":
     " can mitigate attacks with his suit of armour.",
@@ -103,7 +103,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             "Toshette",
             "Pyroshe",
             "Toady",
-            "Wizzard",
+            "M. Wizzard",
             "Gumball Machine",
             "Nome",
             "Reese",
@@ -114,7 +114,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         if not hasattr(NewGameDialog, "images"):
             NewGameDialog.images = {}
             for character in characters:
-                NewGameDialog.images[character] = PhotoImage(file=("images/other/%s.gif" % character))
+                NewGameDialog.images[character] = PhotoImage(file=("images/other/%s.gif" % character.replace(".", "")))
         width = 126
         height = 158
         rows = 2
@@ -147,8 +147,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             relief=RIDGE,
             state=DISABLED,
         )
-        blurb.grid()
-        blurb.tag_config("bold", font=boldBlurb)
+        blurb.grid(sticky=EW)
+        blurb.tag_config("bold", font=boldBlurb, justify='center')
         self.portraitVar.set("Toshe")
         updateBlurb()
 
@@ -167,6 +167,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             padx=8,
             pady=4,
             bd=4,
+            width=12,
         ).grid(padx=12, pady=24)
         Radiobutton(
             modeFrame,
@@ -180,8 +181,23 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             padx=8,
             pady=4,
             bd=4,
+            width=12,
         ).grid(padx=12, pady=24, row=0, column=1)
-        self.modeVar.set("Hard")
+        Radiobutton(
+            modeFrame,
+            text="Ultimate Mode",
+            font=modeFont,
+            variable=self.modeVar,
+            value="Ultimate",
+            indicatoron=0,
+            fg="#704F16",
+            bg="#e2afc9",
+            padx=8,
+            pady=4,
+            bd=4,
+            width=12,
+        ).grid(padx=12, pady=24, row=0, column=2)
+        self.modeVar.set("Easy")
 
     def apply(self):
         self.portrait = self.portraitVar.get()

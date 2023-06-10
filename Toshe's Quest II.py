@@ -390,7 +390,7 @@ class TopLeftFrame:
                                         bg=portraitBorder,
                                         highlightthickness=0)
                 portraitCanvas.grid()
-                portraitCanvas.create_image(22, 70, image=portraitImages[character.portrait])
+                portraitCanvas.create_image(22, 70, image=portraitImages[character.portrait.replace(".", "")])
                 portraitCanvas.create_image(58, 14, image=scaledItems[character.equippedWeapon.IMAGE_NAME])
                 if character.equippedArmour.IMAGE_NAME != "Cotton Shirt":
                     portraitCanvas.create_image(58, 32, image=scaledItems[character.equippedArmour.IMAGE_NAME])
@@ -1008,8 +1008,9 @@ class TopCenterFrame:
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         d = OpenFileDialog(root, "Start Game")
         if not hasattr(d, 'fileName'):
-            window.bottomFrame.bottomLeftFrame.insertOutput(
-                "Come on! I promise not to bite.")
+            if not hasattr(root, "__destroyed"):
+                window.bottomFrame.bottomLeftFrame.insertOutput(
+                    "Come on. I promise not to bite.")
             return
         fileName = d.fileName
         try:
@@ -1021,9 +1022,10 @@ class TopCenterFrame:
             if hasattr(d, "complete"):
                 self.createFile(fileName, d.portrait, d.mode)
             else:
-                main.sound.playMusic(main.sound.songs['Intro Theme'])
-                window.bottomFrame.bottomLeftFrame.insertOutput(
-                    "Come on. I promise not to bite.")
+                if not hasattr(root, "__destroyed"):
+                    main.sound.playMusic(main.sound.songs['Intro Theme'])
+                    window.bottomFrame.bottomLeftFrame.insertOutput(
+                        "Come on! I promise not to bite.")
             return
         self.tryToLoadFile(fileName)
 
@@ -1104,7 +1106,7 @@ class TopCenterFrame:
         
         self.updateMap()
         
-        window.topFrame.topLeftFrame.tosheLabel['image'] = portraitImages[main.character.portrait]
+        window.topFrame.topLeftFrame.tosheLabel['image'] = portraitImages[main.character.portrait.replace(".", "")]
         if main.character.specialization is not None:
             window.topFrame.topLeftFrame.spWord.grid()
             window.topFrame.topLeftFrame.spLabel.grid()
@@ -2990,6 +2992,7 @@ def close(event=None):
                 return
 
     root.destroy()
+    root.__destroyed = True
 
 
 def displayLoadingScreen():
@@ -3096,7 +3099,7 @@ def loadAssets():
         "Toshette",
         "Pyroshe",
         "Toady",
-        "Wizzard",
+        "M Wizzard",
         "Gumball Machine",
         "Nome",
         "Reese",
