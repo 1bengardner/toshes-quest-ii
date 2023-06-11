@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -245,6 +245,8 @@ class Battle(object):
         """
         basicSkills = set([
             "Attack",
+            "Venom Strike",
+            "Strong Attack",
             "Defend",
             "Recover"
         ])
@@ -738,11 +740,17 @@ class Battle(object):
                 elif skill.ELEMENT == "Sunder" and ("Sundered" not in
                                                     defenderFlags):
                     defenderFlags.add("Sundered")
-                    self.hits.append({
-                        "Target": "Enemy" if defender is self.enemy else defender.NAME,
-                        "Kind": "Sundered",
-                        "Skill": False if skill.NAME in basicSkills else True,
-                        "Aux": attacker in self.auxiliaryCharacters,})
+                    if self.mainCharacter in (attacker, defender):
+                        self.sounds.append({
+                            "Name": "Grounded",
+                            "Panning": self.getPanning(defender)})
+                    # I don't think I actually need this, but this check is everywhere now; might as well be consistent
+                    if defender in (self.mainCharacter, self.enemy):
+                        self.hits.append({
+                            "Target": "Enemy" if defender is self.enemy else defender.NAME,
+                            "Kind": "Sundered",
+                            "Skill": False if skill.NAME in basicSkills else True,
+                            "Aux": attacker in self.auxiliaryCharacters,})
                 elif ((skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
                       and ("Burning" not in defenderFlags)):
                     if self.roll() <= 25:
@@ -1011,6 +1019,9 @@ class Battle(object):
         if "Giacomo Defending" in flags:
             flags.remove("Giacomo Defending")
             flags.add("Giacomo Defending Active")
+            self.sounds.append({
+                "Name": "Bolster Defence",
+                "Panning": self.getPanning(target)})
         
         if "Defending Active" in flags and "Defending" not in flags:
             self.text += target.NAME+"'s guard goes down.\n"

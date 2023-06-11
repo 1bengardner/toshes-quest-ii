@@ -47,7 +47,7 @@ def update(gameFile, path):
         setattr(character, "LIVING", 1)
         changed = True
     if not hasattr(character, "mercenaries"):
-        changed = "error"
+        return "error"
     else:
         for mercenary in character.mercenaries:
             setattr(mercenary, "LIVING", 1)
@@ -79,11 +79,15 @@ def update(gameFile, path):
     if not hasattr(character, "portrait"):
         character.portrait = "Toshe"
         character.mode = "Hard"
+        character._euros = 420
+        for mercenary in character.mercenaries:
+            mercenary.portrait = None
+            mercenary.mode = None
+            mercenary._euros = 0
         changed = True
+    itemsToCheck = character.items + [character.blankWeapon, character.blankArmour, character.blankShield]
     if "Buyback Items" in character.flags:
-        itemsToCheck = character.items + character.flags['Buyback Items']
-    else:
-        itemsToCheck = character.items
+        itemsToCheck += character.flags['Buyback Items']
     for item in filter(lambda item: item is not None, itemsToCheck):
         if item is None or item == "Chasmic Rucksack":
             continue
@@ -101,9 +105,6 @@ def update(gameFile, path):
             skill.PERMITTED_WEAPONS.add("Bludgeon")
             skill.PERMITTED_WEAPONS.remove("Club")
             changed = True
-    if not hasattr(character, "_euros"):
-        character._euros = 420
-        changed = True
     changed = updateChangedAreaNames(character) or changed
     if changed:
         with open(path, "w") as gameFile:
