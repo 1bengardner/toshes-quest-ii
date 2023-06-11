@@ -1107,6 +1107,11 @@ class TopCenterFrame:
     def startGame(self, name):
         stateChanged = False
         
+        nameOnLabel = name
+        if len(nameOnLabel) > 20:
+            nameOnLabel = nameOnLabel[:19] + "..."
+        window.topFrame.topLeftFrame.nameLabel['text'] = nameOnLabel
+        
         hideSideIntroFrames()
 
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)

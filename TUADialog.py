@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 import pickle
@@ -38,7 +38,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
         self.fileName = self.entry.get().strip()
 
     def isValid(self, insertOrDelete, currentInput, newInput):
-        validCharacters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ')
+        validCharacters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ,')
         if int(insertOrDelete) == 1 and len(currentInput) > 50:
             return False
         for c in newInput:
