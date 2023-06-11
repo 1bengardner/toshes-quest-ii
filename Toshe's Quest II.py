@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -2401,10 +2401,10 @@ def displayStoreItemStats():
     frame.buyButton['text'] = "Buy"
     if main.character.euros < item.PRICE or not main.character.hasRoom() and item.NAME != "Chasmic Rucksack":
         frame.buyButton['state'] = DISABLED
-        if not main.character.hasRoom():
-            frame.buyButton['text'] = "No Room!"
     else:
         frame.buyButton['state'] = NORMAL
+    if not main.character.hasRoom() and item.NAME != "Chasmic Rucksack":
+        frame.buyButton['text'] = "No Room!"
 
     main.sound.playSound(main.sound.sounds['Select Item'])
 

@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: June 6, 2023
+Revised: June 11, 2023
 """
 
 
@@ -445,11 +445,15 @@ class HiddenPassage:
         if "Buyback Items" not in self.c.flags:
             self.c.flags['Buyback Items'] = ["Chasmic Rucksack"] + [None]*8
         self.c.flags['Passage Merchant'] = True
-        self.text = npc+": " + random.choice(
-            ["I'm a collector.",
-             "Macedonia? Exit the tunnel, then go east and slightly north" +
-             " until you reach the highlands.",
-             "I'll buy and sell most anything."])
+        phrases = [
+            "I'm a collector.",
+            "Macedonia? Exit the tunnel, then go east and slightly north" +
+            " until you reach the highlands.",
+            "I'll buy and sell most anything."
+        ]
+        if self.c.mode == "Ultimate":
+            phrases.append("You didn't think I'd give you this rucksack for free, did you?")
+        self.text = npc+": " + random.choice(phrases)
         self.menu = ["Return to the tunnel."]
         return self.actions({'items for sale': self.c.flags['Buyback Items'],
                              'buyback': True})
