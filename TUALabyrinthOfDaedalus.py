@@ -2,7 +2,7 @@
 File: TUALabyrinthOfDaedalus.py
 Author: Ben Gardner
 Created: May 19, 2023
-Revised: May 31, 2023
+Revised: July 11, 2023
 """
 
 import random
@@ -103,7 +103,7 @@ class LabyrinthOfDaedalus:
         return grid
 
     def movementActions(self):
-        self.c.hp -= 10
+        self.c.hp -= 20
         
     def actions(self, newActions=None):
         if "Kicked Out" in self.c.flags:
