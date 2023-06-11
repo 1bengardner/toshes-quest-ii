@@ -35,7 +35,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
         return 1
         
     def apply(self):
-        self.fileName = self.entry.get()
+        self.fileName = self.entry.get().strip()
 
     def isValid(self, insertOrDelete, currentInput, newInput):
         validCharacters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ')
