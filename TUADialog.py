@@ -5,9 +5,11 @@ Created: February 3, 2013
 Revised: June 10, 2023
 """
 
+import pickle
 from Tkinter import *
 import tkMessageBox
 import tkSimpleDialog
+from TUAPreferences import Preferences
 
 
 class OpenFileDialog(tkSimpleDialog.Dialog):
@@ -86,7 +88,6 @@ class NewGameDialog(tkSimpleDialog.Dialog):
 "Apoc":
     " can mitigate attacks with his suit of armour.",
                 }[character]
-
             blurb['state'] = NORMAL
             blurb.delete(1.0, END)
             blurb.insert(1.0, self.portraitVar.get(), ("bold"))
@@ -110,6 +111,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             "Chris",
             "Foxy",
             "Lily",
+            "Hidden",
+            "Unlocked",
         ]
         if not hasattr(NewGameDialog, "images"):
             NewGameDialog.images = {}
@@ -120,10 +123,11 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         rows = 2
         cols = 6
         self.portraitVar = StringVar()
+        characterButtons = {}
         for i in range(0, rows):
             for j in range(0, cols):
                 portraitName = characters[i*cols+j]
-                Radiobutton(
+                characterButtons[portraitName] = Radiobutton(
                     portraitsFrame,
                     image=NewGameDialog.images[portraitName],
                     variable=self.portraitVar,
@@ -134,7 +138,39 @@ class NewGameDialog(tkSimpleDialog.Dialog):
                     bd=4,
                     bg="#0d0706",
                     command=updateBlurb,
-                ).grid(row=i, column=j)
+                )
+                characterButtons[portraitName].grid(row=i, column=j)
+        def readUnlocks():
+            try:
+                with open("settings/unlocks.tqp", "r") as unlocksFile:
+                    return pickle.load(unlocksFile).unlocks
+            except IOError:
+                return {}
+        def writeUnlocks():
+            preferences = Preferences()
+            preferences.unlocks = unlocks
+            with open("settings/unlocks.tqp", "w") as preferencesFile:
+                pickle.dump(preferences, preferencesFile)
+        def revealCharacter():
+            character = self.portraitVar.get()
+            self.portraitVar.set(None)
+            characterButtons[character].flash()
+            characterButtons[character].flash()
+            self.portraitVar.set(character)
+            characterButtons[character]['image'] = NewGameDialog.images[character]
+            characterButtons[character]['command'] = updateBlurb
+            characterButtons[character].invoke()
+            unlocks[character] = False
+            writeUnlocks()
+        unlocks = readUnlocks()
+        for character in ["Apoc", "M. Wizzard", "Gumball Machine", "Lily"]:
+            if character in unlocks and unlocks[character]:
+                characterButtons[character]['image'] = NewGameDialog.images["Unlocked"]
+                characterButtons[character]['state'] = NORMAL
+                characterButtons[character]['command'] = revealCharacter
+            elif character not in unlocks:
+                characterButtons[character]['image'] = NewGameDialog.images["Hidden"]
+                characterButtons[character]['state'] = DISABLED
 
         blurb = Text(
             master,
@@ -183,20 +219,21 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             bd=4,
             width=12,
         ).grid(padx=6, pady=24, row=0, column=1)
-        Radiobutton(
-            modeFrame,
-            text="Ultimate Mode",
-            font=modeFont,
-            variable=self.modeVar,
-            value="Ultimate",
-            indicatoron=0,
-            fg="#704F16",
-            bg="#e2afc9",
-            padx=8,
-            pady=4,
-            bd=4,
-            width=12,
-        ).grid(padx=6, pady=24, row=0, column=2)
+        if "Ultimate Mode" in unlocks:
+            Radiobutton(
+                modeFrame,
+                text="Ultimate Mode",
+                font=modeFont,
+                variable=self.modeVar,
+                value="Ultimate",
+                indicatoron=0,
+                fg="#704F16",
+                bg="#e2afc9",
+                padx=8,
+                pady=4,
+                bd=4,
+                width=12,
+            ).grid(padx=6, pady=24, row=0, column=2)
         self.modeVar.set("Easy")
 
     def apply(self):

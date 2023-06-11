@@ -201,6 +201,7 @@ class Main:
         self.initializeDefaultBattle()
         self.completedQuests = set()
         self.initializeQuests()
+        self.initializeUnlocks()
 
     def saveLocation(self):
         self.character.area = self.currentArea.__class__
@@ -229,6 +230,43 @@ class Main:
         preferences.recentCharacters[self.fileName] = paredDownChar
         with open("settings/recent_games.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
+
+    def writeUnlocksToPreferences(self):
+        preferences = Preferences()
+        preferences.unlocks = self.unlocks
+        with open("settings/unlocks.tqp", "w") as preferencesFile:
+            pickle.dump(preferences, preferencesFile)
+
+    def updateUnlocks(self):
+        unlockCriteria = {
+            "Apoc": lambda c:
+                all(flag in c.flags for flag in [
+                    "Daniel Quest 3 Complete",
+                    "Adam Quest 3 Complete",
+                    "Bartender Igor Quest 3 Complete",
+                    "Bartender Zhang Quest 3 Complete",
+                ]),
+            "M. Wizzard": lambda c:
+                all(flag in c.flags for flag in [
+                    "Mudslide",
+                    "Floodtide",
+                    "Hot Coals",
+                ]),
+            "Gumball Machine": lambda c:
+                "Gigantic Crayons" in c.flags['Kills'],
+            "Lily": lambda c:
+                "Queen Bee" in c.flags['Kills'] or "Pot Apparition" in c.flags['Kills'],
+            "Ultimate Mode": lambda c:
+                "Conclusion" in c.flags,
+        }
+        for unlockable in unlockCriteria:
+            if unlockable not in self.unlocks and unlockCriteria[unlockable](self.character):
+                self.unlocks[unlockable] = True
+                self.writeUnlocksToPreferences()
+                if unlockable == "Ultimate Mode":
+                    continue
+                return True
+        return False
 
     def populateAreas(self):
         self.areas = {'Adriatic Sea': AdriaticSea,
@@ -848,6 +886,10 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if 'sound' in interfaceActions:
             self.sound.playSound(self.sound.sounds[interfaceActions['sound']])
 
+        if self.updateUnlocks():
+            interfaceActions['italic text'] = "You have unlocked a secret character!"
+            self.sound.playSound(self.sound.sounds['Unlock Secret'])
+
         self.view = interfaceActions['view']
 
         self.updateMusic(interfaceActions['view'])
@@ -1229,4 +1271,11 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             self.character.flags['Mount Olympus Complete'] = True
         self.saveGame()
         return success, interfaceActions
-        
+
+    def initializeUnlocks(self):
+        self.unlocks = {}
+        try:
+            with open("settings/unlocks.tqp", "r") as unlocksFile:
+                self.unlocks = pickle.load(unlocksFile).unlocks
+        except IOError:
+            return

@@ -1187,7 +1187,7 @@ class TopRightFrame:
 The remaining """)
         newsContent.insert(END, "Guardian Beasts", ("emphasis"))
         newsContent.insert(END,
-""" have been unleashed! Find all three—Earth, Water and Fire—and navigate their labyrithine abodes to challenge them. Prepare yourself for some tough battles!
+""" have been unleashed! Find all three—Earth, Water and Sky—and navigate their labyrithine abodes to challenge them. Prepare yourself for some tough battles!
 
 The lair of the dark commander """)
         newsContent.insert(END, "Niplin", ("emphasis"))
