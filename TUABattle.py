@@ -1147,6 +1147,9 @@ class Battle(object):
                 "Kind": "Bloody Up",
                 "Target": None,
             })
+            self.sounds.append({
+                "Name": "Bloody Up",
+                "Panning": self.getPanning(target)})
 
         if "Sleeping 3" in flags:
             self.text += target.NAME+" woke up.\n"

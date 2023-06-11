@@ -104,6 +104,7 @@ class Sound:
                        "Bolster Attack": "FX-Danger",
                        "Bolster Defence": "FX-Morph",
                        "Unlock Secret": "FX-Gracious",
+                       "Bloody Up": "FX-Haunt",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)
