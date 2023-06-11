@@ -2,7 +2,7 @@
 File: TUAPreferences.py
 Author: Ben Gardner
 Created: November 5, 2022
-Revised: May 28, 2023
+Revised: June 11, 2023
 """
 
 from collections import OrderedDict
@@ -26,5 +26,6 @@ class Preferences:
     def __init__(self):
         self.musicOn = True
         self.sfxOn = True
+        self.volume = 1
         self.animationsOn = True
         self.recentCharacters = LastUpdatedOrderedDictWithLimit()

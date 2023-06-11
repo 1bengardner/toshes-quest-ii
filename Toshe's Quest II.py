@@ -791,7 +791,7 @@ class TopCenterFrame:
         frameD = Frame(master, width=348, height=FRAME_C_HEIGHT, bg=DEFAULT_BG)
         frameD.grid(row=0, column=1)
         frameD.grid_columnconfigure(0, weight=1)
-        frameD.grid_rowconfigure(0, weight=3)
+        frameD.grid_rowconfigure(0, weight=2)
         frameD.grid_rowconfigure(1, weight=1)
         frameD.grid_propagate(0)
         self.makeFrameElements(frameD)
@@ -810,39 +810,53 @@ class TopCenterFrame:
         cogLabel = Label(master, bg=DEFAULT_BG, image=settingsImage)
         cogLabel.grid(row=0, padx=22, pady=(0, 21), sticky=W)
         self.showAnimations = BooleanVar(value=True)
-        self.animationsButton = Checkbutton(master, indicatoron=False,
-                                            bg=BUTTON_BG, relief=SUNKEN,
-                                            image=animationsImage,
-                                            variable=self.showAnimations,
-                                            command=(
+        animationsButton = Checkbutton(master, indicatoron=False,
+                                       bg=BUTTON_BG, relief=SUNKEN,
+                                       image=animationsImage,
+                                       variable=self.showAnimations,
+                                       command=(
             lambda: writeAnimationsPrefs(self.showAnimations.get())))
-        self.animationsButton.grid(row=0, padx=42, pady=(0, 20), sticky=W)
+        animationsButton.grid(row=0, padx=42, pady=(0, 20), sticky=W)
         self.playMusic = BooleanVar(value=True)
-        self.musicButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
-                                     relief=SUNKEN, image=musicImage,
-                                     variable=self.playMusic,
-                                     command=main.sound.muteMusic)
-        self.musicButton.grid(row=0, padx=22, pady=(20, 0), sticky=W)
-        self.musicButton.bind_all("<Control-m>", lambda _: self.musicButton.invoke())
-        self.musicButton.bind_all("<Control-M>", lambda _: self.musicButton.invoke())
+        musicButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
+                                  relief=SUNKEN, image=musicImage,
+                                  variable=self.playMusic,
+                                  command=main.sound.muteMusic)
+        musicButton.grid(row=0, padx=22, pady=(20, 0), sticky=W)
+        musicButton.bind_all("<Control-m>", lambda _: musicButton.invoke())
+        musicButton.bind_all("<Control-M>", lambda _: musicButton.invoke())
         self.playSfx = BooleanVar(value=True)
-        self.sfxButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
-                                     relief=SUNKEN, image=sfxImage,
-                                     variable=self.playSfx,
-                                     command=main.sound.muteSfx)
+        sfxButton = Checkbutton(master, indicatoron=False, bg=BUTTON_BG,
+                                relief=SUNKEN, image=sfxImage,
+                                variable=self.playSfx,
+                                command=main.sound.muteSfx)
+        sfxButton.grid(row=0, padx=42, pady=(20, 0), sticky=W)
+        sfxButton.bind_all("<Control-comma>", lambda _: sfxButton.invoke())
+        volumeSlider = Scale(master,
+                             orient=HORIZONTAL,
+                             troughcolor=LIGHTBEIGE,
+                             highlightthickness=0,
+                             sliderlength=10,
+                             showvalue=0,
+                             font=font1,
+                             bg=DEFAULT_BG,
+                             width=6,
+                             length=42,
+                             command=lambda val: main.sound.setVolume(int(val) / 100.),
+                             )
+        volumeSlider.grid(row=0, padx=21, pady=(52, 0), sticky=W)
         try:
             with open("settings/preferences.tqp", "r") as preferencesFile:
                 preferences = pickle.load(preferencesFile)
-                if not preferences.musicOn:
-                    self.musicButton.invoke()
-                if not preferences.sfxOn:
-                    self.sfxButton.invoke()
                 if not preferences.animationsOn:
-                    self.animationsButton.invoke()
+                    animationsButton.invoke()
+                if not preferences.musicOn:
+                    musicButton.invoke()
+                if not preferences.sfxOn:
+                    sfxButton.invoke()
+                volumeSlider.set(100 * preferences.volume)
         except IOError:
-            pass
-        self.sfxButton.grid(row=0, padx=42, pady=(20, 0), sticky=W)
-        self.sfxButton.bind_all("<Control-comma>", lambda _: self.sfxButton.invoke())
+            volumeSlider.set(75)
         self.titleLabel = Label(master, text="Toshe's Quest II", font=font6,
                                 bg=DEFAULT_BG, bd=0)
         self.titleLabel.grid(row=0, pady=6)
@@ -1042,7 +1056,7 @@ class TopCenterFrame:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 name +
                 ", some vital information is missing from your file." +
-                " Perhaps this can be remedied with a conversion.")
+                " Perhaps this can be remedied with a conversion...")
             path = "saves/"+name+".tq"
             with open(path, "r") as gameFile:
                 changed = converter.update(gameFile, path)
@@ -1060,6 +1074,11 @@ class TopCenterFrame:
         # except ImportError:
             # window.bottomFrame.bottomLeftFrame.insertOutput(
                 # "I cannot read this file at all! What language is this?")
+        except IOError:
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                name +
+                ", I'm terribly sorry, but I can't find your file." +
+                " Did you misplace it?")
 
     def loadFile(self, name=None):
         if not name:
@@ -3458,7 +3477,8 @@ hitBoxTriggers = []
 
 root.title("Toshe's Quest II")
 root.geometry(str(WINDOW_WIDTH)+"x"+str(WINDOW_HEIGHT)+"+"+str(root.winfo_screenwidth()/2-WINDOW_WIDTH/2)+"+"+str(root.winfo_screenheight()/2-WINDOW_HEIGHT/2))
-root.resizable(0, 0)
+if fontFamily == "Garamond":
+    root.resizable(0, 0)
 root.after(0, loadGame)
 root.update()
 root.mainloop()

@@ -2,11 +2,12 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
 import pickle
+from threading import Thread
 from pygame import mixer
 
 from TUAPreferences import Preferences
@@ -105,11 +106,13 @@ class Sound:
                        "Unlock Secret": "FX-Gracious",
                       }
         
-        mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)
+        mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)
         self.currentSong = None
         self.previousSong = None    # For returning to the previous song after an event
+        self.musicMuted = False
         self.sfxMuted = False
-        mixer.music.set_volume(Sound.MUSIC_VOLUME)
+        self.currentVolume = 0
+        mixer.music.set_volume(self.currentVolume * Sound.MUSIC_VOLUME)
         mixer.set_reserved(1)   # Reserve channel 0
 
     def isNewSong(self, songName):
@@ -152,6 +155,7 @@ class Sound:
         if not self.sfxMuted and count > 0:
             sound = mixer.Sound(self.path % soundName)
             if pan is None and not interruptible:
+                sound.set_volume(self.currentVolume)
                 sound.play(loops=count - 1)
             else:
                 if interruptible:
@@ -159,28 +163,34 @@ class Sound:
                 else:
                     channel = mixer.find_channel(True)
                 if pan:
-                    channel.set_volume(*pan)
+                    channel.set_volume(*(side * self.currentVolume for side in pan))
+                else:
+                    channel.set_volume(self.currentVolume)
                 channel.play(sound, loops=count - 1)
-            
+
+    def setVolume(self, volume):
+        self.currentVolume = volume
+        if not self.musicMuted:
+            mixer.music.set_volume(self.currentVolume * Sound.MUSIC_VOLUME)
+        Thread(target=self.writePreferences).start()
+
     def muteSfx(self):
         if self.sfxMuted:
             self.sfxMuted = False
             self.playSound("FX-Touch")
         else:
             self.sfxMuted = True
-        self.writePreferences()
+        Thread(target=self.writePreferences).start()
         
     def muteMusic(self):
-        mixer.music.set_volume(0 if mixer.music.get_volume() > 0 else Sound.MUSIC_VOLUME)
-        self.writePreferences()
+        self.musicMuted = not self.musicMuted
+        mixer.music.set_volume(0 if self.musicMuted else self.currentVolume * Sound.MUSIC_VOLUME)
+        Thread(target=self.writePreferences).start()
         
     def writePreferences(self):
-        try:
-            with open("settings/preferences.tqp", "r") as existingPreferences:
-                preferences = pickle.load(existingPreferences)
-        except IOError:
-            preferences = Preferences()
-        preferences.musicOn = mixer.music.get_volume() > 0
+        preferences = Preferences()
+        preferences.musicOn = not self.musicMuted
         preferences.sfxOn = not self.sfxMuted
+        preferences.volume = self.currentVolume
         with open("settings/preferences.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
