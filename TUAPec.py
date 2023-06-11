@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: May 28, 2023
+Revised: June 10, 2023
 """
 
 
@@ -159,9 +159,12 @@ class Pec:
  ]
 ))
         elif selectionIndex == 1:
-            if self.c.euros >= 10:
-                self.c.euros -= 10
-                self.text = (npc+": There you go.")
+            if self.c.euros >= 10 or self.c.euros == 0:
+                if self.c.euros == 0:
+                    self.text = npc+": Hey now...I'll just put it on your tab."
+                else:
+                    self.c.euros -= 10
+                    self.text = (npc+": There you go.")
                 if npc+" Quest 1" not in self.c.flags:
                     self.text += (" Ahem. Sir, can you do something for me? "+
                                   "I've been looking for a nice local meat to "+
@@ -370,9 +373,9 @@ class Pec:
         skill1 = "Shield Breaker"
         skill2 = "Steadfast Slash"
         skill3 = "Carnivorous Blow"
-        skillPrice1 = 500
-        skillPrice2 = 1000
-        skillPrice3 = 2000
+        skillPrice1 = 500 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 1000 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 2000 if self.c.mode != "Ultimate" else 0
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Learn %s (%s euros)." % (skill3, skillPrice3),
@@ -391,6 +394,8 @@ class Pec:
             Y = 1
             return self.actions({'area': "Pec",
                                  'coordinates': (X, Y)})
+        elif self.c.mode == "Ultimate":
+            self.text = (npc+": Welcome to the Grand Academy of Macedonia, great one. We have been awaiting your arrival. We are at your service.")
         else:
             self.text = (npc+": Welcome to the Grand Academy of Macedonia. "+
                          "Relocation "+
@@ -411,9 +416,9 @@ class Pec:
         skill1 = "Smoulder"
         skill2 = "Avalanche"
         skill3 = "Whirlpool"
-        skillPrice1 = 1500
-        skillPrice2 = 1500
-        skillPrice3 = 1500
+        skillPrice1 = 1500 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 1500 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 1500 if self.c.mode != "Ultimate" else 0
         items = ["Wand of Kosovo"]+[None]*8
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
@@ -437,7 +442,10 @@ class Pec:
             return self.actions({'area': "Pec",
                                  'coordinates': (X, Y)})
         elif "Drumbol" not in self.c.flags:
-            self.text = (npc+": I am the renowned Drumbol the smoulderer. According to the dictionary, that means I am handsome and also darkly passionate. I'm getting a little old for that nonsense. However, I am darkly passionate about magic. I can teach you to smoulder, too.")
+            if self.c.mode == "Ultimate":
+                self.text = (npc+": My! Your form, it is magnificent! Please, let me demonstrate my smoulder! It may pass your muster! By the way, I'm Drumbol.")
+            else:
+                self.text = (npc+": I am the renowned Drumbol the smoulderer. According to the dictionary, that means I am handsome and also darkly passionate. I'm getting a little old for that nonsense. However, I am darkly passionate about magic. I can teach you to smoulder, too.")
             self.c.flags['Drumbol'] = True
         else:
             self.text = npc+": "+choice(
@@ -455,9 +463,9 @@ class Pec:
         skill1 = "Restore"
         skill2 = "Reinvigorate"
         skill3 = "Revitalize"
-        skillPrice1 = 1000
-        skillPrice2 = 5000
-        skillPrice3 = 25000
+        skillPrice1 = 1000 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 5000 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 25000 if self.c.mode != "Ultimate" else 0
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Learn %s (%s euros)." % (skill3, skillPrice3),
@@ -477,8 +485,12 @@ class Pec:
             return self.actions({'area': "Pec",
                                  'coordinates': (X, Y)})
         elif "Master Chi" not in self.c.flags:
-            self.text = ("%s: Welcome. I am %s, the yogi. "  % (npc, npc) +
-                         "Come, and be one with the soul.")
+            if self.c.mode == "Ultimate":
+                self.text = ("%s: I have seen you in my dream. " % npc +
+                             "Let us connect our souls.")
+            else:
+                self.text = ("%s: Welcome. I am %s, the yogi. "  % (npc, npc) +
+                             "Come, and be one with the soul.")
             self.c.flags['Master Chi'] = True
         else:
             self.text = npc+": "+choice(

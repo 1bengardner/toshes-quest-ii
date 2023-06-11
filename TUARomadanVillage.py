@@ -2,7 +2,7 @@
 File: TUARomadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: June 3, 2023
+Revised: June 10, 2023
 """
 
 
@@ -437,23 +437,28 @@ class RomadanVillage:
         elif selectionIndex == 1:
             if  (self.c.hasItem(rawMaterial1) and
                  self.c.hasItem(rawMaterial2) and
-                 self.c.euros >= craftPrice and
+                 (self.c.euros >= craftPrice or self.c.euros == 0) and
                  not self.c.itemIsEquipped(rawMaterial1) and
                  not self.c.itemIsEquipped(rawMaterial2)):
                 self.c.removeItem(self.c.indexOfItem(rawMaterial1))
                 self.c.removeItem(self.c.indexOfItem(rawMaterial2))
-                self.c.euros -= craftPrice
-                self.text = ("After you pay %s euros" % craftPrice +
-                             " and hand over your gems, the %s" % npc +
-                             " returns with a %s." % product)
+                if self.c.euros == 0:
+                    self.text = ("%s: I understand. You need this blade." % npc +
+                                 "\nYou hand over your gems and the %s" % npc +
+                                 " returns with a %s." % product)                    
+                else:
+                    self.c.euros -= craftPrice
+                    self.text = ("After you pay %s euros" % craftPrice +
+                                 " and hand over your gems, the %s" % npc +
+                                 " returns with a %s." % product)
                 self.c.flags['Magnificent Blade'] = True
                 return self.actions({'item': product})
-            elif craftPrice > self.c.euros:
-                self.text = (npc+": I'll need %s euros." % craftPrice)
             elif (not self.c.hasItem(rawMaterial1) or
                   not self.c.hasItem(rawMaterial2)):
                 self.text = (npc+": I'll need a garnet and an aquamarine" +
                              " to craft this magnificent blade.")
+            elif craftPrice > self.c.euros:
+                self.text = (npc+": I'll need %s euros." % craftPrice)
         elif selectionIndex == 2:
             X = 1
             Y = 4

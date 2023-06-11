@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: June 4, 2023
+Revised: June 10, 2023
 """
 
 import random
@@ -310,7 +310,7 @@ class DuneHotsPeak:
         self.helpText = None
         npc = "Zhaklina"
         skill1 = "Rapid Burst"
-        skillPrice1 = 5000
+        skillPrice1 = 5000 if self.c.mode != "Ultimate" else 0
         tunic = "Fire Tunic"
         self.menu = ["Leave."]
         ableToLearn = self.hasGainedPowerOf("Giant Salamander2")

@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: May 31, 2023
+Revised: June 10, 2023
 """
 
 
@@ -119,17 +119,26 @@ class Litochoro:
             if any(phrase in self.text for phrase in ("Olympus", "mountain")):
                 self.c.flags['Ready for Mount Olympus'] = True
         elif selectionIndex == 1:
-            if self.c.euros < teaPrice:
+            if self.c.euros < teaPrice and self.c.euros > 0:
                 self.text = (npc+": Oops, tea costs %s euros." % teaPrice)
             else:
-                self.c.euros -= teaPrice
-                self.text = (npc+": Here is some %s, dear." % random.choice([
-                    "Earl Grey",
-                    "spearmint tea",
-                    "chamomile tea",
-                    "lavender mint tea",
-                    "ironwort tea",
-                ]))
+                if self.c.euros == 0:
+                    self.text = (npc+": It's okay, dear. Have this %s." % random.choice([
+                        "blackcurrant tea",
+                        "coca tea",
+                        "raspberry tea",
+                        "mint julep juniper tea",
+                        "rapphodil tea",
+                    ]))
+                else:
+                    self.c.euros -= teaPrice
+                    self.text = (npc+": Here is some %s, dear." % random.choice([
+                        "Earl Grey",
+                        "spearmint tea",
+                        "chamomile tea",
+                        "lavender mint tea",
+                        "ironwort tea",
+                    ]))
                 mythicalCreatures = [
                     "Nemean Lion",
                     "Teumessian Fox",

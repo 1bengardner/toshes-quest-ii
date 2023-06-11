@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: May 21, 2023
+Revised: June 10, 2023
 """
 
 
@@ -220,9 +220,12 @@ class MojkovacValley:
  "some lemon juice and there you go, Black Magic."]
 ))
         elif selectionIndex == 1:
-            if self.c.euros >= 5:
-                self.c.euros -= 5
-                self.text = (npc+": Enjoy.")
+            if self.c.euros >= 5 or self.c.euros == 0:
+                if self.c.euros == 0:
+                    self.text = (npc+": Don't sweat it. This one is on me.")
+                else:
+                    self.c.euros -= 5
+                    self.text = (npc+": Enjoy.")
                 if 'Adam Quest 1' not in self.c.flags:
                     self.text += ("..I do have a request for you, though. "+
                                   "You can kill orcs no problem, right? I "+

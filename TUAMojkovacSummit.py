@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: May 29, 2023
+Revised: June 10, 2023
 """
 
 
@@ -281,8 +281,8 @@ class MojkovacSummit:
         npc = "Miru"
         skill1 = "Stiff Shot"
         skill2 = "Flaming Arrow"
-        skillPrice1 = 300
-        skillPrice2 = 200
+        skillPrice1 = 300 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 200 if self.c.mode != "Ultimate" else 0
         tunic = "Woodland Tunic"
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),

@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: May 29, 2023
+Revised: June 10, 2023
 """
 
 
@@ -330,8 +330,8 @@ class HercegFields:
         npc = "Ica"
         skill1 = "Power Lob"
         skill2 = "Rock Shot"
-        skillPrice1 = 100
-        skillPrice2 = 200
+        skillPrice1 = 100 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 200 if self.c.mode != "Ultimate" else 0
         tunic = "Tunic"
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
@@ -384,28 +384,34 @@ class HercegFields:
         self.text = None
         self.helpText = None
         npc = "Knight Zorac"
-        self.menu = ["Learn Deep Thrust (100 euros).",
-                     "Learn Rumble Strike (200 euros).",
-                     "Learn Helix Swing (400 euros).",
+        skillPrice1 = 100 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 200 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 400 if self.c.mode != "Ultimate" else 0
+        self.menu = ["Learn Deep Thrust (%s euros)." % skillPrice1,
+                     "Learn Rumble Strike (%s euros)." % skillPrice2,
+                     "Learn Helix Swing (%s euros)." % skillPrice3,
                      "Leave."]
         if selectionIndex == 0:
             return self.actions({'skill': "Deep Thrust",
-                                 'cost': 100})
+                                 'cost': skillPrice1})
         elif selectionIndex == 1:
             return self.actions({'skill': "Rumble Strike",
-                                 'cost': 200})
+                                 'cost': skillPrice2})
         elif selectionIndex == 2:
             return self.actions({'skill': "Helix Swing",
-                                 'cost': 400})
+                                 'cost': skillPrice3})
         elif selectionIndex == 3:
             X = 4
             Y = 10
             return self.actions({'area': "Herceg Fields",
                                  'coordinates': (X, Y)})
         else:
-            self.text = (npc+": Welcome to the Knights' Outpost. We are a "+
-                     "branch of the Knights of Igalo. We offer training for "+
-                     "a fee.")
+            if self.c.mode == "Ultimate":
+                self.text = (npc+": Sir, welcome. It is an honour to serve you. For free, of course.")
+            else:
+                self.text = (npc+": Welcome to the Knights' Outpost. We are a "+
+                         "branch of the Knights of Igalo. We offer training for "+
+                         "a fee.")
         return self.actions()
 
     def path6(self, selectionIndex=None):

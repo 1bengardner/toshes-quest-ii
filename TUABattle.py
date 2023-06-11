@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 6, 2023
+Revised: June 10, 2023
 """
 
 
@@ -31,6 +31,9 @@ class Battle(object):
             c for c in auxiliaryCharacters if not c.isDead()]
         self.charactersFlags = {}
         self.enemy = enemy
+        if self.mainCharacter.mode == "Easy":
+            self.enemy.cRate /= 2
+            self.enemy.defence /= 2
         self.enemyFlags = set()
         for character in self.auxiliaryCharacters+[self.mainCharacter]:
             self.charactersFlags[character.NAME] = set()
@@ -1365,6 +1368,11 @@ class Battle(object):
                 xpGained = self.enemy.XP
                 eurosGained = self.enemy.EUROS
 
+            if self.mainCharacter.mode == "Easy":
+                xpGained *= 2
+            elif self.mainCharacter.mode == "Ultimate":
+                xpGained *= 5
+
             divisor = (self.mainCharacter.level - self.enemy.LEVEL)
             if divisor <= 0:
                 divisor = 1
@@ -1395,8 +1403,10 @@ class Battle(object):
             for character in self.auxiliaryCharacters:
                 character.xp += xpGained
             self.mainCharacter.euros += eurosGained
-            self.text += (xpGainString+
-                          "You gain "+str(eurosGained)+" euros.\n")
+            euroGainString = "You gain "+str(eurosGained)+" euros.\n"
+            if self.mainCharacter.mode == "Ultimate":
+                euroGainString = ""
+            self.text += (xpGainString+euroGainString)
             if ( eurosGained == 0 and self.enemy.LIVING
                  and self.enemy.DEATH_HP <= 0
                  and self.roll() <= max(1, 20 - self.mainCharacter.level + self.enemy.LEVEL)):

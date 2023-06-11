@@ -1048,6 +1048,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
     def sell(self, itemIndex):
         if self.buyback:
             self.character.items[itemIndex].PRICE /= 2
+            if self.character.mode == "Ultimate":
+                self.character.items[itemIndex].PRICE = 0
             if None in self.character.flags['Buyback Items']:
                 self.character.flags['Buyback Items'].remove(None)
                 self.store.remove(None)

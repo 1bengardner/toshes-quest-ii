@@ -57,7 +57,7 @@ class Character(object):
         self._dexterity = int(dexterity)
         self._wisdom = int(wisdom)
         self.skills = skills
-        self.euros = int(euros)
+        self._euros = int(euros)
         self.mercenaries = list(mercenaries)
         self.items = list(items)
         self.equippedItemIndices = dict(equippedItemIndices)
@@ -315,6 +315,14 @@ class Character(object):
     @maxEp.setter
     def maxEp(self, value):
         self._maxEp += value - self.maxEp
+
+    @property
+    def euros(self):
+        return 0 if self.mode == "Ultimate" else self._euros
+
+    @euros.setter
+    def euros(self, value):
+        self._euros = value
 
     @property
     def baseCDamage(self):

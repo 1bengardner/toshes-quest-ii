@@ -2,7 +2,7 @@
 File: TUAIgaloCathedral.py
 Author: Ben Gardner
 Created: November 8, 2022
-Revised: November 13, 2022
+Revised: June 10, 2023
 """
 
 from random import randint
@@ -117,7 +117,7 @@ class IgaloCathedral:
         elif self.hasGainedPowerOf("Giant Scorpion2"):
             skills.append(("Venomblast", 30000))
         
-        self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1]) for skill in skills]
+        self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1] if self.c.mode != "Ultimate" else 0) for skill in skills]
         self.menu.append("Leave.")
         
         if selectionIndex == len(skills):
@@ -127,7 +127,7 @@ class IgaloCathedral:
                                  'coordinates': (X, Y)})
         elif selectionIndex is not None:
             return self.actions({'skill': skills[selectionIndex][0],
-                                 'cost': skills[selectionIndex][1]},)
+                                 'cost': skills[selectionIndex][1] if self.c.mode != "Ultimate" else 0},)
         
         if "Halvar" not in self.c.flags or self.roll() > 50:
             self.text = "%s strokes his beard tentacles slowly.\nHalvar: The wax within my...rather eloquent beard has a strength that rivals even earth magic. Perhaps my conjured rocks are the only thing in this universe that are as hard. Peculiar." % ("Halvar" if "Halvar" in self.c.flags else "The earth archmage")
@@ -153,7 +153,7 @@ class IgaloCathedral:
         if self.hasGainedPowerOf("Giant Seal2") or self.hasGainedPowerOf("Giant Shark2"):
             skills.append(("Tsunami", 60000))
         
-        self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1]) for skill in skills]
+        self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1] if self.c.mode != "Ultimate" else 0) for skill in skills]
         self.menu.append("Leave.")
         
         if selectionIndex == len(skills):
@@ -163,7 +163,7 @@ class IgaloCathedral:
                                  'coordinates': (X, Y)})
         elif selectionIndex is not None:
             return self.actions({'skill': skills[selectionIndex][0],
-                                 'cost': skills[selectionIndex][1]},)
+                                 'cost': skills[selectionIndex][1] if self.c.mode != "Ultimate" else 0},)
         
         if "Niles" not in self.c.flags or self.roll() > 50:
             self.c.flags['Niles'] = True
@@ -189,7 +189,7 @@ class IgaloCathedral:
         if self.hasGainedPowerOf("Giant Salamander2"):
             skills.append(("Eruption", 45000))
         
-        self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1]) for skill in skills]
+        self.menu = ["Learn %s (%s euros)." % (skill[0], skill[1] if self.c.mode != "Ultimate" else 0) for skill in skills]
         self.menu.append("Leave.")
         
         if selectionIndex == len(skills):
@@ -199,7 +199,7 @@ class IgaloCathedral:
                                  'coordinates': (X, Y)})
         elif selectionIndex is not None:
             return self.actions({'skill': skills[selectionIndex][0],
-                                 'cost': skills[selectionIndex][1]},)
+                                 'cost': skills[selectionIndex][1] if self.c.mode != "Ultimate" else 0},)
         
         if "Aiden" not in self.c.flags or self.roll() > 50:
             self.c.flags['Aiden'] = True

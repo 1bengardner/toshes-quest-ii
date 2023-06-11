@@ -168,7 +168,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             pady=4,
             bd=4,
             width=12,
-        ).grid(padx=12, pady=24)
+        ).grid(padx=6, pady=24)
         Radiobutton(
             modeFrame,
             text="Hard Mode",
@@ -182,7 +182,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             pady=4,
             bd=4,
             width=12,
-        ).grid(padx=12, pady=24, row=0, column=1)
+        ).grid(padx=6, pady=24, row=0, column=1)
         Radiobutton(
             modeFrame,
             text="Ultimate Mode",
@@ -196,7 +196,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             pady=4,
             bd=4,
             width=12,
-        ).grid(padx=12, pady=24, row=0, column=2)
+        ).grid(padx=6, pady=24, row=0, column=2)
         self.modeVar.set("Easy")
 
     def apply(self):

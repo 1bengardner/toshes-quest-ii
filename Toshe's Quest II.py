@@ -396,8 +396,14 @@ class TopLeftFrame:
                     portraitCanvas.create_image(58, 32, image=scaledItems[character.equippedArmour.IMAGE_NAME])
                 if character.equippedShield.IMAGE_NAME != "Nothing":
                     portraitCanvas.create_image(58, 50, image=scaledItems[character.equippedShield.IMAGE_NAME])
+                if character.mode == "Ultimate":
+                    buttonBg = ENIGMATIC_COLOR
+                elif character.mode == "Hard":
+                    buttonBg = YELLOW
+                else:
+                    buttonBg = BUTTON_BG
                 gameInfo = Button(gameDetailFrame,
-                    bg=BUTTON_BG,
+                    bg=buttonBg,
                     fg=BUTTON_FG,
                     font=font2,
                     justify=LEFT,
@@ -1119,6 +1125,13 @@ class TopCenterFrame:
         if "Legend" in main.character.flags:
             window.topFrame.topLeftFrame.tosheLabel['bg'] = LEGENDARY_BD
 
+        if main.character.mode == "Ultimate":
+            window.topFrame.topRightFrame.eurosLabel['text'] = "Ultimate Mode"
+            window.topFrame.topRightFrame.eurosLabel['image'] = ""
+            window.topFrame.topRightFrame.eurosLabel['bg'] = ENIGMATIC_COLOR
+            window.topFrame.topRightFrame.eurosLabel['relief'] = GROOVE
+            window.topFrame.topRightFrame.eurosLabel.grid(sticky=EW)
+
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
         self.areaButton.bind_all("<Control-s>", lambda _: self.areaButton.invoke())
@@ -1184,7 +1197,7 @@ The lair of the dark commander """)
 The """)
         newsContent.insert(END, "endgame", ("emphasis"))
         newsContent.insert(END,
-""" is nigh! Completing the main game will unlock a new town with two new modes to test your might and upgrade your arsenal to its ultimate form.
+""" is nigh! Completing the main game will unlock a new town with two new areas to test your might and upgrade your arsenal to its ultimate form.
 
 """)
         newsContent.insert(END, "Feature Updates", ("section"))
@@ -1634,7 +1647,8 @@ Game over? Don't fret. You can now """)
         self.waterValueLabel['text'] = str(c.waterReduction) + "%"
         self.blockChanceValueLabel['text'] = str(c.bRate) + "%"
         self.fireValueLabel['text'] = str(c.fireReduction) + "%"
-        self.eurosLabel['text'] = c.euros
+        if c.mode != "Ultimate":
+            self.eurosLabel['text'] = c.euros
         pluralOrNah = ("" if c.statPoints <= 1 else "s")
         if c.statPoints > 0:
             self.statPointsLabel['relief'] = RIDGE

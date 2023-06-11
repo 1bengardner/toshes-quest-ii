@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: May 31, 2023
+Revised: June 10, 2023
 """
 
 
@@ -441,15 +441,15 @@ class EasternKosovo:
             self.nookNpc = "Old Nigel"
             skill1 = "Fling Dung"
             skill2 = "Smoke Bomb"
-            skillPrice1 = 20000
-            skillPrice2 = 100000
+            skillPrice1 = 20000 if self.c.mode != "Ultimate" else 0
+            skillPrice2 = 100000 if self.c.mode != "Ultimate" else 0
         else:
             npc = "Trena"
             self.nookNpc = "Trena"
             skill1 = "Sap Shot"
             skill2 = "Bullseye Bolt"
-            skillPrice1 = 500
-            skillPrice2 = 1000
+            skillPrice1 = 500 if self.c.mode != "Ultimate" else 0
+            skillPrice2 = 1000 if self.c.mode != "Ultimate" else 0
         tunic = "Eucalyptic Tunic"
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
@@ -532,9 +532,9 @@ class EasternKosovo:
         skill1 = "Poison Cloud"
         skill2 = "Melting Touch"
         skill3 = "Mist"
-        skillPrice1 = 3000
-        skillPrice2 = 3000
-        skillPrice3 = 3000
+        skillPrice1 = 3000 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 3000 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 3000 if self.c.mode != "Ultimate" else 0
         items = ["Fire Wand"]+[None]*8
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),

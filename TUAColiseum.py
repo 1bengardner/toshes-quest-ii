@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: June 4, 2023
+Revised: June 10, 2023
 """
 
 
@@ -117,10 +117,11 @@ class Coliseum:
         if ( selectionIndex == 0 and self.c.hp <= self.CHARACTER_DEATH_HP):
             self.text = ("Guard: Sir, you are not fit to fight. Take a" +
                          " rest and come back.")
-        elif (selectionIndex == 0 and self.c.euros < entryFee):
+        elif (selectionIndex == 0 and self.c.euros > 0 and self.c.euros < entryFee):
             self.text = "Guard: One thousand euros to enter, sir."
         elif selectionIndex == 0:
-            self.c.euros -= entryFee
+            if self.c.euros > 0:
+                self.c.euros -= entryFee
             X = 6
             Y = 2
             return self.actions({'area': "Coliseum",

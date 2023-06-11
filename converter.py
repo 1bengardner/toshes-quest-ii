@@ -101,6 +101,9 @@ def update(gameFile, path):
             skill.PERMITTED_WEAPONS.add("Bludgeon")
             skill.PERMITTED_WEAPONS.remove("Club")
             changed = True
+    if not hasattr(character, "_euros"):
+        character._euros = 420
+        changed = True
     changed = updateChangedAreaNames(character) or changed
     if changed:
         with open(path, "w") as gameFile:

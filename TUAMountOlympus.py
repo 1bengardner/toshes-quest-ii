@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: June 4, 2023
+Revised: June 10, 2023
 """
 
 
@@ -383,9 +383,9 @@ class MountOlympus:
         skill1 = "Expunging Lunge"
         skill2 = "Reckless Rack"
         skill3 = "Battery Cage"
-        price1 = 10000
-        price2 = 20000
-        price3 = 30000
+        price1 = 10000 if self.c.mode != "Ultimate" else 0
+        price2 = 20000 if self.c.mode != "Ultimate" else 0
+        price3 = 30000 if self.c.mode != "Ultimate" else 0
         self.menu = [
             "Speak to Maverick.",
             "Learn %s (%s euros)." % (skill1, price1),
@@ -424,7 +424,12 @@ class MountOlympus:
         else:
             if "Maverick" not in self.c.flags:
                 self.text = "You confront a warrior standing stoically upon an outcrop. He rests his swords at his sides as you draw near."
-            self.text += "\nMaverick: Greetings, explorer. I am Maverick. I am protector of Olympus. And, I am teacher to only the most talented pupils."
+            if self.c.mode == "Ultimate":
+                self.text += "\nMaverick: Wow.\nMaverick stares in awe, and almost bows before catching himself.\nMaverick: Are you here to see me?\nMaverick blushes slightly."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: What's his problem?"
+            else:
+                self.text += "\nMaverick: Greetings, explorer. I am Maverick. I am protector of Olympus. And, I am teacher to only the most talented pupils."
             self.text = self.text.strip()
         return self.actions()
 

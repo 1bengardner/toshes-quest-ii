@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: May 29, 2023
+Revised: June 10, 2023
 """
 
 
@@ -475,7 +475,7 @@ class FartooqHold:
         self.helpText = None
         npc = "Frosina"
         skill1 = "Death Dart"
-        skillPrice1 = 5000
+        skillPrice1 = 5000 if self.c.mode != "Ultimate" else 0
         tunic = "Water Tunic"
         self.menu = ["Leave."]
         ableToLearn = self.hasGainedPowerOf("Giant Seal2") or self.hasGainedPowerOf("Giant Shark2")

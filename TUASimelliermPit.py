@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: May 29, 2023
+Revised: June 10, 2023
 """
 
 
@@ -249,7 +249,7 @@ class SimelliermPit:
         self.helpText = None
         npc = "Dafina"
         skill1 = "Venom Arrow"
-        skillPrice1 = 5000
+        skillPrice1 = 5000 if self.c.mode != "Ultimate" else 0
         tunic = "Earth Tunic"
         self.menu = ["Leave."]
         ableToLearn = self.hasGainedPowerOf("Giant Scarab2") or self.hasGainedPowerOf("Giant Scorpion2")

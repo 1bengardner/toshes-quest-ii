@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: June 6, 2023
+Revised: June 10, 2023
 """
 
 
@@ -659,9 +659,12 @@ class HercegNovi:
 )
                          )
         elif selectionIndex == 1:
-            if self.c.euros >= 2 and "Tipsy Tuesday" not in self.c.flags:
-                self.c.euros -= 2
-                self.text = ("Bartender Daniel: Here you are.")
+            if (self.c.euros >= 2 or self.c.euros == 0) and "Tipsy Tuesday" not in self.c.flags:
+                if self.c.euros == 0:
+                    self.text = ("Bartender Daniel: No money, no problem. Cheers!")
+                else:
+                    self.c.euros -= 2
+                    self.text = ("Bartender Daniel: Here you are.")
                 if 'Daniel Quest 1' not in self.c.flags:
                     self.text += (" Hey, let me let you in on something. "+
                                   "The Romadan men roaming the fields outside "+

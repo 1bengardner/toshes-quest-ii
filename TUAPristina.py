@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: May 28, 2023
+Revised: June 10, 2023
 """
 
 
@@ -485,9 +485,12 @@ class Pristina:
  ]
 ))
         elif selectionIndex == 1:
-            if self.c.euros >= 20:
-                self.c.euros -= 20
-                self.text = (npc+": For you.")
+            if self.c.euros >= 20 or self.c.euros == 0:
+                if self.c.euros == 0:
+                    self.text = (npc+": It is your right to drink. Ganbei.")
+                else:
+                    self.c.euros -= 20
+                    self.text = (npc+": For you.")
                 if npc+" Quest 1" not in self.c.flags:
                     self.text += (" Warrior."+
                                   " This is kind of...immoral."+
@@ -656,14 +659,19 @@ class Pristina:
             product = "Gold Bar"
             price = 500
             if  (self.c.hasItem(rawMaterial, 2) and
-                 self.c.euros >= price and
+                 (self.c.euros >= price or self.c.euros == 0) and
                  not self.c.itemIsEquipped(rawMaterial)):
                 self.c.removeItem(self.c.indexOfItem(rawMaterial))
                 self.c.removeItem(self.c.indexOfItem(rawMaterial))
-                self.c.euros -= price
-                self.text = ("After you pay %s euros," % price +
-                             " the blacksmith smelts your ore and" +
-                             " returns with a golden bar.")
+                if self.c.euros == 0:
+                    self.text = (npc+": Sovereign citizen? On house.\n" +
+                                 "The blacksmith smelts your ore and" +
+                                 " returns with a golden bar.")
+                else:
+                    self.c.euros -= price
+                    self.text = ("After you pay %s euros," % price +
+                                 " the blacksmith smelts your ore and" +
+                                 " returns with a golden bar.")
                 self.menu = ["Smelt gold ore (500 euros, 2 ores).",
                              "Leave."]
                 return self.actions({'item': product,
@@ -676,10 +684,10 @@ class Pristina:
                                                         "Reinforced Buckler",
                                                         "Steel Defender",
                                                         "Force Gauntlets"]})
-            elif price > self.c.euros:
-                self.text = (npc+": You need %s euros to cook." % price)
             elif not self.c.hasItem(rawMaterial, 2):
                 self.text = (npc+": More ore. Need more ore. Two ore.")
+            elif price > self.c.euros:
+                self.text = (npc+": You need %s euros to cook." % price)
         elif selectionIndex == 1:
             X = 3
             Y = 3
@@ -718,9 +726,9 @@ class Pristina:
         skill1 = "Steel Twister"
         skill2 = "Bloodrush Crush"
         skill3 = "Diamond Cutter"
-        skillPrice1 = 3000
-        skillPrice2 = 3000
-        skillPrice3 = 3000
+        skillPrice1 = 3000 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 3000 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 3000 if self.c.mode != "Ultimate" else 0
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Learn %s (%s euros)." % (skill3, skillPrice3),
@@ -739,6 +747,8 @@ class Pristina:
             Y = 4
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
+        elif self.c.mode == "Ultimate":
+            self.text = (npc+": Well met, ultimate one. I see there is nothing new that I can tell you. Enjoy our services at no cost.")
         else:
             self.text = (npc+": Well met. I am here to instruct soldiers like yourself."+
                          " Let us train.")
@@ -753,9 +763,9 @@ class Pristina:
         skill1 = "Duststorm"
         skill2 = "Hailstorm"
         skill3 = "Firestorm"
-        skillPrice1 = 5000
-        skillPrice2 = 5000
-        skillPrice3 = 5000
+        skillPrice1 = 5000 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 5000 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 5000 if self.c.mode != "Ultimate" else 0
         items = ["Shooting Star"]+[None]*8
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
@@ -779,9 +789,13 @@ class Pristina:
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
         elif npc not in self.c.flags:
-            self.text = (npc+": I am the mage Scrombodogo."+
-                         " Together, we can wield the power of the elements."+
-                         " Come, my friend, and be enlightened.")
+            if self.c.mode == "Ultimate":
+                self.text = (npc+": I am the mage Scrombodogo."+
+                             " But it appears you need no introduction. I can tell you are quite the potent being. Allow me to grant you what magic teachings you require, free of charge.")
+            else:
+                self.text = (npc+": I am the mage Scrombodogo."+
+                             " Together, we can wield the power of the elements."+
+                             " Come, my friend, and be enlightened.")
             self.c.flags[npc] = True
         else:
             self.text = npc+": "+choice(
@@ -809,55 +823,73 @@ class Pristina:
             item = item1
             aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
             if  (self.c.hasItem(gem, 2) and
-                 self.c.euros >= price and
+                 (self.c.euros >= price or self.c.euros == 0) and
                  not self.c.itemIsEquipped(gem)):
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
-                self.c.euros -= price
-                self.text = ("After you pay %s euros, " % price 
-                             + npc + " chips away at your gem, then hands you "
-                             + aOrAn + " " + item + ".")
+                if self.c.euros == 0:
+                    self.text = (npc + ": Normally, I do not work for free.\n"
+                                 + npc + " nods stoically in acknowledgment and"
+                                 + " chips away at your gem, then hands you "
+                                 + aOrAn + " " + item + ".")
+                else:
+                    self.c.euros -= price
+                    self.text = ("After you pay %s euros, " % price 
+                                 + npc + " chips away at your gem, then hands you "
+                                 + aOrAn + " " + item + ".")
                 return self.actions({'item': item})
-            elif price > self.c.euros:
-                self.text = (npc+": I need more euros.")
             elif not self.c.hasItem(gem, 2):
                 self.text = (npc + ": You are missing a key ingredient.")
+            elif price > self.c.euros:
+                self.text = (npc+": I need more euros.")
         elif selectionIndex == 1:
             gem = "Aquamarine Shard"
             item = item2
             aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
             if  (self.c.hasItem(gem, 2) and
-                 self.c.euros >= price and
+                 (self.c.euros >= price or self.c.euros == 0) and
                  not self.c.itemIsEquipped(gem)):
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
-                self.c.euros -= price
-                self.text = ("After you pay %s euros, " % price
-                             + npc + " chips away at your gem, then hands you "
-                             + aOrAn + " " + item + ".")
+                if self.c.euros == 0:
+                    self.text = (npc + ": Normally, I do not work for free.\n"
+                                 + npc + " nods stoically in acknowledgment and"
+                                 + " chips away at your gem, then hands you "
+                                 + aOrAn + " " + item + ".")
+                else:
+                    self.c.euros -= price
+                    self.text = ("After you pay %s euros, " % price
+                                 + npc + " chips away at your gem, then hands you "
+                                 + aOrAn + " " + item + ".")
                 return self.actions({'item': item})
-            elif price > self.c.euros:
-                self.text = (npc+": I need more euros.")
             elif not self.c.hasItem(gem, 2):
                 self.text = (npc + ": You are forgetting something.")
+            elif price > self.c.euros:
+                self.text = (npc+": I need more euros.")
         elif selectionIndex == 2:
             gem = "Garnet Fragment"
             item = item3
             aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
             if  (self.c.hasItem(gem, 2) and
-                 self.c.euros >= price and
+                 (self.c.euros >= price or self.c.euros == 0) and
                  not self.c.itemIsEquipped(gem)):
                 self.c.removeItem(self.c.indexOfItem(gem))
                 self.c.removeItem(self.c.indexOfItem(gem))
-                self.c.euros -= price
-                self.text = ("After you pay %s euros, " % price
-                             + npc + " chips away at your gem, then hands you "
-                             + aOrAn + " " + item + ".")
+                if self.c.euros == 0:
+                    self.text = (npc + ": Normally, I do not work for free.\n"
+                                 + npc + " nods stoically in acknowledgment and"
+                                 + " chips away at your gem, then hands you "
+                                 + aOrAn + " " + item + ".")
+                else:
+                    self.c.euros -= price
+                    self.text = ("After you pay %s euros, " % price
+                                 + npc + " chips away at your gem, then hands you "
+                                 + aOrAn + " " + item + ".")
                 return self.actions({'item': item})
+            elif not self.c.hasItem(gem, 2):
+                self.text = (npc + ": I need more materials.")
             elif price > self.c.euros:
                 self.text = (npc+": I need more euros.")
-            elif not self.c.hasItem(gem, 2):
-                self.text = (npc + ": I need more garnet fragments.")
         elif selectionIndex == 3:
             X = 7
             Y = 3

@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: May 28, 2023
+Revised: June 10, 2023
 """
 
 
@@ -574,9 +574,9 @@ class BlackMountain:
         skill1 = "Fireball"
         skill2 = "Icicles"
         skill3 = "Quicksand"
-        skillPrice1 = 300
-        skillPrice2 = 300
-        skillPrice3 = 300
+        skillPrice1 = 300 if self.c.mode != "Ultimate" else 0
+        skillPrice2 = 300 if self.c.mode != "Ultimate" else 0
+        skillPrice3 = 300 if self.c.mode != "Ultimate" else 0
         items = ["Yew Wand"]+[None]*8
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
@@ -601,7 +601,10 @@ class BlackMountain:
                                  'coordinates': (X, Y)})
         elif npc not in self.c.flags:
             self.c.flags[npc] = True
-            self.text = (npc+": My name is %s. Does magic interest you?" % npc)
+            if self.c.mode == "Ultimate":
+                self.text = (npc+": Have I seen you before? Let me see what you already know." % npc)
+            else:
+                self.text = (npc+": My name is %s. Does magic interest you?" % npc)
         else:
             self.text = (npc+": Does magic interest you?")
         return self.actions({'items for sale': items})
