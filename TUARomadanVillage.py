@@ -2,7 +2,7 @@
 File: TUARomadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -117,7 +117,7 @@ class RomadanVillage:
                                  'coordinates': (X, Y)})
         elif "Marciano Coward 3" not in self.c.flags:
             self.text = ("Marciano escapes into a sand dune."+
-                         "\nToshe: You goddamn coward!")
+                         "\n%s: You goddamn coward!" % self.c.NAME)
             self.c.flags['Marciano Coward 3'] = True
             return self.actions()
         return False
@@ -141,7 +141,7 @@ class RomadanVillage:
         self.helpText = None
         self.menu = []
         if "Romadan Village" not in self.c.flags:
-            self.text = ("Toshe: This must be what's left of the" +
+            self.text = ("%s: This must be what's left of the" % self.c.NAME +
                          " Romadan empire.")
             self.c.flags['Romadan Village'] = True
         return self.actions()
@@ -192,7 +192,7 @@ class RomadanVillage:
             self.view = "battle"
             self.text = "Man: %s" % random.choice([
                 "Leave, now! You do not belong here!",
-                "He's a foreigner!",
+                "%s's a foreigner!" % ("She" if self.c.isFemale else "He"),
                 "You will be removed from these premises!"])
             return self.actions({'enemy': "Romadan Man",
                                  'mercenaries': self.c.mercenaries})
@@ -318,7 +318,7 @@ class RomadanVillage:
  " handy sometimes!",
  "You can't poison monsters that don't have blood. I learned that the hard" +
  " way.",
- "Hey dude, you should grab some sort of healing spell if you plan on" +
+ "Hey %s, you should grab some sort of healing spell if you plan on" % ("dudette" if self.c.isFemale else "dude") +
  " going further.",
  "Greece is just south of here, but there's a big wall around it. Their" +
  " security's gotten really tight lately."
@@ -332,7 +332,7 @@ class RomadanVillage:
                 return self.actions({'area': "Romadan Village",
                                      'coordinates': (X, Y)})
             else:
-                self.text = (npc+": It's %s euros, dude; sorry." % price)
+                self.text = (npc+": It's %s euros, %s; sorry." % (price, "dudette" if self.c.isFemale else "dude"))
         elif selectionIndex == 2:
             X = 3
             Y = 3
@@ -343,7 +343,7 @@ class RomadanVillage:
                 self.text = ("You fall asleep."+
                              "\nWhen you wake up, you return to the front "+
                              "to give %s your key." % npc+
-                             "\n"+npc+": Hey, man. Feeling better?")
+                             "\n"+npc+": Hey%s. Feeling better?" % (" there" if self.c.isFemale else ", man"))
                 del self.c.flags['Rested']
                 del self.c.flags['Romadan Village Room Level']
             elif ("Romadan Village Room Level" in self.c.flags and
@@ -352,7 +352,7 @@ class RomadanVillage:
                              " I thought you left. Still need a room?")
                 del self.c.flags['Romadan Village Room Level']
             elif npc not in self.c.flags:
-                self.text = (npc+": Hey dude. I'm not a...Romadan." +
+                self.text = (npc+": Hey %s. I'm not a...Romadan." % ("dudette" if self.c.isFemale else "dude") +
                              " I won't try to kill you or anything." +
                              " You can stay here" +
                              " if you want.")
@@ -368,7 +368,7 @@ class RomadanVillage:
                                  "The new inn is taking away a lot of" +
                                  " tourist business.",
                                  "It's a long walk to Macedonia from here.",
-                                 "Hey, man!"
+                                 "Hey%s!" % (" there" if self.c.isFemale else ", man")
                                  ])
                              )
                 self.text += (" What can I do for you?")
@@ -509,7 +509,7 @@ class RomadanVillage:
             elif ((selectionIndex == 0 and self.c.strength == 0) or
                   (selectionIndex == 1 and self.c.dexterity == 0) or
                   (selectionIndex == 2 and self.c.wisdom == 0)):
-                self.text = ("Toshe: I feel like that would be a terrible idea.")
+                self.text = ("%s: I feel like that would be a terrible idea." % self.c.NAME)
                 return self.actions()
             elif self.c.euros >= price:
                 if selectionIndex == 0:
@@ -578,7 +578,7 @@ class RomadanVillage:
             self.c.flags['New Song'] = "Drat"
             self.text = ("Marciano: I've been waiting. This feud shall" +
                          " end now. Your blood shall spill upon these sands."
-                         "\nToshe: Were you just waiting in this village the" +
+                         "\n%s: Were you just waiting in this village the" % self.c.NAME +
                          " whole time?" +
                          "\nMarciano: Silence!" +
                          "\nMarciano advances toward you.")   

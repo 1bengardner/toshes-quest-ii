@@ -2,7 +2,7 @@
 File: TUAScutariPeninsula.py
 Author: Ben Gardner
 Created: August 30, 2013
-Revised: June 4, 2023
+Revised: June 11, 2023
 """
 
 
@@ -247,7 +247,7 @@ class ScutariPeninsula:
             del self.c.flags['Sliding']
             self.text = ("You slide down the sandy slope, crashing"+
                          " into a pile of rocks at the bottom."+
-                         "\nToshe: Yow!")
+                         "\n%s: Yow!" % self.c.NAME)
             self.c.hp -= 20
             self.menu = ["Crawl through the hole."]
         elif "Sliding" in self.c.flags:

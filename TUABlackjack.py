@@ -2,7 +2,7 @@
 File: TUABlackjack.py
 Author: Ben Gardner
 Created: June 24, 2015
-Revised: June 27, 2015
+Revised: June 11, 2023
 """
 
 
@@ -46,7 +46,8 @@ class Hand:
 
 class Game:
         
-    def __init__(self):
+    def __init__(self, playerName):
+        self.playerName = playerName
         self.player = Hand()
         self.dealer = Hand()
         self.deck = Deck()
@@ -98,7 +99,7 @@ class Game:
                         
         elif action.lower() == "hit":
             self.hit(self.player)
-            text = ("Toshe: Hit me." +
+            text = ("%s: Hit me." % self.playerName +
                     "\n%s" % self.getHandsString())
             if self.player.getValue() > 21:
                 self.outcome = self.outcomes[2]
@@ -108,7 +109,7 @@ class Game:
                         
         elif action.lower() == "stand":
             self.standing = True
-            text = "Toshe: Let's see 'em."
+            text = "%s: Let's see 'em." % self.playerName
             while self.dealer.getValue() < 17:
                 self.hit(self.dealer)
             dealerCards = len(self.dealer.cards)

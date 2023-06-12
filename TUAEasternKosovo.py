@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -424,7 +424,7 @@ class EasternKosovo:
                          " set of stairs leading downwards." +
                          " The location matches where the \"X\" is" +
                          " on your map."
-                         "\nToshe: Is this where the key is...?")
+                         "\n%s: Is this where the key is...?" % self.c.NAME)
             self.menu = ["Descend into the ruins."]
         return self.actions()
 
@@ -484,7 +484,7 @@ class EasternKosovo:
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
                          "\nGirl: Are you a hunter?"+
-                         "\nToshe: Sort of."+
+                         "\n%s: Sort of." % self.c.NAME+
                          "\n"+npc+": Call me "+npc+". You have to be "+
                          "careful here. Even the bees can be deadly. "+
                          "Need a tunic? Oh, you'll want to learn "+
@@ -574,7 +574,7 @@ class EasternKosovo:
         self.helpText = None
         self.menu = []
         if "Eastern Kosovo" not in self.c.flags:
-            self.text = ("Toshe: There's a lot of rogue knights patrolling this" +
+            self.text = ("%s: There's a lot of rogue knights patrolling this" % self.c.NAME +
                          " place. I better watch my step.")
             self.c.flags['Eastern Kosovo'] = True
         return self.actions()
@@ -612,9 +612,9 @@ class EasternKosovo:
             self.menu = ["Enter the gate."]
         elif self.c.hasItem("The Key to Macedonia"):
             self.text = ("You approach a gate sealed by dark forces." +
-                         "\nToshe: It looks like those dark forces are" +
+                         "\n%s: It looks like those dark forces are" % self.c.NAME +
                          " blocking the keyhole.")
         else:
             self.text = ("You approach a gate sealed by dark forces." +
-                         "\nToshe: If only I had the key to Macedonia.")
+                         "\n%s: If only I had the key to Macedonia." % self.c.NAME)
         return self.actions()

@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: June 4, 2023
+Revised: June 11, 2023
 """
 
 
@@ -167,7 +167,7 @@ class Igalo:
             {'Name': "Orc",
              'Identifiers': ["Orc", "Cave Orc", "Shorc", "Sporc"],
              'Description': ("Mean and vicious, but fairly unintelligent." +
-                             "\nToshe: Hey!" +
+                             "\n%s: Hey!" % self.c.NAME +
                              "\nMarija: Not you--orcs. Be prepared for their" +
                              " worst strikes, but don't expect them all to" +
                              " connect. They're basically giant goblins" +
@@ -221,13 +221,13 @@ class Igalo:
              'Identifiers': ["Pestering Imp", "Fire Imp"],
              'Description': ("Those pesky imps. When will they stop" +
                              " bothering us?" +
-                             "\nToshe: I don't know." +
+                             "\n%s: I don't know." % self.c.NAME +
                              "\nMarija laughs." +
                              "\nMarija: They enjoy playing games with humans" +
                              " and abusing arcane wisdom for their own" +
                              " pleasure. They're like small children, only" +
                              " more dangerous." +
-                             "\nToshe: Small children are dangerous enough." +
+                             "\n%s: Small children are dangerous enough." % self.c.NAME +
                              "\nMarija: Imps can often be found carrying" +
                              " small magical objects, just like goblins" +
                              " love shiny things. Imps don't come out often," +
@@ -251,7 +251,7 @@ class Igalo:
                              " resurrection in many old rituals." +
                              " So, basically, adurbids are zombie mummies" +
                              " living forever in the desert." +
-                             "\nToshe: That really sucks.")
+                             "\n%s: That really sucks." % self.c.NAME)
              },
             {'Name': "Dust Dweller",
              'Identifiers': ["Dust Dweller"],
@@ -330,18 +330,18 @@ class Igalo:
         self.menu = []
         if selectionIndex == 0:
             if self.c.euros >= 700 and self.c.hasRoom():
-                self.text = ("Toshe: Sure."+
+                self.text = ("%s: Sure." % self.c.NAME+
                              "\nShady Man: Done. Thanks!"+
                              "\nThe man walks away.")
                 self.c.euros -= 700
                 self.c.flags['Shady Purchase'] = True
                 return self.actions({'item': "Honey Rod"})
             elif self.c.euros < 700:
-                self.text = ("Toshe: I can't afford that.")
+                self.text = ("%s: I can't afford that." % self.c.NAME)
             elif not self.c.hasRoom():
                 self.text = ("You have no room.")
         elif selectionIndex == 1:
-            self.text = ("Toshe: Hey, wands are outlawed here."+
+            self.text = ("%s: Hey, wands are outlawed here." % self.c.NAME+
                          "\nShady Man: What's your problem?")
         elif 'Shady Purchase' not in self.c.flags:
             self.text = ("Shady Man: Psst. You want a wand? 700 euros and "+
@@ -349,9 +349,11 @@ class Igalo:
             self.menu = ["\"Yes.\"",
                          "\"That's illegal.\""]
         elif 'Shady Purchase' in self.c.flags and self.c.hp < self.c.maxHp:
-            self.text = ("Shady Man: You're a good guy. Keep this on the "+
+            self.text = ("Shady Man: You're a %s. Keep this on the " % ("nice lady" if self.c.isFemale else "good guy")+
                          "down-low."+
                          "\nThe man casts a healing spell on you.")
+            if self.c.isFemale:
+                self.text += "\n%s: ...Nice lady?" % self.c.NAME
             self.c.hp = self.c.maxHp
         return self.actions()
 
@@ -449,21 +451,21 @@ class Igalo:
             self.text = "You break a pot.\n"
             if randint(0, 333) == 333:
                 self.view = "battle"
-                self.text += ("Toshe: Uh oh. That sounded bad.")               
+                self.text += ("%s: Uh oh. That sounded bad." % self.c.NAME)               
                 return self.actions({'enemy': "Pot Apparition",
                                      'flash': True})
             else:
                 self.text += choice([
-                    "Toshe: That was fun.",
-                    "Toshe: I feel more heroic.",
-                    "Toshe: I wonder how many of these there are.",
-                    "Toshe: Broken pots are better than un-broken pots.",
-                    "Toshe: My mom is proud of me right now.",
-                    "Toshe: I hope I don't get in trouble.",
-                    "Toshe: Who do these pots belong to?",
-                    "Toshe: Only 99 left.",
-                    "Toshe: That one looked expensive.",
-                    "Toshe: Денес над Македонија!"])
+                    "%s: That was fun." % self.c.NAME,
+                    "%s: I feel more heroic." % self.c.NAME,
+                    "%s: I wonder how many of these there are." % self.c.NAME,
+                    "%s: Broken pots are better than un-broken pots." % self.c.NAME,
+                    "%s: My mom is proud of me right now." % self.c.NAME,
+                    "%s: I hope I don't get in trouble." % self.c.NAME,
+                    "%s: Who do these pots belong to?" % self.c.NAME,
+                    "%s: Only 99 left." % self.c.NAME,
+                    "%s: That one looked expensive." % self.c.NAME,
+                    "%s: Денес над Македонија!" % self.c.NAME])
         else:
             self.text = ("You reach a dead end with a lot of pots.")
         self.menu = ["Break a pot."]
@@ -527,8 +529,9 @@ class Igalo:
                     self.creaturePage += 1
             # If you wanted creature info
             else:
-                self.text = ("Toshe: Tell me about %ss." +
+                self.text = ("%s: Tell me about %ss." +
                              "\nMarija: %s") % (
+                                 self.c.NAME,
                                  self.knownCreatures[
                                      (self.creaturePage-1) * 3
                                      + selectionIndex]['Name'].lower(),
@@ -588,16 +591,16 @@ class Igalo:
             return self.actions({'area': "Igalo",
                                  'coordinates': (X, Y)})
         elif selectionIndex == 1:
-            self.text = ("Toshe: I have a question."+
+            self.text = ("%s: I have a question." % self.c.NAME+
                          "\nMayor Radoman: No time for questions.")
             self.menu = ["Leave."]
             
         elif (selectionIndex == 2 and
               "Radoman Information 1" not in self.c.flags):
-            self.text = ("Toshe: I have information."+
+            self.text = ("%s: I have information." % self.c.NAME+
                          "\nMayor Radoman: Oh, good. Always time for"+
                          " information."+
-                         "\nToshe: It turns out that the archmages left Igalo"+
+                         "\n%s: It turns out that the archmages left Igalo" % self.c.NAME+
                          " to go help some evil dude named Niplin."+
                          "\nMayor Radoman: Niplin? Hahaha, oh, my..."+
                          "he must be the one behind all this. I want you to"+
@@ -609,27 +612,27 @@ class Igalo:
         elif 'Radoman' not in self.c.flags:
             if self.c.hasNoItems():
                 self.text = ("Mayor: Greetings. Who might you be?"+
-                             "\nToshe: Toshe."+
-                             "\nMayor Radoman: Toshe. Radoman. It's good to "+
+                             "\n{0}: {0}.".format(self.c.NAME)+
+                             "\nMayor Radoman: %s. Radoman. It's good to " % self.c.NAME+
                              "see fresh fighters in times of need. Do you "+
                              "have a weapon?"+
-                             "\nToshe: Uh, no."+
+                             "\n%s: Uh, no." % self.c.NAME+
                              "\nMayor Radoman: Don't worry. The knights will "+
                              "supply you with one. They're "+
                              "outside. Go join them for your debriefing."+
-                             "\nToshe: What?"+
+                             "\n%s: What?" % self.c.NAME+
                              "\nMayor Radoman: No time for questions. Get "+
                              "moving.")
             else:
                 self.text = ("Mayor: Greetings. Who might you be?"+
-                             "\nToshe: Toshe."+
-                             "\nMayor Radoman: Toshe. Radoman. It's good to "+
+                             "\n{0}: {0}.".format(self.c.NAME)+
+                             "\nMayor Radoman: %s. Radoman. It's good to " % self.c.NAME+
                              "see fresh fighters in times of need. Do you "+
                              "have a weapon?"+
-                             "\nToshe: Uh, yeah."+
+                             "\n%s: Uh, yeah." % self.c.NAME+
                              "\nMayor Radoman: Good, good. The knights are "+
                              "outside. Go join them for your debriefing."+
-                             "\nToshe: What?"+
+                             "\n%s: What?" % self.c.NAME+
                              "\nMayor Radoman: No time for questions. Get "+
                              "moving.")
             self.tempFlag = "Radoman"
@@ -637,13 +640,13 @@ class Igalo:
                          
         elif ("The Watchmaking Facility Complete" in self.c.flags and
             "Radoman Information 1" not in self.c.flags):
-            self.text = ("Mayor Radoman: Greetings, Toshe.")
+            self.text = ("Mayor Radoman: Greetings, %s." % self.c.NAME)
             self.menu = ["Leave.",
                          "Ask a question.",
                          "Tell Radoman the news."]
                          
         else:
-            self.text = ("Mayor Radoman: Greetings, Toshe.")
+            self.text = ("Mayor Radoman: Greetings, %s." % self.c.NAME)
             self.menu = ["Leave.",
                          "Ask a question."]
                          
@@ -672,17 +675,17 @@ class Igalo:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0 and "Niplin" in self.c.flags['Kills']:
-            self.text = ("Toshe: What happened to the Cathedral of Magic?"+
+            self.text = ("%s: What happened to the Cathedral of Magic?" % self.c.NAME+
                          "\nKnight: The archmages have returned to the cathedral. They are welcoming all those apprentices who seek to enrich their knowledge of the arcane.")
         elif selectionIndex == 1 and "Niplin" in self.c.flags['Kills']:
-            self.text = ("Toshe: Why was magic outlawed?"+
+            self.text = ("%s: Why was magic outlawed?" % self.c.NAME+
                          "\nKnight: When people began casting spells with "+
                          "iniquity, the fate of Igalo was in jeopardy "+
                          "without the wisdom of the archmages. "+
                          "The mayor was forced to pass a law making "+
                          "all forms of magic illegal. However, with the return of the archmages, the law has been abolished.")
         elif selectionIndex == 0:
-            self.text = ("Toshe: What happened to the Cathedral of Magic?"+
+            self.text = ("%s: What happened to the Cathedral of Magic?" % self.c.NAME+
                          "\nKnight: Igalo was once a thriving magic town. "+
                          "Magicians then began using magic with malicious "+
                          "intent. Soon our own walls were being "+
@@ -691,7 +694,7 @@ class Igalo:
                          "world, was abandoned. They were ashamed of the "+
                          "gross abuse of their art.")
         elif selectionIndex == 1:
-            self.text = ("Toshe: Why was magic outlawed?"+
+            self.text = ("%s: Why was magic outlawed?" % self.c.NAME+
                          "\nKnight: When people began casting spells with "+
                          "iniquity, the fate of Igalo was in jeopardy "+
                          "without the wisdom of the archmages. "+
@@ -699,25 +702,25 @@ class Igalo:
                          "all forms of magic illegal. Our citizens cannot "+
                          "be given the privilege of such a great power.")
         elif selectionIndex == 2 and "Niplin" in self.c.flags['Kills']:
-            self.text = ("Toshe: What's our current mission?"+
+            self.text = ("%s: What's our current mission?" % self.c.NAME+
                          "\nKnight: Now that Niplin is dead, we can focus on building our defences. For such a mighty warrior as yourself, you may find virtuosity in Mount Olympus.")
             self.c.flags['Ready for Mount Olympus'] = True
         elif selectionIndex == 2 and "Radoman Information 1" in self.c.flags:
-            self.text = ("Toshe: What's our current mission?"+
-                         "\nKnight: You must be Toshe. We are to"+
+            self.text = ("%s: What's our current mission?" % self.c.NAME+
+                         "\nKnight: You must be %s. We are to" % self.c.NAME+
                          " seek out the base of Niplin. He initiated"+
                          " this magic fiasco and now he must pay."+
                          " The mayor wants"+
                          " him dead or alive.")
         elif selectionIndex == 2:
-            self.text = ("Toshe: What's our current mission?"+
+            self.text = ("%s: What's our current mission?" % self.c.NAME+
                          "\nKnight: Ah, you must be one of us. We are to "+
                          "seek out a mastermind evildoer who is at the root "+
                          "of this magic fiasco. We heard that he "+
                          "started the black magic riots and the mayor wants "+
                          "him dead or alive.")
         elif selectionIndex == 3:
-            self.text = ("Toshe: What's going on with the Town Hall?"+
+            self.text = ("%s: What's going on with the Town Hall?" % self.c.NAME+
                          "\nKnight: It is still being rebuilt after the "+
                          "magic incident, so some rooms may look unkempt.")
         else:
@@ -828,14 +831,14 @@ class Igalo:
             rawMaterial = "Gold Bar"
             product = "The Key to Macedonia"
             self.c.removeItem(self.c.indexOfItem(rawMaterial))
-            self.text = ("Toshe: %s. Make this key for me." % npc +
+            self.text = ("%s: %s. Make this key for me." % (self.c.NAME, npc) +
                          "\nYou hand the Shield Man your mold and gold bar."+
                          "\n%s: Excellent! Let me tinker for a moment." % npc +
                          "\nThe Shield Man returns with a key."+
                          "\nYou receive The Key to Macedonia!")
             smithed = True
         elif self.c.hasItem("Key Mold") and not self.c.hasItem("Gold Bar"):
-            self.text = ("Toshe: %s, make this key for me." % npc+
+            self.text = ("%s: %s, make this key for me." % (self.c.NAME, npc)+
                          "\n%s: I most certainly can do that as soon" % npc+
                          " as you get me a bar of metal to smith it with.")
         elif npc not in self.c.flags:

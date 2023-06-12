@@ -2,7 +2,7 @@
 File: TUATheWatchmakingFacility.py
 Author: Ben Gardner
 Created: August 24, 2013
-Revised: May 29, 2023
+Revised: June 11, 2023
 """
 
 
@@ -85,7 +85,7 @@ class TheWatchmakingFacility:
             return self.actions({'area': "Mojkovac Summit",
                                  'coordinates': (X, Y)})
         if "The Watchmaking Facility" not in self.c.flags:
-            self.text = ("Toshe: Looks like the way forward is blocked."+
+            self.text = ("%s: Looks like the way forward is blocked." % self.c.NAME+
                          "\nDragan: Go another way. I can take the heat.")
         self.menu = ["Leave."]
         return self.actions()
@@ -97,7 +97,7 @@ class TheWatchmakingFacility:
         self.helpText = None
         self.menu = []
         if "The Watchmaking Facility" not in self.c.flags:
-            self.text = ("Toshe: It really is hot in here!")
+            self.text = ("%s: It really is hot in here!" % self.c.NAME)
             self.c.flags['The Watchmaking Facility'] = True
         return self.actions()
 
@@ -108,7 +108,7 @@ class TheWatchmakingFacility:
         self.helpText = None
         self.menu = []
         if "The Watchmaking Facility" not in self.c.flags:
-            self.text = ("Toshe: It really is hot in here!")
+            self.text = ("%s: It really is hot in here!" % self.c.NAME)
             self.c.flags['The Watchmaking Facility'] = True
         return self.actions()
 
@@ -139,7 +139,7 @@ class TheWatchmakingFacility:
         self.helpText = None
         self.menu = []
         if "The Watchmaking Facility Complete" not in self.c.flags:
-            self.text = ("Toshe: Dead end.")
+            self.text = ("%s: Dead end." % self.c.NAME)
         return self.actions()
 
     def right(self, selectionIndex=None):
@@ -149,7 +149,7 @@ class TheWatchmakingFacility:
         self.helpText = None
         self.menu = []
         if "The Watchmaking Facility Complete" not in self.c.flags:
-            self.text = ("Toshe: Dead end.")
+            self.text = ("%s: Dead end." % self.c.NAME)
         return self.actions()
 
     def smokeLeft(self, selectionIndex=None):
@@ -192,7 +192,7 @@ class TheWatchmakingFacility:
             return self.actions({'area': "The Watchmaking Facility",
                                  'coordinates': (X, Y)})
         elif "Ghost of Tomas" not in self.c.flags and 'Radoman' in self.c.flags:
-            self.text = ("Toshe: That was weird, what Maximilian said about the "+
+            self.text = ("%s: That was weird, what Maximilian said about the " % self.c.NAME+
                          "archmages. Maybe I should talk to the mayor of "+
                          "Igalo about it.")
         return self.actions()
@@ -204,13 +204,13 @@ class TheWatchmakingFacility:
         self.helpText = None
         self.menu = []
         if "Pespozeor 1" not in self.c.flags:
-            self.text = ("Dragan: Toshe...what is that?"+
+            self.text = ("Dragan: %s...what is that?" % self.c.NAME+
                          "\nYou see a gigantic beast lying in the corner of "+
                          "the room. It looks heavily wounded."+
-                         "\nToshe: I don't know. But it's in the way. We "+
+                         "\n%s: I don't know. But it's in the way. We " % self.c.NAME+
                          "need to get rid of that."+
                          "\nYou prepare to strike."+
-                         "\nDragan: Toshe, wait."+
+                         "\nDragan: %s, wait." % self.c.NAME+
                          "\nA man who looks to be a conjurer emerges "+
                          "from the flames."+
                          "\nMan: Intruders?")
@@ -221,10 +221,10 @@ class TheWatchmakingFacility:
         elif "Pespozeor 2" not in self.c.flags:
             self.text = ""
             if selectionIndex == 0:
-                self.text = ("Toshe: Intruders?! Who are you? What do you "+
+                self.text = ("%s: Intruders?! Who are you? What do you " % self.c.NAME+
                              "think you're doing here?\n")
             elif selectionIndex == 1:
-                self.text = ("Toshe: Yes?\n")
+                self.text = ("%s: Yes?\n" % self.c.NAME)
             self.text += ("Man: You're not supposed to be here.")
             self.menu = ["\"Says who?\"",
                          "\"Why not?\"",
@@ -235,7 +235,7 @@ class TheWatchmakingFacility:
             self.text = ""
             self.menu = []
             if selectionIndex == 0:
-                self.text = ("Toshe: Says who?"+
+                self.text = ("%s: Says who?" % self.c.NAME+
                              "\nMaximilian: Says I, Maximilian. This "+
                              "is now my domain. You are my slaves. And "+
                              "things are going quite smoothly. In fact, "+
@@ -243,7 +243,7 @@ class TheWatchmakingFacility:
                              "right now.")
                 self.menu = ["\"Yeah? Try me.\""]
             elif selectionIndex == 1:
-                self.text = ("Toshe: Why not?"+
+                self.text = ("%s: Why not?" % self.c.NAME+
                              "\nMaximilian: Oh, are you not aware that "+
                              "this building is currently on fire? That "+
                              "fact aside, I, Maximilian, maintain "+
@@ -252,7 +252,7 @@ class TheWatchmakingFacility:
                              "word.")
                 self.menu = ["\"Yeah? Here's one.\""]
             elif selectionIndex == 2:
-                self.text = ("Toshe: I'm sorry."+
+                self.text = ("%s: I'm sorry." % self.c.NAME+
                              "\nMaximilian: No need to apologize. Let "+
                              "Maximilian "+
                              "help you forget about this entire "+
@@ -266,9 +266,9 @@ class TheWatchmakingFacility:
         elif "Pespozeor 4" not in self.c.flags:
             self.text = ""
             if selectionIndex in (0, 1):
-                self.text = ("Toshe: Y--")
+                self.text = ("%s: Y--" % self.c.NAME)
             elif selectionIndex == 2:
-                self.text = ("Toshe: N--")
+                self.text = ("%s: N--" % self.c.NAME)
             if selectionIndex in (0, 1, 2):
                 self.text += ("\nMaximilian: Listen, you cheeky "+
                               "curmudgeon. Before I give you the chance to "+
@@ -282,7 +282,7 @@ class TheWatchmakingFacility:
                               "are summoned--one of them in the corner of "+
                               "this room. There's nothing you can do.")
             if selectionIndex == 3:
-                self.text = ("Toshe: Can't we talk this out?"+
+                self.text = ("%s: Can't we talk this out?" % self.c.NAME+
                              "\nMaximilian: There's nothing that can be "+
                              "done now. The archmages of Igalo are a lost "+
                              "cause. Now that I have summoned all four "+
@@ -290,19 +290,19 @@ class TheWatchmakingFacility:
                              "reign. The archmages have converted to "+
                              "darkness and there's no going back.")
             self.menu = ["\"What?\"",
-                         "\"I think you've got the wrong guy.\""]
+                         "\"I think you've got the wrong %s.\"" % ("gal" if self.c.isFemale else "guy")]
             self.tempFlag = "Pespozeor 4"
 
         elif "Pespozeor 5" not in self.c.flags:
             self.text = ""
             if selectionIndex == 0:
-                self.text = ("Toshe: What? I don't care about your sick "+
+                self.text = ("%s: What? I don't care about your sick " % self.c.NAME+
                              "satanic ritual. I just want to find the "+
                              "owner of this facility, dammit!"+
                              "\nDragan: Yes, my father was left here and "+
                              "we must save him!\n")
             elif selectionIndex == 1:
-                self.text = ("Toshe: Um, I think you have the wrong guy.\n")
+                self.text = ("%s: Um, I think you have the wrong %s.\n" % (self.c.NAME, "gal" if self.c.isFemale else "guy"))
             self.text += ("Maximilian: Hmm...you mean to say you weren't "+
                           "sent here on a mission to rescue the archmages "+
                           "from impending doom?")
@@ -314,16 +314,20 @@ class TheWatchmakingFacility:
             self.c.flags['New Song'] = "Drat"
             self.text = ""
             if selectionIndex == 0:
-                self.text = ("Toshe: Nope.\n")
+                self.text = ("%s: Nope.\n" % self.c.NAME)
             elif selectionIndex == 1:
-                self.text = ("Toshe: Wait...yeah, actually, that was us."+
+                self.text = ("%s: Wait...yeah, actually, that was us." % self.c.NAME+
                              "\nDragan: Is this true?\n")
+            if self.c.isPolite:
+                fLine = "\n%s: Oh shoot." % self.c.NAME
+            else:
+                fLine = "\n%s: Oh fuck." % self.c.NAME
             self.text += ("Maximilian: Why should I believe you? Either "+
                          "way, the course of action is congruent. "+
                          "Pespozeor!"+
                          "\nPespozeor: Graaagh!!"+
                          "\nDragan: Have at thee!"+
-                         "\nToshe: Oh fuck.")
+                         fLine)
             self.menu = ["Face Pespozeor."]
             self.tempFlag = "Pespozeor 6"
 
@@ -335,13 +339,13 @@ class TheWatchmakingFacility:
 
         elif "Maximilian" not in self.c.flags:
             self.c.flags['New Song'] = "Drat"
-            self.text = ("Toshe: We're unstoppable!"+
+            self.text = ("%s: We're unstoppable!" % self.c.NAME+
                          "\nDragan: Now leave us!"+
                          "\nMaximilian: I suppose you leave me no other "+
                          "option."+
                          "\nMaximilian reveals a flaming wand and shield."+
                          "\nMaximilian: I must kill you, myself. How quaint."+
-                         "\nToshe: No water break?")
+                         "\n%s: No water break?" % self.c.NAME)
             self.menu = ["Brace yourself."]
             self.tempFlag = "Maximilian"
 
@@ -352,7 +356,11 @@ class TheWatchmakingFacility:
                                  'mercenaries': self.c.mercenaries})
 
         elif "Dragan's Dad 1" not in self.c.flags:
-            self.text = ("Toshe: Don't fuck with me."+
+            if self.c.isPolite:
+                dontLine = "%s: Don't mess with me." % self.c.NAME
+            else:
+                dontLine = "%s: Don't fuck with me." % self.c.NAME
+            self.text = (dontLine+
                          "\nYou notice Dragan is looking off into the "+
                          "distance."+
                          "\nDragan: Is...it's not true. N-no!"+
@@ -363,7 +371,7 @@ class TheWatchmakingFacility:
         elif "Dragan's Dad 2" not in self.c.flags:
             self.text = ("You peer beyond Pespozeor's corpse to spot the "+
                          "body of an old man."+
-                         "\nToshe: Oh, no. That's..."+
+                         "\n%s: Oh, no. That's..." % self.c.NAME+
                          "\nDragan: My father is--my father...is..."+
                          "\nYou both stand silently with only the "+
                          "crackling of the flames entering your ears."+
@@ -378,7 +386,7 @@ class TheWatchmakingFacility:
             self.menu = ["Suggest leaving.",
                          "Wait for Dragan."]
             if selectionIndex == 0:
-                self.text = ("Toshe: We should get out of here, man. This place "+
+                self.text = ("%s: We should get out of here, man. This place " % self.c.NAME+
                              "is burning down. We can take your dad, too."+
                              "\nDragan: I cannot bear to see him in this state. "+
                              "Please, take him to the cemetery. Give him a proper "+
@@ -398,9 +406,9 @@ class TheWatchmakingFacility:
 
         elif "The Watchmaking Facility Complete" not in self.c.flags:
             if selectionIndex == 0:
-                self.text = ("Toshe: Ok.")
+                self.text = ("%s: Ok." % self.c.NAME)
             if selectionIndex == 1:
-                self.text = ("Toshe: I can't."+
+                self.text = ("%s: I can't." % self.c.NAME+
                              "\nDragan: No, you must. Please go.")
             self.menu = ["Take the body."]
             self.tempFlag = "The Watchmaking Facility Complete"

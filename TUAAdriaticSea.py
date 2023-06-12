@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: May 31, 2023
+Revised: June 11, 2023
 """
 
 
@@ -177,18 +177,18 @@ class AdriaticSea:
                 self.c.flags['Writings'].add(foundWriting)
                 if self.c.flags['Writings'] == writings:
                     self.text += (
-                        "\nToshe: It seems like all the pieces of paper fit "+
+                        "\n%s: It seems like all the pieces of paper fit " % self.c.NAME+
                         "together."+
                         "\nYou have a Mysterious Parchment!")
                     self.c.flags['All Tomas Writings Found'] = True
                     return {'item': "Mysterious Parchment"}
                 elif 'Secret Lab' not in self.c.flags:
                     self.text += (
-                        "\nToshe: I should keep this. I will definitely need "+
+                        "\n%s: I should keep this. I will definitely need " % self.c.NAME+
                         "this for later.")
                 else:
                     self.text +=(
-                        "\nToshe: I need this to get into Tomas's headquarters. "+
+                        "\n%s: I need this to get into Tomas's headquarters. " % self.c.NAME+
                         "There must be more around here.")
                     
     def actions(self, newActions=None):
@@ -241,6 +241,14 @@ class AdriaticSea:
         self.helpText = None
         self.menu = []
         if "Adriatic Sea" not in self.c.flags:
+            if self.c.portrait == "Lily":
+                dumpLine = "\n%s: This is my nightmare." % self.c.NAME
+            elif self.c.portrait == "Toady":
+                dumpLine = "\n%s: Thank goodness I can swim." % self.c.NAME
+            elif self.c.isPolite:
+                dumpLine = "\n%s: Phooey! I really wanted to go pooey!" % self.c.NAME
+            else:
+                dumpLine = "\n%s: Shit! I really need to take a dump!" % self.c.NAME
             self.text = ("There are some fish swimming around, " +
                     "whose blurred outlines you can barely make out. " +
                     "Ahead of you are the " +
@@ -248,7 +256,7 @@ class AdriaticSea:
                     "illuminated by what little sunlight pierces through the " +
                     "murky water." +
                     "\nYou should surface before you run out of oxygen." +
-                    "\nToshe: Shit! I really need to take a dump!")
+                    dumpLine)
             self.helpText = ("Click on the directional arrows on the right to "+
                              "swim through the water.")
             self.c.flags["Adriatic Sea"] = True
@@ -408,7 +416,7 @@ class AdriaticSea:
         self.imageIndex = 8
         self.text = ("You look towards the sun and see a boat on the " +
                      "water's surface." +
-                     "\nToshe: Good, I'm not the only one stranded out here. " +
+                     "\n%s: Good, I'm not the only one stranded out here. " % self.c.NAME +
                      "Maybe they have a toilet up there.")
         self.helpText = ("Choose an option from the right and click select.")
         self.menu = ["Investigate the boat."]
@@ -525,7 +533,7 @@ class AdriaticSea:
         self.menu = []
         npc = "Mysterious Blue Wizard"
         if selectionIndex == 0:
-            self.text = ("Toshe: I'm not a small sir, but ok."+
+            self.text = ("%s: I'm not a small sir, but ok." % self.c.NAME+
                          "\n"+npc+": Doog nikcil regnif!"+
                          "\nThe wizard flicks his wand and teleports away.")
             self.c.flags['Floodtide'] = True
@@ -533,7 +541,7 @@ class AdriaticSea:
                                  'cost': 0})
         elif selectionIndex == 1:
             random.seed(self.c.level + 1)
-            self.text = ("Toshe: No, weirdo!"+
+            self.text = ("%s: No, weirdo!" % self.c.NAME+
                          "\n%s: Fine then, dillhead." % npc+
                          "\nThe wizard teleports away, leaving magic dust.")
             if self.c.hasMercenary("Barrie"):
@@ -562,7 +570,7 @@ class AdriaticSea:
         self.menu = []
         if ("Ice Passage" not in self.c.flags):
             self.c.flags['Ice Passage'] = True
-            self.text = ("Toshe: It's freezing cold in here.")
+            self.text = ("%s: It's freezing cold in here." % self.c.NAME)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: I feel fine.")
         return self.actions()
@@ -619,7 +627,7 @@ class AdriaticSea:
             del self.c.flags['Sliding Down']
         elif ("Tight Passage" not in self.c.flags):
             self.c.flags['Tight Passage'] = True
-            self.text = ("Toshe: It's getting tight.")
+            self.text = ("%s: It's getting tight." % self.c.NAME)
         return self.actions()
 
     def abyss(self, selectionIndex=None):
@@ -629,7 +637,7 @@ class AdriaticSea:
         self.helpText = None
         self.menu = []
         if random.randint(0, 7) == 7:
-            self.text = "Toshe: How far away is that light coming from?"
+            self.text = "%s: How far away is that light coming from?" % self.c.NAME
         return self.actions()
 
     def fallSpot(self, selectionIndex=None):
@@ -639,9 +647,13 @@ class AdriaticSea:
         self.helpText = None
         self.menu = []
         if "Fell in a Hole" in self.c.flags:
+            if self.c.isPolite:
+                shitLine = "\n%s: Dagnabbit!" % self.c.NAME
+            else:
+                shitLine = "\n%s: Shit!" % self.c.NAME
             self.text = ("You take a wrong step, breaking" +
                          " through a crack in the ice." +
-                         "\nToshe: Shit!")
+                         shitLine)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Back in the water again!")
             del self.c.flags['Fell in a Hole']

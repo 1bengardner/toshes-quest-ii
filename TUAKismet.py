@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: May 28, 2023
+Revised: June 11, 2023
 """
 
 from random import choice
@@ -76,7 +76,7 @@ class Kismet:
                      "\nA man on deck turns around."+
                      "\nMan: Hello down there."+
                      "\nHeinz: Think you could help us out here?"+
-                     "\nMan: Captain, sir, these men need our assistance."+
+                     "\nMan: Captain, sir, these %s need our assistance." % ("people" if self.c.isFemale else "men")+
                      "\nCaptain: Let them on.")
         self.menu = ["Board the ship."]
         return self.actions()
@@ -99,7 +99,7 @@ class Kismet:
             self.tempFlag = "Kismet Chat 1"
             
         elif 'Kismet Chat 2' not in self.c.flags:
-            self.text = ("Toshe: I'm from the ship that blew up."+
+            self.text = ("%s: I'm from the ship that blew up." % self.c.NAME+
                          "\nMan: Oh, my! It's a wonder you all lived. Captain's "+
                          "orders state that all survivors are entitled to a free "+
                          "buffet at the food bar--"+
@@ -112,7 +112,7 @@ class Kismet:
             
         elif 'Kismet Chat 3' not in self.c.flags:
             self.text = ("You wave at Matsamot."+
-                         "\nMatsamot: Toshe, you're alive and well! Well, almost."+
+                         "\nMatsamot: %s, you're alive and well! Well, almost." % self.c.NAME+
                          "\nMan: Yes, good point. Let me get you a change of "+
                          "clothes."
                          "\nMatsamot: I go to take a nap and the next thing I "+
@@ -128,9 +128,9 @@ class Kismet:
         elif 'Kismet Chat 4' not in self.c.flags:
             self.text = ""
             if selectionIndex == 0:
-                self.text = ("Toshe: Yeah, I was.\n")
+                self.text = ("%s: Yeah, I was.\n" % self.c.NAME)
             elif selectionIndex == 1:
-                self.text = ("Toshe: No, what happened?\n")
+                self.text = ("%s: No, what happened?\n" % self.c.NAME)
             self.text += ("Marciano: Bastards blew that thing up. "+
                           "I am done with these goddamn terrorists. "+
                           "I am trying to get as far away "+
@@ -150,19 +150,23 @@ class Kismet:
             self.menu = ["Brace yourself."]
             self.tempFlag = "Kismet Chat 5"
             if selectionIndex == 0:
-                self.text = ("Toshe: Actually, that was my brother. He blew "+
+                self.text = ("%s: Actually, that was my brother. He blew " % self.c.NAME+
                              "up the ship and he made all those evil things."+
                              "\nMarciano: I am sorry? I beg...I beg your "+
                              "pardon? It was y-your brother?"+
                              "\nMarciano is trembling with rage.\n")
             elif selectionIndex == 1:
-                self.text = ("Toshe: Hahaha, that's pretty funny."+
+                self.text = ("%s: Hahaha, that's pretty funny." % self.c.NAME+
                              "\nMarciano: You think this is funny? You think "+
                              "I am joking? You think this is a funny joke.\n")
-            self.text += ("Toshe: Calm down, man."+
+            if self.c.isPolite:
+                wtfLine = "\n%s: What!" % self.c.NAME
+            else:
+                wtfLine = "\n%s: What the fuck?" % self.c.NAME
+            self.text += ("%s: Calm down, man." % self.c.NAME+
                           "\nMarciano: You are the dead meat."+
                           "\nMarciano draws his sword."+
-                          "\nToshe: What the fuck?")
+                          wtfLine)
             if ( not self.c.hasItem("Stick") and
                  not self.c.hasItem("Small Dagger")):
                 self.text += ("\nHeinz: Catch!" +
@@ -194,8 +198,8 @@ class Kismet:
         if 'Kismet Chat 6' not in self.c.flags:
             self.text = ("Marciano: Watch your back."+
                          "\nMarciano storms off."+
-                         "\nMatsamot: Toshe, what was that about?!"+
-                         "\nToshe: I don't know."+
+                         "\nMatsamot: %s, what was that about?!" % self.c.NAME+
+                         "\n%s: I don't know." % self.c.NAME+
                          "\nMatsamot: Weird. Marciano is a very calm person."+
                          "\nThe man returns with clean garments for you, but "+
                          "promptly drops them and runs away upon seeing your "+
@@ -203,7 +207,7 @@ class Kismet:
                          "\nMatsamot: Well, we're going to be hitting port "+
                          "in a few hours. You might want to look around the "+
                          "ship or get some rest. Bedrooms are upstairs."+
-                         "\nToshe: Alright.")
+                         "\n%s: Alright." % self.c.NAME)
             self.c.flags['Kismet Chat 6'] = True
         else:
             if not all(flags in self.c.flags for flags in
@@ -216,7 +220,7 @@ class Kismet:
                     return self.actions({'area': "Bay of Kotor",
                                          'coordinates': (X, Y)})
                 elif selectionIndex == 1:
-                    self.text = ("Toshe: Not yet."+
+                    self.text = ("%s: Not yet." % self.c.NAME+
                                  "\nMatsamot: Take your time. We're staying "+
                                  "anchored up for a while here.")
                 else:
@@ -233,50 +237,58 @@ class Kismet:
         self.menu = []
         if selectionIndex == 0:
             self.c.hp += 10
-            self.text = choice(["Toshe: That's pretty good!",
-                                "Toshe: That hit the spot.",
-                                "Toshe: Wow. I wish my mom could make turkey "+
+            self.text = choice(["%s: That's pretty good!" % self.c.NAME,
+                                "%s: That hit the spot." % self.c.NAME,
+                                "%s: Wow. I wish my mom could make turkey " % self.c.NAME+
                                 "like that.",
-                                "Toshe: Delicious.",
-                                "Toshe: That is what I call food!"])
+                                "%s: Delicious." % self.c.NAME,
+                                "%s: That is what I call food!" % self.c.NAME])
         elif selectionIndex == 1:
-            self.text = choice(["Toshe: Hey."+
-                                "\nBusinessman: How do you do?"+
-                                "\nToshe: What do you do for a living?"+
-                                "\nBusinessman: Unfortunately, I cannot "+
-                                "divulge that information."+
-                                "\nThe businessman walks away."+
-                                "\nToshe: That's some good banter.",
-                                "Toshe: Yo."+
-                                "\nKid: Hey! Are you Toshe? Toshe from "+
-                                "Toshe's Quest?!"+
-                                "\nToshe: What the hell is that?",
-                                "Gentleman: Sir, I must ask, from where "+
-                                "did you obtain such a fine cotton shirt?"+
-                                "\nToshe: Oh, this? Haha, my friend Chris "+
+            if self.c.portrait == "Chris":
+                chrisLine = "\n%s: Oh, this? I picked it up from Saks yesterday." % self.c.NAME
+                shitLine = "\n%s: Uh oh." % self.c.NAME
+                fLine = "\n%s: Uh...I should get going." % self.c.NAME
+            else:
+                chrisLine = ("\n%s: Oh, this? Haha, my friend Chris " % self.c.NAME+
                                 "lent it to me. I should probably give it "+
                                 "back. He's from Canada."+
                                 "\nGentleman: Oh, Canada! How is it?"+
-                                "\nToshe: It sucks.",
+                                "\n%s: It sucks." % self.c.NAME)
+                shitLine = "\n%s: Oh, shit." % self.c.NAME
+                fLine = "\n%s: Fuck. I should get going." % self.c.NAME
+            self.text = choice(["%s: Hey." % self.c.NAME+
+                                "\nBusinessman: How do you do?"+
+                                "\n%s: What do you do for a living?" % self.c.NAME+
+                                "\nBusinessman: Unfortunately, I cannot "+
+                                "divulge that information."+
+                                "\nThe businessman walks away."+
+                                "\n%s: That's some good banter." % self.c.NAME,
+                                "%s: Yo." % self.c.NAME+
+                                "\nKid: Hey! Are you %s? %s from "+
+                                "%s's Quest?!"+
+                                "\n%s: What the hell is that?" % self.c.NAME,
+                                "Gentleman: Sir, I must ask, from where "+
+                                "did you obtain such a fine cotton shirt?"+
+                                chrisLine,
                                 "Young Lady: Hey, what's that scar from?"+
-                                "\nToshe: Probably a spider."+
+                                "\n%s: Probably a spider." % self.c.NAME+
                                 "\nYoung Lady: Oh..."+
-                                "\nToshe: Uh, wait!",
-                                "Man: Ay, man, you got any euros?"+
-                                "\nToshe: Nope."+
+                                "\n%s: Uh, wait!" % self.c.NAME,
+                                "Man: Ay, %s, you got any euros?" % ("missy" if self.c.isFemale else "man")+
+                                "\n%s: Nope." % self.c.NAME+
                                 "\nMan: Ay, tough luck, buddy.",
-                                "Toshe: Hey. How's the ride?"+
+                                "%s: Hey. How's the ride?" % self.c.NAME+
                                 "\nDrunk man: Uhgug. Pretty damn goo--"+
                                 "\nThe man falls over."+
-                                "\nToshe: Oh, shit.",
-                                "Toshe: Hello."+
+                                shitLine,
+                                "%s: Hello." % self.c.NAME+
                                 "\nElderly Lady: Hello, dear."+
-                                "\nToshe: How's the food?"+
+                                "\n%s: How's the food?" % self.c.NAME+
                                 "\nElderly Lady: Quite tasty."+
                                 "\nThe lady smiles crookedly."+
-                                "\nToshe: That's good. Bye.",
+                                "\n%s: That's good. Bye." % self.c.NAME,
                                 "Dog: Woof!"+
-                                "\nToshe: Fuck. I should get going."])
+                                fLine])
         else:
             self.text = ("The food bar is bustling. You see Bart and Heinz "+
                          "chowing down in a corner.")
@@ -379,7 +391,7 @@ class Kismet:
             return self.actions({'area': "Kismet II",
                                          'coordinates': (X, Y)})
         else:
-            self.text = "Toshe: Sweet room."
+            self.text = "%s: Sweet room." % self.c.NAME
         self.menu = ["Nap.",
                      "Leave your room."]
         return self.actions()
@@ -391,7 +403,7 @@ class Kismet:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
-            self.text = ("Toshe: Ok."+
+            self.text = ("%s: Ok." % self.c.NAME+
                          "\nGan: This move has been taught and passed down "+
                          "for generations. You will be the first Macedonian "+
                          "to know this technique."+
@@ -409,7 +421,7 @@ class Kismet:
             self.text = ("You see the back of an old man perched over the "+
                          "railing, observing the the people eating below."+
                          "\nGan: Hello, I am Gan."+
-                         "\nToshe: Oh, hi."+
+                         "\n%s: Oh, hi." % self.c.NAME+
                          "\nYou're not sure whether he's talking to you."+
                          "\nGan turns around."+
                          "\nGan: A fighter! Rare to find on such a luxury "+

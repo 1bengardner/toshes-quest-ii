@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: June 4, 2023
+Revised: June 11, 2023
 """
 
 
@@ -135,7 +135,7 @@ class Thessaloniki:
         self.menu = []
         if "Thessaloniki" not in self.c.flags:
             self.c.flags['Thessaloniki'] = True
-            self.text = ("Toshe: I can feel the suspense rising.")
+            self.text = ("%s: I can feel the suspense rising." % self.c.NAME)
         return self.actions()
 
     def normal3(self, selectionIndex=None):
@@ -213,7 +213,7 @@ class Thessaloniki:
         if "Thessaloniki Clearing" not in self.c.flags:
             self.c.flags['Thessaloniki Clearing'] = True
             self.text = ("You see a path up ahead." +
-                         "\nToshe: This looks like the way to Macedonia.")
+                         "\n%s: This looks like the way to Macedonia." % self.c.NAME)
         return self.actions()
 
     def path2(self, selectionIndex=None):
@@ -251,15 +251,15 @@ class Thessaloniki:
                 self.menu = ["Enter the gate."]
             elif (not self.c.hasItem("The Key to Macedonia") and
                   not self.c.hasItem("Key Mold")):
-                self.text = ("\nToshe: The glorious gates of Macedonia!" +
+                self.text = ("\n%s: The glorious gates of Macedonia!" % self.c.NAME +
                              " I need to somehow get the key from the Greeks.")
                 if ( "Athens" not in self.c.flags and
                      self.c.hasMercenary("Qendresa")):
                     self.text += ("\nQendresa: Perhaps in Athens you may" +
                                   " find one with a key." +
-                                  "\nToshe: Where's that?" +
+                                  "\n%s: Where's that?" % self.c.NAME +
                                   "\nQendresa: It is southeast of Albania." +
-                                  "\nToshe: Ok. Let's check it out.")
+                                  "\n%s: Ok. Let's check it out." % self.c.NAME)
                 elif ("Coliseum" in self.c.flags and
                       "Coliseum Complete" not in self.c.flags and
                       self.c.hasMercenary("Barrie")):
@@ -270,7 +270,7 @@ class Thessaloniki:
             elif (not self.c.hasItem("The Key to Macedonia") and
                   not self.c.hasItem("Gold Bar")):
                 self.c.flags['Key Hunting'] = True
-                self.text = ("Toshe: I have a mold, but no key. I need some" +
+                self.text = ("%s: I have a mold, but no key. I need some" % self.c.NAME +
                              " metal so a key can be forged.")
                 if ( not self.c.hasItem("Gold Ore") and
                      self.c.hasMercenary("Qendresa")):
@@ -282,20 +282,20 @@ class Thessaloniki:
                     
             elif not self.c.hasItem("The Key to Macedonia"):
                 self.c.flags['Key Hunting'] = True
-                self.text = ("Toshe: I need to smith this key from the mold I" +
+                self.text = ("%s: I need to smith this key from the mold I" % self.c.NAME +
                              " took. Who might be able to do that?")
                 if self.c.hasMercenary("Qendresa"):
                     self.text += ("\nQendresa: Might there be a blacksmith who" +
                                   " specializes in fine metals?")
 
             elif self.c.hasItem("The Key to Macedonia"):
-                self.text = ("Toshe: Finally. My homeland. I must take back" +
+                self.text = ("%s: Finally. My homeland. I must take back" % self.c.NAME +
                              " what's mine!" +
                              "\nYou can make out the outline of a shadowy" +
                              " figure past the gates.")
                 if ( self.c.hasMercenary("Qendresa") and
                      self.c.hasMercenary("Barrie")):
-                    self.text += ("\nToshe: Guys, this is something I need to" +
+                    self.text += ("\n%s: Guys, this is something I need to" % self.c.NAME +
                                   " do on my own." +
                                   "\nBarrie: Oh..." +
                                   "\nQendresa: We understand. Bring justice" +
@@ -305,15 +305,15 @@ class Thessaloniki:
                                   " a fist in the air as you step up to the" +
                                   " keyhole.")
                 elif self.c.hasMercenary("Qendresa"):
-                    self.text += ("\nToshe: Hey, Qendresa. I'm going in" +
+                    self.text += ("\n%s: Hey, Qendresa. I'm going in" % self.c.NAME +
                                   " solo." +
                                   "\nQendresa: I believe in you, warrior." +
                                   " You can do this without me.")
                 elif self.c.hasMercenary("Barrie"):
-                    self.text += ("\nToshe: Barrie, we've been through a" +
+                    self.text += ("\n%s: Barrie, we've been through a" % self.c.NAME +
                                   " lot together, but I'm gonna have to leave" +
                                   " you behind on this one." +
-                                  "\nBarrie: Do your thing, chappy boy.")
+                                  "\nBarrie: Do your thing, chappy %s." % ("gal" if self.isFemale else "boy"))
                 self.menu = ["Open the gate."]
                 
         else:
@@ -324,7 +324,7 @@ class Thessaloniki:
                 return self.actions({'area': "Macedonia",
                                      'coordinates': (X, Y)})
             else:
-                self.text = ("Toshe: My homeland." +
+                self.text = ("%s: My homeland." % self.c.NAME +
                              " Once beautiful, now tarnished." +
                              " I will restore you to your former glory.")
                 self.menu = ["Enter the gate."]
@@ -375,7 +375,7 @@ class Thessaloniki:
                 self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
                 self.text = "You pour a jar of Olympian Ointment into the river."
                 if self.c.hasMercenary("Barrie"):
-                    self.text += "\nBarrie: Toshe, what are you thinking, man?"
+                    self.text += "\nBarrie: %s, what are you thinking, man?" % self.c.NAME
                 self.text += "\nThe bridge to Niplin's Lair rises from the water!"
                 if self.c.hasMercenary("Qendresa"):
                     self.text += "\nQendresa: Brilliant."
@@ -411,7 +411,7 @@ class Thessaloniki:
                             self.text += "\nBarrie: Easy there, tiger."
                             self.text += "\nFang growls softly."
                     else:
-                        self.text += "\nToshe: The world is a better place now."
+                        self.text += "\n%s: The world is a better place now." % self.c.NAME
                     if self.c.hasItem("Olympian Ointment") and "Palace Ointment" not in self.c.flags and self.c.specialization is not None:
                         self.menu.append("Apply Olympian Ointment.")
         elif False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed", "Vismurg"]]:
@@ -427,7 +427,7 @@ class Thessaloniki:
                     self.text += "\nBarrie: We did it! Let's get our groove on."
                 if self.c.hasMercenary("Qendresa"):
                     self.text += "\nQendresa: The three beasts must have acted as magical guardians to this structure."
-                self.text += "\nToshe: Yes! We can get in now."
+                self.text += "\n%s: Yes! We can get in now." % self.c.NAME
         else:
             if False not in [boss in self.c.flags['Kills'] for boss in ["Oukkar", "Aldreed"]]:
                 self.imageIndex = 22
@@ -450,15 +450,15 @@ class Thessaloniki:
             else:
                 self.text = "You see a palace across the river with three unlit beacons."
             
-            self.text += "\nToshe: I feel like something is missing."
+            self.text += "\n%s: I feel like something is missing." % self.c.NAME
             if self.c.hasMercenary("Barrie"):
                 if "Vismurg" not in self.c.flags['Kills']:
                     if 'Vismurg Entrance Found' not in self.c.flags:
                         self.text += "\nBarrie looks to be deep in thought."
                         self.text += "\nBarrie: I have a feeling something is amok inside the Bluffs."
-                        self.text += "\nToshe: What do you mean inside?"
+                        self.text += "\n%s: What do you mean inside?" % self.c.NAME
                         self.text += "\nBarrie: Seriously, we gotta head back to Herceg."
-                        self.text += "\nToshe: If you say."
+                        self.text += "\n%s: If you say." % self.c.NAME
                     elif "Avalanche" not in [skill.NAME for skill in self.c.skills] and "Moved Boulders" not in self.c.flags:
                         self.text += "\nBarrie taps his foot, thinking."
                         self.text += "\nBarrie: There's a powerful force here. Remember the boulders in Herceg Bluffs? You need a spell to blast those. That's my intel."
@@ -470,7 +470,7 @@ class Thessaloniki:
                     if 'Aldreed Entrance Found' not in self.c.flags:
                         self.text += "\nBarrie is pacing."
                         self.text += "\nBarrie: Ok, we should go for a deep, long swim."
-                        self.text += "\nToshe: I'm trying to enter that palace, and you want to swim? What's wrong with you?"
+                        self.text += "\n%s: I'm trying to enter that palace, and you want to swim? What's wrong with you?" % self.c.NAME
                         self.text += "\nBarrie: There must be something in the water."
                     elif "Melting Touch" not in [skill.NAME for skill in self.c.skills] and "Melted Ice" not in self.c.flags:
                         self.text += "\nBarrie scratches his nose."
@@ -484,17 +484,21 @@ class Thessaloniki:
                 elif "Oukkar" not in self.c.flags['Kills']:
                     if 'Oukkar Entrance Found' not in self.c.flags:
                         self.text += "\nBarrie: Oukkay, just one more beacon to light! Don't call me Seuss; just go where it's bright!"
-                        self.text += "\nToshe: That was lame as fuck."
+                        if self.c.isPolite:
+                            lameLine = "\n%s: That was really lame." % self.c.NAME
+                        else:
+                            lameLine = "\n%s: That was lame as fuck." % self.c.NAME
+                        self.text += lameLine
                         self.text += "\nBarrie: If you'd rather, I can show you where the sun don't shine."
                     elif "Hailstorm" not in [skill.NAME for skill in self.c.skills] and "Plugged Geyser" not in self.c.flags:
                         self.text += "\nBarrie: We gotta light that last beacon. But how?"
-                        self.text += "\nToshe: There's something with that geyser in the desert."
+                        self.text += "\n%s: There's something with that geyser in the desert." % self.c.NAME
                         self.text += "\nBarrie: True, true. We know fire melts ice. But what could chill and clog a steaming geyser?"
                     elif "Plugged Geyser" not in self.c.flags:
                         self.text += "\nBarrie: Hail thee!"
                         if self.c.hasMercenary("Qendresa"):
                             self.text += "\nQendresa bows."
-                        self.text += "\nToshe: What did I do?"
+                        self.text += "\n%s: What did I do?" % self.c.NAME
                         self.text += "\nBarrie: It's what you're about to do, friend. Call upon your storm and lead us to sandy victory!"
                     else:
                         self.text += "\nBarrie: To Yaouw!"

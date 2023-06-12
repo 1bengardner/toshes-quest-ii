@@ -2,7 +2,7 @@
 File: TUAWesternKosovo.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: May 21, 2023
+Revised: June 11, 2023
 """
 
 
@@ -172,7 +172,10 @@ class WesternKosovo:
         self.helpText = None
         self.menu = []
         if "Western Kosovo" not in self.c.flags:
-            self.text = ("Toshe: I'm finally out of that fucking cave!")
+            if self.c.isPolite:
+                self.text = ("%s: I'm finally out of that freaking cave!" % self.c.NAME)
+            else:
+                self.text = ("%s: I'm finally out of that fucking cave!" % self.c.NAME)
             self.c.flags['Western Kosovo'] = True
         return self.actions()
 
@@ -246,7 +249,7 @@ class WesternKosovo:
         self.text = ("You see the president's outpost far ahead to the east.")
         if ( "Secret Lab Lever" in self.c.flags and
              "Finding President" not in self.c.flags):
-            self.text += ("\nToshe: That's where I need to go.")
+            self.text += ("\n%s: That's where I need to go." % self.c.NAME)
         return self.actions()
 
     def notLeft(self, selectionIndex=None):
@@ -363,7 +366,7 @@ class WesternKosovo:
                              "entrance sealed by what could be either magic "+
                              "or high technology. \"Tomas Tam\" is painted "+
                              "across the front."+
-                             "\nToshe: This must be Tomas's headquarters...\n")
+                             "\n%s: This must be Tomas's headquarters...\n" % self.c.NAME)
                 self.c.flags['Secret Lab'] = True
             self.text += ("70-M45: 70-M45 requesting credentials. Enter the "+
                           "passcode.")
@@ -382,7 +385,7 @@ class WesternKosovo:
             hpLoss = randint(25, 75)
             self.c.hp -= hpLoss
             self.text += ("\n70-M45: Insert documents for scanning."+
-                          "\nToshe: Documents? I don't have no stinking "+
+                          "\n%s: Documents? I don't have no stinking " % self.c.NAME+
                           "documents!"+
                           "\n70-M45: Access not granted."+
                           "\n70-M45 electrifies you, dealing %s damage."
@@ -403,7 +406,7 @@ class WesternKosovo:
             self.text += ("\n70-M45: Insert docu...mentsssseooorrbffff--" +
                           "\n70-M45 malfunctions and unlocks the seal to" +
                           " the entrance." +
-                          "\nToshe: I love technology.")
+                          "\n%s: I love technology." % self.c.NAME)
             self.c.flags['Secret Lab Unlocked'] = True
             self.menu = ["Proceed."]
 

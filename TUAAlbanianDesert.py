@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: June 6, 2023
+Revised: June 11, 2023
 """
 
 
@@ -546,16 +546,20 @@ class AlbanianDesert:
                 return self.actions({'item': "Gold Ore"})
             else:
                 hpLoss = random.randint(10, 50)
+                if self.c.isPolite:
+                    ouchLine = "\n%s: Yow!" % self.c.NAME
+                else:
+                    ouchLine = "\n%s: Fuck!" % self.c.NAME
                 self.text = ("You swing your weapon at the rock, recoiling"
                              " and injuring"+
                              " yourself for %s damage." % hpLoss+
-                             "\nToshe: Fuck!")
+                             ouchLine)
                 if self.c.hasMercenary("Qendresa"):
                     self.text += random.choice(
                         ["\nQendresa: Be careful.",
                          "\nQendresa: Try again, you are almost there.",
                          "\nQendresa: Shall I take a swing?" +
-                         "\nToshe: I've got it."])
+                         "\n%s: I've got it." % self.c.NAME])
                 self.c.hp -= hpLoss
                 self.menu = ["Mine the gold rock."]
         elif self.c.level > self.c.flags['Gold Mined'][goldMineId]:
@@ -574,7 +578,7 @@ class AlbanianDesert:
         npc = "Mysterious Red Wizard"
         skill = "Hot Coals"
         if selectionIndex == 0:
-            self.text = ("Toshe: I'm not a big cowboy, but ok."+
+            self.text = ("%s: I'm not a big cowboy, but ok." % self.c.NAME+
                          "\n"+npc+": Hserf tae!"+
                          "\nThe wizard flicks his wand and teleports away.")
             self.c.flags[skill] = True
@@ -582,7 +586,7 @@ class AlbanianDesert:
                                  'cost': 0})
         elif selectionIndex == 1:
             random.seed(self.c.level)
-            self.text = ("Toshe: No way in hell, you psycho!"+
+            self.text = ("%s: No way in hell, you psycho!" % self.c.NAME+
                          "\n%s: So be it. Fartface." % npc+
                          "\nThe wizard teleports away, leaving magic dust.")
             if self.c.hasMercenary("Barrie"):
@@ -624,7 +628,7 @@ class AlbanianDesert:
         else:
             self.text = ("You come across an old well.")
             if "Well" not in self.c.flags:
-                self.text = ("\nToshe: This is familiar.")
+                self.text = ("\n%s: This is familiar." % self.c.NAME)
                 self.c.flags['Well'] = True
         self.menu = ["Drink from the well."]
         return self.actions()
@@ -650,7 +654,7 @@ class AlbanianDesert:
         else:
             self.text = ("You come across a dusty well.")
             if "Well" not in self.c.flags:
-                self.text = ("\nToshe: This is familiar.")
+                self.text = ("\n%s: This is familiar." % self.c.NAME)
                 self.c.flags['Well'] = True
         self.menu = ["Drink from the well."]
         return self.actions()
@@ -667,7 +671,7 @@ class AlbanianDesert:
             return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
         if "Gambino Castle" not in self.c.flags:
-            self.text = ("Toshe: Why is there a giant castle in the middle of" +
+            self.text = ("%s: Why is there a giant castle in the middle of" % self.c.NAME +
                          " the desert?")
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: This...this must be the hiding" +
@@ -712,12 +716,12 @@ class AlbanianDesert:
         elif ("Blueprint" not in self.c.flags and
               "Greek Wall" not in self.c.flags):
             self.text = ("You reach a massive wall bordering Greece." +
-                         "\nToshe: If only I could find a way around this" +
+                         "\n%s: If only I could find a way around this" % self.c.NAME +
                          " wall.")
             self.c.flags['Greek Wall'] = True
         elif ("Blueprint" in self.c.flags and
               "Greek Wall Hole" not in self.c.flags):
-            self.text = ("Toshe: Ok, so it says on the blueprint" +
+            self.text = ("%s: Ok, so it says on the blueprint" % self.c.NAME +
                          " that there should be a hole at this crack.")
             self.menu = ["Hit the crack."]
         elif "Greek Wall Hole" in self.c.flags:

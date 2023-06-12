@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: May 27, 2023
+Revised: June 11, 2023
 """
 
 
@@ -63,10 +63,10 @@ class Boat:
             
         elif "Boat Chat 1" not in self.c.flags:
             self.text = ("As you come to your senses you realize there are "+
-                         "two grungy faces staring down at you."+
-                         "\nMan: He looks tired, Bert."+
-                         "\nBert: Hey, guy, what were you doing down there?"+
-                         "\nMan: Maybe he went fishing and fell in.")
+                         "two weathered faces staring down at you."+
+                         "\nMan: %s looks tired, Bert." % ("She" if self.c.isFemale else "He")+
+                         "\nBert: Hey, %s, what were you doing down there?" % ("bud" if self.c.isFemale else "guy")+
+                         "\nMan: Maybe %s went fishing and fell in." % ("she" if self.c.isFemale else "he"))
             self.menu = ["\"I fell in.\"",
                          "\"My ship exploded.\""]
             self.tempFlag = "Boat Chat 1"
@@ -75,21 +75,29 @@ class Boat:
             self.c.flags['New Song'] = "Drat"
             self.text = ""
             if selectionIndex == 0:
-                self.text = ("Toshe: Yeah, I fucking fell in."+
-                             "\nMan: Ah, he's a funny one. He has a sense of "+
+                if self.c.isPolite:
+                    fellLine = "%s: Yeah, I freaking fell in." % self.c.NAME
+                else:
+                    fellLine = "%s: Yeah, I fucking fell in." % self.c.NAME
+                self.text = (fellLine+
+                             "\nMan: Ah, %s's a funny one. %s has a sense of " % ("she" if self.c.isFemale else "he", "She" if self.c.isFemale else "He")+
                              "humour."+
                              "\nBert: Sounds kind of pissed to me, Heinz.\n")
             elif selectionIndex == 1:
-                self.text = ("Toshe: My ship exploded."+
+                self.text = ("%s: My ship exploded." % self.c.NAME+
                              "\nMan: Seriously? That's a lot crazier than "+
                              "fishing and falling in."+
                              "\nBert: I don't know, Heinz. You'd have to be "+
                              "pretty crazy to go fishing in these waters.\n")
+            if self.c.isPolite:
+                shitLine = "\n%s: Wait, do I have time to poop my pants?" % self.c.NAME
+            else:
+                shitLine = "\n%s: Wait, do I have time to take a shit?" % self.c.NAME
             self.text += ("Heinz: Speaking of which, it looks like we have an "+
                           "angry visitor crawling up the back."
                           "\nBert: Something must be crawling up my back "+
                           "because I'm just itching for a fight! Heads up!"+
-                          "\nToshe: Wait, do I have time to take a shit?")
+                          shitLine)
             self.menu = ["Brace yourself."]
             self.tempFlag = "Boat Chat 2"
 
@@ -104,21 +112,21 @@ class Boat:
                          "\nHeinz: Yeah, that spider knocked me around a "+
                          "bit but I'm feeling fine. You?"+
                          "\nBert: Ha ha, yes, I feel alive. That was the "+
-                         "biggest one yet! How do you feel, guy?"+
-                         "\nToshe: I feel, um, relieved."+
+                         "biggest one yet! How do you feel, %s?" % ("bud" if self.c.isFemale else "guy")+
+                         "\n%s: I feel, um, relieved." % self.c.NAME+
                          "\nHeinz: Here, this might help you. It removes "+
                          "venom."+
                          "\nYou receive an antidote kit!"+
-                         "\nBert: I never asked, what's your name, guy?")
-            self.menu = ["\"Toshe.\""]
+                         "\nBert: I never asked, what's your name, %s?" % ("bud" if self.c.isFemale else "guy"))
+            self.menu = ["\"%s.\"" % self.c.NAME]
             self.tempFlag = "Boat Chat 3"
 
         elif "Boat Chat 4" not in self.c.flags:
-            self.text = ("Toshe: My name is Toshe."+
+            self.text = ("{0}: My name is {0}.".format(self.c.NAME)+
                          "\nHeinz: Hey, we could use a fighter like you, "+
-                         "Toshe. You're pretty skilled with your fists."+
-                         "\nBert: Yeah, I bet he's even better with a weapon! "+
-                         "Heinz, pass him that little knife beside you."+
+                         "%s. You're pretty skilled with your fists." % self.c.NAME+
+                         "\nBert: Yeah, I bet %s's even better with a weapon! " % ("she" if self.c.isFemale else "he")+
+                         "Heinz, pass %s that little knife beside you." % ("her" if self.c.isFemale else "him")+
                          "\nHeinz: No!"+
                          "\nBert: Huh? Why not?"+
                          "\nHeinz: Th-then what will I use...?"+
@@ -138,7 +146,7 @@ class Boat:
                                  "the game.")
             if selectionIndex == 1:
                 self.text = ("Bert: Suit yourself.\n")
-            self.text += ("Heinz: Toshe, we kind of got lost out here "+
+            self.text += ("Heinz: %s, we kind of got lost out here " % self.c.NAME+
                           "and we don't know where we're going at all. So "+
                           "keep an eye out for help, because we won't last "+
                           "long with what little supplies we have left."+
@@ -155,7 +163,7 @@ class Boat:
             self.c.hp = self.c.maxHp
             self.text = ("You rest for a while, feeling refreshed "+
                          "afterwards."+
-                         "\nHeinz: Hey, Toshe! Look over there!"+
+                         "\nHeinz: Hey, %s! Look over there!" % self.c.NAME+
                          "\nYou look far into the distance and see a "+
                          "ship."+
                          "\nHeinz: We need you to keep watch while we "+
@@ -170,7 +178,7 @@ class Boat:
             self.tempFlag = "Boat Chat 6"
             
         elif selectionIndex == 1:
-            self.text = ("Toshe: Say that again?"+
+            self.text = ("%s: Say that again?" % self.c.NAME+
                          "\nHeinz: We're giving you guard duty. Ten hours "+
                          "and we'll reach that ship, but you can only "+
                          "rest twice, max."+
@@ -202,7 +210,7 @@ class Boat:
         elif self.c.flags['Boat Hours'] <= 5:
             self.imageIndex = 2
         if 'Boat Chat Done' not in self.c.flags:
-            self.text = ("Toshe: Got it.")
+            self.text = ("%s: Got it." % self.c.NAME)
             self.helpText = "Click on the centre image to save the game. You can also save within the overworld by clicking on the brown disc icon at the top right."
             self.c.flags['Boat Chat Done'] = True
         elif 'Boat Chat Done' in self.c.flags:

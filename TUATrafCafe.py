@@ -2,7 +2,7 @@
 File: TUATrafCafe.py
 Author: Ben Gardner
 Created: June 24, 2015
-Revised: May 29, 2023
+Revised: June 11, 2023
 """
 
 
@@ -77,11 +77,11 @@ class TrafCafe:
                                  'coordinates': (X, Y)})
         
         if "Traf Cafe" not in self.c.flags:
-            self.text = ("Toshe: ...It's a lot bigger and flashier" +
+            self.text = ("%s: ...It's a lot bigger and flashier" % self.c.NAME +
                          " on the inside.")
             self.c.flags['Traf Cafe'] = True
         else:
-            self.text = ("Toshe: Well, here I am again, gambling my" +
+            self.text = ("%s: Well, here I am again, gambling my" % self.c.NAME +
                          " life's savings away.")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Gambling? My favourite!")
@@ -124,7 +124,7 @@ class TrafCafe:
                 winnings = int(self.bet) * 2
                 self.c.euros += winnings
                 hits.append({
-                    "Target": "Toshe",
+                    "Target": self.c.NAME,
                     "Kind": "Money",
                     "Number": winnings,
                 })
@@ -138,7 +138,7 @@ class TrafCafe:
                 winnings = int(self.bet) * 2
                 self.c.euros += winnings
                 hits.append({
-                    "Target": "Toshe",
+                    "Target": self.c.NAME,
                     "Kind": "Money",
                     "Number": winnings,
                 })
@@ -191,7 +191,7 @@ class TrafCafe:
         elif selectionIndex is not None and not hasattr(self, "game"):
             self.c.euros -= int(self.bets[selectionIndex])
             self.bet = self.bets[selectionIndex]
-            self.game = TUABlackjack.Game()
+            self.game = TUABlackjack.Game(self.c.NAME)
             self.text = ("You bet %s euros." % self.bet +
                          "\n%s" % self.game.takeTurn("restart"))
             if self.game.outcome is None:
@@ -202,7 +202,7 @@ class TrafCafe:
                     winnings = int(int(self.bet) * 2.5)
                     self.c.euros += winnings
                     hits.append({
-                        "Target": "Toshe",
+                        "Target": self.c.NAME,
                         "Kind": "Money",
                         "Number": winnings,
                         "Critical": True,
@@ -211,7 +211,7 @@ class TrafCafe:
                     winnings = int(self.bet) * 2
                     self.c.euros += winnings
                     hits.append({
-                        "Target": "Toshe",
+                        "Target": self.c.NAME,
                         "Kind": "Money",
                         "Number": winnings,
                     })
@@ -221,7 +221,7 @@ class TrafCafe:
                     winnings = int(self.bet)
                     self.c.euros += winnings
                     hits.append({
-                        "Target": "Toshe",
+                        "Target": self.c.NAME,
                         "Kind": "Money",
                         "Number": winnings,
                     })
@@ -263,7 +263,7 @@ class TrafCafe:
                 winnings = int(self.bet) * 2
                 self.c.euros += winnings
                 hits.append({
-                    "Target": "Toshe",
+                    "Target": self.c.NAME,
                     "Kind": "Money",
                     "Number": winnings,
                 })
@@ -273,7 +273,7 @@ class TrafCafe:
                 winnings = int(self.bet)
                 self.c.euros += winnings
                 hits.append({
-                    "Target": "Toshe",
+                    "Target": self.c.NAME,
                     "Kind": "Money",
                     "Number": winnings,
                 })

@@ -2,7 +2,7 @@
 File: TUAIgaloCathedral.py
 Author: Ben Gardner
 Created: November 8, 2022
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 from random import randint
@@ -206,9 +206,9 @@ class IgaloCathedral:
             self.text = "Aiden: Greetings, mage. I hail from the United States. My cosplay group told me to come check this place out."
         elif not self.hasGainedPowerOf("Giant Salamander2"):
             self.text = "Aiden: Return to me after you conquer the amphibious fire beast."
-            self.text += "\nToshe: Wait...what fire beast?"
+            self.text += "\n%s: Wait...what fire beast?" % self.c.NAME
             self.text += "\nAiden: Its name is Meltmaw the Magical. It is located somewhere in Eastern Kosovo."
-            self.text += "\nToshe: Are you making this up?"
+            self.text += "\n%s: Are you making this up?" % self.c.NAME
             self.text += "\nAiden: I am one-hundred percent serious. After you gain its power, I shall bestow mighty knowledge within you."
         else:
             self.text = "Aiden: Why, yes. My armour is one-hundred percent authentic. Its defence value is zero with absolutely no resistances whatsoever. However, it is authentic."

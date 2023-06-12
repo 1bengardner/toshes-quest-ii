@@ -2,7 +2,7 @@
 File: TUAAthens.py
 Author: Ben Gardner
 Created: August 5, 2015
-Revised: May 28, 2023
+Revised: June 11, 2023
 """
 
 
@@ -113,7 +113,7 @@ class Athens:
             "Athenian: I'm so proud to be Greek! Only the truest fighters" +
             " may enter the coliseum!",
             "Athenian: Hey, you look...different..." +
-            "\nToshe: Nope, I'm just like you."
+            "\n%s: Nope, I'm just like you." % self.c.NAME
             ]
         return random.choice(excerpts) if random.randint(1, 4) == 1 else None
 
@@ -152,7 +152,7 @@ class Athens:
                                   " warrior, and therefore you shant test" +
                                   " your might." +
                                   "\nBarrie: Way to kill the mood." +
-                                  "\nToshe: I think this is a test for me" +
+                                  "\n%s: I think this is a test for me" % self.c.NAME +
                                   " only. I'm supposed to enter the" +
                                   " battleground alone." +
                                   "\nBarrie: We'll root for you then!")
@@ -185,7 +185,7 @@ class Athens:
              "Coliseum Complete" in self.c.flags):
             self.text = ("Escort: Sir, let us continue westward to the" +
                          " fortress, yes?" +
-                         "\nToshe: That sounds great.")
+                         "\n%s: That sounds great." % self.c.NAME)
         return self.actions()
 
     def bottomLeft(self, selectionIndex=None):
@@ -289,7 +289,7 @@ class Athens:
         price = 250
         if selectionIndex == 0:
             self.text = (npc+": "+random.choice(
-["I have no advice for you, son; you seem to have wisdom beyond your" +
+["I have no advice for you, young one; you seem to have wisdom beyond your" +
  " years. Stay vigilant."
  ]
 ))

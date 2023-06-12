@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: May 29, 2023
+Revised: June 11, 2023
 """
 
 
@@ -175,7 +175,7 @@ class Greece:
                                  'coordinates': (X, Y)})
         elif "Marciano Coward 4" not in self.c.flags:
             self.text = ("Marciano escapes north."+
-                         "\nToshe: Run, and don't come back!")
+                         "\n%s: Run, and don't come back!" % self.c.NAME)
             self.c.flags['Marciano Coward 4'] = True
             return self.actions()
         return False
@@ -295,7 +295,7 @@ class Greece:
         merc1 = "Qendresa"
         merc2 = "Barrie"
         if "Greece" not in self.c.flags:
-            self.text = ("Toshe: Greece--the sworn enemy of Macedonia." +
+            self.text = ("%s: Greece--the sworn enemy of Macedonia." % self.c.NAME +
                          " From what I saw in the ruins, I know they're" +
                          " up to no good.")
             if self.c.hasMercenary(merc1):
@@ -384,7 +384,7 @@ class Greece:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 0 and self.c.hasItem("Key Mold"):
             self.imageIndex = 15
-            self.text = ("Toshe: I don't really wanna go back in there.")
+            self.text = ("%s: I don't really wanna go back in there." % self.c.NAME)
             self.menu = ["Enter the fortress."]
         elif "Coliseum Complete" not in self.c.flags:
             self.text = ("%s: I'm sorry, sir. No visitors are allowed" % npc1 +
@@ -392,7 +392,7 @@ class Greece:
         else:
             self.imageIndex = 15
             if "Greek Fortress" not in self.c.flags:
-                self.text = ("Toshe: Wow, I've always wanted to see" +
+                self.text = ("%s: Wow, I've always wanted to see" % self.c.NAME +
                              " what it's like inside." +
                              "\n%s: Today, sir, you will." % npc2)
                 if self.c.hasMercenary("Qendresa"):
@@ -494,7 +494,7 @@ class Greece:
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
                          "\nWoman: Stop. Who goes there?"+
-                         "\nToshe: Me."+
+                         "\n%s: Me." % self.c.NAME+
                          "\n"+npc+": Oh, you're funny. I'm "+npc+". "+
                          "Now, keep calm and don't let the guards see you. "+
                          "With this skill, you can land four shots at once. "+
@@ -551,7 +551,7 @@ class Greece:
         if "Marciano5" not in self.c.flags['Kills']:
             self.c.flags['New Song'] = "Drat"
             self.text = ("Marciano: This is the end, my friend."
-                         "\nToshe: ...That's it? At least you rhymed this time." +
+                         "\n%s: ...That's it? At least you rhymed this time." % self.c.NAME +
                          "\nMarciano: Silence!" +
                          "\nMarciano advances toward you.")   
             self.menu = ["Brace yourself."]

@@ -111,7 +111,7 @@ class HiddenPassage:
         merc1 = "Qendresa"
         merc2 = "Barrie"
         if "Hidden Passage" not in self.c.flags:
-            self.text = ("Toshe: I need to get to Greece and find out who" +
+            self.text = ("%s: I need to get to Greece and find out who" % self.c.NAME +
                          " really has the Key to Macedonia.")
             if self.c.hasMercenary(merc1):
                 self.text += ("\n%s: Yes. We must also stop Giacomo." % merc1 +
@@ -147,9 +147,9 @@ class HiddenPassage:
         if selectionIndex == 0 and "Gan Passage" not in self.c.flags:
             self.text = ("You shine your flashlight on the man." +
                          "\nGan: Hello." +
-                         "\nToshe: Hey! It's you again!" +
+                         "\n%s: Hey! It's you again!" % self.c.NAME +
                          "\nGan: Yes. I meditate in this cave." +
-                         "\nToshe: Well, it's actually a wall, but--" +
+                         "\n%s: Well, it's actually a wall, but--" % self.c.NAME +
                          "\nGan: Come closer." +
                          "\nGan pulls you toward him and covers your mouth." +
                          "\nThings go black for a moment." +
@@ -163,7 +163,7 @@ class HiddenPassage:
             random.seed(self.c.xp)
             suffix = random.choice(["Stab", "Slice", "Smash", "Sever"])
             if self.c.hasItem("Ominous Orb"):
-                self.text = ("Gan: Toshe, the orb you wield..." +
+                self.text = ("Gan: %s, the orb you wield..." % self.c.NAME +
                              "\nGan hesitates in awe." +
                              "\nGan: Go right and you can take its power!")
             elif (("Giant Seal2" in kills and
@@ -176,7 +176,7 @@ class HiddenPassage:
                  "Giant Scorpion2" not in animalPowers) or
                 ("Giant Scarab2" in kills and
                  "Giant Scarab2" not in animalPowers)):
-                self.text = ("Gan: Toshe, you are ready now." +
+                self.text = ("Gan: %s, you are ready now." % self.c.NAME +
                              " Go right when you are prepared to ascend.")
                 self.c.flags['Animal Ascension'] = True
             elif len(self.c.flags['Animal Powers']) == 5 and "Got Sigil" not in self.c.flags:
@@ -215,7 +215,7 @@ class HiddenPassage:
                 "Gan: The things I found useful once before are now" +
                 " dated and inadequate. It is a constant struggle to" +
                 " survive in this evolving world.",
-                "Gan: Are you still here, Toshe?"])
+                "Gan: Are you still here, %s?" % self.c.NAME])
             self.menu = ["Talk to Gan."]
             
         return self.actions()
@@ -253,11 +253,11 @@ class HiddenPassage:
                     "Guardian",
                     "Scallywag",
                     "Defender",
-                    "Son of Centaur",
+                    "Daughter of Centaur" if self.c.isFemale else "Son of Centaur",
                 ],
                 "Monk": [
                     "Adrenal Avenger",
-                    "Sandman",
+                    "Sphinxkin" if self.c.isFemale else "Sandman",
                     "Astral Assailant",
                     "Hermit",
                 ],
@@ -306,12 +306,12 @@ class HiddenPassage:
             if self.c.specialization is None:
                 self.helpText = "You have chosen a specialization! As you defeat enemies, your specialization will rank up and grant you a bonus."
             if self.c.specialization == getSpecializationOptions(self.c)[selectionIndex]:
-                self.text = "Toshe: Wow...I feel exactly the same. Maybe a little worse."
+                self.text = "%s: Wow...I feel exactly the same. Maybe a little worse." % self.c.NAME
             elif "Respec" in self.c.flags:
                 del self.c.flags['Respec']
-                self.text = "Toshe: I feel like a new man."
+                self.text = "%s: I feel like a new %s." % (self.c.NAME, "woman" if self.c.isFemale else "man")
             else:
-                self.text = "Toshe: I feel strong."
+                self.text = "%s: I feel strong." % self.c.NAME
             self.c.specialization = getSpecializationOptions(self.c)[selectionIndex]
             return self.actions({'sound': "Specialize"})
         elif (selectionIndex == 0 and (self.c.hasItem("Ominous Orb") or "Respec" in self.c.flags) or

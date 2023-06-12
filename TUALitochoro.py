@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -87,7 +87,7 @@ class Litochoro:
             self.text = ("You fortunately spot a clothed man working on "+
                          "the balcony."+
                          "\nClothed Man: Welcome to Litochoro!"+
-                         "\nToshe: Thanks.")
+                         "\n%s: Thanks." % self.c.NAME)
         self.menu = [
             "Enter the inn.",
         ]
@@ -112,7 +112,7 @@ class Litochoro:
 ["Deep, deep under the city lurks a minotaur. Not just any minotaur, mind you. Oh, heavens, not Daedalus's minotaur. He was...disposed of years ago. No, this minotaur is something else. Men have been driven to insanity trying to hunt it down. Never mind that. How about some tea, dear?",
  "A few bold adventurers have come to ascend Mount Olympus, like yourself. If you plan to go, you should know that it will change each time.",
  "Myth has it that the beasts that dwell atop Olympus will match their strength to their challenger.",
- "Upon the mountain you may find an ancient serum. You can use it to \"alter the state of the natural world.\" At least, that's what an oriental man told me.\nToshe raises an eyebrow.\n%s: Oh, my sweet pea! You know us old folk don't know the proper terms these days!" % npc,
+ "Upon the mountain you may find an ancient serum. You can use it to \"alter the state of the natural world.\" At least, that's what an oriental man told me.\n%s raises an eyebrow.\n%s: Oh, my sweet pea! You know us old folk don't know the proper terms these days!" % (self.c.NAME, npc),
  "The view here is lovely. I really enjoy my mornings watching the sun rise and sipping Earl Grey from my favourite mug."
  ]
 ))
@@ -237,10 +237,10 @@ class Litochoro:
                 if self.c.hasMercenary("Qendresa"):
                     self.text += "\n%s: Oh, madam. You must not worry. We are safe now." % "Qendresa"
                 if self.c.hasMercenary("Barrie"):
-                    self.text += "\n%s: %s, did you forget? You almost got us lost down there, you crazy fool!" % ("Barrie", "Toshe")
+                    self.text += "\n%s: %s, did you forget? You almost got us lost down there, you crazy fool!" % ("Barrie", self.c.NAME)
             elif "Mount Olympus Complete" in self.c.flags and "Ready for Labyrinth" not in self.c.flags:
                 self.c.flags['Ready for Labyrinth'] = True
-                self.text = (npc+": Ah, Toshe! Are you up for a challenge? Deep below Litochoro is a big labyrinth. Somewhere inside, there lives a minotaur, ready to swallow men. In fact, there are two minotaurs, rumour has it. Their horns are prized for their potency in blacksmithing. Now, these bull-men are tough, but I think they would be no match for the likes of you!")
+                self.text = (npc+": Ah, %s! Are you up for a challenge? Deep below Litochoro is a big labyrinth. Somewhere inside, there lives a minotaur, ready to swallow men. In fact, there are two minotaurs, rumour has it. Their horns are prized for their potency in blacksmithing. Now, these bull-men are tough, but I think they would be no match for the likes of you!" % self.c.NAME)
             elif "Rested" in self.c.flags:
                 self.text = ("You fall asleep."+
                              "\nWhen you wake up, you return to the front "+

@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: June 4, 2023
+Revised: June 11, 2023
 """
 
 
@@ -247,7 +247,7 @@ class LairOfTheMagi:
         if "Spider Steps" not in self.c.flags:
             self.c.flags['Spider Steps'] = True
             self.text = "You come to a series of putrid stairs covered in cobwebs."
-            self.text += "\nToshe: Yuck."
+            self.text += "\n%s: Yuck." % self.c.NAME
 
         return self.actions()
 
@@ -280,7 +280,7 @@ class LairOfTheMagi:
             if self.c.hasMercenary("Barrie"):
                 self.text = "Barrie: Looks like we got ourselves a fork in the road."
             else:
-                self.text = "Toshe: The way ahead is blocked."
+                self.text = "%s: The way ahead is blocked." % self.c.NAME
 
         return self.actions()
 
@@ -494,7 +494,7 @@ class LairOfTheMagi:
         self.menu = []
         
         self.text = "You come across an unmanned arrowslit."
-        self.text += "\nToshe: Hey, they could have used that to shoot me when I was outside."
+        self.text += "\n%s: Hey, they could have used that to shoot me when I was outside." % self.c.NAME
         if self.c.hasMercenary("Barrie"):
             self.text += "\nBarrie: Well. Certainly glad they didn't!"
         elif self.c.hasMercenary("Qendresa"):
@@ -530,7 +530,7 @@ class LairOfTheMagi:
             self.text += ("\nYou find %s %s!" % (aOrAn, treasure))
             return self.actions({'item': treasure})
         else:
-            self.text += "\nToshe: They have a jail, but no prisoners. What the hell?"
+            self.text += "\n%s: They have a jail, but no prisoners. What the hell?" % self.c.NAME
 
         return self.actions()
 
@@ -596,7 +596,7 @@ class LairOfTheMagi:
                 if len(self.c.flags['Levers']) == len(leverOrder):
                     self.c.flags['Lair Levers Complete'] = True
                     self.text += "\nYou hear a pop sound not too far away."
-                    self.text += "\nToshe: That's all of them."
+                    self.text += "\n%s: That's all of them." % self.c.NAME
         elif "Lever Room" not in self.c.flags:
             self.c.flags['Lever Room'] = True
             self.c.flags['Levers'] = set()
@@ -604,13 +604,17 @@ class LairOfTheMagi:
                 self.text = "\nBarrie: Holy Hannah! What is that?"
         elif "Get A Clue 1" in self.c.flags:
             del self.c.flags['Get A Clue 1']
-            self.text = "Toshe: There's gotta be some clue about the right order."
+            self.text = "%s: There's gotta be some clue about the right order." % self.c.NAME
         elif "Get A Clue 2" in self.c.flags:
             del self.c.flags['Get A Clue 2']
-            self.text = "Toshe: I bet I can discover something from those engravings downstairs."
+            self.text = "%s: I bet I can discover something from those engravings downstairs." % self.c.NAME
         elif "Get A Clue 3" in self.c.flags:
             del self.c.flags['Get A Clue 3']
-            self.text = "Toshe: Fuck! So close."
+            if self.c.isPolite:
+                fLine = "%s: Rats! So close." % self.c.NAME
+            else:
+                fLine = "%s: Fuck! So close." % self.c.NAME
+            self.text = fLine
         else:
             self.text = "You enter a hall with two prominent columns. Between them is a system of three magical, coloured rings."
 
@@ -704,7 +708,7 @@ class LairOfTheMagi:
             if self.c.hasMercenary("Barrie"):
                 self.text += "\nBarrie: Niplin must have been hiding them here all along."
             if [flag for flag in set(["Mudslide", "Floodtide", "Hot Coals"]) if flag in self.c.flags]:
-                self.text += "\nArchmage: Please, Toshe, you must help us."
+                self.text += "\nArchmage: Please, %s, you must help us." % self.c.NAME
             else:
                 self.text += "\nArchmage: Please, help us."
         elif selectionIndex == 0 and "Archmages Helped 1" not in self.c.flags:
@@ -745,9 +749,9 @@ class LairOfTheMagi:
             if self.c.hasMercenary("Barrie"):
                 self.text = "Barrie: I can sense more coming. We're outnumbered."
             elif [flag for flag in set(["Mudslide", "Floodtide", "Hot Coals"]) if flag in self.c.flags]:
-                self.text = "Archmage: Your presence is known here, Toshe."
+                self.text = "Archmage: Your presence is known here, %s." % self.c.NAME
             else:
-                self.text = "Toshe: About time."
+                self.text = "%s: About time." % self.c.NAME
             self.text += "\nYou feel a deep vibration as a thud sounds from the next chamber."
             if self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: From what provenance is that noise?"
@@ -788,7 +792,7 @@ class LairOfTheMagi:
         if "Pespozeor Rendezvous" not in self.c.flags:
             self.c.flags['New Song'] = "Drat"
             if self.c.hasMercenary("Qendresa"):
-                self.text = "Qendresa: Toshe...what is that?"
+                self.text = "Qendresa: %s...what is that?" % self.c.NAME
             else:
                 self.text = "You enter the chamber ahead. It is illuminated with red torch flame."
             self.text += "\nYou see a gigantic beast ready to pounce."
@@ -834,7 +838,7 @@ class LairOfTheMagi:
         elif "Niplin 2" not in self.c.flags:
             self.tempFlag = "Niplin 2"
             if selectionIndex == 0:
-                self.text = "Toshe: Sure did."
+                self.text = "%s: Sure did." % self.c.NAME
                 self.text += "\nNiplin: You've come to challenge me. You want to free the archmages."
                 self.menu = [
                     "\"Yes, I do.\"",
@@ -843,7 +847,7 @@ class LairOfTheMagi:
             elif selectionIndex == 1:
                 self.c.flags['New Song'] = "Drat"
                 self.c.flags['Niplin has no manners'] = True
-                self.text = "Toshe: Who are you?"
+                self.text = "%s: Who are you?" % self.c.NAME
                 self.text += "\nNiplin: You don't recognize me? Where are my manners..."
                 self.text += "\nNiplin unsheathes his speckled greatsword as he steps closer."
                 self.menu = ["Brace yourself."]
@@ -861,12 +865,12 @@ class LairOfTheMagi:
             self.c.flags['New Song'] = "Drat"
             self.tempFlag = "Niplin has no manners"
             if selectionIndex == 0:
-                self.text = "Toshe: Yes, I do."
+                self.text = "%s: Yes, I do." % self.c.NAME
                 self.text += "\nNiplin: Well, you know what they say."
                 self.text += "\nNiplin slowly unsheathes his speckled greatsword."
                 self.text += "\nNiplin: No good deed goes unpunished."
             elif selectionIndex == 1:
-                self.text = "Toshe: No, I want you dead."
+                self.text = "%s: No, I want you dead." % self.c.NAME
                 self.text += "\nNiplin: Commence the serenade."
                 self.text += "\nNiplin clasps the hilt of his sword and makes his way toward you."
             else:
@@ -890,7 +894,11 @@ class LairOfTheMagi:
             self.tempFlag = "Riplin Encounter"
             self.text = "You regain consciousness."
             self.text += "\nA newly armoured, fervent figure is looming over you, ready to strike."
-            self.text += "\nToshe: What the fuck?"
+            if self.c.isPolite:
+                wtfLine = "\n%s: What!" % self.c.NAME
+            else:
+                wtfLine = "\n%s: What the fuck?" % self.c.NAME
+            self.text += wtfLine
             self.menu = ["Brace yourself."]
         elif "Riplin Battle" not in self.c.flags:
             self.c.flags['Riplin Battle'] = True
@@ -960,7 +968,7 @@ class LairOfTheMagi:
             elif selectionIndex == 1:
                 self.text = "You search the throne room for interesting artifacts. Every decoration seems cursed."
                 if self.c.hasMercenary("Qendresa"):
-                    self.text += "\nQendresa: Come, Toshe. Let us proceed."
+                    self.text += "\nQendresa: Come, %s. Let us proceed." % self.c.NAME
                 elif self.c.hasMercenary("Barrie"):
                     self.text += "\nBarrie: You did it, bud. Now let's get a move on."
             if "Palace Ointment" in self.c.flags:
@@ -1011,18 +1019,26 @@ class LairOfTheMagi:
         if "Lair Tower" not in self.c.flags:
             self.c.flags['Lair Tower'] = True
             if self.c.hasMercenary("Qendresa"):
-                self.text = "Qendresa: T-Toshe!"
+                self.text = "Qendresa: T-%s!" % self.c.NAME
             else:
-                self.text = "Toshe: Oh shit!"
+                if self.c.isPolite:
+                    shitLine = "%s: Whoa!" % self.c.NAME
+                else:
+                    shitLine = "%s: Oh shit!" % self.c.NAME
+                self.text = shitLine
             self.text += "\nYou feel light energy take hold of you as you are rapidly propelled upward."
             self.text += "\nYour eyes shut involuntarily."
             self.text += "\nDistant speech from the archmages forms a chorus of reposeful voices."
-            self.text += "\nArchmages: Toshe...Thank you...Igalo holds you in esteem..."
+            self.text += "\nArchmages: %s...Thank you...Igalo holds you in esteem..." % self.c.NAME
             self.text += "\nYou feel the chains of evil breaking apart."
             self.text += "\nYou come to and find yourself in the top chamber of a tower."
             if self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: What happened?"
-                self.text += "\nToshe: No fucking idea. That was weird."
+                if self.c.isPolite:
+                    ideaLine = "\n%s: Not sure. That was weird." % self.c.NAME
+                else:
+                    ideaLine = "\n%s: No fucking idea. That was weird." % self.c.NAME
+                self.text += ideaLine
             if self.c.hasMercenary("Barrie"):
                 self.text += "\nBarrie: That was a trip. We're so high."
 
@@ -1078,7 +1094,7 @@ class LairOfTheMagi:
                     remarks += [
                         "\nQendresa: " + remark for remark in [
                             "Perhaps you ought to befriend it. We need a way to get down.",
-                            "Toshe, be kind. It is aged.",
+                            "%s, be kind. It is aged." % self.c.NAME,
                             "The poor gargoyle cannot see! Leave it alone.",
                             "This may be our chance to depart. Show it compassion"
                         ]
@@ -1093,11 +1109,15 @@ class LairOfTheMagi:
                         ]
                     ]
                 if not self.c.hasMercenary("Qendresa") and not self.c.hasMercenary("Barrie"):
+                    if self.c.isPolite:
+                        killedLine = "What the hey? I just fricking killed you."
+                    else:
+                        killedLine = "What the fuck? I just killed you."
                     remarks += [
-                        "\nToshe: " + remark for remark in [
+                        "\n%s: " % self.c.NAME + remark for remark in [
                             "Where are these things coming from?",
                             "How many gargoyles are there?",
-                            "What the fuck? I just killed you.",
+                            killedLine,
                             "Stop!"
                         ]
                     ]

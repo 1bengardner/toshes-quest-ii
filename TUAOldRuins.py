@@ -2,7 +2,7 @@
 File: TUAOldRuins.py
 Author: Ben Gardner
 Created: June 28, 2015
-Revised: May 22, 2023
+Revised: June 11, 2023
 """
 
 
@@ -116,13 +116,17 @@ class OldRuins:
         self.text = ("You traverse the long spiral staircase.")
         if "Old Ruins" not in self.c.flags:
             self.text += ("\nThe hermit escapes downstairs." +
-                          "\nToshe: What idiot practices magic down here?" +
+                          "\n%s: What idiot practices magic down here?" % self.c.NAME +
                           " Anyway, this flashlight Gan gave me is actually" +
                           " surprisingly useful.")
             self.c.flags['Old Ruins'] = True
         elif "Secret Lab Lever" not in self.c.flags:
-            self.text += ("\nToshe: Looks like I won't be able to" +
-                          " get downstairs. There's too many fucking monsters!")
+            if self.c.isPolite:
+                monstersLine = " get downstairs. There's too many gosh darn monsters!"
+            else:
+                monstersLine = " get downstairs. There's too many fucking monsters!"
+            self.text += ("\n%s: Looks like I won't be able to" % self.c.NAME +
+                          monstersLine)
         self.menu = ["Go upstairs.",
                      "Go downstairs."]
         return self.actions()
@@ -264,7 +268,7 @@ class OldRuins:
         elif "Old Ruins Complete" not in self.c.flags:
             self.text = ("The second guard escapes in a cloud of smoke." +
                          " When the smoke clears, he is nowhere to be found." +
-                         "\nToshe: ...I can't believe it. I just murdered" +
+                         "\n%s: ...I can't believe it. I just murdered" % self.c.NAME +
                          " the president, and I still don't have the key!" +
                          " I will destroy every Greek warrior until I" +
                          " find that key!")
@@ -282,46 +286,46 @@ class OldRuins:
                          "Ask the president why he is here.",
                          "Ask the president for the key."]
             if selectionIndex == 0:
-                self.text = ("Toshe: Your guards are being possessed by" +
+                self.text = ("%s: Your guards are being possessed by" % self.c.NAME +
                              " evil wizards!" +
                              "\nThe president pauses for a moment." +
                              "\nPresident: There is nothing I can do about" +
                              " that, unfortunately.")
             elif selectionIndex == 1:
-                self.text = ("Toshe: Why are you in these old ruins?" +
+                self.text = ("%s: Why are you in these old ruins?" % self.c.NAME +
                              "\nThe president pauses for a moment." +
                              "\nPresident: I came here to escape the dark" +
                              " forces at work around my outpost.")
             elif selectionIndex == 2:
-                self.text = ("Toshe: Honourable sir, I need to"
+                self.text = ("%s: Honourable sir, I need to" % self.c.NAME +
                              " return to Macedonia to stop the monsters" +
                              " from generating and rid my country of" +
                              " evil forces. Please, can you let me in?" +
                              "\nThe president pauses for a moment." +
                              "\nPresident: I have the key." +
-                             "\nToshe: Can I have it?" +
+                             "\n%s: Can I have it?" % self.c.NAME +
                              "\nPresident: ...I cannot give it to you," +
                              " unfortunately. This is the only key left." +
-                             "\nToshe: Then come with me! We have to save" +
+                             "\n%s: Then come with me! We have to save" % self.c.NAME +
                              " our homeland!" +
                              "\nPresident: I cannot return to Macedonia." +
-                             "\nToshe: Why are you being so difficult!?" +
+                             "\n%s: Why are you being so difficult!?" % self.c.NAME +
                              "\nPresident: It's safer here.")
                 self.menu = ["Ask once more."]
                 self.tempFlag = "President 1"
             else:
                 self.text = ("You see two guards and an important-looking man" +
                              " standing together in the corner of the ruins." +
-                             "\nToshe: Hi. Are you...are you the president?" +
+                             "\n%s: Hi. Are you...are you the president?" % self.c.NAME +
                              "\nPresident: The President of Macedonia? Yes," +
                              " yes, I am." +
                              "\nThe president is slow and controlled in his" +
                              " words.")
 
         elif "President 2" not in self.c.flags:
-            self.text = ("Toshe: Please, just give the key to me." +
+            self.text = ("%s: Please, just give the key to me." % self.c.NAME +
                          "\nPresident: I'm sorry. I--I can't." +
-                         "\nToshe: Then you leave me with no other" +
+                         "\n%s: Then you leave me with no other" % self.c.NAME +
                          " choice. Guards, stand down!")
             self.menu = ["Attack the president."]
             self.tempFlag = "President 2"
@@ -333,11 +337,11 @@ class OldRuins:
                                  'mercenaries': self.c.mercenaries})
 
         elif "President 3" not in self.c.flags:
-            self.text = ("Toshe: This is just a dumb badge! Give me the key!" +
+            self.text = ("%s: This is just a dumb badge! Give me the key!" % self.c.NAME +
                          "\nPresident: I...I don't have the key." +
-                         "\nToshe: What?!" +
+                         "\n%s: What?!" % self.c.NAME +
                          "\nPresident: I did it to protect my family." +
-                         "\nToshe: What are you talking about?" +
+                         "\n%s: What are you talking about?" % self.c.NAME +
                          "\nPresident: The guards...they're going to" +
                          " kill my family! I have failed...Macedonia" +
                          " is going to fall into ruins...the guards" +
@@ -358,7 +362,7 @@ class OldRuins:
                          " their familiar uniforms to be the same as" +
                          " the two guards in Pristina. You also notice Greek" +
                          " emblems on their armour." +
-                         "\nToshe: You'll pay for this!")
+                         "\n%s: You'll pay for this!" % self.c.NAME)
             self.menu = ["Brace yourself."]
             self.tempFlag = "President 4"
 

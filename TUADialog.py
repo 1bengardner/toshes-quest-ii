@@ -28,9 +28,28 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
         self.entry.grid()
         return self.entry
 
+    def showErrorModal(self, msg):
+        self.withdraw()
+        tkMessageBox.showerror(self.title(), msg)
+        self.deiconify()
+
     def validate(self):
-        if self.entry.get() == "":
-            tkMessageBox.showerror(self.title(), "Please enter a name.")
+        value = self.entry.get().strip()
+        reservedNames = [
+            "gan",
+            "qendresa",
+            "barrie",
+            "tomas tam",
+            "giacomo",
+            "niplin",
+            "riplin",
+            "marciano",
+        ]
+        if value == "":
+            self.showErrorModal("Please enter a name.")
+            return 0
+        elif value.lower() in reservedNames:
+            self.showErrorModal("Kind of awkward, but someone already has this name.\n\nTry a different one.")
             return 0
         return 1
         

@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: June 4, 2023
+Revised: June 11, 2023
 """
 
 import random
@@ -140,7 +140,11 @@ class YaouwVolcano:
             self.c.flags['Alpaca Abandonment'] = True
         elif "Volcano Turn Back" in self.c.flags and "Can't Turn Back" not in self.c.flags:
             self.c.flags['Can\'t Turn Back'] = True
-            self.text += "\nToshe: Oh wait...I can't turn back. Shit."
+            if self.c.isPolite:
+                ctbLine = "\n%s: Oh wait...I can't turn back. Poop." % self.c.NAME
+            else:
+                ctbLine = "\n%s: Oh wait...I can't turn back. Shit." % self.c.NAME
+            self.text += ctbLine
         return self.actions()
 
     def trail(self, selectionIndex=None):
@@ -166,7 +170,7 @@ class YaouwVolcano:
         self.text = "You feel an intense heat from the crevice as you near the summit."
         if "Volcano Turn Back" not in self.c.flags:
             self.c.flags["Volcano Turn Back"] = True
-            self.text += "\nToshe: I can still turn back now."
+            self.text += "\n%s: I can still turn back now." % self.c.NAME
         return self.actions()
 
     def dropHole(self, selectionIndex=None):
@@ -203,7 +207,10 @@ class YaouwVolcano:
             roll = self.roll()
             if roll < 55:
                 hpLoss = random.randint(self.c.maxHp // 6, self.c.maxHp // 4)
-                self.text = ("In attempting to disturb the spirits, you slip and burn your hand for %s damage.\nToshe: Shit!" % hpLoss)
+                if self.c.isPolite:
+                    self.text = ("In attempting to disturb the spirits, you slip and burn your hand for %s damage.\n%s: Yow!" % (hpLoss, self.c.NAME))
+                else:
+                    self.text = ("In attempting to disturb the spirits, you slip and burn your hand for %s damage.\n%s: Shit!" % (hpLoss, self.c.NAME))
                 self.c.hp -= hpLoss
             elif roll < 80:
                 self.c.flags['Teleporting'] = True
@@ -229,7 +236,7 @@ class YaouwVolcano:
         elif "In Battle" in self.c.flags:
             del self.c.flags['In Battle']
             if boss in self.c.flags['Kills']:
-                self.text = "Toshe: That dude was massive."
+                self.text = "%s: That dude was massive." % self.c.NAME
                 if self.c.hasMercenary("Barrie"):
                     self.text += ("\n%s: What the heck was that?" % "Barrie")
                 if self.c.hasMercenary("Qendresa"):
@@ -288,7 +295,7 @@ class YaouwVolcano:
                                  'mercenaries': self.c.mercenaries})
         if "In Battle" in self.c.flags:
             del self.c.flags['In Battle']
-            self.text = "Toshe: That hits the spout."
+            self.text = "%s: That hits the spout." % self.c.NAME
         if "Teleporting" in self.c.flags:
             self.text = "A magical force whisks you away, and you arrive at a lava spout."
             del self.c.flags['Teleporting']
@@ -331,7 +338,7 @@ class YaouwVolcano:
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\n%s: That crack looks like it's gonna give." % "Barrie")
             if len(self.c.flags['Lava Spouts Hit']) == 4:
-                self.text += ("\n%s: I feel something vibrating down below!" % "Toshe")
+                self.text += ("\n%s: I feel something vibrating down below!" % self.c.NAME)
         return self.actions()
 
     def firefall(self, selectionIndex=None):
@@ -357,7 +364,7 @@ class YaouwVolcano:
             self.text = "You navigate around a fiery maw of flame."
             self.c.flags['Fire Lake'] = True
         if self.roll() > 70:
-            self.text += ("\n%s: It's hot in here." % "Toshe")
+            self.text += ("\n%s: It's hot in here." % self.c.NAME)
             self.text = self.text.strip()
         if self.text == "":
             self.text = None
@@ -384,7 +391,7 @@ class YaouwVolcano:
                                  'coordinates': (X, Y)})
         self.text = "You notice a cavern within the volcano wall. It looks like it goes back to Albania."
         if "Oukkar" not in self.c.flags['Kills']:
-            self.text += "\nToshe: I don't think it's time to leave yet."
+            self.text += "\n%s: I don't think it's time to leave yet." % self.c.NAME
         self.menu = ["Depart to the desert."]
         return self.actions()
 
@@ -417,7 +424,7 @@ class YaouwVolcano:
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\n%s: Geronimo!!" % "Barrie")
             self.text += "\nYou leap into the volcano, landing on a pile of rubble and ash. A large draft cushions your fall."
-            self.text += "\nToshe: I got lucky."
+            self.text += "\n%s: I got lucky." % self.c.NAME
             self.c.flags['Lava Jump'] = True
         elif self.c.hasMercenary("Barrie") and self.roll() > 70:
             self.text = ("%s: This place is real warm!" % "Barrie")

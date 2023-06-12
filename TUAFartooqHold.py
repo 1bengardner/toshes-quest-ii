@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -280,7 +280,11 @@ class FartooqHold:
             self.imageIndex = 14
             self.menu = ["Put the orb back."]
         elif "Magical Object" not in self.c.flags:
-            self.text = "Toshe: Holy shit! What the fuck is that?"
+            if self.c.isPolite:
+                hsLine = "%s: Holy moley! What the guac is that?" % self.c.NAME
+            else:
+                hsLine = "%s: Holy shit! What the fuck is that?" % self.c.NAME
+            self.text = hsLine
             self.menu = ["Take the magical object."]
         else:
             self.menu = ["Take the Oracular Orb."]
@@ -360,7 +364,7 @@ class FartooqHold:
 
         if "Fartooq Water" not in self.c.flags:
             self.text = ("The ice guardian vanishes." +
-                         "\nToshe: I don't like the looks of this place.")
+                         "\n%s: I don't like the looks of this place." % self.c.NAME)
             self.c.flags['Fartooq Water'] = True
         self.menu = ["Swim forward.",
                      "Swim back."]
@@ -397,7 +401,7 @@ class FartooqHold:
         elif ("Placed Oracular Orb" in self.c.flags and
               "Aldreed" not in self.c.flags['Kills'] and
               "Hiding from Aldreed" not in self.c.flags):
-            self.text = ("Toshe: I'm not fighting that thing!")
+            self.text = ("%s: I'm not fighting that thing!" % self.c.NAME)
             self.c.flags['Hiding from Aldreed'] = True
         return self.actions()
 
@@ -412,14 +416,14 @@ class FartooqHold:
                          " pedestal with a spherical indentation on top.")
 
         if ("Mountaintop" not in self.c.flags):
-            self.text += ("\nToshe: What is this place? It looks all messed up.")
+            self.text += ("\n%s: What is this place? It looks all messed up." % self.c.NAME)
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: Yes, the pillar's shadow appears" +
                               " to be facing the wrong direction or something.")
             if self.c.hasMercenary("Barrie"):
-                self.text += ("\nBarrie: It just looks like some crappy" +
-                              " Photoshop job by an unpaid developer who" +
-                              " couldn't finish in time.")
+                self.text += ("\nBarrie: If I'm being frank, it looks like a" +
+                              " half-assed AI-generated still used by an" +
+                              " unpaid developer who couldn't finish in time.")
                 if self.c.hasMercenary("Qendresa"):
                     self.text += ("\nQendresa: Are you referring to only this" +
                                   " scene? They all look like that.")
@@ -448,7 +452,7 @@ class FartooqHold:
         elif ("Aldreed" in self.c.flags['Kills'] and
               "Aldreed Aftermath" not in self.c.flags):
             self.text = "The pedestal has disappeared."
-            self.text += "\nToshe: Not bad."
+            self.text += "\n%s: Not bad." % self.c.NAME
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: That was fantastic!")
             if self.c.hasMercenary("Qendresa"):
@@ -506,7 +510,7 @@ class FartooqHold:
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
                          "\nWoman: A visitor. You must be from a foreign land."+
-                         "\nToshe: I could use a hot chocolate."+
+                         "\n%s: I could use a hot chocolate." % self.c.NAME+
                          "\n"+npc+": Well, I am "+npc+". I have no chocolate; "+
                          "I can only offer a word of advice..."+
                          "take my tunic into battle with you. "+

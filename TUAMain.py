@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -149,6 +149,7 @@ class Main:
         self.fileName = fileName
         with open("saves/"+self.fileName+".tq", "r") as gameFile:
             self.character = pickle.load(gameFile)
+        self.character.NAME = fileName
         self.initGame()
         self.sound.playSound(self.sound.sounds['Load'])
         Thread(target=self.writeGameToPreferences).start()
@@ -168,7 +169,7 @@ class Main:
         STARTING_X = 3
         STARTING_Y = 17
         self.fileName = fileName
-        self.character = Character("Toshe", 1, 0, 100, 100, 100, 100, 100,
+        self.character = Character(fileName, 1, 0, 100, 100, 100, 100, 100,
                                    10, 10, 10, [], 0, [], [None]*9,
                                    {'Weapon': None, 'Armour': None,
                                     'Shield': None},
@@ -1118,7 +1119,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             if randomize:
                 item, modifier = self.randomizeItem(item)
                 if modifier is not None:
-                    interfaceActions['text'] += ("\nToshe: It looks %s!" % modifier.lower())
+                    interfaceActions['text'] += ("\n%s: It looks %s!" % (self.character.NAME, modifier.lower()))
             if self.character.hasRoom():
                 self.character.addItem(item)
             else:

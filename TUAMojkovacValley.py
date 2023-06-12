@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -453,7 +453,7 @@ class MojkovacValley:
             return self.actions({'area': "Mojkovac Valley",
                                  'coordinates': (X, Y)})
         if 'Granny Smith' not in self.c.flags:
-            self.text = (npc+": Hello, young man.")
+            self.text = (npc+": Hello, young %s.") % ("lady" if self.c.isFemale else "man")
             self.c.flags['Granny Smith'] = True
         else:
             self.text = npc+": "+choice(
@@ -491,8 +491,8 @@ class MojkovacValley:
         if 'Dragan' not in self.c.flags and selectionIndex == None:
             self.text = (npc+": Ah, a visitor. I am Dragan. "+
                          "What is your name?"+
-                         "\nToshe: Toshe."+
-                         "\n"+npc+": Toshe, I need your help. My father owns "+
+                         "\n{0}: {0}.".format(self.c.NAME)+
+                         "\n"+npc+": %s, I need your help. My father owns " % self.c.NAME+
                          "the abandoned watchmaking facility and swore to "+
                          "work until the day he died. This morning, the "+
                          "facility was set ablaze, and he is trapped in the "+
@@ -502,15 +502,19 @@ class MojkovacValley:
             self.menu = ["\"Ok.\"",
                          "\"No.\""]
         elif 'Dragan' not in self.c.flags and selectionIndex == 0:
-            self.text = ("Toshe: Well, that doesn't give me much choice."+
+            self.text = ("%s: Well, that doesn't give me much choice." % self.c.NAME+
                          "\n"+npc+" joins your team.")
             self.helpText = ("Your new party member will follow you on your "+
                              "journey and fight alongside you in battle.")
             self.c.flags['Dragan'] = True
             return self.actions({'mercenary': "Dragan"})
         elif 'Dragan' not in self.c.flags and selectionIndex == 1:
-            self.text = ("Toshe: I'm not doing shit."+
-                         "\n%s: Toshe, please think about this." % npc+
+            if self.c.isPolite:
+                notLine = "%s: I'm not doing jack." % self.c.NAME
+            else:
+                notLine = "%s: I'm not doing shit." % self.c.NAME
+            self.text = (notLine+
+                         "\n%s: %s, please think about this." % (npc, self.c.NAME)+
                          " My father is dying.")
             self.menu = ["\"Fine.\"",
                          "\"No.\""]

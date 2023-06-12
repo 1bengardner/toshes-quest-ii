@@ -189,8 +189,7 @@ class Battle(object):
             else:
                 if divisor <= 0:
                     self.text = ("Bad luck! ")
-                self.text += ("Toshe tried to run away, but "+self.enemy.NAME+
-                              " caught up!\n")
+                self.text += ("%s tried to run away, but % caught up!\n" % (self.mainCharacter.NAME, self.enemy.NAME))
                 
                 self.doFlagActions(self.mainCharacter,
                     self.charactersFlags[self.mainCharacter.NAME])
@@ -268,7 +267,7 @@ class Battle(object):
             elif skill.CATEGORY == "Reduced Accuracy Damage":
                 attacker.accuracy /= 2.
             if "Damage" in skill.CATEGORY:
-                miss = self.miss(attacker) or "Auto Avoid" in defenderFlags
+                miss = self.miss(attacker, defender) or "Auto Avoid" in defenderFlags
                 if not self.isStunned(defender, defenderFlags):
                     blocked = self.gotBlockedBy(defender)
                     if not blocked and skill.ELEMENT == "Physical":
@@ -443,7 +442,7 @@ class Battle(object):
                 else:
                     oldAccuracy = attacker.accuracy
                     attacker.accuracy *= 0.1
-                    miss = self.miss(attacker)
+                    miss = self.miss(attacker, defender)
                     attacker.accuracy = oldAccuracy
 
             # Apply damage to defender and add flags
@@ -578,7 +577,7 @@ class Battle(object):
                     self.text += ("Skulking! %s hid in the shadows.\n"
                                   % attacker.NAME)
                 if ( hasattr(defender, "specialization") and
-                     defender.specialization == "Son of Centaur" and
+                     defender.specialization in ("Son of Centaur", "Daughter of Centaur") and
                      damage and
                      int(damage) > 0 and
                      (self.roll() <= 5 or critical and self.roll() <= 5)):
@@ -588,9 +587,9 @@ class Battle(object):
                     self.text += ("Centaur blood! %s became enraged.\n"
                                   % defender.NAME)
                 if ( hasattr(attacker, "specialization") and
-                     attacker.specialization == "Sandman" and
+                     attacker.specialization in ("Sandman", "Sphinxkin") and
                      skill.NAME == "Attack" and
-                     self.roll() <= 50):
+                     self.roll() <= 25):
                     defender.accuracy *= 0.9
                     self.text += ("%s got sand in %s's eye.\n"
                                   % (attacker.NAME, defender.NAME))
@@ -602,7 +601,7 @@ class Battle(object):
                                   % attacker.NAME)
 
                 if bruhMoment:
-                    self.text += ("Toshe: That was a Brummo Mint.\n")
+                    self.text += ("%s: That was a Brummo Mint.\n" % self.mainCharacter.NAME)
 
                 for stat, value in skill.USER_EFFECTS.items():
                     if value >= 0:
@@ -853,14 +852,13 @@ class Battle(object):
                      "Sundered"}
         return bool(stunFlags & flags)
 
-    def miss(self, attacker):
+    def miss(self, attacker, defender):
         """Return whether the attacker has missed."""
         # Gryphon Clan Check
         if ("Gryphon Clan Reward" in self.mainCharacter.flags and
             attacker == self.enemy and
-            self.roll() <= 1):
-            self.text += ("A gryphon swoops down and lifts Toshe to avoid"+
-                          " the hit!\n")
+            self.roll() <= 4):
+            self.text += ("A gryphon swoops down and lifts %s to avoid the hit!\n" % defender.NAME)
             return True
         return self.roll() > attacker.accuracy
 
@@ -1241,7 +1239,7 @@ class Battle(object):
         """
         if (self.mainCharacter.hp < self.mainCharacter.maxHp/20) and\
            not self.hpAlert3:
-            self.text += "Toshe: I can't breathe."
+            self.text += "%s: I can't breathe." % self.mainCharacter.NAME
             self.hpAlert3 = True
             self.hpAlert2 = True
             self.hpAlert1 = True
@@ -1251,7 +1249,7 @@ class Battle(object):
 
         elif (self.mainCharacter.hp < self.mainCharacter.maxHp/10) and\
              not self.hpAlert2:
-            self.text += "Toshe: My heart..."
+            self.text += "%s: My heart..." % self.mainCharacter.NAME
             self.hpAlert2 = True
             self.hpAlert1 = True
             self.sounds.append("Low HP")
@@ -1259,7 +1257,7 @@ class Battle(object):
 
         elif (self.mainCharacter.hp < self.mainCharacter.maxHp/4) and\
              not self.hpAlert1:
-            self.text += "Toshe: I'm in pain!"
+            self.text += "%s: I'm in pain!" % self.mainCharacter.NAME
             self.hpAlert1 = True
             self.sounds.append("Low HP")
 
@@ -1275,9 +1273,9 @@ class Battle(object):
         # Skeleton clan check
         if (self.mainCharacter.isDead() and
             "Skeleton Clan Reward" in self.mainCharacter.flags):
-            if self.roll() <= 6:
+            if self.roll() <= 20:
                 self.mainCharacter.hp = 1
-                self.text += "Toshe rose from the dead!\n"
+                self.text += "%s rose from the dead!\n" % self.mainCharacter.NAME
         # Coliseum mode check
         if ( self.coliseumMode and
              self.mainCharacter.hp <= self.CHARACTER_DEATH_HP):
@@ -1288,8 +1286,8 @@ class Battle(object):
         if ( self.mainCharacter.isDead() and
              self.mainCharacter.hasItem("Syvre Leaf")):
             self.mainCharacter.hp = self.mainCharacter.maxHp / random.randint(2, 8)
-            self.text += ("Toshe uses his last ounce of energy to consume" +
-                          " a syvre leaf. He breathes a sigh of relief and" +
+            self.text += ("%s uses %s last ounce of energy to consume" % (self.mainCharacter.NAME, "her" if self.mainCharacter.isFemale else "his") +
+                          " a syvre leaf. %s breathes a sigh of relief and" % ("She" if self.mainCharacter.isFemale else "He") +
                           " continues the fight!\n")
             self.mainCharacter.removeItem(
                 self.mainCharacter.indexOfItem("Syvre Leaf"))
@@ -1322,9 +1320,8 @@ class Battle(object):
                                     effects['value']
                                     * getattr(self.mainCharacter,
                                               effects['multiplicand']))
-                    aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U")\
-                    else "a"
-                    self.text += ("Toshe consumes %s %s!\n" % (aOrAn, item))
+                    aOrAn = "an" if item[0] in ("A", "E", "I", "O", "U") else "a"
+                    self.text += ("%s consumes %s %s!\n" % (self.mainCharacter.NAME, aOrAn, item))
                     self.mainCharacter.removeItem(
                         self.mainCharacter.indexOfItem(item))
         
@@ -1451,7 +1448,7 @@ class Battle(object):
                 self.sounds.append("Kill")
         elif (self.coliseumMode and
               self.mainCharacter.hp <= self.CHARACTER_DEATH_HP):
-            self.text += "Toshe surrenders!"
+            self.text += "%s surrenders!" % self.mainCharacter.NAME
         else:
             self.text += "You flee from battle."
             self.sounds.append("Flee")

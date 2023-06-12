@@ -133,13 +133,17 @@ class LabyrinthOfDaedalus:
         self.text = "You descend the town cellar, climbing down a ladder and a series of murky stone steps before stepping into an elaborate labyrinth. The one-way door shuts loudly behind you."
         if "Labyrinth Door" not in self.c.flags:
             self.c.flags['Labyrinth Door'] = True
-            self.text += "\n%s: Oh, shit. What do we do?" % "Toshe"
+            if self.c.isPolite:
+                shitLine = "\n%s: Oh, poop. What do we do?" % self.c.NAME
+            else:
+                shitLine = "\n%s: Oh, shit. What do we do?" % self.c.NAME
+            self.text += shitLine
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\n%s: We must find the exit. Swiftly, before we go mad." % "Qendresa")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\n%s: I kinda like it down here. Suits me." % "Barrie")
         elif random.randint(1, 2) == 1:
-            self.text += "\n%s: Here we go again." % "Toshe"
+            self.text += "\n%s: Here we go again." % self.c.NAME
             if random.randint(1, 4) == 1 and self.c.hasMercenary("Barrie"):
                     self.text += ("\n%s: I hope you brought potions." % "Barrie")
             if random.randint(1, 4) == 1 and self.c.hasMercenary("Qendresa"):

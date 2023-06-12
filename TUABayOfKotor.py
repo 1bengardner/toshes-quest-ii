@@ -2,7 +2,7 @@
 File: TUABayOfKotor.py
 Author: Ben Gardner
 Created: May 17, 2013
-Revised: June 6, 2023
+Revised: June 11, 2023
 """
 
 
@@ -108,7 +108,7 @@ class BayOfKotor:
                                  'coordinates': (X, Y)})
             
         if 'Bay of Kotor' not in self.c.flags:
-            self.text = ("Toshe: Yes."+
+            self.text = ("%s: Yes." % self.c.NAME+
                          "\nYou exit the ship and breathe in the Montenegrin "+
                          "air."+
                          "\nMatsamot: Here we are, finally. The beautiful "+
@@ -119,7 +119,7 @@ class BayOfKotor:
                          "situation. Look around, smell the roses, enjoy. "+
                          "Just don't get too close to the shore or the fish "+
                          "may bite!"+
-                         "\nToshe: I can't sit around for long. I need to get "+
+                         "\n%s: I can't sit around for long. I need to get " % self.c.NAME+
                          "to Macedonia to tell the president what happened!")
             self.c.flags['Bay of Kotor'] = True
         elif "Swimming HP Loss" in self.c.flags:
@@ -167,13 +167,13 @@ class BayOfKotor:
               self.c.hasMercenary("Barrie")):
             self.c.flags['Barrie Bay Remark'] = True
             self.text = ("Barrie: Down by the bay..." +
-                         "\nToshe: ..." +
+                         "\n%s: ..." % self.c.NAME +
                          "\nBarrie: Where the watermelons grow..." +
-                         "\nToshe: Stop." +
+                         "\n%s: Stop." % self.c.NAME +
                          "\nBarrie: Back to my home..." +
-                         "\nToshe: Stop that." +
+                         "\n%s: Stop that." % self.c.NAME +
                          "\nBarrie: I dare not go..." +
-                         "\nToshe: Stop singing!")
+                         "\n%s: Stop singing!" % self.c.NAME)
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nBarrie: For if I do..." +
                               "\nQendresa jabs Barrie with the knob of" +
@@ -366,7 +366,7 @@ class BayOfKotor:
                           "too weak.\"")
         else:
             self.text = ("You enter the church."+
-                         "\nToshe: This place is empty. Maybe I should come back on "+
+                         "\n%s: This place is empty. Maybe I should come back on " % self.c.NAME+
                          "Sunday.")
         self.menu = ["Leave the Church."]
         return self.actions()

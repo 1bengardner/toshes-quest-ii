@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -261,7 +261,7 @@ class BlackMountain:
             self.text = ("You receive a flashlight!"+
                          "\nYou turn it on and shine it on the man, realizing "+
                          "it's Gan."+
-                         "\nToshe: Thanks. Wait, why are you here?"+
+                         "\n%s: Thanks. Wait, why are you here?" % self.c.NAME+
                          "\nGan: No need to thank me. Before I go, I must "+
                          "teach you something."+
                          "\nGan looks like he's fallen asleep."+
@@ -272,14 +272,14 @@ class BlackMountain:
             return self.actions({'skill': "Recover",
                                  'cost': 0})            
         if 'Gan Black Mountain' not in self.c.flags:
-            self.text = ("Old Chinese Man: Toshe, I have surprise for you.")
+            self.text = ("Old Chinese Man: %s, I have surprise for you." % self.c.NAME)
             self.menu = ["Be surprised."]
         elif ("Barrie Black Mountain Remark" not in self.c.flags and
               self.c.hasMercenary("Barrie")):
             self.c.flags['Barrie Black Mountain Remark'] = True
             self.text = ("Barrie: This looks like a nice place to live." +
                          " In fact, can we just relax here for a while?" +
-                         "\nToshe: No." +
+                         "\n%s: No." % self.c.NAME +
                          "\nBarrie: Come on.")
         return self.actions()
 
@@ -290,7 +290,11 @@ class BlackMountain:
         self.helpText = None
         self.menu = []
         if 'Black Mountain Tunnel 1' not in self.c.flags:
-            self.text = ("Toshe: Holy shit, this place is huge.")
+            if self.c.isPolite:
+                holyLine = "%s: Holy smokes, this place is massive." % self.c.NAME
+            else:
+                holyLine = "%s: Holy shit, this place is huge." % self.c.NAME
+            self.text = (holyLine)
             self.c.flags['Black Mountain Tunnel 1'] = True
         return self.actions()
 
@@ -301,7 +305,7 @@ class BlackMountain:
         self.helpText = None
         self.menu = []
         if 'Black Mountain Tunnel 2' not in self.c.flags:
-            self.text = ("Toshe: Where's the light at the end of the tunnel?")
+            self.text = ("%s: Where's the light at the end of the tunnel?" % self.c.NAME)
             self.c.flags['Black Mountain Tunnel 2'] = True
         return self.actions()
 
@@ -320,7 +324,13 @@ class BlackMountain:
         self.helpText = None
         self.menu = []
         if 'Stone Dick' not in self.c.flags:
-            self.text = ("Toshe: That stone thing looks like a dick.")
+            if self.c.isPolite:
+                if random.randint(1, 2) == 1:
+                    self.text = ("%s: The shape of that stone is...funny." % self.c.NAME)
+                else:
+                    self.text = ("%s: That's a weird lookin' stalagmite." % self.c.NAME)
+            else:
+                self.text = ("%s: That stone thing looks like a dick." % self.c.NAME)
             self.c.flags['Stone Dick'] = True
         return self.actions()
 
@@ -346,7 +356,7 @@ class BlackMountain:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("Toshe: Dead end.")
+        self.text = ("%s: Dead end." % self.c.NAME)
         return self.actions()
 
     def entrance(self, selectionIndex=None):
@@ -356,11 +366,11 @@ class BlackMountain:
         self.helpText = None
         self.menu = []
         if 'Gan Black Mountain' not in self.c.flags:
-            self.text = ("Old Chinese Man: Here, Toshe, you will need this."+
+            self.text = ("Old Chinese Man: Here, %s, you will need this." % self.c.NAME+
                          "\nYou receive a flashlight!"+
                          "\nYou turn it on and shine it on the man, realizing "+
                          "it's Gan."+
-                         "\nToshe: Thanks. Wait, why are you here?"+
+                         "\n%s: Thanks. Wait, why are you here?" % self.c.NAME+
                          "\nGan: No need to thank me. Before I go, I must "+
                          "teach you something."+
                          "\nGan looks like he's fallen asleep."+
@@ -392,7 +402,7 @@ class BlackMountain:
         self.menu = []
         npc = "Mysterious Brown Wizard"
         if selectionIndex == 0:
-            self.text = ("Toshe: I'm not a little boy, but ok."+
+            self.text = ("%s: I'm not a little boy, but ok." % self.c.NAME+
                          "\n"+npc+": Ti nivol mi!"+
                          "\nThe wizard flicks his wand and teleports away.")
             self.c.flags['Mudslide'] = True
@@ -400,7 +410,7 @@ class BlackMountain:
                                  'cost': 0})
         elif selectionIndex == 1:
             random.seed(self.c.level)
-            self.text = ("Toshe: No, you creep!"+
+            self.text = ("%s: No, you creep!" % self.c.NAME+
                          "\n%s: Suit yourself, turdnugget." % npc+
                          "\nThe wizard teleports away, leaving magic dust.")
             if self.c.hasMercenary("Barrie"):
@@ -520,7 +530,13 @@ class BlackMountain:
         self.helpText = None
         self.menu = []
         if 'Stone Dick' not in self.c.flags:
-            self.text = ("Toshe: That stone thing looks like a dick.")
+            if self.c.isPolite:
+                if random.randint(1, 2) == 1:
+                    self.text = ("%s: The shape of that stone is...funny." % self.c.NAME)
+                else:
+                    self.text = ("%s: That's a weird lookin' stalagmite." % self.c.NAME)
+            else:
+                self.text = ("%s: That stone thing looks like a dick." % self.c.NAME)
             self.c.flags['Stone Dick'] = True
         return self.actions()
 
@@ -546,7 +562,7 @@ class BlackMountain:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("Toshe: Dead end.")
+        self.text = ("%s: Dead end." % self.c.NAME)
         return self.actions()
 
     def sorceressEntrance(self, selectionIndex=None):

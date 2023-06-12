@@ -2,7 +2,7 @@
 File: TUAGambinoCastle.py
 Author: Ben Gardner
 Created: July 14, 2015
-Revised: June 6, 2023
+Revised: June 11, 2023
 """
 
 
@@ -271,7 +271,7 @@ class GambinoCastle:
         self.helpText = None
         self.menu = []
         if "Gambino Heat" not in self.c.flags:
-            self.text = ("Toshe: Woah, it's getting hot.")
+            self.text = ("%s: Woah, it's getting hot." % self.c.NAME)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Woo, boy!")
             if self.c.hasMercenary("Qendresa"):
@@ -302,7 +302,7 @@ class GambinoCastle:
         self.helpText = None
         self.menu = []
         if "Gambino Menacing" not in self.c.flags:
-            self.text = ("Toshe: These tunnels are menacing.")   
+            self.text = ("%s: These tunnels are menacing." % self.c.NAME)   
             self.c.flags['Gambino Menacing'] = True         
         return self.actions()
 
@@ -332,7 +332,7 @@ class GambinoCastle:
         merc2 = "Barrie"
         if ( "Giacomo Gambino2" in self.c.flags['Kills'] and
              "Lesser Dragon" not in self.c.flags['Kills']):
-            self.text = "Toshe: Of course there's a dragon in this dungeon."
+            self.text = "%s: Of course there's a dragon in this dungeon." % self.c.NAME
             if self.c.hasMercenary(merc1):
                 self.text += ("\n%s: My surprise would be unwarranted" % merc1 +
                               " at this point.")
@@ -352,7 +352,7 @@ class GambinoCastle:
         elif ( "Giacomo Gambino2" not in self.c.flags['Kills']):
             self.text = ("You enter a room with a" +
                          " lever in the corner." +
-                         "\nToshe: Hmpf. A dead end.")
+                         "\n%s: Hmpf. A dead end." % self.c.NAME)
         elif "Gambino Lever Pulled" not in self.c.flags:
             self.imageIndex = 16
             self.text = ("You enter a room with a lever protruding from the" +
@@ -443,7 +443,7 @@ class GambinoCastle:
         self.menu = []
         if ( "Giacomo Gambino2" in self.c.flags['Kills'] and
              "Gambino Lever Thought" not in self.c.flags):
-            self.text = ("Toshe: There's probably a switch that opens" +
+            self.text = ("%s: There's probably a switch that opens" % self.c.NAME +
                          " up that door.")
             self.c.flags['Gambino Lever Thought'] = True
         return self.actions()
@@ -504,11 +504,15 @@ class GambinoCastle:
             return self.actions({'area': "Gambino Castle",
                                  'coordinates': (X, Y)})
         elif "Giacomo Coward 2" not in self.c.flags:
+            if self.c.isPolite:
+                cowardLine = "\n%s: What a coward!" % self.c.NAME
+            else:
+                cowardLine = "\n%s: Come out, you fucking pussy!" % self.c.NAME
             self.text = ("%s: Well, it was nice getting to know" % npc +
                          " one another. I really must go now."
                          "\nGiacomo escapes into his chamber. The" +
                          " large stone door slams shut behind him." +
-                         "\nToshe: Come out, you fucking pussy!")
+                         cowardLine)
             self.c.flags['Giacomo Coward 2'] = True    
             if self.c.hasMercenary(merc1):
                 self.text += ("\n%s: He cannot hide forever." % merc1)
@@ -521,7 +525,7 @@ class GambinoCastle:
         self.helpText = None
         self.menu = []
         if "Gambino Door Opened" not in self.c.flags:
-            self.text = ("Toshe: Looks like that lever did something good.")
+            self.text = ("%s: Looks like that lever did something good." % self.c.NAME)
             self.c.flags['Gambino Door Opened'] = True            
         return self.actions()
 
@@ -552,14 +556,14 @@ class GambinoCastle:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 0:
             self.text = ("You find the Greek Wall Blueprint!" +
-                         "\nToshe: Why would he have this?")
+                         "\n%s: Why would he have this?" % self.c.NAME)
             self.c.flags['Blueprint'] = True
             return self.actions({'item': "Greek Wall Blueprint"})
         elif "Giacomo Coward 3" not in self.c.flags:
             self.text = ("%s: Albania is already mine." % npc +
                          " I cannot be stopped! Hahahaha!"
                          "\nGiacomo disappears in a puff of smoke." +
-                         "\nToshe: ...What was he talking about?")
+                         "\n%s: ...What was he talking about?" % self.c.NAME)
             self.c.flags['Giacomo Coward 3'] = True
             if self.c.hasMercenary(merc2):
                 self.text += ("\n%s: Does he think he can conquer" % merc2 +
@@ -599,12 +603,12 @@ class GambinoCastle:
         self.menu = ["Brace yourself."]
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: Welcome to my castle." % npc +
-                         "\nToshe: Thank you. Who are you?" +
+                         "\n%s: Thank you. Who are you?" % self.c.NAME +
                          "\n%s: I am Giacomo." % npcU +
-                         "\nToshe: The Italian president?" +
+                         "\n%s: The Italian president?" % self.c.NAME +
                          "\n%s: You must have seen me on TV! This must" % npcU +
                          " be exciting for you." +
-                         "\nToshe: Not really. On TV they say how corrupt" +
+                         "\n%s: Not really. On TV they say how corrupt" % self.c.NAME +
                          " you are." +
                          "\n%s: That's unfortunate. I try to keep a" % npcU +
                          " good image, but sometimes I slip up. I'm only" +
@@ -654,15 +658,23 @@ class GambinoCastle:
         self.c.flags['New Song'] = "Drat"
         self.menu = ["Brace yourself."]
         if not self.c.hasMercenary(merc1):
+            if self.c.isPolite:
+                nsLine = "\n%s: No freaking crap." % self.c.NAME
+            else:
+                nsLine = "\n%s: No shit." % self.c.NAME
             self.text = ("%s: Well, look who's still here!" % npc +
-                         "\nToshe: You're a real menace." +
+                         "\n%s: You're a real menace." % self.c.NAME +
                          "\n%s: I am Giacomo." % npc +
-                         "\nToshe: No shit." +
+                         nsLine +
                          "\n%s: Such language. Anyway, I believe" % npc +
                          " we had some unfinished business. Let's" +
                          " bring closure to this agreement.")            
         elif self.c.hasMercenary(merc1):
-            self.text = ("Toshe: Ok Giacomo, it's time to end this bullshit." +
+            if self.c.isPolite:
+                bsLine = "%s: Ok Giacomo, it's time to end this tomfoolery." % self.c.NAME
+            else:
+                bsLine = "%s: Ok Giacomo, it's time to end this bullshit." % self.c.NAME
+            self.text = (bsLine +
                          "\n%s: But I've only just begun!" % npc +
                          "\n%s: You need to be taught a lesson." % merc1 +
                          "\n%s: I'm not a very good listener." % npc +
@@ -676,7 +688,7 @@ class GambinoCastle:
                 self.text += ("\n%s: Ok, I've had it." % merc2 +
                               " Let's pulverize this clown.")
             else:
-                self.text += ("\nToshe: That's enough out of you.")
+                self.text += ("\n%s: That's enough out of you." % self.c.NAME)
         
         return self.actions()
 
@@ -705,9 +717,9 @@ class GambinoCastle:
         self.menu = ["Brace yourself."]
         if not self.c.hasMercenary(merc1):
             self.text = ("%s: You're a persistent one. Hahaha!" % npc +
-                         "\nToshe: And you're still a menace." +
+                         "\n%s: And you're still a menace." % self.c.NAME +
                          "\n%s: I am still Giacomo." % npc +
-                         "\nToshe: ...Why are you here?" +
+                         "\n%s: ...Why are you here?" % self.c.NAME +
                          "\n%s: That's the question, is it not?" % npc +
                          " Who would inhabit such a place? This desolate" +
                          " wasteland offers nothing. Yet the people of" +
@@ -722,7 +734,7 @@ class GambinoCastle:
                 self.text += ("\n%s: You're cornered!" % merc2)
             self.text += ("\n%s: Your reign ends here." % merc1 +
                           "\n%s: But...I've only just begun." % npc +
-                          "\nToshe: What does that mean?" +
+                          "\n%s: What does that mean?" % self.c.NAME +
                           "\n%s: Hahahaha! Fools! You've fallen" % npc +
                           " for my trick!" +
                           "\n%s: A trick? How?" % merc1 +

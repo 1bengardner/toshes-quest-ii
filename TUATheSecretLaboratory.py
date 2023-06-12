@@ -2,7 +2,7 @@
 File: TUATheSecretLaboratory.py
 Author: Ben Gardner
 Created: September 8, 2013
-Revised: May 26, 2023
+Revised: June 11, 2023
 """
 
 
@@ -132,7 +132,7 @@ class TheSecretLaboratory:
             self.text = ("As you proceed down the hall, you walk into a "+
                          "room with control panels and bright lights. There "+
                          "are activation cores on each side."+
-                         "\nToshe: This looks like fun.")
+                         "\n%s: This looks like fun." % self.c.NAME)
             self.c.flags['Secret Lab Door Room'] = True
             
         return self.actions()
@@ -357,7 +357,7 @@ class TheSecretLaboratory:
                          "the back of the room. Between these is a tube "+
                          "containing a massive creature you've never "+
                          "seen before."+
-                         "\nToshe: This must be where Tomas generates all the "+
+                         "\n%s: This must be where Tomas generates all the " % self.c.NAME+
                          "monsters. One of these has got to be a killswitch.")
             self.menu = ["Press the button (game will be saved).",
                          "Pull the lever (game will be saved).",
@@ -383,16 +383,22 @@ class TheSecretLaboratory:
                                  'mercenaries': self.c.mercenaries})
         elif 'Secret Lab Boss' not in self.c.flags:
             self.c.flags['New Song'] = "Drat"
+            if self.c.isPolite:
+                wtfLine = "\n%s: Wh-what on Earth is happening?!" % self.c.NAME
+                hsLine = "\n%s: Holy mother of pearl..." % self.c.NAME
+            else:
+                wtfLine = "\n%s: Wh-what the fuck is happening?!" % self.c.NAME
+                hsLine = "\n%s: Holy shit..." % self.c.NAME
             self.text = ("You approach the keyboard and quickly press the "+
                          "power button."+
                          "\nThe floor shakes as the glass from the tube is "+
                          "slowly lowered to the ground. You feel the urge to "+
                          "run but your feet are stuck in pure fear."+
-                         "\nToshe: Wh-what the fuck is happening?!"+
+                         wtfLine+
                          "\nVesicles pop on the skin of the unknown creature "+
                          "and eventually settle. Its eyes open and you "+
                          "realize the beast is alive."+
-                         "\nToshe: Holy shit...")
+                         hsLine)
             self.menu = ["Brace yourself."]
             return self.actions({'save': True})
         else:
@@ -417,22 +423,28 @@ class TheSecretLaboratory:
         elif ("Secret Lab Boss" in self.c.flags and
               "Secret Lab Lever" not in self.c.flags and not selectionIndex):
             self.imageIndex = 17
-            self.text = ("Toshe: Wow. How did I survive?")
+            self.text = ("%s: Wow. How did I survive?" % self.c.NAME)
             self.menu += ["Pull the lever (game will save)."]
             
         elif "Secret Lab Lever" not in self.c.flags:
+            if self.c.isPolite:
+                wtfLine = "\n%s: No! What the heck? How? This place uses the " % self.c.NAME
+                shitLine = "be too far from Macedonia now. Crap. I need to "
+            else:
+                wtfLine = "\n%s: No! What the fuck? How? This place uses the " % self.c.NAME
+                shitLine = "be too far from Macedonia now. Shit. I need to "
             self.text = ("You slowly pull down the lever until you hear a "+
                          "click."+
-                         "\nToshe: That must've done it."+
+                         "\n%s: That must've done it." % self.c.NAME+
                          "\n70-M45: System deactivated."+
-                         "\nToshe: Yes!"+
+                         "\n%s: Yes!" % self.c.NAME+
                          "\n70-M45: Using emergency power supply: Stone "+
                          "of Macedonia."+
-                         "\nToshe: No! What the fuck? How? This place uses the "+
+                         wtfLine+
                          "power of the Stone of Macedonia?..."+
                          "\n...I've gotta get the Key to Macedonia from the "+
                          "president. He must be somewhere nearby. I can't "+
-                         "be too far from Macedonia now. Shit. I need to "+
+                         shitLine+
                          "hurry.")
             self.c.flags['Secret Lab Lever'] = True
             return self.actions({'save': True})

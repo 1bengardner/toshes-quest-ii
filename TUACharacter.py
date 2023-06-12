@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -95,7 +95,7 @@ class Character(object):
             (self.specialization == "Magic Marksman" and
              self.equippedWeapon.CATEGORY == "Bow")):
             power += 2 * (self.mastery - 1)
-        if self.specialization == "Son of Centaur":
+        if self.specialization in ("Son of Centaur", "Daughter of Centaur"):
             power *= 1 + 0.01 * (self.mastery - 1)
         if self.specialization == "Vengeful Vigilante":
             power *= 1 + 0.02 * (self.mastery - 1)
@@ -189,7 +189,7 @@ class Character(object):
             self.defence += 2 * (self.mastery - 1)
         if self.specialization == "Scallywag":
             self.waterReduction += int(max(0, 0.5 * (self.mastery - 1) * (self.accuracy - 100)))
-        if self.specialization == "Sandman":
+        if self.specialization in ("Sandman", "Sphinxkin"):
             self.earthReduction += 3 * (self.mastery - 1)
         if self.specialization == "Hermit":
             self.defence *= 2
@@ -399,16 +399,16 @@ class Character(object):
             self.level += 1
             self.xp = self.xp - self.xpTnl
             self.xpTnl += 20*self.level**2 - 20*self.level + 100
-            if self.NAME == "Toshe":
-                self.statPoints += 5
-                if self.specialization == "Paladin":
-                    self.statPoints += 1
-            elif self.NAME == "Dragan":
+            if self.NAME == "Dragan":
                 self.dexterity += 5
             elif self.NAME == "Qendresa":
                 self.strength += 5
             elif self.NAME == "Barrie":
                 self.wisdom += 5
+            else:
+                self.statPoints += 5
+                if self.specialization == "Paladin":
+                    self.statPoints += 1
             self.maxHp += hpGainedOnLevelUp
             self.maxEp += epGainedOnLevelUp
             self.hp = self.maxHp
@@ -528,3 +528,21 @@ class Character(object):
     @property
     def rareSeed(self):
         return "".join(skill.NAME for skill in self.skills)
+
+    @property
+    def isFemale(self):
+        girls = [
+            "Foxy",
+            "Toshette",
+            "Lily",
+        ]
+        return self.portrait in girls
+
+    @property
+    def isPolite(self):
+        politeFolks = [
+            "Foxy",
+            "Toady",
+            "Gumball Machine",
+        ]
+        return self.portrait in politeFolks

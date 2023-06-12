@@ -2,7 +2,7 @@
 File: TUAPresidentialPath.py
 Author: Ben Gardner
 Created: June 20, 2015
-Revised: May 26, 2023
+Revised: June 11, 2023
 """
 
 
@@ -118,7 +118,7 @@ class PresidentialPath:
         self.helpText = None
         self.menu = []
         if "Unguarded Gate" not in self.c.flags:
-            self.text = ("Toshe: Looks like the guards left. I didn't even" +
+            self.text = ("%s: Looks like the guards left. I didn't even" % self.c.NAME +
                          " need this goddamn letter!")
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: Stay alert. I can see more" +
@@ -156,7 +156,7 @@ class PresidentialPath:
             ("Psion Sorcerer" in self.c.flags['Kills'] or
              "Psion Adept" in self.c.flags['Kills'] or
              "Possessed Guard" in self.c.flags['Kills'])):
-            self.text = ("Toshe: It seems as though the evil wizards are" +
+            self.text = ("%s: It seems as though the evil wizards are" % self.c.NAME +
                          " controlling the guards.")
             self.c.flags['PP Observation'] = True
         return self.actions()
@@ -272,7 +272,7 @@ class PresidentialPath:
         elif ("PP Guard 2" in self.c.flags and
               "PP Guards Slain" not in self.c.flags):
             self.c.flags['PP Guards Slain'] = True
-            self.text = ("Toshe: That wasn't too tough. I should probably" +
+            self.text = ("%s: That wasn't too tough. I should probably" % self.c.NAME +
                          " inform the president that I'm killing all of" +
                          " his guards.")
             if self.c.hasMercenary("Qendresa"):
@@ -303,13 +303,13 @@ class PresidentialPath:
             self.c.flags['Finding President'] = True
             self.text = ("You enter the outpost and see no sign of the" +
                          " president." +
-                         "\nToshe: How did he manage to get out" +
+                         "\n%s: How did he manage to get out" % self.c.NAME +
                          " so easily?")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: He's probably a really high level!")
             self.text += ("\nYou notice on the floor what appears" +
                           " to be a map." +
-                          "\nToshe: Maybe this will lead me to the key!")
+                          "\n%s: Maybe this will lead me to the key!" % self.c.NAME)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Sounds like wishful thinking to me.")
         if "Took Map" not in self.c.flags:
@@ -333,11 +333,11 @@ class PresidentialPath:
             self.tempFlag = {'New Song': self.audio}
             self.text = ("Two guards are blocking the entrance to the" +
                          " president's outpost." +
-                         "\nToshe: Hi, I came to see the president." +
+                         "\n%s: Hi, I came to see the president." % self.c.NAME +
                          "\nGuards: You are not ready." +
                          "\nThe guards stare at you as they ready their" +
                          " weapons." +
-                         "\nToshe: Guess I'll just have to do this the" +
+                         "\n%s: Guess I'll just have to do this the" % self.c.NAME +
                          " old fashioned way.")
             self.menu = ["Brace yourself."]
         

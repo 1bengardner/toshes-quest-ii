@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 import random
@@ -150,7 +150,7 @@ class DuneHotsPeak:
             X = random.randint(1, 5)
             Y = min(self.c.y+1, 8)
             self.c.ep /= 2
-            self.text += "\nToshe: " + random.choice([
+            self.text += "\n%s: " % self.c.NAME + random.choice([
                 "I feel tired.",
                 "That hit hard, man.",
                 "I'm so dust."
@@ -215,7 +215,7 @@ class DuneHotsPeak:
                 self.text += "\nQendresa: Step slowly. Stay behind the dune for protection."
             elif self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Give pause." +
-                              "\nToshe: I'm not holding your paws.")
+                              "\n%s: I'm not holding your paws." % self.c.NAME)
             self.nextEvent = {
                 "targetTime": (
                     time.time() + self.timeUnit * 35,
@@ -229,7 +229,11 @@ class DuneHotsPeak:
             elif self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: Make haste!"
             else:
-                self.text += "\nToshe: Shit!"
+                if self.c.isPolite:
+                    shitLine = "\n%s: Eek!" % self.c.NAME
+                else:
+                    shitLine = "\n%s: Shit!" % self.c.NAME
+                self.text += shitLine
             self.nextEvent = {
                 "targetTime": (
                     time.time() + self.timeUnit * 8,
@@ -241,7 +245,7 @@ class DuneHotsPeak:
             if self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: Stand still. Wait for them to pass."
             else:
-                self.text += "\nToshe: I need to keep a low profile."
+                self.text += "\n%s: I need to keep a low profile." % self.c.NAME
             if self.c.hasMercenary("Barrie"):
                 self.text += "\nBarrie: That's right. Easy does it."
             self.nextEvent = {
@@ -273,9 +277,17 @@ class DuneHotsPeak:
             if self.c.hasMercenary("Qendresa") and secondRoll < 20:
                 self.text += ("\n%s: Softly. We must not make any sound." % "Qendresa")
             if secondRoll < 15:
-                self.text += "\nToshe: Sh-shit!"
+                if self.c.isPolite:
+                    shitLine = "\n%s: Sh-shoot!" % self.c.NAME
+                else:
+                    shitLine = "\n%s: Sh-shit!" % self.c.NAME
+                self.text += shitLine
             if not self.text:
-                self.text = "Toshe: It's fucking hot."
+                if self.c.isPolite:
+                    hotLine = "%s: It's super hot." % self.c.NAME
+                else:
+                    hotLine = "%s: It's fucking hot." % self.c.NAME
+                self.text = hotLine
     
     def nookEntrance(self, selectionIndex=None):
         self.view = "travel"
@@ -313,6 +325,7 @@ class DuneHotsPeak:
         skillPrice1 = 5000 if self.c.mode != "Ultimate" else 0
         tunic = "Fire Tunic"
         self.menu = ["Leave."]
+        term = "woman" if self.c.isFemale else "man"
         ableToLearn = self.hasGainedPowerOf("Giant Salamander2")
         if ableToLearn:
             self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1)] + self.menu
@@ -340,8 +353,8 @@ class DuneHotsPeak:
             self.text = ("You crawl through the shiftsand and find yourself "+
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
-                         "\nWoman: Well met, bowman."+
-                         "\nToshe: Yo."+
+                         "\nWoman: Well met, bow%s." % term+
+                         "\n%s: Yo." % self.c.NAME+
                          "\n"+npc+": You may address me as "+npc+", "+
                          "navigator of the dune. If you wish "+
                          "to survive, you had best take one of my Fire "+
@@ -349,11 +362,11 @@ class DuneHotsPeak:
                          "to a special skill.")
             self.c.flags[npc] = True
         elif not ableToLearn:
-            self.text = npc+": Bowman, it's time to win again by disposing of a fiery amphibian. Then, what I can teach you in this dune will be a boon."
+            self.text = npc+": Bow%s, it's time to win again by disposing of a fiery amphibian. Then, what I can teach you in this dune will be a boon." % term
         else:
             self.text = ("You crawl through the shiftsand and find yourself "+
                          "in a dark, damp nook."+
-                         "\n"+npc+": Bowman, come here, quick.")
+                         "\n"+npc+": Bow%s, come here, quick." % term)
         return self.actions({'items for sale': [tunic]+[None]*8})
         
     def clearing(self, selectionIndex=None):
@@ -392,7 +405,7 @@ class DuneHotsPeak:
             elif self.c.hasMercenary("Barrie"):
                 self.text += "\nBarrie: Ahh...let's sit back and enjoy this view."
             else:
-                self.text += "\nToshe: This looks sick."
+                self.text += "\n%s: This looks sick." % self.c.NAME
             self.menu = ["Take in the view."]
         elif "Spire Descent" not in self.c.flags:
             self.imageIndex = 5
@@ -402,7 +415,11 @@ class DuneHotsPeak:
             if self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: We must leave at once!"
             if not self.c.hasMercenary("Barrie") and not self.c.hasMercenary("Qendresa"):
-                self.text += "\nToshe: I gotta get the fuck out of here."
+                if self.c.isPolite:
+                    gtgLine = "\n%s: I gotta get the heck outta here!" % self.c.NAME
+                else:
+                    gtgLine = "\n%s: I gotta get the fuck out of here." % self.c.NAME
+                self.text += gtgLine
             self.menu = ["Descend the spire."]
         else:
             self.imageIndex = 6

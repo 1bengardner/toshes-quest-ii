@@ -2,7 +2,7 @@
 File: TUACemetery.py
 Author: Ben Gardner
 Created: August 26, 2013
-Revised: December 31, 2015
+Revised: June 11, 2023
 """
 
 
@@ -154,20 +154,20 @@ class Cemetery:
               "Ghost of Tomas" not in self.c.flags):
             self.text = ("You notice a peculiar tombstone standing out from "+
                          "the rest. It has Tomas Tam's name engraved on it."+
-                         "\nToshe: I guess this is where they buried him. That's "+
+                         "\n%s: I guess this is where they buried him. That's " % self.c.NAME+
                          "a weird coincidence.")
             self.menu = ["Investigate the tombstone."]
         elif ("Ghost of Tomas" in self.c.flags and
               "Ghost of Tomas Conclusion" not in self.c.flags):
             self.text = ("Tomas Tam: I swear on my soul--I will get my "+
-                         "revenge, Toshe!"+
+                         "revenge, %s!" % self.c.NAME+
                          "\nTomas Tam disintegrates."+
                          "\nYou notice a cryptic message on his tombstone. "+
                          "It appears to be an anagram written in French.")
             self.c.flags['Ghost of Tomas Conclusion'] = True
         elif "Ghost of Tomas Conclusion" not in self.c.flags:
             self.imageIndex = 2
-            self.text = ("Toshe: This place is kind of creepy. What am I "+
+            self.text = ("%s: This place is kind of creepy. What am I " % self.c.NAME+
                          "doing here?")
         elif ("Qendresa Cemetery Remark" not in self.c.flags and
               self.c.hasMercenary("Qendresa")):
@@ -208,15 +208,15 @@ class Cemetery:
                                  'coordinates': (X, Y)})
         elif "Ghost of Tomas" not in self.c.flags:
             self.text = ("A ghost suddenly shoots up from the tombstone."+
-                         "\nToshe: ...Tomas?"+
+                         "\n%s: ...Tomas?" % self.c.NAME+
                          "\nTomas Tam: It is I! Ha ha ha, I have risen from the "+
                          "dead!"+
-                         "\nToshe: Why?"+
+                         "\n%s: Why?" % self.c.NAME+
                          "\nTomas Tam: I seek ultimate revenge! I used the power "+
                          "of your little friend's soul to reincarnate in ghost "+
                          "form!"+
-                         "\nToshe: No! Why? Dragan was my only friend!"+
+                         "\n%s: No! Why? Dragan was my only friend!" % self.c.NAME+
                          "\nTomas Tam: Ha ha ha!"+
-                         "\nToshe: You'll pay for this, you bitch!")
+                         "\n%s: You'll pay for this, you bitch!" % self.c.NAME)
             self.menu = ["Attack Tomas Tam."]
         return self.actions()

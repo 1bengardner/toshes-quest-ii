@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -401,7 +401,14 @@ class MountOlympus:
                 textOptions.append("Maverick: Well, I don't know about that wooden weapon of yours.")
             if self.c.strength > 50:
                 textOptions.append("Maverick: Hail, fellow.")
-            if self.c.hasMercenary("Qendresa"):
+            if self.c.hasMercenary("Qendresa") and self.c.isFemale:
+                textOption = "Maverick: Now, what are two pretty ladies doing gallivanting around this highly dangerous, yet completely isolated and--"
+                textOption += "\nYou give Maverick a hateful look."
+                textOption += "\nMaverick makes a surprised face and raises his hands slightly."
+                textOption += "\nQendresa grips the hilt of her espadon."
+                textOption += "\nMaverick freezes and tightens his face further."
+                textOptions.append(textOption)
+            elif self.c.hasMercenary("Qendresa"):
                 textOption = "Maverick: Now, what is such a pretty lady doing gallivanting around this highly dangerous, yet completely isolated and--"
                 textOption += "\nQendresa grips the hilt of her espadon."
                 textOption += "\nMaverick: Oh, I meant no harm!"
@@ -476,7 +483,7 @@ class MountOlympus:
                 self.text = "You enter the Forge of Hephaestus once again, hammer at the ready."
             else:
                 self.text = ("Inside the forge is a massive anvil, with a burning crucible as its heat source. Alongside it lies a solid obsidian blacksmith's hammer." +
-                "\nToshe: This must be the ancient forge that belonged to Hephaestus." +
+                "\n%s: This must be the ancient forge that belonged to Hephaestus." % self.c.NAME +
                 "\nYou lift the hammer and prepare to work.")
             self.menu = ["Leave the forge.",]
         return self.actions()

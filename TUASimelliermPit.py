@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -92,7 +92,7 @@ class SimelliermPit:
         self.menu = ["Climb up the ivy."]
         if "Vismurg Aftermath" not in self.c.flags:
             self.text = "Vismurg crumbles to dust."
-            self.text += "\nToshe: Easy."
+            self.text += "\n%s: Easy." % self.c.NAME
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: That was a guardian. Some sorcerer" +
                               " probably tried to control it and gave up.")
@@ -118,7 +118,7 @@ class SimelliermPit:
             if self.c.hasMercenary("Barrie"):
                 self.text += "\nBarrie: Wow..."
             self.c.hp -= 20
-            self.text += "\nToshe: Ow..."
+            self.text += "\n%s: Ow..." % self.c.NAME
             if self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: How unexpected!"
         return self.actions()
@@ -280,7 +280,7 @@ class SimelliermPit:
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
                          "\nWoman: My friend! What brings you to this place? "+
-                         "\nToshe: I was looking for a good beast to kill."+
+                         "\n%s: I was looking for a good beast to kill." % self.c.NAME+
                          "\n"+npc+": Then I, "+npc+", shall lead you to it. "+
                          "Rest with some Syvre, and harness some earthen "+
                          "defences. Then, trek forward, into the waterfall.")

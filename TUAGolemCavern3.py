@@ -2,7 +2,7 @@
 File: TUAGolemCavern3.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: December 6, 2022
+Revised: June 11, 2023
 """
 
 
@@ -130,7 +130,7 @@ class GolemCavern3:
                 self.text = "Qendresa: The earth has given way."
             elif self.c.hasMercenary("Barrie"):
                 self.text = "Barrie: Whoa, boy! Look at that!"
-            self.text += "\nToshe: I must be imagining things."
+            self.text += "\n%s: I must be imagining things." % self.c.NAME
             self.text = self.text.strip()
             self.menu = ["Venture down the hole."]
         return self.actions()
@@ -189,7 +189,7 @@ class GolemCavern3:
                 self.rocksHit.discard("White")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")
@@ -219,7 +219,7 @@ class GolemCavern3:
                 self.rocksHit.discard("White")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
         
         if "Golem Cavern Sync 3" in self.c.flags or "Blue" in self.rocksHit:
             self.imageIndex = 3
@@ -244,7 +244,7 @@ class GolemCavern3:
                 self.rocksHit.discard("White")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")
@@ -275,7 +275,7 @@ class GolemCavern3:
                 self.rocksHit.discard("Blue")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")

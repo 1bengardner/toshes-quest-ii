@@ -3,7 +3,7 @@
 File: TUAGalijula.py
 Author: Ben Gardner
 Created: April 22, 2016
-Revised: May 21, 2023
+Revised: June 11, 2023
 """
 
 
@@ -159,11 +159,11 @@ class Galijula:
         self.menu = []
         if "Galijula" not in self.c.flags:
             self.c.flags['Galijula'] = True
-            self.text = ("Toshe: Where am Ï now?")
+            self.text = ("%s: Where am Ï now?" % self.c.NAME)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Eh, s-some s-sort of" +
                               " f-f-frozen island?" +
-                              "\nToshe: I didn't think we swam that far north.")
+                              "\n%s: I didn't think we swam that far north." % self.c.NAME)
             else:
                 self.text += (" I didn't think I swam that far north.")
         return self.actions()
@@ -294,7 +294,7 @@ class Galijula:
                          " a few minutes until a loud noise is heard" +
                          " up ahead. Snow crashes down on you, dealing" +
                          " %s damage." % hpLoss +
-                         "\nToshe: Damn it!")
+                         "\n%s: Damn it!" % self.c.NAME)
             self.c.hp -= hpLoss
             self.c.flags['Avalanche Aftermath'] = True
         elif "Avalanche Aftermath" not in self.c.flags:
@@ -431,7 +431,7 @@ class Galijula:
                          " the hill ahead. We can stay back and let the snow" +
                          " fall or continue and risk being caught in it.")
             if self.c.hasMercenary("Barrie"):
-                self.text += ("\nBarrie: Whaddya think, Toshe?")
+                self.text += ("\nBarrie: Whaddya think, %s?" % self.c.NAME)
         else:
             self.text = ("There is an impending avalanche ahead.")
         self.menu = ["Wait.",

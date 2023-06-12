@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -137,7 +137,7 @@ class HercegNovi:
             self.text = ("You unfortunately spot a naked man lounging on "+
                          "the balcony."+
                          "\nNaked Man: Welcome to Montenegro! Woo!"+
-                         "\nToshe: Thanks...")
+                         "\n%s: Thanks..." % self.c.NAME)
         return self.actions()
 
     def split(self, selectionIndex=None):
@@ -289,7 +289,7 @@ class HercegNovi:
                           "\n\"Vojo's Inn and Tavern"+
                           "\nToday is Tipsy Tuesday!\"")
         if 'Bartender Daniel' not in self.c.flags:
-            self.text += ("\nToshe: I think this is the place Matsamot mentioned.")
+            self.text += ("\n%s: I think this is the place Matsamot mentioned." % self.c.NAME)
         self.menu = ["Enter the inn."]
         return self.actions()
 
@@ -305,10 +305,10 @@ class HercegNovi:
         if npc == "Ivana":
             if 'Ivana' not in self.c.flags:
                 self.text = ("Ivana: Hello! I'm Ivana!"+
-                             "\nToshe: Toshe.")
+                             "\n{0}: {0}.".format(self.c.NAME))
                 self.c.flags['Ivana'] = True
             elif "Tipsy Tuesday" in self.c.flags:
-                self.text = ("Ivana: Hi, Toshe..."+
+                self.text = ("Ivana: Hi, %s..." % self.c.NAME+
                              "\nIvana winks at you.")
             elif ('Ivana Talk 3' in self.c.flags and
                   'Necklace Fixed' not in self.c.flags and
@@ -327,7 +327,7 @@ class HercegNovi:
             elif ('Ivana Talk 2' in self.c.flags and
                   'Necklace Fixed' not in self.c.flags and
                   self.c.flags['Ivana Level'] != self.c.level):
-                self.text = ("Ivana: Wow Toshe! You look taller than "+
+                self.text = ("Ivana: Wow %s! You look taller than " % self.c.NAME+
                              "last time! Where have you been? "+
                              "Anyway, I don't normally do this, but I have a "+
                              "small favour to ask of you. My necklace is broken "+
@@ -341,7 +341,7 @@ class HercegNovi:
                              "reward you handsomely.")
                 self.c.flags['Ivana Talk 3'] = True
             elif 'Ivana Talk 1' in self.c.flags:
-                self.text = ("Ivana: Hello, Toshe! Have you gone to The Bluffs "+
+                self.text = ("Ivana: Hello, %s! Have you gone to The Bluffs " % self.c.NAME+
                              "against my word? Well, it's inevitable. Nobody "+
                              "listens to me. But, if you manage to get past "+
                              "The Bluffs, you will end up in Igalo. It's a "+
@@ -449,16 +449,16 @@ class HercegNovi:
             self.text = ("Sad Man: Did you find the Shield Man?")
             if ( "Shield Man" in self.c.flags and
                  "Sad Man Dead" not in self.c.flags):
-                self.text += ("\nToshe: Yes, he's in Igalo." +
+                self.text += ("\n%s: Yes, he's in Igalo." % self.c.NAME +
                               "\nSad Man: But that's too far! You're lying!")
                 if self.c.hasMercenary("Barrie"):
                     outcome = choice([1, 2, 3])
                     if outcome == 1:
-                        self.text += ("\nBarrie: Who ya callin' a liar? He's" +
+                        self.text += ("\nBarrie: Who ya callin' a liar? %s's" % ("She" if self.c.isFemale else "He") +
                                       " not lying!" +
                                       "\nBarrie draws his wand." +
                                       "\nSad Man: Help!" +
-                                      "\nToshe: Calm down, it's ok.")
+                                      "\n%s: Calm down, it's ok." % self.c.NAME)
                     elif outcome == 2:
                         self.text += ("\nBarrie: Look here, nobody's lying." +
                                       " You don't" +
@@ -466,17 +466,17 @@ class HercegNovi:
                                       " of accusations." +
                                       "\nSad Man: I just want the Shield" +
                                       " Man back..." +
-                                      "\nToshe: So do we, so do we.")
+                                      "\n%s: So do we, so do we." % self.c.NAME)
                     elif outcome == 3:
-                        self.text += ("\nBarrie: Who ya callin' a liar? He's" +
+                        self.text += ("\nBarrie: Who ya callin' a liar? %s's" % ("She" if self.c.isFemale else "He") +
                                       " not lying!" +
                                       "\nBarrie draws his wand." +
                                       "\nSad Man: Help!" +
-                                      "\nToshe: Calm down, it's ok." +
+                                      "\n%s: Calm down, it's ok." % self.c.NAME +
                                       "\nAs the sad man tries to escape," +
                                       " Barrie blows him" +
                                       " to smithereens." +
-                                      "\nToshe: Maybe it's not ok.")
+                                      "\n%s: Maybe it's not ok." % self.c.NAME)
                         self.c.flags['Sad Man Dead'] = True
         return self.actions()
 
@@ -539,7 +539,7 @@ class HercegNovi:
         self.menu = []
         self.text = choice(
             ["You hear someone playing the lute."+
-             "\nToshe: Damn it! I hate that sound!",
+             "\n%s: Damn it! I hate that sound!" % self.c.NAME,
              "You hear very clearly, with almost one hundred percent "+
              "certainty, the mayor "+
              "arguing about the price of "+choice(["onions",
@@ -726,7 +726,7 @@ class HercegNovi:
                     self.c.euros += 100
                     self.c.flags['Daniel Quest 3 Complete'] = True
                 elif 'Daniel Quest 3 Complete' in self.c.flags:
-                    self.text += ("\nToshe: How do I get to Macedonia?"+
+                    self.text += ("\n%s: How do I get to Macedonia?" % self.c.NAME+
                                   "\nBartender Daniel: You want to go to "+
                                   "Macedonia? You'll have to go through the "+
                                   "Black Mountain up north.")
@@ -918,7 +918,7 @@ class HercegNovi:
             self.menu = ["Leave."]
         elif ("Key Hunting" in self.c.flags and
               "Macedonian Gate Opened" not in self.c.flags):
-            self.text = ("Toshe: Juliana, can you help me find a goldsmith?" +
+            self.text = ("%s: Juliana, can you help me find a goldsmith?" % self.c.NAME +
                          " I'm trying to forge a key to save my homeland." +
                          "\nJuliana: Oh, you're on a quest!" +
                          " That sounds exciting. I think there might be" +
@@ -948,6 +948,7 @@ class HercegNovi:
         self.helpText = None
         self.menu = []
         npc = "Mayor Mirko"
+        term = "hon" if self.c.isFemale else "son"
         if (selectionIndex == 0 and
             "About to Leave" in self.c.flags):
             del self.c.flags['About to Leave']
@@ -959,7 +960,7 @@ class HercegNovi:
               "Mirko Intro" in self.c.flags and
               "Mirko Talk 1" not in self.c.flags):
             del self.c.flags['Mirko Intro']
-            self.text = ("Toshe: I need your signature." +
+            self.text = ("%s: I need your signature." % self.c.NAME +
                          "\n%s: NO! Leave NOW!" % npc +
                          "\nThe mayor kicks you out of his office.")
             self.menu = ["Get kicked out."]
@@ -968,9 +969,9 @@ class HercegNovi:
              "Mirko Talk 1" in self.c.flags and
               "Mirko Talk 2" not in self.c.flags):
             del self.c.flags['Mirko Talk 1']
-            self.text = ("Toshe: So can you sign a letter for me?" +
+            self.text = ("%s: So can you sign a letter for me?" % self.c.NAME +
                          "\n%s: What does it say?" % npc +
-                         "\nToshe: Basically that I'm important enough to" +
+                         "\n%s: Basically that I'm important enough to" % self.c.NAME +
                          " talk to the Macedonian president." +
                          "\n%s: NO! Leave NOW!" % npc +
                          "\nThe mayor kicks you out of his office.")
@@ -980,8 +981,8 @@ class HercegNovi:
              "Mirko Talk 2" in self.c.flags and
               "Mirko Talk 3" not in self.c.flags):
             del self.c.flags['Mirko Talk 2']
-            self.text = ("Toshe: Could you sign a letter for me?" +
-                         "\n%s: Sure, son. Let me just find some ink." % npc +
+            self.text = ("%s: Could you sign a letter for me?" % self.c.NAME +
+                         "\n%s: Sure, %s. Let me just find some ink." % (npc, term) +
                          "\n%s grabs a jar of ink, but it slips," % npc +
                          " spilling everywhere." +
                          "\n%s is furious." % npc +
@@ -994,7 +995,7 @@ class HercegNovi:
             del self.c.flags['Mirko Talk 3']
             self.text = ("You grab the parchment from the table." +
                          "\nThe mayor is too drunk to notice, or care." +
-                         "\nToshe: See ya later, Mirko!" +
+                         "\n%s: See ya later, Mirko!" % self.c.NAME +
                          "\n%s: Farewell, Yoshi!" % npc)
             self.menu = ["Leave."]
             self.tempFlag = "About to Leave"
@@ -1004,10 +1005,10 @@ class HercegNovi:
               "Mirko Intro" in self.c.flags and
               "Mirko Talk 1" not in self.c.flags):
             del self.c.flags['Mirko Intro']
-            self.text = ("Toshe: Toshe." +
+            self.text = ("{0}: {0}.".format(self.c.NAME) +
                          "\n%s: TouCHE!! HAhahahAha!" % npc +
-                         "\nToshe: Toshe. That's my name." +
-                         "\n%s: I like that, son." % npc)
+                         "\n{0}: {0}. That's my name.".format(self.c.NAME) +
+                         "\n%s: I like that, %s." % (npc, term))
             self.menu = ["Ask for the signature.",
                          "Talk about the weather.",
                          "Talk about sports."]
@@ -1016,10 +1017,10 @@ class HercegNovi:
               "Mirko Talk 1" in self.c.flags and
               "Mirko Talk 2" not in self.c.flags):
             del self.c.flags['Mirko Talk 1']
-            self.text = ("Toshe: So how are you enjoying this nice weather?" +
+            self.text = ("%s: So how are you enjoying this nice weather?" % self.c.NAME +
                          "\n%s: Hoh, I love it." % npc +
-                         "\nToshe: Who's a ho?" +
-                         "\n%s: I like that, son." % npc)
+                         "\n%s: Who's a ho?" % self.c.NAME +
+                         "\n%s: I like that, %s." % (npc, term))
             self.menu = ["Ask for the signature.",
                          "Discuss politics.",
                          "Discuss food."]
@@ -1028,10 +1029,10 @@ class HercegNovi:
               "Mirko Talk 2" in self.c.flags and
               "Mirko Talk 3" not in self.c.flags):
             del self.c.flags['Mirko Talk 2']
-            self.text = ("Toshe: What new laws are being passed these days?" +
+            self.text = ("%s: What new laws are being passed these days?" % self.c.NAME +
                          "\n%s: Are you saying I don't work hard" % npc +
                          " enough? Begone!" +
-                         "\nToshe: No, no, just making conversation." +
+                         "\n%s: No, no, just making conversation." % self.c.NAME +
                          "\n%s: BeGONE!" % npc +
                          "\nThe mayor kicks you out of his office.")
             self.menu = ["Get kicked out."]
@@ -1039,10 +1040,10 @@ class HercegNovi:
         elif (selectionIndex == 1 and
               "Mirko Talk 3" in self.c.flags):
             del self.c.flags['Mirko Talk 3']
-            self.text = ("Toshe: Hey, what's that?" +
+            self.text = ("%s: Hey, what's that?" % self.c.NAME +
                          "\n%s: What's what? Ouch!" % npc +
                          "\nThe mayor twists his body out of his chair." +
-                         "\nToshe: Oops, sorry." +
+                         "\n%s: Oops, sorry." % self.c.NAME +
                          "\n%s: Guards!!" % npc +
                          "\nThe mayor's guards come in and" +
                          " stab you, then drag you out.")
@@ -1053,9 +1054,9 @@ class HercegNovi:
               "Mirko Talk 1" in self.c.flags and
               "Mirko Talk 2" not in self.c.flags):
             del self.c.flags['Mirko Talk 1']
-            self.text = ("Toshe: So what do you think about jousting?" +
-                         "\n%s: What's that, son?" % npc +
-                         "\nToshe: Jousting, like horses and stuff." +
+            self.text = ("%s: So what do you think about jousting?" % self.c.NAME +
+                         "\n%s: What's that, %s?" % (npc, term) +
+                         "\n%s: Jousting, like horses and stuff." % self.c.NAME +
                          "\n%s: I hate horses! Leave NOW!" % npc +
                          "\nThe mayor kicks you out of his office.")
             self.menu = ["Get kicked out."]
@@ -1064,7 +1065,7 @@ class HercegNovi:
               "Mirko Talk 2" in self.c.flags and
               "Mirko Talk 3" not in self.c.flags):
             del self.c.flags['Mirko Talk 2']
-            self.text = ("Toshe: What's some good food around here?" +
+            self.text = ("%s: What's some good food around here?" % self.c.NAME +
                          "\n%s: Well." % npc +
                          "\nSuddenly %s becomes very attentive." % npc +
                          "\n%s: Well...there is one thing. This new" % npc +
@@ -1079,10 +1080,10 @@ class HercegNovi:
             self.tempFlag = "Mirko Talk 3"
         else:
             self.text = ("You encounter a drunk mayor." +
-                         "\nToshe: Hi." +
+                         "\n%s: Hi." % self.c.NAME +
                          "\n%s: Hmm and how--who are you?" % npc +
                          "\nThe mayor lets out a subtle yet noticeable belch.")
             self.menu = ["\"I need your signature.\"",
-                         "\"Toshe.\""]
+                         "\"%s.\"" % self.c.NAME]
             self.tempFlag = "Mirko Intro"
         return self.actions()

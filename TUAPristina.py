@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -99,8 +99,12 @@ class Pristina:
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
         elif "Marciano Coward 2" not in self.c.flags:
+            if self.c.isPolite:
+                fLine = "\n%s: What a freaking doody-brain!" % self.c.NAME
+            else:
+                fLine = "\n%s: Fuckhead!" % self.c.NAME
             self.text = ("Marciano escapes into the forest."+
-                         "\nToshe: Fuckhead!")
+                         fLine)
             self.c.flags['Marciano Coward 2'] = True
             return self.actions()
         return False
@@ -145,7 +149,7 @@ class Pristina:
         if encounter:
             return encounter
         elif "Tipsy Tuesday" not in self.c.flags:
-            self.text = ("Toshe: I'll bet the president is somewhere" +
+            self.text = ("%s: I'll bet the president is somewhere" % self.c.NAME +
                          " around here.")
         return self.actions()
 
@@ -244,7 +248,7 @@ class Pristina:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("You see a statue of a vicious animal.\nToshe: What a menacing wolf." +
+        self.text = ("You see a statue of a vicious animal.\n%s: What a menacing wolf." % self.c.NAME +
                      " Or is that some sort of hyena?")
         return self.actions()
 
@@ -254,7 +258,7 @@ class Pristina:
         self.text = None
         self.helpText = None
         self.menu = []
-        self.text = ("You see a statue of a bear.\nToshe: Good bear.")
+        self.text = ("You see a statue of a bear.\n%s: Good bear." % self.c.NAME)
         return self.actions()
 
     def gate1(self, selectionIndex=None):
@@ -270,7 +274,7 @@ class Pristina:
                          " the Macedonian president except Macedonians!" +
                          "\n%s 1: Which country do you currently" % npc +
                          " reside in?" +
-                         "\nToshe: I've been traveling across Europe since I" +
+                         "\n%s: I've been traveling across Europe since I" % self.c.NAME +
                          " arrived in Montenegro." +
                          "\n%s 2: Montenegro? Get us a letter from" % npc +
                          " the mayor of Herceg Novi with his signature,"
@@ -283,15 +287,15 @@ class Pristina:
               selectionIndex == 0):
             self.text = ("%s 1: Nobody may enter the gate unless" % npc +
                          " authorized by an official!" +
-                         "\nToshe: I need to talk to the president!" +
+                         "\n%s: I need to talk to the president!" % self.c.NAME +
                          " it's urgent!" +
                          "\n%s 2: How urgent?" % npc +
-                         "\nToshe: ...Pretty urgent!" +
+                         "\n%s: ...Pretty urgent!" % self.c.NAME +
                          "\n%s 1: Where are you from?" % npc +
-                         "\nToshe: Macedonia!" +
+                         "\n%s: Macedonia!" % self.c.NAME +
                          "\n%s 2: Well, that's obvious." % npc +
                          "\nThe %ss snicker." % npc +
-                         "\nToshe: What's that supposed to mean? Huh?")
+                         "\n%s: What's that supposed to mean? Huh?" % self.c.NAME)
             self.tempFlag = "Guards Talk"
             self.menu = ["Continue."]
         elif (self.c.hasItem("Letter from the Mayor") or
@@ -325,7 +329,7 @@ class Pristina:
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
         if "Asian Architecture" not in self.c.flags:
-            self.text = ("Toshe: This building looks Oriental.")
+            self.text = ("%s: This building looks Oriental." % self.c.NAME)
             self.c.flags['Asian Architecture'] = True
         self.menu = ["Enter the blacksmith's."]
         return self.actions()
@@ -349,7 +353,7 @@ class Pristina:
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
         if "Asian Architecture" not in self.c.flags:
-            self.text = ("Toshe: This building looks Oriental.")
+            self.text = ("%s: This building looks Oriental." % self.c.NAME)
             self.c.flags['Asian Architecture'] = True
         self.menu = ["Enter the inn."]
         return self.actions()
@@ -395,15 +399,15 @@ class Pristina:
             return self.actions({'area': "Traf Cafe",
                                  'coordinates': (X, Y)})
         elif selectionIndex == 0 and self.c.euros < 0:
-            self.text = ("Toshe: I can't go in looking like this.")  
+            self.text = ("%s: I can't go in looking like this." % self.c.NAME)  
         elif "Kicked Out" in self.c.flags:
             del self.c.flags['Kicked Out']
             self.c.flags['Got Kicked Out'] = True
             self.text = ("Better luck next time!")
         elif "Got Kicked Out" in self.c.flags:
-            self.text = ("Toshe: The Traf Cafe...my old nemesis.")
+            self.text = ("%s: The Traf Cafe...my old nemesis." % self.c.NAME)
         else:
-            self.text = ("Toshe: That's a good-looking cafe.")
+            self.text = ("%s: That's a good-looking cafe." % self.c.NAME)
         self.menu = ["Enter the cafe."]
         return self.actions()
 
@@ -933,7 +937,7 @@ class Pristina:
         elif (selectionIndex == 0 and
               npc1 not in self.c.flags and
               "About to Leave" not in self.c.flags):
-            self.text = ("Toshe: Sure." +
+            self.text = ("%s: Sure." % self.c.NAME +
                          "\n%s: Yahoo!" % npc1 +
                          "\n%s joins your team." % npc1)
             self.c.flags[npc1] = True
@@ -942,7 +946,7 @@ class Pristina:
             return self.actions({'mercenary': npc1})
         elif (selectionIndex == 1 and
               npc1 not in self.c.flags):
-            self.text = ("Toshe: No way, dude." +
+            self.text = ("%s: No way, dude." % self.c.NAME +
                          "\n%s: What, is it because I'm hairy" % npc1 +
                          " or somethin'?")
             self.tempFlag = "About to Leave"
@@ -953,14 +957,14 @@ class Pristina:
             self.c.flags['Barrie Talk'] = True
             self.text = ("%s: Hey there, chap!" % npc1 +
                          " You seem a little outta breath." +
-                         "\nToshe: I...I am. There was...a...tiger!" +
+                         "\n%s: I...I am. There was...a...tiger!" % self.c.NAME +
                          "\n%s: Oh! Hahah! Oh, that little guy?" % npc1 +
                          " That ol' growler? Fang's a good boy; he don't" +
                          " mean no harm. Don't sweat it." +
-                         "\nToshe is sweating profusely." +
+                         "\n%s is sweating profusely." % self.c.NAME +
                          "\n%s: Anyway, you off on an adventure" % npc1 +
                          " or somethin'?" +
-                         "\nToshe: Just trying to save Macedonia." +
+                         "\n%s: Just trying to save Macedonia." % self.c.NAME +
                          "\n%s: I'll tag along. I could use the" % npc1 +
                          " exercise.")
             self.menu = ["\"Sure.\"",
@@ -975,7 +979,7 @@ class Pristina:
         elif npc1 in self.c.flags:
             self.text = ("%s: I gotta give Fang some water" % npc1 +
                          " and polish my staff. Gimme a sec." +
-                         "\nToshe: " +
+                         "\n%s: " % self.c.NAME +
                          choice(["Woah, easy there.",
                                  "Sure thing, dude.",
                                  "I could use some of that polish" +
@@ -1012,7 +1016,7 @@ class Pristina:
             self.c.flags['New Song'] = "Drat"
             self.text = ("Marciano: Last time I did not prepare" +
                          " properly. This time I will finish you." +
-                         "\nToshe: How do you just pop out of" +
+                         "\n%s: How do you just pop out of" % self.c.NAME +
                          " nowhere like that?" +
                          "\nMarciano: Silence!" +
                          "\nMarciano advances toward you.")   

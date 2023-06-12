@@ -2,7 +2,7 @@
 File: TUAGolemCavern2.py
 Author: Ben Gardner
 Created: May 26, 2020
-Revised: December 6, 2022
+Revised: June 11, 2023
 """
 
 
@@ -126,7 +126,7 @@ class GolemCavern2:
                 self.text = "Qendresa: The earth has given way."
             elif self.c.hasMercenary("Barrie"):
                 self.text = "Barrie: Whoa, boy! Look at that!"
-            self.text += "\nToshe: That wasn't there before...was it?"
+            self.text += "\n%s: That wasn't there before...was it?" % self.c.NAME
             self.text = self.text.strip()
             self.menu = ["Venture down the hole."]
         return self.actions()
@@ -160,7 +160,7 @@ class GolemCavern2:
                 self.rocksHit.remove("Red")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")
@@ -186,7 +186,7 @@ class GolemCavern2:
                 self.rocksHit.discard("Red")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")
@@ -213,7 +213,7 @@ class GolemCavern2:
                 self.rocksHit.discard("Blue")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")
@@ -239,7 +239,7 @@ class GolemCavern2:
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: What a marvelous red rock." +
                               " It's magnificent!")
-                self.text += ("\nToshe: Yeah.")
+                self.text += ("\n%s: Yeah." % self.c.NAME)
                 
         self.text = self.text.strip() if self.text else None
         

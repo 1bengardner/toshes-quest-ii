@@ -2,7 +2,7 @@
 File: TUAGreekFortress.py
 Author: Ben Gardner
 Created: August 22, 2015
-Revised: October 26, 2022
+Revised: June 11, 2023
 """
 
 
@@ -106,13 +106,13 @@ class GreekFortress:
                     "\nEscort: Welcome to the great fortress. Let me first" +
                          " take you to the altar where you can get a better" +
                          " view." +
-                         "\nToshe: Cool." +
+                         "\n%s: Cool." % self.c.NAME +
                          "\nYou notice a small sheet of parchment hanging on" +
                          " a ledge." +
-                         "\nToshe: Maybe I can find out what the" +
+                         "\n%s: Maybe I can find out what the" % self.c.NAME +
                          " Greeks are hiding in here." +
                          "\nEscort: What?" +
-                         "\nToshe: Nothing.")
+                         "\n%s: Nothing." % self.c.NAME)
             self.c.flags['Greek Fortress'] = True
         else:
             self.text = ("You reach the fortress entrance.")
@@ -146,7 +146,7 @@ class GreekFortress:
             self.text = ("You see a guard snoozing.")
         elif selectionIndex == 1:
             self.text = ("You look directly into the sun." +
-                         "\nToshe: Ouch!")
+                         "\n%s: Ouch!" % self.c.NAME)
         else:
             self.text = ("You see two windows.")
         self.menu = ["Look out the left window.",
@@ -218,7 +218,7 @@ class GreekFortress:
             self.text = ("You return to the metallurgy room, now" +
                          " with two indentations. One" +
                          " resembles a doorway." +
-                         "\nToshe: There must be some clue as to what the" +
+                         "\n%s: There must be some clue as to what the" % self.c.NAME +
                          " Greeks' plans are in this fortress.")
         elif "Key Mold Room" not in self.c.flags:
             self.text = ("You follow the escort to a large open room with" +
@@ -272,7 +272,7 @@ class GreekFortress:
         if "Church Room" not in self.c.flags:
             self.text = ("Escort: Here we stand directly below the altar. Are" +
                          " you religious, sir?" +
-                         "\nToshe: Not really. But I do go to church now and" +
+                         "\n%s: Not really. But I do go to church now and" % self.c.NAME +
                          " then."
                          "\nEscort: That's fine.")
             self.c.flags['Church Room'] = True
@@ -298,7 +298,7 @@ class GreekFortress:
                          " private." +
                          "\nThe escort and guard go upstairs and" +
                          " lock the door behind them." +
-                         "\nToshe: Perfect. This gives me time to snoop" +
+                         "\n%s: Perfect. This gives me time to snoop" % self.c.NAME +
                          " around.")
             self.c.flags['Altar Rendezvous'] = True
         elif ("Got Key Mold" in self.c.flags and
@@ -326,7 +326,7 @@ class GreekFortress:
                          "\nEscort: ...we've brought you here for a" +
                          " very specific, very important reason. We are" +
                          " looking to appoint a new regiment commander for" +
-                         " the Greek army. As a man who is a talented" +
+                         " the Greek army. As a %s who is a talented" % ("woman" if self.c.isFemale else "man") +
                          " soldier with leadership skills, we thought you" +
                          " to be the best candidate. Loukas here would" +
                          " be your second-in-command." +
@@ -340,17 +340,17 @@ class GreekFortress:
             self.c.flags['New Song'] = "Drat"
             if selectionIndex == 0:
                 self.text = ("Escort: It's great to have you join us--" +
-                             "\nLoukas: Hermes! His cape!" +
+                             "\nLoukas: Hermes! %s cape!" % ("Her" if self.c.isFemale else "His") +
                              "\nBoth men stare in shock at your cape." +
-                             "\nToshe: What?" +
+                             "\n%s: What?" % self.c.NAME +
                              "\nEscort: That...that is..." +
                              "\nLoukas: That is most certainly a Macedonian" +
                              " emblem. I must vanquish this traitor." +
-                             "\nToshe: Oh man, not again.")
+                             "\n%s: Oh man, not again." % self.c.NAME)
             elif selectionIndex == 1:
-                self.text = ("Toshe: Sorry, I refuse." +
+                self.text = ("%s: Sorry, I refuse." % self.c.NAME +
                              "\nLoukas: Then I'll have to kill you." +
-                             "\nToshe: What?")
+                             "\n%s: What?" % self.c.NAME)
             self.menu = ["Brace yourself."]
             self.tempFlag = "Conversion 2"
 
@@ -365,7 +365,7 @@ class GreekFortress:
             self.text = ("Loukas: Warn the guards..." +
                          "\nThe escort bolts out of the room and" +
                          " sounds his bugle." +
-                         "\nToshe: Sheesh, I gotta get outta here quick!")
+                         "\n%s: Sheesh, I gotta get outta here quick!" % self.c.NAME)
             self.menu = ["Go downstairs."]
             self.tempFlag = "Fortress Intervention"
 

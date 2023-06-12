@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -366,7 +366,7 @@ class HercegFields:
                          "someone else inside."+
                          "\nWoman: Quick, get in here. It is not safe outside. "+
                          "There are monsters."+
-                         "\nToshe: Yeah, I noticed. Who are you?"+
+                         "\n%s: Yeah, I noticed. Who are you?" % self.c.NAME+
                          "\n"+npc+": I am "+npc+". I take refuge in the "+
                          "trees. I protect the peace and serenity of the "+
                          "forest. I craft special tunics for use by fellow "+
@@ -464,6 +464,6 @@ class HercegFields:
         self.helpText = None
         self.menu = []
         if 'Black Mountain Entrance' not in self.c.flags:
-            self.text = ("Toshe: This entrance looks ancient.")
+            self.text = ("%s: This entrance looks ancient." % self.c.NAME)
             self.c.flags['Black Mountain Entrance'] = True
         return self.actions()

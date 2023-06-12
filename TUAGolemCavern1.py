@@ -2,7 +2,7 @@
 File: TUAGolemCavern1.py
 Author: Ben Gardner
 Created: May 26, 2017
-Revised: December 6, 2022
+Revised: June 11, 2023
 """
 
 
@@ -94,7 +94,7 @@ class GolemCavern1:
                               " vile, musty crannies?")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: I find it rather cozy in here.")
-            self.text += ("\nToshe: I think this is a cave.")
+            self.text += ("\n%s: I think this is a cave." % self.c.NAME)
         return self.actions()
     
     def pit(self, selectionIndex=None):
@@ -125,7 +125,7 @@ class GolemCavern1:
                 self.text = "Qendresa: The earth has given way."
             elif self.c.hasMercenary("Barrie"):
                 self.text = "Barrie: Whoa, boy! Look at that!"
-            self.text += "\nToshe: That wasn't there before."
+            self.text += "\n%s: That wasn't there before." % self.c.NAME
             self.text = self.text.strip()
             self.menu = ["Venture down the hole."]
         elif "Golem Drophole" not in self.c.flags:
@@ -133,9 +133,9 @@ class GolemCavern1:
             if self.c.hasMercenary("Qendresa"):
                 self.text = ("Qendresa: It appears that the ground here wants" +
                              " to fissure.")
-                self.text += ("\nToshe: Yeah. The dirt is soft here.")
+                self.text += ("\n%s: Yeah. The dirt is soft here." % self.c.NAME)
             else:
-                self.text = ("Toshe: The ground feels soft.")                
+                self.text = ("%s: The ground feels soft." % self.c.NAME)                
         return self.actions()
     
     def walkway(self, selectionIndex=None):
@@ -169,7 +169,7 @@ class GolemCavern1:
                 self.rocksHit.remove("Blue")
                 self.text = ("The stone plunges into the earth before you" +
                              " have a chance to act.")
-                self.text += "\nToshe: That's stupid."
+                self.text += "\n%s: That's stupid." % self.c.NAME
             else:
                 self.text = ("You break the stone, shattering it into a" +
                               " million pieces.")
@@ -183,10 +183,10 @@ class GolemCavern1:
             self.c.flags['Golem Jade'] = True
             self.text = ("You come across a large, verdant gemstone rising" +
                          " from the ground.")
-            self.text += ("\nToshe: What a gem!")
+            self.text += ("\n%s: What a gem!" % self.c.NAME)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Oh, man! Punny!")
-                self.text += ("\nToshe raises an eyebrow.")
+                self.text += ("\n%s raises an eyebrow." % self.c.NAME)
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: It is, quite. A gem indeed.")
                 if self.c.hasMercenary("Barrie"):

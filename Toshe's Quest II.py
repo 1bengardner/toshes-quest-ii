@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 11, 2023
+Revised: June 12, 2023
 """
 
 
@@ -776,7 +776,6 @@ class TopLeftFrame:
                         itemImage = itemImages[
                             main.character.items[i*rows+j].IMAGE_NAME]
                     except KeyError as e:
-                        print "Missing image: %s" % e
                         itemImage = defaultImage
                     self.itemButtons[i*rows+j].config(image=itemImage,
                                                       state=NORMAL,
@@ -2516,8 +2515,8 @@ def updateInterface(updates, skipQuests=False):
             window.levelUpLabel['fg'] = LEVEL_UP_BG
             window.levelUpLabel['bg'] = LEVEL_UP_FG
         else:
-            updates['text'] += "\nToshe has reached level "+str(
-                main.character.level)+"!"
+            updates['text'] += "\n%s has reached level %s!" % (
+                main.character.NAME, main.character.level)
             window.levelUpLabel['text'] = "LEVEL %d!" % main.character.level
             window.levelUpLabel['fg'] = LEVEL_UP_FG
             window.levelUpLabel['bg'] = LEVEL_UP_BG
@@ -2531,7 +2530,8 @@ def updateInterface(updates, skipQuests=False):
             hasSpecializedUp = True
             if not updates['text']:
                 updates['text'] = ""
-            updates['text'] += "\nToshe is now %s %s, rank %s!" % (
+            updates['text'] += "\n%s is now %s %s, rank %s!" % (
+                main.character.NAME,
                 "an" if main.character.specialization[0]
                     in ("A", "E", "I", "O", "U") else "a",
                 main.character.specialization,
@@ -2553,7 +2553,7 @@ def updateInterface(updates, skipQuests=False):
         if not updates['text']:
             updates['text'] = ""
         updates['enabled directions'] = []
-        updates['text'] += ("\nToshe has died.\nToshe's quest ends here.")
+        updates['text'] += "\n{0} has died.\n{0}'s quest ends here.".format(main.character.NAME)
         updates['menu'] = ["Restart from last save."]
         if main.character.checkpoint:
             updates['menu'].append("Restart in town.")
@@ -2589,9 +2589,10 @@ def updateInterface(updates, skipQuests=False):
                     return False
             return True
         def getTag(speaker):
+            if speaker.lower() == main.character.NAME.lower():
+                return "toshe"
             if speaker.lower() in [
                 "gan",
-                "toshe",
                 "qendresa",
                 "barrie",
                 "tomas tam",
@@ -2606,7 +2607,7 @@ def updateInterface(updates, skipQuests=False):
             if len(line.split(":")) > 1:
                 possibleName = line.split(":")[0]
                 if ( not any([punc in possibleName for punc in ".!?"]) and
-                     eachWordIsCapitalized(possibleName)):
+                     len(line.split(":")[1]) > 0):
                     bottomLeftFrame.insertOutput(line, getTag(possibleName))
                     continue
             bottomLeftFrame.insertOutput(line)
@@ -2618,7 +2619,7 @@ def updateInterface(updates, skipQuests=False):
         topCenterFrame.updateMap()
     if ('hits' in updates and topCenterFrame.showAnimations.get()):
         def createDelayedHitBox(delay, hit):
-            if hit['Target'] == "Toshe":
+            if hit['Target'] == main.character.NAME:
                 parent = window.topFrame.topLeftFrame.vitalStats
                 boundaryWidget = window.topFrame.topLeftFrame.tosheLabel
             elif hit['Target'] == "Enemy":
@@ -2639,7 +2640,7 @@ def updateInterface(updates, skipQuests=False):
                             skill,
                             critical,
                             aux))))
-        tosheHits = filter(lambda hit: hit['Target'] == "Toshe", updates['hits'])
+        tosheHits = filter(lambda hit: hit['Target'] == main.character.NAME, updates['hits'])
         enemyHits = filter(lambda hit: hit['Target'] == "Enemy", updates['hits'])
         for hits in [tosheHits, enemyHits]:
             for i, hit in enumerate(hits):

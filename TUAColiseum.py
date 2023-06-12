@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -170,7 +170,7 @@ class Coliseum:
                              " mine. I have not had a duel of that caliber" +
                              " in over a decade. You have earned the" +
                              " privilege of a grand tour!" +
-                             " Guards, lead this man to the fortress!" +
+                             " Guards, lead this %s to the fortress!" % ("woman" if self.c.isFemale else "man") +
                              "\nThree escorts assemble around you and" +
                              " point you westward in the direction of the" +
                              " fortress.")
@@ -205,7 +205,7 @@ class Coliseum:
         else:
             self.text = ("Champion: Welcome, warrior.")
             if self.c.hasMercenary("Qendresa"):
-                self.text += ("\nQendresa: Good luck, Toshe!")
+                self.text += ("\nQendresa: Good luck, %s!" % self.c.NAME)
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Go kick butt in there, chap.")
         self.menu = ["Enter the pit (%s euros)." % entryFee,
@@ -271,7 +271,7 @@ class Coliseum:
                                   110)
                 self.text = enemy + ": " + random.choice(self.foeText)
                 if random.randint(1, 13) == 1:
-                    self.text = ("Heinz: Go Toshe!" +
+                    self.text = ("Heinz: Go %s!" % self.c.NAME +
                                  "\nBert: Kick his ass!" +
                                  "\nYou can see Bert and Heinz waving their" +
                                  " fists in the crowd.")

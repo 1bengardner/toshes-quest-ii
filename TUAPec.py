@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -166,7 +166,7 @@ class Pec:
                     self.c.euros -= 10
                     self.text = (npc+": There you go.")
                 if npc+" Quest 1" not in self.c.flags:
-                    self.text += (" Ahem. Sir, can you do something for me? "+
+                    self.text += (" Ahem. %s, can you do something for me? " % ("Madam" if self.c.isFemale else "Sir")+
                                   "I've been looking for a nice local meat to "+
                                   "serve after the nearby cattle farm shut "+
                                   "due to monster invasion. With that weapon "+
@@ -235,7 +235,7 @@ class Pec:
                                   "you can't beat octopus in terms of "+
                                   "nutrition.")
             else:
-                self.text = (npc+": Sorry, sir. Can't serve you if you don't "+
+                self.text = (npc+": Sorry, %s. Can't serve you if you don't " % ("madam" if self.c.isFemale else "sir")+
                              "have the cash.")
         elif selectionIndex == 2:
             if (self.c.euros >= 30 or
@@ -245,7 +245,7 @@ class Pec:
                 return self.actions({'area': "Pec",
                                      'coordinates': (X, Y)})
             else:
-                self.text = (npc+": A room is 30 euros, sir.")
+                self.text = (npc+": A room is 30 euros, %s." % ("madam" if self.c.isFemale else "sir"))
         elif selectionIndex == 3:
             X = 3
             Y = 1
@@ -261,7 +261,7 @@ class Pec:
                 del self.c.flags['Pec Room Level']
             elif ("Pec Room Level" in self.c.flags and
                   self.c.flags['Pec Room Level'] < self.c.level):
-                self.text = (npc+": Sir!"+
+                self.text = (npc+": %s!" % ("Madam" if self.c.isFemale else "Sir")+
                              " While you were away, I had the lock changed."+
                              " Please remember to return your key.")
                 del self.c.flags['Pec Room Level']
@@ -277,7 +277,7 @@ class Pec:
                                      "balloon ride.",
                                      "This is a great place for a romantic "+
                                      "evening.",
-                                     "Hello, sir.",
+                                     "Hello, %s." % ("miss" if self.c.isFemale else "sir"),
                                      "Ignore the banging. It's just the "+
                                      "blacksmith."]
                                     )
@@ -529,7 +529,7 @@ class Pec:
                     
         elif 'Qendresa Story' not in self.c.flags and selectionIndex == None:
             self.text = ("%s: Warrior, what brings you to my home?" % npc +
-                         "\nToshe: Uh, oops. I thought I could just walk in." +
+                         "\n%s: Uh, oops. I thought I could just walk in." % self.c.NAME +
                          "\n%s: No, I am curious." % npc +
                          " Is there a reason you came?")
             self.menu = ["\"No, why?\"",
@@ -538,7 +538,7 @@ class Pec:
             
         elif ('Qendresa Intro' not in self.c.flags and selectionIndex == 0 and
               'Qendresa No' not in self.c.flags):
-            self.text = ("Toshe: No, why?" +
+            self.text = ("%s: No, why?" % self.c.NAME +
                          "\n%s: I come from a family of great fighters:" % npc +
                          " the Osekus."+
                          " My family defended Albania for eons. That was"+
@@ -559,7 +559,7 @@ class Pec:
             
         elif ('Qendresa Intro' not in self.c.flags and selectionIndex == 1 and
               'Qendresa No' not in self.c.flags):
-            self.text = ("Toshe: Yes, I'm looking for the president of"+
+            self.text = ("%s: Yes, I'm looking for the president of" % self.c.NAME+
                          " Macedonia."+
                          "\n%s: Sorry, I do not know anything about" % npc +
                          " that.")
@@ -569,9 +569,9 @@ class Pec:
         elif 'Qendresa Story' not in self.c.flags and selectionIndex == 0:
             if 'Qendresa No' in self.c.flags:
                 del self.c.flags['Qendresa No']
-                self.text = ("Toshe: Fine. What do you need?")
+                self.text = ("%s: Fine. What do you need?" % self.c.NAME)
             else:
-                self.text = ("Toshe: Sure. What do you need?")
+                self.text = ("%s: Sure. What do you need?" % self.c.NAME)
             self.text += ("\n%s: I first need a weapon." % npc +
                           " If you could"+
                           " somehow obtain an Espadon, I shall be able to"+
@@ -584,7 +584,7 @@ class Pec:
         elif ('Qendresa Story' not in self.c.flags and selectionIndex == 1 and
               'Qendresa No' not in self.c.flags):
             del self.c.flags['Qendresa Intro']
-            self.text = ("Toshe: No, sorry."+
+            self.text = ("%s: No, sorry." % self.c.NAME+
                          "\n%s: Please, I need your help. I need to" % npc +
                          " return home.")
             self.menu = ["Help the woman.",
@@ -594,11 +594,13 @@ class Pec:
         elif ('Qendresa Story' not in self.c.flags and selectionIndex == 1 and
               'Qendresa No' in self.c.flags):
             del self.c.flags['Qendresa No']
-            self.text = ("Toshe: No, I'm not helping you."+
+            self.text = ("%s: No, I'm not helping you." % self.c.NAME)
+            if not self.c.isFemale:
+                self.text += (
                          "\n%s: Some warrior you are!" % npc +
                          "\nYou receive a slap across the face, "+
                          "dealing 15 damage.")
-            self.c.hp -= 15
+                self.c.hp -= 15
             self.tempFlag = "About to Leave"
             self.menu = ["Leave."]
 
@@ -657,20 +659,20 @@ class Pec:
         elif ('Qendresa Crest' not in self.c.flags):
             self.text = ("%s: Please, warrior. My family crest means" % npc+
                          " everything to me."+
-                         "\nToshe: I'll find it. Don't worry.")
+                         "\n%s: I'll find it. Don't worry." % self.c.NAME)
             self.tempFlag = "About to Leave"
             self.menu = ["Leave."]
 
         elif ('Qendresa' not in self.c.flags and selectionIndex == 0):
-            self.text = ("Toshe: I might as well after all that work."+
+            self.text = ("%s: I might as well after all that work." % self.c.NAME+
                          "\n%s: To Albania!" % npc+
-                         "\nToshe: I don't even know your name yet.")
+                         "\n%s: I don't even know your name yet." % self.c.NAME)
             npc = "Qendresa"
             self.text += ("\n%s: My name is Qendresa. What is yours?" % npc+
-                          "\nToshe: I'm Toshe."+
-                          "\n%s: Toshe, lead me to the Italian" % npc+
+                          "\n{0}: I'm {0}.".format(self.c.NAME)+
+                          "\n%s: %s, lead me to the Italian" % (npc, self.c.NAME)+
                           " president."+
-                          "\nToshe: Ok, ok already."+
+                          "\n%s: Ok, ok already." % self.c.NAME+
                           "\n%s joins your team." % npc)
             self.c.flags['Qendresa'] = True
             self.tempFlag = "About to Leave"
@@ -678,7 +680,7 @@ class Pec:
             return self.actions({'mercenary': "Qendresa"})
 
         elif ('Qendresa' not in self.c.flags and selectionIndex == 1):
-            self.text = ("Toshe: No, thanks."+
+            self.text = ("%s: No, thanks." % self.c.NAME+
                          "\n%s: Come back when you change your mind," % npc+
                          " warrior.")
             self.tempFlag = "About to Leave"
@@ -688,13 +690,12 @@ class Pec:
             self.imageIndex = 11
             self.text = ("%s: We shall take a quick rest then" % npc+
                          " continue our quest."+
-                         "\nToshe: "+
+                         "\n%s: " % self.c.NAME+
                          choice(["We shall.",
                                  "Can't we stay a little longer? I'm tired.",
                                  "You don't even have a bed. How do you sleep?",
                                  "I'm so hungry.",
-                                 "Don't you ever pee? I mean, I can go in a"+
-                                 " bush, but you..."])
+                                 "Don't you ever pee?" + (" I mean, I can go in a bush, but you..." if self.c.isFemale else "")])
                          )
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\n%s: " % "Barrie" +

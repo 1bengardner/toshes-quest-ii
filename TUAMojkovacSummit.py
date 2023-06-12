@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: June 10, 2023
+Revised: June 11, 2023
 """
 
 
@@ -178,7 +178,7 @@ class MojkovacSummit:
         self.helpText = None
         self.menu = []
         if 'Mojkovac Summit' not in self.c.flags:
-            self.text = ("Toshe: Phew! Finally!")
+            self.text = ("%s: Phew! Finally!" % self.c.NAME)
             self.c.flags['Mojkovac Summit'] = True
         return self.actions()
 
@@ -225,7 +225,7 @@ class MojkovacSummit:
                                  'coordinates': (X, Y)})
         elif "Marciano Coward" not in self.c.flags:
             self.text = ("Marciano escapes into the mountain."+
-                         "\nToshe: Pussy!")
+                         "\n%s: Pussy!" % self.c.NAME)
             self.c.flags['Marciano Coward'] = True
         return self.actions()
 
@@ -253,13 +253,13 @@ class MojkovacSummit:
         self.helpText = None
         self.menu = []
         if "Dragan" not in self.c.flags:
-            self.text = ("Toshe: It looks like a bad idea to go in alone.")
+            self.text = ("%s: It looks like a bad idea to go in alone." % self.c.NAME)
         elif "The Watchmaking Facility Complete" not in self.c.flags:
             self.text = ("Dragan: Time is of the essence here.")
             self.menu = ["Enter the watchmaking facility."]
         elif "Ghost of Tomas" in self.c.flags:
             self.imageIndex = 10
-            self.text = ("Toshe: Ashes to ashes...")
+            self.text = ("%s: Ashes to ashes..." % self.c.NAME)
         return self.actions()
 
     def cemeteryGate(self, selectionIndex=None):
@@ -316,7 +316,7 @@ class MojkovacSummit:
                          "in a dark, damp nook. To your surprise, there's "+
                          "someone else inside."+
                          "\nGirl: What are you doing?"+
-                         "\nToshe: I was going to ask you that."+
+                         "\n%s: I was going to ask you that." % self.c.NAME+
                          "\n"+npc+": My name is "+npc+". I hide here to "+
                          "practice making tunics so that I don't cause "+
                          "trouble. Do you want to see my shot?")
@@ -345,7 +345,7 @@ class MojkovacSummit:
         
         self.c.flags['New Song'] = "Drat"
         self.text = (npc+": We meet again. This time, we fight to the death."+
-                     "\nToshe: Where the hell did you come from?"+
+                     "\n%s: Where the hell did you come from?" % self.c.NAME+
                      "\nMarciano: Silence!"+
                      "\nMarciano advances toward you.")
         self.menu = ["Brace yourself."]
@@ -362,6 +362,6 @@ class MojkovacSummit:
                          "our business up north.")
             del self.c.flags['Dragan Block']
         elif "Walk Block" in self.c.flags:
-            self.text = ("Toshe: I feel like I have unfinished business here.")
+            self.text = ("%s: I feel like I have unfinished business here." % self.c.NAME)
             del self.c.flags['Walk Block']
         return self.actions()

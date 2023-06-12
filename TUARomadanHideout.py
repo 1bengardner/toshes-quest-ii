@@ -2,7 +2,7 @@
 File: TUARomadanHideout.py
 Author: Ben Gardner
 Created: July 12, 2015
-Revised: May 21, 2023
+Revised: June 11, 2023
 """
 
 
@@ -101,9 +101,9 @@ class RomadanHideout:
             self.c.flags['Hideout Kills'] += 1
             self.text = ("%s: %s" % (npc, random.choice([
                 "Attack, my %s!" % enemy.replace(" Unfleeable", "").lower() +
-                " Destroy him!",
-                "It's time to end this nonsense. Get him!",
-                "Remove that man at once!",
+                " Destroy %s!" % ("her" if self.c.isFemale else "him"),
+                "It's time to end this nonsense. Get %s!" % ("her" if self.c.isFemale else "him"),
+                "Remove that %s at once!" % ("woman" if self.c.isFemale else "man"),
                 "Kill the intruder!"])))
             return self.actions({'enemy': enemy,
                                  'mercenaries': self.c.mercenaries})
@@ -147,7 +147,7 @@ class RomadanHideout:
         else:
             self.menu = ["Leave."]
             if "Met Goldum" not in self.c.flags:
-                self.text = "Toshe: I sure made a mess of this place."
+                self.text = "%s: I sure made a mess of this place." % self.c.NAME
                 if self.c.hasMercenary("Qendresa"):
                     self.text += ("\nQendresa: There was no place in Albania" +
                                   " for these vile men.")
@@ -160,11 +160,11 @@ class RomadanHideout:
                                   "\nBarrie shines his staff on a cloaked" +
                                   " demon cowering in the corner. It" +
                                   " gasps and curls into a ball."
-                                  "\nToshe: Yeah, who are you?")
+                                  "\n%s: Yeah, who are you?" % self.c.NAME)
                 self.text += ("\nGoldum: Um...I am gold-um...please..." +
                               " give gold...um...ore...")
                 if self.c.hasItem("Gold Ore"):
                     self.menu.append("Give Goldum gold ore.")
                 else:
-                    self.text += ("\nToshe: Let me find some first.")
+                    self.text += ("\n%s: Let me find some first." % self.c.NAME)
         return self.actions()
