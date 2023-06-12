@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 11, 2023
+Revised: June 12, 2023
 """
 
 
@@ -242,7 +242,7 @@ class AdriaticSea:
         self.menu = []
         if "Adriatic Sea" not in self.c.flags:
             if self.c.portrait == "Lily":
-                dumpLine = "\n%s: This is my nightmare." % self.c.NAME
+                dumpLine = "\n%s: Help." % self.c.NAME
             elif self.c.portrait == "Toady":
                 dumpLine = "\n%s: Thank goodness I can swim." % self.c.NAME
             elif self.c.isPolite:
