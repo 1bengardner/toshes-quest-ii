@@ -41,6 +41,10 @@ class Window:
         self.mercenaryUpFrame.grid(row=0)
         self.mercenaryUpFrame.grid_remove()
         
+        self.upgradeFrame = Frame(master, bg=UPGRADE_BG, relief=RIDGE, bd=10)
+        self.upgradeFrame.grid(row=0)
+        self.upgradeFrame.grid_remove()
+        
         self.lootFrame = Frame(master, bg=LOOT_BG, relief=RIDGE, bd=10)
         self.lootFrame.grid(row=0)
         self.lootFrame.grid_remove()
@@ -56,10 +60,6 @@ class Window:
         self.newSkillFrame = Frame(master, bg=SKILL_BG, relief=RIDGE, bd=10)
         self.newSkillFrame.grid(row=0)
         self.newSkillFrame.grid_remove()
-        
-        self.upgradeFrame = Frame(master, bg=UPGRADE_BG, relief=RIDGE, bd=10)
-        self.upgradeFrame.grid(row=0)
-        self.upgradeFrame.grid_remove()
         
         self.levelUpLabel = Label(self.levelUpFrame, text="LEVEL UP!",
                                   font=font5, bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
