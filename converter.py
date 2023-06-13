@@ -88,6 +88,10 @@ def update(gameFile, path):
     itemsToCheck = character.items + [character.blankWeapon, character.blankArmour, character.blankShield]
     if "Buyback Items" in character.flags:
         itemsToCheck += character.flags['Buyback Items']
+    for mercenary in character.mercenaries:
+        itemsToCheck.append(mercenary.equippedWeapon)
+        itemsToCheck.append(mercenary.equippedArmour)
+        itemsToCheck.append(mercenary.equippedShield)
     for item in filter(lambda item: item is not None, itemsToCheck):
         if item is None or item == "Chasmic Rucksack":
             continue
