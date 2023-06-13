@@ -227,6 +227,8 @@ class Main:
             preferences = Preferences()
         paredDownChar = copy(self.character)
         paredDownChar.flags = {}
+        if "Legend" in self.character.flags:
+            paredDownChar.flags['Legend'] = True
         paredDownChar.checkpoint = None
         preferences.recentCharacters[self.fileName] = paredDownChar
         with open("settings/recent_games.tqp", "w") as preferencesFile:
