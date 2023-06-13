@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 11, 2023
+Revised: June 13, 2023
 """
 
 
@@ -543,6 +543,6 @@ class Character(object):
         politeFolks = [
             "Foxy",
             "Toady",
-            "Gumball Machine",
+            "Lily",
         ]
         return self.portrait in politeFolks
