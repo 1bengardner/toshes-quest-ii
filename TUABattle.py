@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 11, 2023
+Revised: June 13, 2023
 """
 
 
@@ -1432,7 +1432,7 @@ class Battle(object):
                     self.mainCharacter.sp += 4
             if self.enemy.IDENTIFIER == "Will o Wisp" and "Labyrinth Size" in self.mainCharacter.flags:
                 self.mainCharacter.flags['Labyrinth Size'] -= 1
-            if self.mainCharacter.hasItem("The good stuff!") and self.roll(15) == 1:
+            if self.mainCharacter.hasItem("The good stuff!") and self.roll(20) == 1:
                 event = random.choice([
                     "Your heart starts beating increasingly faster until it explodes.",
                     "You haven't drank water in over 72 hours.",
