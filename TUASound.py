@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 11, 2023
+Revised: June 12, 2023
 """
 
 
@@ -100,7 +100,7 @@ class Sound:
                        "Hammer": "FX-Cast",
                        "Failed Upgrade": "FX-Ground",
                        "Specialize": "FX-Frolic",
-                       "100 Ascensions": "FX-Gracious",
+                       "Legendary": "FX-Gracious",
                        "Bolster Attack": "FX-Danger",
                        "Bolster Defence": "FX-Morph",
                        "Unlock Secret": "FX-Gracious",

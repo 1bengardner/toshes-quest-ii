@@ -391,11 +391,20 @@ class TopLeftFrame:
                                         highlightthickness=0)
                 portraitCanvas.grid()
                 portraitCanvas.create_image(22, 70, image=portraitImages[character.portrait.replace(".", "")])
-                portraitCanvas.create_image(58, 14, image=scaledItems[character.equippedWeapon.IMAGE_NAME])
+                try:
+                    portraitCanvas.create_image(58, 14, image=scaledItems[character.equippedWeapon.IMAGE_NAME])
+                except KeyError:
+                    portraitCanvas.create_image(58, 14, image="")
                 if character.equippedArmour.IMAGE_NAME != "Cotton Shirt":
-                    portraitCanvas.create_image(58, 32, image=scaledItems[character.equippedArmour.IMAGE_NAME])
+                    try:
+                        portraitCanvas.create_image(58, 32, image=scaledItems[character.equippedArmour.IMAGE_NAME])
+                    except KeyError:
+                        portraitCanvas.create_image(58, 32, image="")
                 if character.equippedShield.IMAGE_NAME != "Nothing":
-                    portraitCanvas.create_image(58, 50, image=scaledItems[character.equippedShield.IMAGE_NAME])
+                    try:
+                        portraitCanvas.create_image(58, 50, image=scaledItems[character.equippedShield.IMAGE_NAME])
+                    except KeyError:
+                        portraitCanvas.create_image(58, 50, image="")
                 if character.mode == "Ultimate":
                     buttonBg = ENIGMATIC_COLOR
                 elif character.mode == "Hard":
@@ -681,7 +690,7 @@ class TopLeftFrame:
         if replacementIndex is not None:
             button = forgeFrame.forgeButtons[replacementIndex]
             button['image'] = noItemImage
-            button['text'] = "Select an item to %s" % (
+            button['text'] = "Select an equip to %s" % (
                 "upgrade" if replacementIndex == 0 else "sacrifice")
             button['bg'] = BUTTON_BG
         button = forgeFrame.forgeButtons[forgeFrame.v3.get()]
@@ -765,8 +774,7 @@ class TopLeftFrame:
                     try:
                         itemImage = itemImages[
                             main.character.items[i*rows+j].IMAGE_NAME]
-                    except KeyError as e:
-                        print "Missing image: %s" % e
+                    except KeyError:
                         itemImage = defaultImage
                     self.itemButtons[i*rows+j].config(image=itemImage,
                                                       state=NORMAL,
@@ -775,7 +783,7 @@ class TopLeftFrame:
                     try:
                         itemImage = itemImages[
                             main.character.items[i*rows+j].IMAGE_NAME]
-                    except KeyError as e:
+                    except KeyError:
                         itemImage = defaultImage
                     self.itemButtons[i*rows+j].config(image=itemImage,
                                                       state=NORMAL,
@@ -1534,7 +1542,7 @@ Game over? Don't fret. You can now """)
                                       variable=self.v3, value=0, width=64,
                                       height=64, bg=BLACK, indicatoron=0,
                                       bd=4, compound=CENTER,
-                                      text="Select an item to upgrade",
+                                      text="Select an equip to upgrade",
                                       activeforeground=BUTTON_FG,
                                       font=font2, fg=BUTTON_FG, wrap=64,
                                       command=enablePlaceButton)
@@ -1553,7 +1561,7 @@ Game over? Don't fret. You can now """)
                                        variable=self.v3, value=1, width=64,
                                        height=64, bg=BLACK, indicatoron=0,
                                        bd=4, compound=CENTER,
-                                       text="Select an item to sacrifice",
+                                       text="Select an equip to sacrifice",
                                        activeforeground=BUTTON_FG,
                                        font=font2, fg=BUTTON_FG, wrap=64,
                                        command=enablePlaceButton)
@@ -1563,7 +1571,7 @@ Game over? Don't fret. You can now """)
                                        variable=self.v3, value=2, width=64,
                                        height=64, bg=BLACK, indicatoron=0,
                                        bd=4, compound=CENTER,
-                                       text="Select an item to sacrifice",
+                                       text="Select an equip to sacrifice",
                                        activeforeground=BUTTON_FG,
                                        font=font2, fg=BUTTON_FG, wrap=64,
                                        command=enablePlaceButton)
@@ -1756,7 +1764,7 @@ Game over? Don't fret. You can now """)
         self.anvilButton.config(state=DISABLED, relief=FLAT, cursor="")
         self.crucible.config(state=DISABLED)
         for i, button in enumerate(self.forgeButtons):
-            button.config(image=noItemImage, text="Select an item to %s" % (
+            button.config(image=noItemImage, text="Select an equip to %s" % (
                 "upgrade" if i == 0 else "sacrifice"),
                 bg=BUTTON_BG,
                 state=NORMAL)

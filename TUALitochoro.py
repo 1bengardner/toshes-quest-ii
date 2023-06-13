@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: June 11, 2023
+Revised: June 12, 2023
 """
 
 
@@ -95,6 +95,10 @@ class Litochoro:
             self.menu.append("Travel to Mount Olympus.")
             if "Ready for Labyrinth" in self.c.flags:
                 self.menu.append("Descend into the Labyrinth of Daedalus.")
+        if self.c.flags['Mount Olympus Ascensions'] == 10 and "Legend" not in self.c.flags:
+            self.c.flags['Legend'] = True
+            self.helpText = "Congratulations on completing 10 ascensions of Mount Olympus!\nYou are a legend."
+            return self.actions({'sound': "Legendary",})
         return self.actions()
 
     def tavern(self, selectionIndex=None):

@@ -2,7 +2,7 @@
 File: TUAMountOlympus.py
 Author: Ben Gardner
 Created: April 29, 2023
-Revised: June 11, 2023
+Revised: June 12, 2023
 """
 
 
@@ -449,7 +449,6 @@ class MountOlympus:
         if selectionIndex == 0:
             if "Just Forged" in self.c.flags:
                 self.c.flags['Mount Olympus Complete'] = True
-                self.c.flags['Mount Olympus Ascensions'] += 1
                 del self.c.flags['Just Forged']
                 del self.c.flags['Mount Olympus Map']
                 del self.c.flags['Marked Areas'][self.name]
@@ -459,12 +458,6 @@ class MountOlympus:
                 self.__init__(self.c)
                 X = 1
                 Y = 5
-                if self.c.flags['Mount Olympus Ascensions'] == 100:
-                    self.c.flags['Legend'] = True
-                    self.helpText = "Congratulations on completing 100 ascensions of Mount Olympus!!"
-                    return self.actions({'area': "Litochoro",
-                                         'coordinates': (X, Y),
-                                         'sound': "100 Ascensions",})
                 return self.actions({'area': "Litochoro",
                                      'coordinates': (X, Y)})
             else:

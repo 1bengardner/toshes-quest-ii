@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 11, 2023
+Revised: June 12, 2023
 """
 
 
@@ -1119,12 +1119,16 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             if randomize:
                 item, modifier = self.randomizeItem(item)
                 if modifier is not None:
+                    if interfaceActions['text'] == None:
+                        interfaceActions['text'] = ""
                     interfaceActions['text'] += ("\n%s: It looks %s!" % (self.character.NAME, modifier.lower()))
             if self.character.hasRoom():
                 self.character.addItem(item)
             else:
                 self.tempItem = item
                 interfaceActions['overloaded'] = "items"
+                if interfaceActions['text'] == None:
+                    interfaceActions['text'] = ""
                 interfaceActions['text'] += ("\nYou are carrying too much! "+
                                              "Choose an item to drop.")
 
@@ -1238,6 +1242,53 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         return replacementIndex
 
     def smith(self):
+        def getOrdinal(number):
+            ordinals = {
+                1: "first",
+                2: "second",
+                3: "third",
+                4: "fourth",
+                5: "fifth",
+                6: "sixth",
+                7: "seventh",
+                8: "eighth",
+                9: "ninth",
+                11: "eleventh",
+                12: "twelfth",
+                13: "thirteenth",
+                14: "fourteenth",
+                15: "fifteenth",
+                16: "sixteenth",
+                17: "seventeenth",
+                18: "eighteenth",
+                19: "nineteenth",
+                10: "tenth",
+                20: "twentieth",
+                30: "thirtieth",
+                40: "fortieth",
+                50: "fiftieth",
+                60: "sixtieth",
+                70: "seventieth",
+                80: "eightieth",
+                90: "ninetieth",
+            }
+            cardinals = {
+                20: "twenty",
+                30: "thirty",
+                40: "forty",
+                50: "fifty",
+                60: "sixty",
+                70: "seventy",
+                80: "eighty",
+                90: "ninety",
+            }
+
+            if number > 99:
+                raise ValueError("Can only get ordinal up to 99")
+            elif number in ordinals:
+                return ordinals[number]
+            return "%s-%s" % (cardinals[int(str(number)[0] + "0")], ordinals[int(str(number)[1])])
+
         if self.forge.horn is not None:
             self.character.removeItem(self.character.indexOfItem(self.forge.horn))
         for i in self.forge.sacrificeIndexes:
@@ -1265,11 +1316,27 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         self.character.flags['Just Forged'] = True
         interfaceActions = self.getInterfaceActions()
         interfaceActions.update({'text': text,})
+        self.character.flags['Mount Olympus Ascensions'] += 1
         if "Mount Olympus Complete" not in self.character.flags:
             interfaceActions.update({
                 'italic text': "You may now reascend Mount Olympus for another trial.",
             })
             self.character.flags['Mount Olympus Complete'] = True
+        elif self.character.flags['Mount Olympus Ascensions'] < 100:
+            interfaceActions.update({
+                'italic text': "You have completed your %s ascension of Mount Olympus." % getOrdinal(self.character.flags['Mount Olympus Ascensions']),
+            })
+        else:
+            interfaceActions.update({
+                'italic text': "You have completed ascension %s of Mount Olympus." % (self.character.flags['Mount Olympus Ascensions']),
+            })
+        if (self.character.flags['Mount Olympus Ascensions']) % 10 == 0:
+            interfaceActions['italic text'] = interfaceActions['italic text'][:-1] + "!"
+        if (self.character.flags['Mount Olympus Ascensions']) % 100 == 0:
+            interfaceActions.update({
+                'item': "Purple Horn"
+            })
+            self.collectItem(interfaceActions)
         self.saveGame()
         return success, interfaceActions
 
