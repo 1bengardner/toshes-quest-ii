@@ -194,6 +194,15 @@ class Character(object):
         if self.specialization == "Hermit":
             self.defence *= 2
 
+        self.addOrbStats()
+
+    def addOrbStats(self):
+        self.waterReduction += 3 * self.countItem("Wizard Orb") + 5 * self.countItem("Frog Orb")
+        self.earthReduction += 3 * self.countItem("Wizard Orb") + 5 * self.countItem("Flower Orb")
+        self.fireReduction += 3 * self.countItem("Wizard Orb") + 5 * self.countItem("Flame Orb")
+        self.bRate += 3 * self.countItem("Knight Orb")
+        self.physicalReduction += 3 * self.countItem("Cat Orb")
+
     @property
     def ep(self):
         return self._ep
@@ -230,7 +239,7 @@ class Character(object):
             return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
             return value + 1 * (self.mastery - 1)
-        return value
+        return value + 3 * self.countItem("Gumball of Power")
 
     @strength.setter
     def strength(self, value):
@@ -253,7 +262,7 @@ class Character(object):
             return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
             return value + 1 * (self.mastery - 1)
-        return value
+        return value + 3 * self.countItem("Gumball of Power")
 
     @dexterity.setter
     def dexterity(self, value):
@@ -278,7 +287,7 @@ class Character(object):
             return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
             return value + 1 * (self.mastery - 1)
-        return value
+        return value + 3 * self.countItem("Gumball of Power")
 
     @wisdom.setter
     def wisdom(self, value):
@@ -486,9 +495,12 @@ class Character(object):
     def removeItem(self, index):
         self.items[index] = None
 
-    def hasItem(self, itemName, quantity = 1):
+    def countItem(self, itemName):
         return [itemName in item.NAME
-                for item in self.items if item].count(True) >= quantity
+                for item in self.items if item].count(True)
+
+    def hasItem(self, itemName, quantity = 1):
+        return self.countItem(itemName) >= quantity
 
     def itemIsEquipped(self, itemName):
         return True in [itemName in item.NAME for item in [

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 12, 2023
+Revised: June 13, 2023
 """
 
 
@@ -1109,6 +1109,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 self.character.items[itemIndex])
         self.character.euros += self.character.items[itemIndex].SELL_PRICE
         self.character.removeItem(itemIndex)
+        self.character.updateStats()
         self.sound.playSound(self.sound.sounds['Sell'])
 
     def collectItem(self, interfaceActions, randomize=False):
@@ -1133,6 +1134,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                     interfaceActions['text'] = ""
                 interfaceActions['text'] += ("\nYou are carrying too much! "+
                                              "Choose an item to drop.")
+            self.character.updateStats()
 
     def randomizeItem(self, item):
         successChance = 25
@@ -1290,6 +1292,31 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             elif number in ordinals:
                 return ordinals[number]
             return "%s-%s" % (cardinals[int(str(number)[0] + "0")], ordinals[int(str(number)[1])])
+        def collectReward(ascension, c):
+            def getSpecialReward(c):
+                for candidate in ["Moon Armour", "Macedonian Protector"]:
+                    if not c.hasItem(candidate) and ("Buyback Items" not in c.flags or all(item.NAME != candidate for item in c.flags['Buyback Items'])):
+                        return candidate
+                return "Platinum Ball"
+            if ascension == 10:
+                return
+            rewards = {
+                0: "Purple Horn",
+                10: getSpecialReward(c),
+                20: "Frog Orb",
+                30: "Flower Orb",
+                40: "Flame Orb",
+                50: "Platinum Ball",
+                60: "Wizard Orb",
+                70: "Knight Orb",
+                80: "Cat Orb",
+                90: "Gumball of Power",
+            }
+            if ascension % 100 in rewards:
+                interfaceActions.update({
+                    'item': rewards[ascension % 100]
+                })
+                self.collectItem(interfaceActions)
 
         if self.forge.horn is not None:
             self.character.removeItem(self.character.indexOfItem(self.forge.horn))
@@ -1334,11 +1361,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             })
         if (self.character.flags['Mount Olympus Ascensions']) % 10 == 0:
             interfaceActions['italic text'] = interfaceActions['italic text'][:-1] + "!"
-        if (self.character.flags['Mount Olympus Ascensions']) % 100 == 0:
-            interfaceActions.update({
-                'item': "Purple Horn"
-            })
-            self.collectItem(interfaceActions)
+            collectReward(self.character.flags['Mount Olympus Ascensions'], self.character)
         self.saveGame()
         return success, interfaceActions
 
