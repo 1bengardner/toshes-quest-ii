@@ -207,8 +207,17 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         self.portraitVar.set("Toshe")
         updateBlurb()
 
+        easyModeBlurb = "Easy Mode: XP is doubled, enemy crit chance and defence are halved."
+        ultimateModeBlurb = "Ultimate Mode: 5x XP, no euros."
+        def updateModeBlurb():
+            if self.modeVar.get() == "Easy":
+                modeBlurb['text'] = easyModeBlurb
+            elif self.modeVar.get() == "Ultimate":
+                modeBlurb['text'] = ultimateModeBlurb
+            else:
+                modeBlurb['text'] = ""
         modeFrame = Frame(master)
-        modeFrame.grid()
+        modeFrame.grid(pady=24)
         self.modeVar = StringVar()
         Radiobutton(
             modeFrame,
@@ -223,7 +232,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             pady=4,
             bd=4,
             width=12,
-        ).grid(padx=6, pady=24)
+            command=updateModeBlurb,
+        ).grid(padx=6, sticky=E)
         Radiobutton(
             modeFrame,
             text="Hard Mode",
@@ -237,7 +247,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             pady=4,
             bd=4,
             width=12,
-        ).grid(padx=6, pady=24, row=0, column=1)
+            command=updateModeBlurb,
+        ).grid(padx=6, row=0, column=1, sticky=None if "Ultimate Mode" in unlocks else W)
         if "Ultimate Mode" in unlocks:
             Radiobutton(
                 modeFrame,
@@ -252,7 +263,14 @@ class NewGameDialog(tkSimpleDialog.Dialog):
                 pady=4,
                 bd=4,
                 width=12,
-            ).grid(padx=6, pady=24, row=0, column=2)
+                command=updateModeBlurb,
+            ).grid(padx=6, row=0, column=2, sticky=W)
+        modeBlurb = Label(
+            modeFrame,
+            font=blurbFont,
+            text=easyModeBlurb,
+        )
+        modeBlurb.grid(columnspan=3 if "Ultimate Mode" in unlocks else 2, pady=(4, 0))
         self.modeVar.set("Easy")
 
     def apply(self):
