@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 13, 2023
+Revised: June 15, 2023
 """
 
 
@@ -1303,13 +1303,13 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             rewards = {
                 0: "Purple Horn",
                 10: getSpecialReward(c),
-                20: "Frog Orb",
-                30: "Flower Orb",
-                40: "Flame Orb",
+                20: "Ranine Orb",
+                30: "Bulbous Orb",
+                40: "Fiery Orb",
                 50: "Platinum Ball",
-                60: "Wizard Orb",
-                70: "Knight Orb",
-                80: "Cat Orb",
+                60: "Wizardly Orb",
+                70: "Knightly Orb",
+                80: "Feline Orb",
                 90: "Gumball of Power",
             }
             if ascension % 100 in rewards:

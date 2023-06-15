@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 13, 2023
+Revised: June 15, 2023
 """
 
 
@@ -197,11 +197,11 @@ class Character(object):
         self.addOrbStats()
 
     def addOrbStats(self):
-        self.waterReduction += 3 * self.countItem("Wizard Orb") + 5 * self.countItem("Frog Orb")
-        self.earthReduction += 3 * self.countItem("Wizard Orb") + 5 * self.countItem("Flower Orb")
-        self.fireReduction += 3 * self.countItem("Wizard Orb") + 5 * self.countItem("Flame Orb")
-        self.bRate += 3 * self.countItem("Knight Orb")
-        self.physicalReduction += 3 * self.countItem("Cat Orb")
+        self.waterReduction += 3 * self.countItem("Wizardly Orb") + 5 * self.countItem("Ranine Orb")
+        self.earthReduction += 3 * self.countItem("Wizardly Orb") + 5 * self.countItem("Bulbous Orb")
+        self.fireReduction += 3 * self.countItem("Wizardly Orb") + 5 * self.countItem("Fiery Orb")
+        self.bRate += 3 * self.countItem("Knightly Orb")
+        self.physicalReduction += 3 * self.countItem("Feline Orb")
 
     @property
     def ep(self):

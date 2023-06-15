@@ -30,11 +30,11 @@ Olympian Ointment	200	A serum that can be applied to rock formations*...with var
 Psilocybin	3000	May alter your experience.
 The good stuff!	6000	Doubles your drop chance.*May also kill you.
 Sigil of Ascension	1	Grants the bearer 5 rank points for every kill.
-Frog Orb	0	Bestows 5% water damage reduction.
-Flower Orb	0	Bestows 5% earth damage reduction.
-Flame Orb	0	Bestows 5% fire damage reduction.
+Ranine Orb	0	Bestows 5% water damage reduction.
+Bulbous Orb	0	Bestows 5% earth damage reduction.
+Fiery Orb	0	Bestows 5% fire damage reduction.
 Platinum Ball	80000	This is worth a lot of money.
-Wizard Orb	0	Bestows 3% elemental damage reduction.
-Knight Orb	0	Bestows 3% block chance.
-Cat Orb	0	Bestows 3% physical damage reduction.
+Wizardly Orb	0	Bestows 3% elemental damage reduction.
+Knightly Orb	0	Bestows 3% block chance.
+Feline Orb	0	Bestows 3% physical damage reduction.
 Gumball of Power	0	Bestows +3 to all stats.
