@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 11, 2023
+Revised: June 15, 2023
 """
 
 import pickle
@@ -194,7 +194,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         blurb = Text(
             master,
             fg="#efece2",
-            bg="#694138",
+            bg="#5a201e",
             height=1,
             font=blurbFont,
             wrap=WORD,
