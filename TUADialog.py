@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 15, 2023
+Revised: June 16, 2023
 """
 
 import pickle
@@ -57,7 +57,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
         self.fileName = self.entry.get().strip()
 
     def isValid(self, insertOrDelete, currentInput, newInput):
-        validCharacters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ,')
+        validCharacters = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ,'-$")
         if int(insertOrDelete) == 1 and len(currentInput) > 50:
             return False
         for c in newInput:
@@ -207,7 +207,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         self.portraitVar.set("Toshe")
         updateBlurb()
 
-        easyModeBlurb = "Easy Mode: XP is doubled, enemy crit chance and defence are halved."
+        easyModeBlurb = "Easy Mode: XP is doubled, enemy crit damage and defence are halved."
         ultimateModeBlurb = "Ultimate Mode: 5x XP, no euros."
         def updateModeBlurb():
             if self.modeVar.get() == "Easy":
@@ -219,7 +219,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         modeFrame = Frame(master)
         modeFrame.grid(pady=24)
         self.modeVar = StringVar()
-        Radiobutton(
+        easyButton = Radiobutton(
             modeFrame,
             text="Easy Mode",
             font=modeFont,
@@ -233,8 +233,9 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             bd=4,
             width=12,
             command=updateModeBlurb,
-        ).grid(padx=6, sticky=E)
-        Radiobutton(
+        )
+        easyButton.grid(padx=6, sticky=E)
+        hardButton = Radiobutton(
             modeFrame,
             text="Hard Mode",
             font=modeFont,
@@ -248,7 +249,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             bd=4,
             width=12,
             command=updateModeBlurb,
-        ).grid(padx=6, row=0, column=1, sticky=None if "Ultimate Mode" in unlocks else W)
+        )
+        hardButton.grid(padx=6, row=0, column=1, sticky=None if "Ultimate Mode" in unlocks else W)
         if "Ultimate Mode" in unlocks:
             Radiobutton(
                 modeFrame,
@@ -268,10 +270,12 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         modeBlurb = Label(
             modeFrame,
             font=blurbFont,
-            text=easyModeBlurb,
         )
         modeBlurb.grid(columnspan=3 if "Ultimate Mode" in unlocks else 2, pady=(4, 0))
-        self.modeVar.set("Easy")
+        if "Ultimate Mode" in unlocks:
+            hardButton.invoke()
+        else:
+            easyButton.invoke()
 
     def apply(self):
         self.portrait = self.portraitVar.get()

@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 13, 2023
+Revised: June 16, 2023
 """
 
 
@@ -32,7 +32,7 @@ class Battle(object):
         self.charactersFlags = {}
         self.enemy = enemy
         if self.mainCharacter.mode == "Easy":
-            self.enemy.cRate /= 2
+            self.enemy.cDamage /= 2
             self.enemy.defence /= 2
         self.enemyFlags = set()
         for character in self.auxiliaryCharacters+[self.mainCharacter]:
