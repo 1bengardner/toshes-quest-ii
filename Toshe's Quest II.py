@@ -3167,6 +3167,7 @@ def loadAssets():
         "Chris",
         "Foxy",
         "Lily",
+        "Jalal's Chicken",
     ]:
         portraitImages[portrait] = PhotoImage(file="images/other/%s.gif"
             % portrait)
