@@ -46,8 +46,10 @@ class Battle(object):
         self.tosheAlertMessages()
 
         # 50/50 chance for each combatant to go first
-        if ( self.mainCharacter.equippedWeapon.CATEGORY == "Bow" and
-             self.mainCharacter.equippedShield.NAME != "Nothing"):
+        if self.mainCharacter.equippedArmour.NAME == "Hopalong Boots":
+            self.characterFirst = True
+        elif (self.mainCharacter.equippedWeapon.CATEGORY == "Bow" and
+              self.mainCharacter.equippedShield.NAME != "Nothing"):
             self.characterFirst = False
         elif (self.mainCharacter.equippedWeapon.CATEGORY == "Bow" or
               self.mainCharacter.specialization == "Squad Leader" or
