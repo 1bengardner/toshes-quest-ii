@@ -24,7 +24,7 @@ Flame Guard	3500	Fire	55	26	25	5
 Magical Barrier	1000	Elemental	0	0	20	0
 Radiant Barrier	2000	Elemental	0	0	30	0
 Glowing Barrier	4000	Elemental	0	0	35	0
-Luminescent Barrier	8000	Elemental	0	0	42	0
+Luminescent Barrier	8000	Elemental	0	0	40	0
 Gold Shield	10000	Elemental	20	30	25	10
 Titanium Shield	8000	Physical	100	40	10	10
 Rusty Titanium Shield	8000	Physical	120	35	0	10
