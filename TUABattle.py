@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 16, 2023
+Revised: June 18, 2023
 """
 
 
@@ -313,13 +313,12 @@ class Battle(object):
             if skill.CATEGORY == "Critical Damage":
                 attacker.cRate /= 4
                 
-            if (skill.ELEMENT == "Physical" and
-                skill.CATEGORY != "No Defence Damage" and
-                damage):
-                damage -= defender.defence
-            elif (skill.CATEGORY != "No Defence Damage" and
-                  damage):
-                damage -= defender.defence / 3
+            if skill.CATEGORY != "No Defence Damage" and damage:
+                if (hasattr(attacker, "equippedWeapon") and
+                    attacker.equippedWeapon.CATEGORY == "Wand"):
+                    damage -= defender.defence / 3
+                else:
+                    damage -= defender.defence
 
             if ( hasattr(attacker, "specialization") and
                  attacker.specialization == "Adrenal Avenger" and
@@ -344,12 +343,25 @@ class Battle(object):
 
             # Modify damage based on defender's reduction values
             if damage:
-                if (skill.ELEMENT == "Earth" or
-                    skill.ELEMENT == "Poison" or
-                    skill.ELEMENT == "Lightning" or
+                if (skill.ELEMENT == "Frostfire" or
                     (hasattr(attacker, "equippedWeapon") and
-                     attacker.equippedWeapon.ELEMENT in ("Earth", "Lightning") and
+                     attacker.equippedWeapon.ELEMENT == "Frostfire" and
                      skill.ELEMENT == "Physical")):
+                    damage = (max(0, damage/2. * (100-defender.fireReduction)
+                        / 100.)
+                        + max(0, damage/2. * (100-defender.waterReduction)
+                        / 100.))
+                    damageElement = "Frostfire"
+                    if ( hasattr(attacker, "specialization") and
+                         (attacker.specialization == "Blaze Mage" or
+                          attacker.specialization == "Snow Sorcerer")):
+                        damage *= 1.25
+                elif (skill.ELEMENT == "Earth" or
+                      skill.ELEMENT == "Poison" or
+                      skill.ELEMENT == "Lightning" or
+                      (hasattr(attacker, "equippedWeapon") and
+                       attacker.equippedWeapon.ELEMENT in ("Earth", "Lightning") and
+                       skill.ELEMENT == "Physical")):
                     damage *= (100-defender.earthReduction) / 100.
                     damageElement = "Earth"
                     if ( hasattr(attacker, "specialization") and
@@ -378,21 +390,10 @@ class Battle(object):
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Blaze Mage"):
                         damage *= 1.5
-                elif (skill.ELEMENT == "Frostfire" or
-                      (hasattr(attacker, "equippedWeapon") and
-                       attacker.equippedWeapon.ELEMENT == "Frostfire" and
-                       skill.ELEMENT == "Physical")):
-                    damage = (max(0, damage/2. * (100-defender.fireReduction)
-                        / 100.)
-                        + max(0, damage/2. * (100-defender.waterReduction)
-                        / 100.))
-                    damageElement = "Frostfire"
-                    if ( hasattr(attacker, "specialization") and
-                         (attacker.specialization == "Blaze Mage" or
-                          attacker.specialization == "Snow Sorcerer")):
-                        damage *= 1.25
-                elif not (hasattr(attacker, "equippedWeapon") and
-                          attacker.equippedWeapon.CATEGORY == "Wand"):
+                elif (hasattr(attacker, "equippedWeapon") and
+                      attacker.equippedWeapon.CATEGORY == "Wand"):
+                    damage *= (300-min(100, defender.earthReduction)-min(100, defender.waterReduction)-min(100, defender.fireReduction)) / 300.
+                else:
                     damage *= (100-defender.physicalReduction) / 100.
 
             if ( hasattr(attacker, "specialization") and
