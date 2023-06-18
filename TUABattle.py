@@ -135,7 +135,7 @@ class Battle(object):
             actions.update(newActions)
         return actions
 
-    def attack(self, skill, successfulTurnCallback=lambda: None):
+    def attack(self, skill, successfulTurnCallback=lambda: None, useEp=True):
         """Make Toshe attack the enemy with a specified skill."""
         self.text = ""
         self.sounds = []
@@ -143,11 +143,11 @@ class Battle(object):
         if self.mainCharacter.equippedWeapon.CATEGORY not in\
            skill.PERMITTED_WEAPONS:
             self.text += "You cannot use this skill with your equipped weapon!"
-        elif self.mainCharacter.ep < skill.EP_USED:
+        elif useEp and self.mainCharacter.ep < skill.EP_USED:
             self.text += "You do not have enough EP!"
         else:
             turns = [
-                lambda: self.takeCharacterTurn(skill, successfulTurnCallback),
+                lambda: self.takeCharacterTurn(skill, successfulTurnCallback, useEp),
                 self.takeEnemyTurn]
             if not self.characterFirst:
                 turns.reverse()
@@ -204,12 +204,13 @@ class Battle(object):
 
         return self.actions()
 
-    def takeCharacterTurn(self, skill, successfulTurnCallback=lambda: None):
+    def takeCharacterTurn(self, skill, successfulTurnCallback=lambda: None, useEp=True):
         """Allow Toshe and his party to attack the enemy."""
         if not self.isStunned(self.mainCharacter,
                               self.charactersFlags[self.mainCharacter.NAME]):
             self.checkConsumables(skill)
-            self.mainCharacter.ep -= skill.EP_USED
+            if useEp:
+                self.mainCharacter.ep -= skill.EP_USED
         self.takeTurn(skill, self.mainCharacter, self.enemy,
                       self.charactersFlags[self.mainCharacter.NAME],
                       self.enemyFlags, successfulTurnCallback)
@@ -324,7 +325,7 @@ class Battle(object):
                  attacker.specialization == "Adrenal Avenger" and
                  attacker.hp <= attacker.maxHp / 2 and
                  damage):
-                damage *= 2
+                damage *= 2.5
 
             damage = self.adjustedDamage(damage)
 
@@ -355,7 +356,7 @@ class Battle(object):
                     if ( hasattr(attacker, "specialization") and
                          (attacker.specialization == "Blaze Mage" or
                           attacker.specialization == "Snow Sorcerer")):
-                        damage *= 1.25
+                        damage *= 1.5
                 elif (skill.ELEMENT == "Earth" or
                       skill.ELEMENT == "Poison" or
                       skill.ELEMENT == "Lightning" or
@@ -366,7 +367,7 @@ class Battle(object):
                     damageElement = "Earth"
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Stone Sage"):
-                        damage *= 1.5
+                        damage *= 2
                 elif (skill.ELEMENT == "Water" or
                       skill.ELEMENT == "Ice" or
                       skill.ELEMENT == "Freezing" or
@@ -377,7 +378,7 @@ class Battle(object):
                     damageElement = "Water"
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Snow Sorcerer"):
-                        damage *= 1.5
+                        damage *= 2
                 elif (skill.ELEMENT == "Fire" or
                       (hasattr(attacker, "equippedWeapon") and
                        attacker.equippedWeapon.ELEMENT == "Fire" and
@@ -389,7 +390,7 @@ class Battle(object):
                     damageElement = "Fire"
                     if ( hasattr(attacker, "specialization") and
                          attacker.specialization == "Blaze Mage"):
-                        damage *= 1.5
+                        damage *= 2
                 elif (hasattr(attacker, "equippedWeapon") and
                       attacker.equippedWeapon.CATEGORY == "Wand"):
                     damage *= (300-min(100, defender.earthReduction)-min(100, defender.waterReduction)-min(100, defender.fireReduction)) / 300.
@@ -814,7 +815,7 @@ class Battle(object):
                  self.roll() <= 50 and
                  len(self.mainCharacter.skills) > 0):
                 self.text += "Vengeance! "
-                self.takeTurn(self.mainCharacter.skills[0], self.mainCharacter, attacker, set(), set())
+                self.takeTurn(random.choice(self.mainCharacter.skills), self.mainCharacter, attacker, set(), set())
 
         self.doAdditionalActions(skill, attacker, defender)
 

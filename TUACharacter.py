@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 17, 2023
+Revised: June 18, 2023
 """
 
 
@@ -162,11 +162,11 @@ class Character(object):
             self.fireReduction += 2 * (self.mastery - 1)
         if self.specialization == "Reckless Lancer":
             self.damage += 2 * (self.mastery - 1)
+            self.accuracy //= 2
             if self.equippedWeapon.CATEGORY == "Spear":
                 self.damage *= 2
-                self.accuracy //= 2
         if self.specialization == "Stalwart Slayer":
-            self.damage *= 4
+            self.damage *= 3
             self.cRate = 0
         if (self.specialization == "Executioner" and
             self.equippedWeapon.CATEGORY == "Axe"):
