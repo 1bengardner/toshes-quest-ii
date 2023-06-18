@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: June 11, 2023
+Revised: June 17, 2023
 """
 
 from random import choice
@@ -172,8 +172,8 @@ class Kismet:
                 self.text += ("\nHeinz: Catch!" +
                               "\nHeinz tosses a Small Dagger to you!")
                 self.helpText = ("Click on the armour to access your "+
-                                 "inventory, where you can equip your dagger."+
-                                 "\nClick on the circular arrow to return to "+
+                                 "inventory and equip your dagger."+
+                                 "\nWhen you're finished, click on the circular arrow to return to "+
                                  "the game.")
                 return self.actions({'item': "Small Dagger"})
 
@@ -246,14 +246,16 @@ class Kismet:
         elif selectionIndex == 1:
             if self.c.portrait == "Chris":
                 chrisLine = "\n%s: Oh, this? I picked it up from Saks yesterday." % self.c.NAME
-                shitLine = "\n%s: Uh oh." % self.c.NAME
-                fLine = "\n%s: Uh...I should get going." % self.c.NAME
             else:
                 chrisLine = ("\n%s: Oh, this? Haha, my friend Chris " % self.c.NAME+
                                 "lent it to me. I should probably give it "+
                                 "back. He's from Canada."+
                                 "\nGentleman: Oh, Canada! How is it?"+
                                 "\n%s: It sucks." % self.c.NAME)
+            if self.c.isPolite:
+                shitLine = "\n%s: Uh oh." % self.c.NAME
+                fLine = "\n%s: Uh...I should get going." % self.c.NAME
+            else:
                 shitLine = "\n%s: Oh, shit." % self.c.NAME
                 fLine = "\n%s: Fuck. I should get going." % self.c.NAME
             self.text = choice(["%s: Hey." % self.c.NAME+

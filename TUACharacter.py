@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 15, 2023
+Revised: June 17, 2023
 """
 
 
@@ -558,3 +558,11 @@ class Character(object):
             "Lily",
         ]
         return self.portrait in politeFolks
+
+    @property
+    def isHumanoid(self):
+        nonHumans = [
+            "Gumball Machine",
+            "Lily",
+        ]
+        return self.portrait not in nonHumans

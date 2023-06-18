@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: June 11, 2023
+Revised: June 17, 2023
 """
 
 
@@ -54,9 +54,13 @@ class Boat:
                 self.c.hp += self.c.flags['Swimming HP Loss']+50
                 del self.c.flags['Swimming HP Loss']
                 self.c.flags['Boat Recovery'] = True
+            if self.c.isHumanoid:
+                nostrilLine = "your nostrils. You land on something solid with a "
+            else:
+                nostrilLine = "your system. You land on something solid with a "
             self.text = ("About to pass out, you feel a hand tugging on "+
                          "your arm. You are pulled upwards and air enters "+
-                         "your nostrils. You land on something solid with a "+
+                         nostrilLine+
                          "thud.\n")
             self.menu = ["Open your eyes."]
             self.tempFlag = "Boat Awakening"
@@ -142,7 +146,7 @@ class Boat:
                 self.text = ("You receive a stick!\n")
                 self.helpText = ("Click on the armour to access your "+
                                  "inventory, where you can equip your stick."+
-                                 "\nClick on the circular arrow to return to "+
+                                 "\nWhen you're finished, click on the circular arrow to return to "+
                                  "the game.")
             if selectionIndex == 1:
                 self.text = ("Bert: Suit yourself.\n")
@@ -247,7 +251,7 @@ class Boat:
                     self.text = ("Bert: "+str(self.c.flags['Boat Hours'])+
                              " hours 'til we're there!")
         if self.c.flags['Boat Rests'] > 0:
-            self.menu = ["Protect the Boat.", "Rest."]
+            self.menu = ["Protect the boat.", "Rest."]
         else:
-            self.menu = ["Protect the Boat."]
+            self.menu = ["Protect the boat."]
         return self.actions()

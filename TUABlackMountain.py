@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: June 11, 2023
+Revised: June 17, 2023
 """
 
 
@@ -70,8 +70,8 @@ class BlackMountain:
 [None, sorc, None, None, None, trs3, notU, dnLt, None, dnRt, ltRt, wrp3, None, None, XnRt, XnLt, None, None, None],
 [None, None, None, None, rght, nml1, nml2, nml1, notU, notR, None, None, None, wrp5, sorE, Xml2, XnLt, None, None],
 [None, None, None, None, None, notL, nml1, nml2, nml1, nml2, dnLt, None, None, None, XpRt, Xml1, Xml2, XnLt, None],
-[None, None, None, None, None, upRt, nml2, nml1, nml2, nml1, notR, None, None, None, None, XpRt, Xml1, XotR, None],
-[None, None, None, None, None, None, upRt, notD, nml1, notD, notR, None, None, None, None, None, XotL, XpLt, None],
+[None, None, None, None, None, nml1, nml2, nml1, nml2, nml1, notR, None, None, None, None, XpRt, Xml1, XotR, None],
+[None, None, None, None, None, None, nml1, notD, nml1, notD, notR, None, None, None, None, None, XotL, XpLt, None],
 [None, None, None, None, None, None, None, None, upD2, None, upD2, None, None, None, None, None, XpDn, None, None],
 [None, None, None, None, dnRt, dnLt, None, None, upD2, None, upD2, None, None, None, XnRt, XtRt, XpDn, None, None],
 [None, None, None, None, notL, nml2, ltRt, ltRt, upLt, None, upD2, None, None, None, XpDn, None, XpDn, None, None],
@@ -86,13 +86,13 @@ class BlackMountain:
 [None, None, None, wrp2, ltRt, nml1, notU, notU, dnLt, None, None, None, None, None, None, None, None, None, None],
 [None, None, None, None, None, notL, nml1, nml2, notR, None, None, None, None, None, None, None, None, None, None],
 [None, None, None, None, None, upRt, nml2, nml1, trs1, None, None, None, None, None, None, None, None, None, None],
-[None, None, None, None, None, None, upRt, notR, None, None, None, None, None, None, None, None, None, None, None],
+[None, None, None, None, None, None, nml1, notR, None, None, None, None, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, upD1, None, None, None, None, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, notL, notU, dnLt, None, None, None, None, None, None, None, None, None],
-[None, None, None, None, None, None, None, upRt, nml1, nml2, dnLt, None, None, None, None, None, None, None, None],
+[None, None, None, None, None, None, None, nml2, nml1, nml2, dnLt, None, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, None, notL, nml1, nml2, dnLt, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, None, trs4, notD, nml1, notR, None, None, None, None, None, None, None],
-[None, None, None, None, None, None, None, None, None, None, upRt, notR, None, None, None, None, None, None, None],
+[None, None, None, None, None, None, None, None, None, None, nml2, notR, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, None, None, None, None, upD1, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, None, None, wrp4, ltRt, upLt, None, None, None, None, None, None, None],
 [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]]
@@ -441,6 +441,15 @@ class BlackMountain:
             self.text = ("You find a Battle Axe!")
             self.c.flags['Black Mountain Treasure 2'] = True
             return self.actions({'item': "Battle Axe"})
+        elif 'Stone Dick' not in self.c.flags:
+            if self.c.isPolite:
+                if random.randint(1, 2) == 1:
+                    self.text = ("%s: The shape of that stone is...funny." % self.c.NAME)
+                else:
+                    self.text = ("%s: That's a weird lookin' stalagmite." % self.c.NAME)
+            else:
+                self.text = ("%s: That stone thing looks like a dick." % self.c.NAME)
+            self.c.flags['Stone Dick'] = True
         return self.actions()
 
     def treasure3(self, selectionIndex=None):
@@ -465,6 +474,15 @@ class BlackMountain:
             self.text = ("You find a Magerobe!")
             self.c.flags['Black Mountain Treasure 4'] = True
             return self.actions({'item': "Magerobe"})
+        elif 'Stone Dick' not in self.c.flags:
+            if self.c.isPolite:
+                if random.randint(1, 2) == 1:
+                    self.text = ("%s: The shape of that stone is...funny." % self.c.NAME)
+                else:
+                    self.text = ("%s: That's a weird lookin' stalagmite." % self.c.NAME)
+            else:
+                self.text = ("%s: That stone thing looks like a dick." % self.c.NAME)
+            self.c.flags['Stone Dick'] = True
         return self.actions()
 
     def normal1X(self, selectionIndex=None):
@@ -525,19 +543,10 @@ class BlackMountain:
 
     def upRightX(self, selectionIndex=None):
         self.view = "travel"
-        self.imageIndex = 10
+        self.imageIndex = -1
         self.text = None
         self.helpText = None
         self.menu = []
-        if 'Stone Dick' not in self.c.flags:
-            if self.c.isPolite:
-                if random.randint(1, 2) == 1:
-                    self.text = ("%s: The shape of that stone is...funny." % self.c.NAME)
-                else:
-                    self.text = ("%s: That's a weird lookin' stalagmite." % self.c.NAME)
-            else:
-                self.text = ("%s: That stone thing looks like a dick." % self.c.NAME)
-            self.c.flags['Stone Dick'] = True
         return self.actions()
 
     def downLeftX(self, selectionIndex=None):
