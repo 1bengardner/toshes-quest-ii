@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 12, 2023
+Revised: June 17, 2023
 """
 
 
@@ -1234,6 +1234,11 @@ The """)
         newsContent.insert(END, "Feature Updates", ("section"))
         newsContent.insert(END,
 """
+Too much Toshe? Choose from """)
+        newsContent.insert(END, "seven new characters", ("emphasis"))
+        newsContent.insert(END,
+""" to spice up your new game.
+
 Select a character with the """)
         newsContent.insert(END, "Recent Games", ("emphasis"))
         newsContent.insert(END,
@@ -1242,7 +1247,7 @@ Select a character with the """)
 Find your way around with the new """)
         newsContent.insert(END, "Map", ("emphasis"))
         newsContent.insert(END,
-""". Leave it open for a top-down view of the current area. Click to mark important tiles to remember them later.
+""", replacing those boring images. Click to mark important tiles to remember them later.
 
 Are you thirsty? Quench that craving with a """)
         newsContent.insert(END, "potion", ("emphasis"))
@@ -1257,7 +1262,7 @@ It's 2023 and people's screens are getting wider...that means it's time for a ""
 Zounds, we have """)
         newsContent.insert(END, "sounds", ("emphasis"))
         newsContent.insert(END,
-"""! You can now toggle sound effects, as well as music.
+"""! You can now control sound effects, as well as music.
 
 Check your hits and heals at a glance with """)
         newsContent.insert(END, "damage numbers", ("emphasis"))
