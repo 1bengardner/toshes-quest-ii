@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 15, 2023
+Revised: June 18, 2023
 """
 
 
@@ -1086,7 +1086,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             self.character.addItem(self.store[itemIndex])
         if self.buyback:
             self.character.flags['Buyback Items'][itemIndex] = None
-            self.store[itemIndex].PRICE = int((self.store[itemIndex].PRICE + 0.6) * 2)
+            self.store[itemIndex].PRICE = self.store[itemIndex].PRICE * 2
             self.store[itemIndex] = None
         self.sound.playSound(self.sound.sounds['Buy'])
 
