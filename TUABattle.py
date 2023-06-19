@@ -191,7 +191,7 @@ class Battle(object):
             else:
                 if divisor <= 0:
                     self.text = ("Bad luck! ")
-                self.text += ("%s tried to run away, but % caught up!\n" % (self.mainCharacter.NAME, self.enemy.NAME))
+                self.text += ("%s tried to run away, but %s caught up!\n" % (self.mainCharacter.NAME, self.enemy.NAME))
                 
                 self.doFlagActions(self.mainCharacter,
                     self.charactersFlags[self.mainCharacter.NAME])
