@@ -1300,7 +1300,9 @@ Game over? Don't fret. You can now """)
                                           bg=DEFAULT_BG,
                                           disabledforeground=BLACK, relief=FLAT,
                                           state=DISABLED,
-                                          command=self.increaseStrength)
+                                          command=self.increaseStrength,
+                                          repeatdelay=500,
+                                          repeatinterval=50,)
         self.strengthValueButton.grid(row=0, column=1, sticky=E)
         self.powerLabel = Label(self.otherStats, text="Base Damage", font=font2,
                                 bg=DEFAULT_BG)
@@ -1316,7 +1318,9 @@ Game over? Don't fret. You can now """)
                                            font=font1, bg=DEFAULT_BG,
                                            disabledforeground=BLACK,
                                            relief=FLAT, state=DISABLED,
-                                           command=self.increaseDexterity)
+                                           command=self.increaseDexterity,
+                                           repeatdelay=500,
+                                           repeatinterval=50,)
         self.dexterityValueButton.grid(row=1, column=1, sticky=E)
         self.damageLabel = Label(self.otherStats, text="Avg Damage", font=font2,
                                  bg=DEFAULT_BG)
@@ -1329,10 +1333,12 @@ Game over? Don't fret. You can now """)
                                        font=font2, bg=DEFAULT_BG)
         self.wisdomLabel.grid(row=2, column=0, sticky=W)
         self.wisdomValueButton = Button(self.otherStats, text="5",
-                                              font=font1, bg=DEFAULT_BG,
-                                              disabledforeground=BLACK,
-                                              relief=FLAT, state=DISABLED,
-                                              command=self.increaseWisdom)
+                                        font=font1, bg=DEFAULT_BG,
+                                        disabledforeground=BLACK,
+                                        relief=FLAT, state=DISABLED,
+                                        command=self.increaseWisdom,
+                                        repeatdelay=500,
+                                        repeatinterval=50,)
         self.wisdomValueButton.grid(row=2, column=1, sticky=E)
         self.accuracyLabel = Label(self.otherStats, text="Accuracy", font=font2,
                                    bg=DEFAULT_BG)
