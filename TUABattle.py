@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 18, 2023
+Revised: June 19, 2023
 """
 
 
@@ -135,7 +135,7 @@ class Battle(object):
             actions.update(newActions)
         return actions
 
-    def attack(self, skill, successfulTurnCallback=lambda: None, useEp=True):
+    def attack(self, skill, successfulTurnCallback=lambda _: None, useEp=True):
         """Make Toshe attack the enemy with a specified skill."""
         self.text = ""
         self.sounds = []
@@ -204,7 +204,7 @@ class Battle(object):
 
         return self.actions()
 
-    def takeCharacterTurn(self, skill, successfulTurnCallback=lambda: None, useEp=True):
+    def takeCharacterTurn(self, skill, successfulTurnCallback=lambda _: None, useEp=True):
         """Allow Toshe and his party to attack the enemy."""
         if not self.isStunned(self.mainCharacter,
                               self.charactersFlags[self.mainCharacter.NAME]):
@@ -239,7 +239,7 @@ class Battle(object):
         }[affectedCombatant]
 
     def takeTurn(self, skill, attacker, defender, attackerFlags, defenderFlags,
-        successfulTurnCallback=lambda: None):
+        successfulTurnCallback=lambda _: None):
         """Run through one turn of the battle.
 
         The specified attacker will attack the defender with its chosen skill
@@ -823,7 +823,7 @@ class Battle(object):
         self.doFlagActions(attacker, attackerFlags)
 
         if not self.isStunned(attacker, attackerFlags):
-            successfulTurnCallback()
+            successfulTurnCallback(self)
 
     def mapStat(self, stat):
         """Map a given stat name to its literal description and literal modifier
