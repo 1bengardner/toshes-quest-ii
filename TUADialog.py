@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 16, 2023
+Revised: June 19, 2023
 """
 
 import pickle
@@ -18,7 +18,8 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
     """
 
     def body(self, master):
-        self.iconbitmap("images/icons/tq.ico")
+        # FIXME: WINDOWS_UNCOMMENT
+        # self.iconbitmap("images/icons/tq.ico")
         Label(master, text=("Enter the name of the character you want to load/create."+
                             "\nA new character will be created if it does not exist.")
               ).grid()
@@ -68,7 +69,8 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
 class NewGameDialog(tkSimpleDialog.Dialog):
 
     def body(self, master):
-        self.iconbitmap("images/icons/tq.ico")
+        # FIXME: WINDOWS_UNCOMMENT
+        # self.iconbitmap("images/icons/tq.ico")
         import tkFont
 
         for fontFamily in ["Garamond", "Times"]:
