@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 16, 2023
+Revised: June 19, 2023
 """
 
 import pickle
@@ -98,8 +98,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
     " has a natural defence against earth and water from his swampy upbringing.",
 "Foxy":
     ", the Maine Coon, evades physical damage with her unpredictable movements.",
-"Lily":
-    " is protected by a thick layer of soil.",
+"Jalal's Chicken":
+    " got lost and somehow ended up in this game.",
 "Gumball Machine":
     " can do anything.",
 "M. Wizzard":
@@ -129,7 +129,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             "Reese",
             "Chris",
             "Foxy",
-            "Lily",
+            "Jalal's Chicken",
             "Hidden",
             "Unlocked",
         ]
@@ -182,7 +182,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
             unlocks[character] = False
             writeUnlocks()
         unlocks = readUnlocks()
-        for character in ["Apoc", "M. Wizzard", "Gumball Machine", "Lily"]:
+        for character in ["Apoc", "M. Wizzard", "Gumball Machine", "Jalal's Chicken"]:
             if character in unlocks and unlocks[character]:
                 characterButtons[character]['image'] = NewGameDialog.images["Unlocked"]
                 characterButtons[character]['state'] = NORMAL

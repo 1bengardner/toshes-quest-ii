@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 18, 2023
+Revised: June 19, 2023
 """
 
 
@@ -257,8 +257,8 @@ class Main:
                 ]),
             "Gumball Machine": lambda c:
                 "Gigantic Crayons" in c.flags['Kills'],
-            "Lily": lambda c:
-                "Queen Bee" in c.flags['Kills'] or "Pot Apparition" in c.flags['Kills'],
+            "Jalal's Chicken": lambda c:
+                True,
             "Ultimate Mode": lambda c:
                 "Conclusion" in c.flags,
         }
