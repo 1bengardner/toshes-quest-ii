@@ -2,7 +2,7 @@
 File: TUALabyrinthOfDaedalus.py
 Author: Ben Gardner
 Created: May 19, 2023
-Revised: July 11, 2023
+Revised: July 18, 2023
 """
 
 import random
@@ -133,10 +133,11 @@ class LabyrinthOfDaedalus:
         self.text = "You descend the town cellar, climbing down a ladder and a series of murky stone steps before stepping into an elaborate labyrinth. The one-way door shuts loudly behind you."
         if "Labyrinth Door" not in self.c.flags:
             self.c.flags['Labyrinth Door'] = True
+            noun = "we" if any(self.c.hasMercenary(merc) for merc in ("Qendresa", "Barrie")) else "I"
             if self.c.isPolite:
-                shitLine = "\n%s: Oh, poop. What do we do?" % self.c.NAME
+                shitLine = "\n%s: Oh, poop. What do %s do?" % (self.c.NAME, noun)
             else:
-                shitLine = "\n%s: Oh, shit. What do we do?" % self.c.NAME
+                shitLine = "\n%s: Oh, shit. What do %s do?" % (self.c.NAME, noun)
             self.text += shitLine
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\n%s: We must find the exit. Swiftly, before we go mad." % "Qendresa")
