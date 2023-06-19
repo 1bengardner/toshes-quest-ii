@@ -1838,7 +1838,7 @@ class BottomLeftFrame:
         self.makeFrameElements(frameF)
 
     def makeFrameElements(self, master):
-        self.outputBox = Text(master, font=font2, width=68, height=12,
+        self.outputBox = Text(master, font=font2, width=84, height=14,
                               wrap=WORD, bg=TEXTBOX_BG, relief=GROOVE)
         self.outputBox.grid()
         self.outputBox.tag_config("italicize", font=italicFont2)
@@ -1923,36 +1923,36 @@ class BottomRightFrame:
         self.lastDownButtonState = None
 
     def makeFrameElements(self, master):
-        self.upButton = Button(master, image=upImage, relief=FLAT, bd=0,
+        self.upButton = Button(master, image=disabledImage, relief=FLAT, bd=0,
                                bg=DEFAULT_BG, activebackground=DEFAULT_BG,
                                state=DISABLED, command=self.clickUpButton)
         self.upButton.bind_all('w', self.clickUpButton)
         self.upButton.bind_all('W', self.clickUpButton)
         self.upButton.grid(column=1)
-        self.leftButton = Button(master, image=leftImage, relief=FLAT, bd=0,
+        self.leftButton = Button(master, image=disabledImage, relief=FLAT, bd=0,
                                  bg=DEFAULT_BG, activebackground=DEFAULT_BG,
                                  state=DISABLED, command=self.clickLeftButton)
         self.leftButton.bind_all('a', self.clickLeftButton)
         self.leftButton.bind_all('A', self.clickLeftButton)
         self.leftButton.grid(column=0, sticky=E)
-        self.centerButton = Button(master, image=inventoryImage, relief=FLAT,
+        self.centerButton = Button(master, image=disabledImage, relief=FLAT,
                                    bd=0, bg=DEFAULT_BG,
                                    activebackground=DEFAULT_BG, state=DISABLED,
                                    command=self.clickInventoryButton)
         self.centerButton.grid(row=1, column=1, pady=0)
-        self.rightButton = Button(master, image=rightImage, relief=FLAT, bd=0,
+        self.rightButton = Button(master, image=disabledImage, relief=FLAT, bd=0,
                                   bg=DEFAULT_BG, activebackground=DEFAULT_BG,
                                   state=DISABLED, command=self.clickRightButton)
         self.rightButton.bind_all('d', self.clickRightButton)
         self.rightButton.bind_all('D', self.clickRightButton)
         self.rightButton.grid(row=1, column=2, sticky=W)
-        self.downButton = Button(master, image=downImage, relief=FLAT, bd=0,
+        self.downButton = Button(master, image=disabledImage, relief=FLAT, bd=0,
                                  bg=DEFAULT_BG, activebackground=DEFAULT_BG,
                                  state=DISABLED, command=self.clickDownButton)
         self.downButton.bind_all('s', self.clickDownButton)
         self.downButton.bind_all('S', self.clickDownButton)
         self.downButton.grid(column=1)
-        self.defendButton = Button(master, image=defendImage, relief=FLAT,
+        self.defendButton = Button(master, image=disabledImage, relief=FLAT,
                                    bd=0, bg=DEFAULT_BG,
                                    activebackground=DEFAULT_BG, state=DISABLED,
                                    command=self.clickDefendButton)
@@ -1960,7 +1960,7 @@ class BottomRightFrame:
         self.defendButton.bind_all('J', self.clickDefendButton)
         self.defendButton.grid(row=1, column=0, sticky=E)
         self.defendButton.grid_remove()
-        self.attackButton = Button(master, image=attackImage, relief=FLAT,
+        self.attackButton = Button(master, image=disabledImage, relief=FLAT,
                                    bd=0, bg=DEFAULT_BG,
                                    activebackground=DEFAULT_BG, state=DISABLED,
                                    command=self.clickAttackButton)
@@ -1968,7 +1968,7 @@ class BottomRightFrame:
         self.attackButton.bind_all('K', self.clickAttackButton)
         self.attackButton.grid(row=0, column=1)
         self.attackButton.grid_remove()
-        self.fleeButton = Button(master, image=fleeImage, relief=FLAT,
+        self.fleeButton = Button(master, image=disabledImage, relief=FLAT,
                                  bd=0, bg=DEFAULT_BG,
                                  activebackground=DEFAULT_BG, state=DISABLED,
                                  command=self.clickFleeButton)
@@ -2027,8 +2027,11 @@ class BottomRightFrame:
             self.centerButton.bind_all('I', self.clickBackButton)
             self.enableDirectionButtons([])
             self.attackButton['state'] = DISABLED
+            self.attackButton['image'] = disabledImage
             self.defendButton['state'] = DISABLED
+            self.defendButton['image'] = disabledImage
             self.fleeButton['state'] = DISABLED
+            self.fleeButton['image'] = disabledImage
             self.okButton['state'] = DISABLED
             self.disableMenuBox()
             enableInventoryView()
@@ -2176,20 +2179,28 @@ class BottomRightFrame:
         """Set the state of specified direction buttons to NORMAL."""        
         if "up" in enabledDirections:
             self.upButton['state'] = NORMAL
+            self.upButton['image'] = upImage
         else:
             self.upButton['state'] = DISABLED
+            self.upButton['image'] = disabledImage
         if "left" in enabledDirections:
             self.leftButton['state'] = NORMAL
+            self.leftButton['image'] = leftImage
         else:
             self.leftButton['state'] = DISABLED
+            self.leftButton['image'] = disabledImage
         if "right" in enabledDirections:
             self.rightButton['state'] = NORMAL
+            self.rightButton['image'] = rightImage
         else:
             self.rightButton['state'] = DISABLED
+            self.rightButton['image'] = disabledImage
         if "down" in enabledDirections:
             self.downButton['state'] = NORMAL
+            self.downButton['image'] = downImage
         else:
             self.downButton['state'] = DISABLED
+            self.downButton['image'] = disabledImage
 
     def enableOkButton(self, event=None):
         if self.menuSelectionIsValid():
@@ -2726,6 +2737,7 @@ def enableTravelView():
 
     bottomFrame = window.bottomFrame.bottomRightFrame
     bottomFrame.centerButton['state'] = NORMAL
+    bottomFrame.centerButton['image'] = inventoryImage
     bottomFrame.upButton.grid()
     bottomFrame.leftButton.grid()
     bottomFrame.rightButton.grid()
@@ -2761,6 +2773,10 @@ def enableBattleView():
     bottomFrame.rightButton['state'] = DISABLED
     bottomFrame.downButton['state'] = DISABLED
     bottomFrame.okButton['state'] = DISABLED
+    bottomFrame.upButton['image'] = disabledImage
+    bottomFrame.leftButton['image'] = disabledImage
+    bottomFrame.rightButton['image'] = disabledImage
+    bottomFrame.downButton['image'] = disabledImage
     bottomFrame.upButton.grid_remove()
     bottomFrame.leftButton.grid_remove()
     bottomFrame.rightButton.grid_remove()
@@ -2770,6 +2786,10 @@ def enableBattleView():
     bottomFrame.attackButton['state'] = NORMAL
     bottomFrame.defendButton['state'] = NORMAL
     bottomFrame.fleeButton['state'] = NORMAL
+    bottomFrame.centerButton['image'] = inventoryImage
+    bottomFrame.attackButton['image'] = attackImage
+    bottomFrame.defendButton['image'] = defendImage
+    bottomFrame.fleeButton['image'] = fleeImage
     bottomFrame.centerButton.config(image=inventoryImage,
                                     command=bottomFrame.clickInventoryButton)
     bottomFrame.centerButton.grid(pady=(0, 34))
@@ -2804,6 +2824,10 @@ def enableBattleOverView():
     frame.attackButton['state'] = DISABLED
     frame.defendButton['state'] = DISABLED
     frame.fleeButton['state'] = DISABLED
+    frame.centerButton['image'] = disabledImage
+    frame.attackButton['image'] = disabledImage
+    frame.defendButton['image'] = disabledImage
+    frame.fleeButton['image'] = disabledImage
     frame.skillButton['state'] = DISABLED
     frame.skillButton.grid_remove()
     frame.menuBox.bind_all('1', frame.endBattle)
@@ -2828,6 +2852,10 @@ def enableGameOverView():
     bottomFrame.attackButton['state'] = DISABLED
     bottomFrame.defendButton['state'] = DISABLED
     bottomFrame.fleeButton['state'] = DISABLED
+    bottomFrame.centerButton['image'] = disabledImage
+    bottomFrame.attackButton['image'] = disabledImage
+    bottomFrame.defendButton['image'] = disabledImage
+    bottomFrame.fleeButton['image'] = disabledImage
     bottomFrame.skillButton['state'] = DISABLED
     bottomFrame.skillButton.grid_remove()
     bottomFrame.okButton.grid()
@@ -2844,28 +2872,6 @@ def enableGameOverView():
     
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
-
-
-def enableLoadingView():
-    window.topFrame.topRightFrame.updateMissionLog(False)
-    window.gameFrame.grid_remove()
-    window.topFrame.topCenterFrame.toggleSaving(False)
-    bottomFrame = window.bottomFrame.bottomRightFrame
-    bottomFrame.upButton['state'] = DISABLED
-    bottomFrame.leftButton['state'] = DISABLED
-    bottomFrame.rightButton['state'] = DISABLED
-    bottomFrame.downButton['state'] = DISABLED
-    bottomFrame.centerButton['state'] = DISABLED
-    bottomFrame.attackButton['state'] = DISABLED
-    bottomFrame.defendButton['state'] = DISABLED
-    bottomFrame.fleeButton['state'] = DISABLED
-    bottomFrame.skillButton['state'] = DISABLED
-    bottomFrame.okButton['state'] = DISABLED
-    bottomFrame.centerButton['state'] = DISABLED
-    bottomFrame.menuBox.unbind_all('1')
-    bottomFrame.menuBox.unbind_all('2')
-    bottomFrame.menuBox.unbind_all('3')
-    bottomFrame.menuBox.unbind_all('4')
 
 
 def enableInventoryView():
@@ -2952,6 +2958,10 @@ def enableDropItemView():
     bottomFrame.leftButton['state'] = DISABLED
     bottomFrame.rightButton['state'] = DISABLED
     bottomFrame.downButton['state'] = DISABLED
+    bottomFrame.upButton['image'] = disabledImage
+    bottomFrame.leftButton['image'] = disabledImage
+    bottomFrame.rightButton['image'] = disabledImage
+    bottomFrame.downButton['image'] = disabledImage
     bottomFrame.upButton.grid_remove()
     bottomFrame.leftButton.grid_remove()
     bottomFrame.rightButton.grid_remove()
@@ -2980,6 +2990,10 @@ def enableForgetSkillView():
     bottomFrame.centerButton.bind_all('<BackSpace>', bottomFrame.clickCancelForgetButton)
     bottomFrame.rightButton['state'] = DISABLED
     bottomFrame.downButton['state'] = DISABLED
+    bottomFrame.upButton['image'] = disabledImage
+    bottomFrame.leftButton['image'] = disabledImage
+    bottomFrame.rightButton['image'] = disabledImage
+    bottomFrame.downButton['image'] = disabledImage
     bottomFrame.tempMenu = list(bottomFrame.menuBox.get(0, END))
     skills = []
     for skill in main.character.skills:
@@ -3408,27 +3422,28 @@ LEVEL_BG = LIGHTCYAN
 root = Tk()
 root['bg'] = MEDIUMBEIGE
 root.protocol('WM_DELETE_WINDOW', close)
-root.iconbitmap("images/icons/tq.ico")
+# FIXME: WINDOWS_UNCOMMENT
+# root.iconbitmap("images/icons/tq.ico")
 root.title("Loading...")
 
 # Initialize variables
 for fontFamily in ["Garamond", "Times"]:
     if fontFamily in tkFont.families():
         break
-font1 = tkFont.Font(family=fontFamily, size=10)
-italicFont1 = tkFont.Font(family=fontFamily, size=10, slant="italic")
-boldFont1 = tkFont.Font(family=fontFamily, size=10, weight="bold")
+font1 = tkFont.Font(family=fontFamily, size=11)
+italicFont1 = tkFont.Font(family=fontFamily, size=11, slant="italic")
+boldFont1 = tkFont.Font(family=fontFamily, size=11, weight="bold")
 font2 = tkFont.Font(family=fontFamily, size=11)
-italicFont2 = tkFont.Font(family=fontFamily, size=11, slant="italic", weight="bold")
+italicFont2 = tkFont.Font(family=fontFamily, size=14, slant="italic", weight="bold")
 boldFont2 = tkFont.Font(family=fontFamily, size=11, weight="bold")
 font3 = tkFont.Font(family=fontFamily, size=12, weight="bold")
-font4 = tkFont.Font(family=fontFamily, size=14)
-italicFont4 = tkFont.Font(family=fontFamily, size=14, slant="italic")
-font5 = tkFont.Font(family=fontFamily, size=80, weight="bold")
-font6 = tkFont.Font(family=fontFamily, size=18)
-font7 = tkFont.Font(family=fontFamily, size=66, weight="bold")
-font8 = tkFont.Font(family=fontFamily, size=16, weight="bold")
-lightFont8 = tkFont.Font(family=fontFamily, size=16)
+font4 = tkFont.Font(family=fontFamily, size=18)
+italicFont4 = tkFont.Font(family=fontFamily, size=18, slant="italic")
+font5 = tkFont.Font(family=fontFamily, size=88, weight="bold")
+font6 = tkFont.Font(family=fontFamily, size=24)
+font7 = tkFont.Font(family=fontFamily, size=72, weight="bold")
+font8 = tkFont.Font(family=fontFamily, size=20, weight="bold")
+lightFont8 = tkFont.Font(family=fontFamily, size=20)
 
 welcomeImage = PhotoImage(file="images/other/turtle.gif")
 bloodDropImages = [PhotoImage(file="images/other/blood_drop%s.gif" % (i+1))
@@ -3460,6 +3475,7 @@ cancelImage = PhotoImage(file="images/icons/cancel.gif")
 attackImage = PhotoImage(file="images/icons/attack.gif")
 defendImage = PhotoImage(file="images/icons/defend.gif")
 fleeImage = PhotoImage(file="images/icons/flee.gif")
+disabledImage = PhotoImage(file="images/icons/mac disabled.gif")
 
 noItemImage = PhotoImage(file="images/other/empty.gif")
 defaultImage = PhotoImage(file="images/other/default.gif")
