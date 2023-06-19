@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: June 17, 2023
+Revised: June 19, 2023
 """
 
 
@@ -2673,7 +2673,10 @@ def updateInterface(updates, skipQuests=False):
         hitBoxTriggers = []
     if updates['view'] == "forge":
         topRightFrame.resetForge()
-    if not skipQuests:
+    if skipQuests:
+        if ('new quest' in updates):
+            window.gridQuestFrame("MISSION!")
+    else:
         if ('new quest' in updates):
             window.rightFrame.addMission(updates['new quest'])
             window.gridQuestFrame("MISSION!")
