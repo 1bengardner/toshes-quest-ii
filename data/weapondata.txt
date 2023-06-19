@@ -32,34 +32,34 @@ Shooting Star	7777	Physical	77	60	Wisdom	Wand	1	200
 Macedonian Mace	1500	Earth	50	55	Strength	Bludgeon	10	200
 Partisan	3000	Physical	85	65	Strength	Spear	8	200
 Merciless Dagger	1800	Physical	10	40	Strength	Sword	2	200
-Obsidian Crusher	3800	Physical	70	63	Strength	Bludgeon	10	200
+Obsidian Crusher	3800	Physical	70	62	Strength	Bludgeon	10	200
 Misty Axe	3600	Water	50	64	Strength	Axe	6	200
-Asp Bow	4699	Physical	80	70	Dexterity	Bow	7.6	200
+Asp Bow	3999	Physical	80	70	Dexterity	Bow	7.6	200
 Ash Bow	4000	Physical	80	80	Dexterity	Bow	7.6	200
 Silver Sword	5000	Physical	60	65	Strength	Sword	4	200
-Moaning Star	4699	Physical	65	58	Strength	Bludgeon	10	200
-Morning Star	4700	Physical	65	68	Strength	Bludgeon	10	200
+Moaning Star	4699	Physical	65	55	Strength	Bludgeon	10	200
+Morning Star	4700	Physical	65	65	Strength	Bludgeon	10	200
 Wimpwood Wand	4699	Physical	70	60	Wisdom	Wand	0.1	200
-Impwood Wand	4800	Physical	70	70	Wisdom	Wand	0.1	200
+Impwood Wand	4700	Physical	70	70	Wisdom	Wand	0.1	200
 Bardiche	4700	Physical	90	76	Strength	Spear	8	200
 Giant Axe	4500	Physical	85	72	Strength	Axe	8	200
 Flametongue	5000	Fire	60	50	Strength	Sword	25	200
 Avadavra Wand	6000	Physical	80	80	Wisdom	Wand	0.1	200
-Mighty Flange	5000	Physical	65	70	Strength	Bludgeon	10	200
+Mighty Flange	5500	Physical	70	70	Strength	Bludgeon	10	200
 Glaive	6000	Physical	95	80	Strength	Spear	8	200
 Eucalyptus Bow	6000	Physical	100	100	Dexterity	Bow	8	200
-Dagger of Kotor	7500	Water	10	75	Strength	Sword	2	200
+Dagger of Kotor	7500	Water	10	70	Strength	Sword	2	200
 Ornate Halberd	7000	Physical	100	85	Strength	Spear	8	200
-Helm Splitter	7000	Physical	100	82	Strength	Axe	6	200
+Helm Splitter	7000	Physical	100	85	Strength	Axe	6	200
 Gyroscopic Flange	7000	Physical	100	75	Strength	Bludgeon	10	200
 Khabir's Shaft	7000	Physical	100	85	Wisdom	Wand	0.1	200
 J Bow	7000	Physical	100	105	Dexterity	Bow	8	200
-Golden Sun	7000	Physical	100	80	Strength	Sword	2	200
-Niplin's Greatsword	8000	Physical	130	70	Strength	Sword	10	300
+Golden Sun	7000	Physical	100	80	Strength	Sword	4	200
+Niplin's Greatsword	8000	Physical	130	72	Strength	Sword	10	300
 Fists	0	Physical	0	5	Strength	Bludgeon	2	200
-Horological Wand	7000	Physical	80	83	Wisdom	Wand	0.1	200
+Horological Wand	6600	Physical	80	80	Wisdom	Wand	0.1	300
 Dehiscer	7500	Physical	122	82	Strength	Axe	12	200
-Stinkblade	7500	Physical	111	81	Strength	Sword	4	200
+Stinkblade	7500	Physical	111	81	Strength	Sword	8	200
 A rifle that shoots	1225	Physical	30	30	Strength	Gun	10	500
 Fluorophoric Dagger	2000	Lightning	0	25	Strength	Sword	3	200
 Jellybrand	4000	Lightning	75	50	Strength	Sword	5	250

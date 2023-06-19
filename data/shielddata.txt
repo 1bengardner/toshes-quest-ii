@@ -17,17 +17,17 @@ Force Gauntlets	3000	Physical	10	15	0	0
 Firebreath Shield	1500	Fire	45	14	15	5
 Embossed Tower Shield	3500	Physical	90	30	0	8
 Quake Defender	3500	Earth	60	25	25	6
-Rusty Tower Shield	3500	Physical	110	25	0	8
+Rusty Tower Shield	3499	Physical	110	25	0	8
 Fortified Kite Shield	4200	Physical	80	35	0	7
 Tidal Tower Shield	3500	Water	90	30	25	8
 Flame Guard	3500	Fire	55	26	25	5
 Magical Barrier	1000	Elemental	0	0	20	0
-Radiant Barrier	2000	Elemental	0	0	30	0
-Glowing Barrier	4000	Elemental	0	0	35	0
+Pulsing Barrier	2000	Elemental	0	0	30	0
+Radiant Barrier	4000	Elemental	0	0	35	0
 Luminescent Barrier	8000	Elemental	0	0	40	0
 Gold Shield	10000	Elemental	20	30	25	10
 Titanium Shield	8000	Physical	100	40	10	10
-Rusty Titanium Shield	8000	Physical	120	35	0	10
+Rusty Titanium Shield	7999	Physical	120	35	0	10
 Jade Ward	800	Earth	0	0	70	0
 Aquamarine Ward	800	Water	0	0	70	0
 Garnet Ward	800	Fire	0	0	70	0
