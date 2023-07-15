@@ -175,8 +175,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         def revealCharacter():
             character = self.portraitVar.get()
             self.portraitVar.set(None)
-            characterButtons[character].flash()
-            characterButtons[character].flash()
+            # characterButtons[character].flash()
+            # characterButtons[character].flash()
             self.portraitVar.set(character)
             characterButtons[character]['image'] = NewGameDialog.images[character]
             characterButtons[character]['command'] = updateBlurb
