@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 16, 2023
+Revised: July 15, 2023
 """
 
 import pickle
@@ -252,6 +252,8 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         )
         hardButton.grid(padx=6, row=0, column=1, sticky=None if "Ultimate Mode" in unlocks else W)
         if "Ultimate Mode" in unlocks:
+            modeFrame.columnconfigure(0, weight=1)
+            modeFrame.columnconfigure(2, weight=1)
             Radiobutton(
                 modeFrame,
                 text="Ultimate Mode",
