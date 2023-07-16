@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: July 13, 2023
+Revised: July 16, 2023
 """
 
 
@@ -2626,7 +2626,8 @@ def updateInterface(updates, skipQuests=False):
             if len(line.split(":")) > 1:
                 possibleName = line.split(":")[0]
                 if ( not any([punc in possibleName for punc in ".!?"]) and
-                     len(line.split(":")[1]) > 0):
+                     len(line.split(":")[1]) > 0 and
+                     (eachWordIsCapitalized(possibleName) or possibleName == main.character.NAME)):
                     bottomLeftFrame.insertOutput(line, getTag(possibleName))
                     continue
             bottomLeftFrame.insertOutput(line)
