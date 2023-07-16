@@ -1,5 +1,5 @@
 # Toshe Save File Converter
-# Updates 0.0-2.0 characters to 2.1
+# Updates 0.0-2.1 characters to 3.0
 
 import pickle
 
@@ -119,7 +119,7 @@ def update(gameFile, path):
 if __name__ == "__main__":
     try:
         print ("This program will update your character file from" +
-               " version 0.0 or later to 2.0.")
+               " version 0.0 or later to 3.0.")
         fileName = raw_input("What's the name of the character to update? ")
 
         try:
