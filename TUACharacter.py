@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: June 18, 2023
+Revised: July 16, 2023
 """
 
 
@@ -420,8 +420,9 @@ class Character(object):
                     self.statPoints += 1
             self.maxHp += hpGainedOnLevelUp
             self.maxEp += epGainedOnLevelUp
-            self.hp = self.maxHp
-            self.ep = self.maxEp
+            if not self.isDead():
+                self.hp = self.maxHp
+                self.ep = self.maxEp
             return True
         return False
         

@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: June 18, 2023
+Revised: July 16, 2023
 """
 
 
@@ -802,6 +802,31 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 interfaceActions['text'] = ""
             interfaceActions['text'] += ("\nEncounter! "+enemy.NAME+
                                          ": Level "+str(enemy.LEVEL)+".")
+            for mercenary in mercenaries:
+                if mercenary.isDead():
+                    if mercenary.NAME == "Dragan":
+                        randomDialogue = random.choice([
+                            "I am injured. You must fight without me.",
+                            "I am injured. I will stay back.",
+                        ])
+                        interfaceActions['text'] += "\n%s: %s" % (mercenary.NAME, randomDialogue)
+                    elif mercenary.NAME == "Qendresa":
+                        randomDialogue = random.choice([
+                            "My wounds are too great to engage.",
+                            "I must rest before I continue.",
+                            "I cannot fight. I have sustained an injury.",
+                        ])
+                        interfaceActions['text'] += "\n%s: %s" % (mercenary.NAME, randomDialogue)
+                    elif mercenary.NAME == "Barrie":
+                        randomDialogue = random.choice([
+                            "Yow. No more battles for me until I've healed.",
+                            "Sorry, I'm gonna have to sit this one out.",
+                            "Nothing strenuous until I've had a good sleep.",
+                        ])
+                        interfaceActions['text'] += "\n%s: %s" % (mercenary.NAME, randomDialogue)
+                    else:
+                        interfaceActions['text'] += "\n%s is not healthy enough to fight!" % mercenary.NAME
+
         else:
             interfaceActions.update({
                 'enabled directions': self.enabledDirections})

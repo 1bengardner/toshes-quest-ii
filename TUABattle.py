@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: June 19, 2023
+Revised: July 16, 2023
 """
 
 
@@ -27,6 +27,7 @@ class Battle(object):
         self.sounds = []
         self.hits = []
         self.mainCharacter = character
+        self.xpGainingAuxiliaryCharacters = auxiliaryCharacters
         self.auxiliaryCharacters = [
             c for c in auxiliaryCharacters if not c.isDead()]
         self.charactersFlags = {}
@@ -1415,7 +1416,7 @@ class Battle(object):
             else:
                 self.mainCharacter.xp += xpGained
                 xpGainString = "You gain "+str(xpGained)+" XP.\n"
-            for character in self.auxiliaryCharacters:
+            for character in self.xpGainingAuxiliaryCharacters:
                 character.xp += xpGained
             self.mainCharacter.euros += eurosGained
             euroGainString = "You gain "+str(eurosGained)+" euros.\n"
