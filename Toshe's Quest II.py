@@ -497,12 +497,18 @@ class TopLeftFrame:
         self.nameLabel = Label(self.vitalStats, text="Toshe", font=italicFont4,
                                fg=BLACK, bg=DEFAULT_BG)
         self.nameLabel.grid(row=0, column=0, columnspan=2)
-        self.xpBarLabel = Label(self.vitalStats, image=xpBars[6], bg=DEFAULT_BG,
+        self.xpBarLabel = Label(self.vitalStats, image=xpBars[0], bg=DEFAULT_BG,
                                 relief=SUNKEN, bd=1, compound=CENTER,
                                 font=font8, fg=WHITE)
+        self.xpBarLabel.ref = xpBars[0]
+        self.xpBarLabel.frameQueue = []
+        self.xpBarLabel.animation = None
         self.xpBarLabel.grid(row=1, columnspan=2)
-        self.spBarLabel = Label(self.vitalStats, image=spBars[34],
+        self.spBarLabel = Label(self.vitalStats, image=spBars[0],
                                 bg=DEFAULT_BG, relief=SUNKEN, bd=2)
+        self.spBarLabel.ref = spBars[0]
+        self.spBarLabel.frameQueue = []
+        self.spBarLabel.animation = None
         self.spBarLabel.grid(row=3, columnspan=2)
         self.spWord = Label(self.vitalStats, text="Mystic 2", fg=MYSTIC_FG,
                             bg=MYSTIC_BG, font=font1, relief=RIDGE)
@@ -520,11 +526,17 @@ class TopLeftFrame:
         self.hpLabel = Label(self.vitalStats, text="100/100",
                                   bg=DEFAULT_BG, font=font1, bd=0)
         self.hpLabel.grid(row=6, column=1, sticky=E, padx=(0, 1))
-        self.hpBarLabel = Label(self.vitalStats, image=hpBars[4], bg=DEFAULT_BG,
+        self.hpBarLabel = Label(self.vitalStats, image=hpBars[0], bg=DEFAULT_BG,
                                 relief=SUNKEN, bd=1)
+        self.hpBarLabel.ref = hpBars[0]
+        self.hpBarLabel.frameQueue = []
+        self.hpBarLabel.animation = None
         self.hpBarLabel.grid(columnspan=2)
-        self.epBarLabel = Label(self.vitalStats, image=epBars[2], bg=DEFAULT_BG,
+        self.epBarLabel = Label(self.vitalStats, image=epBars[0], bg=DEFAULT_BG,
                                 relief=SUNKEN, bd=1)
+        self.epBarLabel.ref = epBars[0]
+        self.epBarLabel.frameQueue = []
+        self.epBarLabel.animation = None
         self.epBarLabel.grid(row=8, columnspan=2)
         self.epWord = Label(self.vitalStats, text="EP",
                             bg=DEFAULT_BG, font=font1, bd=0)
@@ -708,13 +720,9 @@ class TopLeftFrame:
         
         self.levelLabel['text'] = c.level
         self.levelLabel['width'] = max(2, len(str(c.level)))
-        if c.xp > c.xpTnl:
-            self.xpBarLabel['image'] = xpBars[-1]
-        else:
-            self.xpBarLabel['image'] = xpBars[int(float(c.xp) / c.xpTnl *
-                                                  (NUMBER_OF_BARS - 1))]
         self.xpBarLabel['text'] = "%d%%" % (100 * c.xp / c.xpTnl)
         self.xpBarLabel['fg'] = WHITE if (100 * c.xp / c.xpTnl < 45) else NAVY
+        animateBar(self.xpBarLabel, xpBars, c.xp, c.xpTnl, False, 300)
         if "Newly Specialized" in main.character.flags:
             del main.character.flags['Newly Specialized']
             self.spWord.grid()
@@ -725,32 +733,15 @@ class TopLeftFrame:
             self.tosheLabel['bg'] = LEGENDARY_BD
         if c.specialization is not None:
             self.spWord['text'] = "%s %s" % (c.specialization, c.mastery)
-            if c.sp > c.spTnl:
-                self.spBarLabel['image'] = spBars[-1]
-            else:
-                self.spBarLabel['image'] = spBars[int(float(c.sp) / c.spTnl *
-                                                      (NUMBER_OF_BARS - 1))]
             self.spLabel['text'] = "%d/%d" % (c.sp, c.spTnl)
-        self.tosheLabel['state'] = NORMAL
-        if c.hp <= 0:
-            self.hpBarLabel['image'] = hpBars[0]
-            self.tosheLabel['state'] = DISABLED
-        elif float(c.hp) < float(c.maxHp) / (NUMBER_OF_BARS - 1):
-            self.hpBarLabel['image'] = hpBars[1]
-        else:
-            self.hpBarLabel['image'] = hpBars[int(float(c.hp) / c.maxHp *
-                                                  (NUMBER_OF_BARS - 1))]
+            animateBar(self.spBarLabel, spBars, c.sp, c.spTnl, False, 300)
+        self.tosheLabel['state'] = NORMAL if c.hp > 0 else DISABLED
         self.hpBarLabel['text'] = "%d/%d" % (c.hp, c.maxHp)
         self.hpLabel['text'] = "%d/%d" % (c.hp, c.maxHp)
-        if c.ep <= 0:
-            self.epBarLabel['image'] = epBars[0]
-        elif float(c.ep) < float(c.maxEp) / NUMBER_OF_BARS:
-            self.epBarLabel['image'] = epBars[1]
-        else:
-            self.epBarLabel['image'] = epBars[int(float(c.ep) / c.maxEp *
-                                                  (NUMBER_OF_BARS - 1))]
+        animateBar(self.hpBarLabel, hpBars, c.hp, c.maxHp)
         self.epBarLabel['text'] = "%d/%d" % (c.ep, c.maxEp)
         self.epLabel['text'] = "%d/%d" % (c.ep, c.maxEp)
+        animateBar(self.epBarLabel, epBars, c.ep, c.maxEp)
 
     def updateInventory(self):
         """Show the current images for the character's inventory in the
@@ -1474,8 +1465,11 @@ Game over? Don't fret. You can now """)
                                      relief=RIDGE, bd=4)
         self.enemyImageLabel.grid(columnspan=2, pady=(10, 20))
         self.enemyImageLabel.queuedImages = []
-        self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[20],
+        self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[-1],
                                      bg=DEFAULT_BG, relief=SUNKEN, bd=1)
+        self.enemyHpBarLabel.ref = hpBars[-1]
+        self.enemyHpBarLabel.frameQueue = []
+        self.enemyHpBarLabel.animation = None
         self.enemyHpBarLabel.grid(row=3, columnspan=2)
         self.enemyHpWord = Label(self.enemyStats, text="HP",
                             bg=DEFAULT_BG, font=font1, bd=0)
@@ -1741,17 +1735,10 @@ Game over? Don't fret. You can now """)
             "LEGENDARY": LEGENDARY_BD,
         }
         self.enemyImageLabel['bg'] = borderColours[e.RARITY]
-        self.enemyImageLabel['state'] = NORMAL
-        if e.hp <= 0:
-            self.enemyHpBarLabel['image'] = hpBars[0]
-            self.enemyImageLabel['state'] = DISABLED
-        elif float(e.hp) < float(e.maxHp) / (NUMBER_OF_BARS - 1):
-            self.enemyHpBarLabel['image'] = hpBars[1]
-        else:
-            self.enemyHpBarLabel['image'] = hpBars[int(float(e.hp) / e.maxHp *
-                                                       (NUMBER_OF_BARS - 1))]
+        self.enemyImageLabel['state'] = NORMAL if e.hp > 0 else DISABLED
         self.enemyHpBarLabel['text'] = "%d/%d" % (e.hp, e.maxHp)
         self.enemyHpLabel['text'] = "%d/%d" % (e.hp, e.maxHp)
+        animateBar(self.enemyHpBarLabel, hpBars, e.hp, e.maxHp)
 
     def updateStore(self):
         """Change images in the Store frame to match current store items."""
@@ -3331,6 +3318,28 @@ def createHitBox(parent,
         motion = "Up/Linear"
     raiseHitBox(hitBox, 0, motion)
     return hitBox
+
+
+def animateBar(label, images, value, maxValue, binaryEmptyImage=True, interval=150):
+    currentIndex = images.index(label.ref)
+    if binaryEmptyImage and value <= 0:
+        label.frameQueue = [images[0]]
+    elif binaryEmptyImage and float(value) < float(maxValue) / (NUMBER_OF_BARS - 1):
+        label.frameQueue = images[1:currentIndex]
+    else:
+        targetIndex = max(min(int(float(value) / maxValue * (NUMBER_OF_BARS - 1)), NUMBER_OF_BARS - 1), 0)
+        direction = (1 if currentIndex > targetIndex else -1)
+        label.frameQueue = images[targetIndex:currentIndex:direction]
+    if label.animation is not None:
+        root.after_cancel(label.animation)
+    def showNextFrame():
+        if len(label.frameQueue) == 0:
+            label.animation = None
+            return
+        label['image'] = label.ref = label.frameQueue.pop()
+        label.animation = root.after(interval / (len(label.frameQueue)**2 + 1), showNextFrame)
+    showNextFrame()
+
 
 main = Main()
 
