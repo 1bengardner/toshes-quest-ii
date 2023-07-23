@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: July 16, 2023
+Revised: July 22, 2023
 """
 
 
@@ -735,7 +735,7 @@ class TopLeftFrame:
         if c.hp <= 0:
             self.hpBarLabel['image'] = hpBars[0]
             self.tosheLabel['state'] = DISABLED
-        elif float(c.hp) < float(c.maxHp) / NUMBER_OF_BARS:
+        elif float(c.hp) < float(c.maxHp) / (NUMBER_OF_BARS - 1):
             self.hpBarLabel['image'] = hpBars[1]
         else:
             self.hpBarLabel['image'] = hpBars[int(float(c.hp) / c.maxHp *
