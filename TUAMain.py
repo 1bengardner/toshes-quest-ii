@@ -200,7 +200,7 @@ class Main:
         self.x = self.character.x
         self.y = self.character.y
         self.initializeDefaultBattle()
-        self.completedQuests = set()
+        self.readyQuests = set()
         self.initializeQuests()
         self.initializeUnlocks()
 
@@ -1227,8 +1227,8 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def checkForReadyQuests(self, quests, character, returnOne=False):
         for quest in quests:
-            if quest.isCompletedBy(character) and quest not in self.completedQuests:
-                self.completedQuests.add(quest)
+            if quest.isCompletedBy(character) and quest not in self.readyQuests:
+                self.readyQuests.add(quest)
                 quests.remove(quest)
                 quests.insert(0, quest)
                 if returnOne:
@@ -1236,24 +1236,25 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
     def checkForUnreadyQuests(self, quests, character):
         uncompletedQuests = []
-        for quest in self.completedQuests:
+        for quest in self.readyQuests:
             if not quest.isCompletedBy(character):
                 uncompletedQuests.append(quest)
         for quest in uncompletedQuests:
-            self.completedQuests.remove(quest)
+            self.readyQuests.remove(quest)
         return uncompletedQuests
 
     def removeFinishedQuests(self, quests, flags, returnOne=False):
         questsToRemove = []
         for quest in quests:
             if quest.END_FLAG in flags:
-                if returnOne:
-                    quests.remove(quest)
-                    return quest
                 questsToRemove.append(quest)
+                if returnOne:
+                    break
         for quest in questsToRemove:
             quests.remove(quest)
-        return questsToRemove
+            if quest in self.readyQuests:
+                self.readyQuests.remove(quest)
+        return questsToRemove[0] if returnOne and len(questsToRemove) == 1 else questsToRemove
 
     def resetForge(self):
         self.forge = Forge()
