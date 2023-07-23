@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: July 22, 2023
+Revised: July 23, 2023
 """
 
 
@@ -1465,9 +1465,9 @@ Game over? Don't fret. You can now """)
                                      relief=RIDGE, bd=4)
         self.enemyImageLabel.grid(columnspan=2, pady=(10, 20))
         self.enemyImageLabel.queuedImages = []
-        self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[-1],
+        self.enemyHpBarLabel = Label(self.enemyStats, image=hpBars[0],
                                      bg=DEFAULT_BG, relief=SUNKEN, bd=1)
-        self.enemyHpBarLabel.ref = hpBars[-1]
+        self.enemyHpBarLabel.ref = hpBars[0]
         self.enemyHpBarLabel.frameQueue = []
         self.enemyHpBarLabel.animation = None
         self.enemyHpBarLabel.grid(row=3, columnspan=2)
