@@ -2,7 +2,7 @@
 File: TUAPresidentialPath.py
 Author: Ben Gardner
 Created: June 20, 2015
-Revised: June 11, 2023
+Revised: July 23, 2023
 """
 
 
@@ -118,8 +118,9 @@ class PresidentialPath:
         self.helpText = None
         self.menu = []
         if "Unguarded Gate" not in self.c.flags:
-            self.text = ("%s: Looks like the guards left. I didn't even" % self.c.NAME +
-                         " need this goddamn letter!")
+            self.text = ("You arrive at an unguarded gate.")
+            self.text += ("\n%s: Looks like the guards left." % self.c.NAME +
+                          " I didn't even need this goddamn letter!")
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: Stay alert. I can see more" +
                               " up ahead.")
