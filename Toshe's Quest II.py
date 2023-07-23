@@ -2830,6 +2830,8 @@ def enableGameOverView():
     window.topFrame.topCenterFrame.areaButton.grid()
     window.topFrame.topCenterFrame.map.grid_remove()
     
+    window.topFrame.topLeftFrame.vitalStats.grid()
+    window.topFrame.topLeftFrame.inventory.grid_remove()
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
 
