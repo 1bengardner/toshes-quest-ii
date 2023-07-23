@@ -2591,7 +2591,7 @@ def updateInterface(updates, skipQuests=False):
     if ('text' in updates) and (updates['text'] is not None):
         def eachWordIsCapitalized(string):
             for word in string.split(" "):
-                if not word[0].isupper():
+                if not (word[0].isupper() or word[0].isdigit()):
                     return False
             return True
         def getTag(speaker):
