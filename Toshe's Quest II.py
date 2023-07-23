@@ -3326,10 +3326,11 @@ def animateBar(label, images, value, maxValue, binaryEmptyImage=True, interval=1
     currentIndex = images.index(label.ref)
     if binaryEmptyImage and value <= 0:
         label.frameQueue = [images[0]]
-    elif binaryEmptyImage and float(value) < float(maxValue) / (NUMBER_OF_BARS - 1):
-        label.frameQueue = images[1:currentIndex]
     else:
-        targetIndex = max(min(int(float(value) / maxValue * (NUMBER_OF_BARS - 1)), NUMBER_OF_BARS - 1), 0)
+        if binaryEmptyImage and float(value) < float(maxValue) / (NUMBER_OF_BARS - 1):
+            targetIndex = 1
+        else:
+            targetIndex = max(min(int(float(value) / maxValue * (NUMBER_OF_BARS - 1)), NUMBER_OF_BARS - 1), 0)
         direction = (1 if currentIndex > targetIndex else -1)
         label.frameQueue = images[targetIndex:currentIndex:direction]
     if label.animation is not None:
