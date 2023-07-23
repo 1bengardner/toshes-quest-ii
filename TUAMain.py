@@ -727,6 +727,7 @@ class Main:
                 self.sound.playSound(self.sound.sounds['Sleep'])
             return self.getInterfaceActions()
         elif interfaceActions['view'] == "battle":
+            self.sound.playSound(self.sound.sounds['Encounter'])
             if interfaceActions['enemy'] == "Will o Wisp":
                 enemyIdentifier = "Will o Wisp"
                 enemy = random.choice(filter(lambda enemy: enemy.FLEEABLE and not enemy.UNIQUE and enemy.MUSIC is None, self.enemies.itervalues()))

@@ -3340,7 +3340,7 @@ def animateBar(label, images, value, maxValue, binaryEmptyImage=True, interval=1
             label.animation = None
             return
         label['image'] = label.ref = label.frameQueue.pop()
-        label.animation = root.after(interval / (len(label.frameQueue)**2 + 1), showNextFrame)
+        label.animation = root.after(interval / (1 + len(label.frameQueue)**2), showNextFrame)
     showNextFrame()
 
 
