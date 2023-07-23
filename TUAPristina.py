@@ -984,9 +984,9 @@ class Pristina:
                          choice(["Woah, easy there.",
                                  "Sure thing, dude.",
                                  "I could use some of that polish" +
-                                 " for my shoes.",
+                                 " for my gear.",
                                  "Why is it so cold in your house?",
-                                 "I need to take a piss."])
+                                 "I need to take a piss." if self.c.isHumanoid else "I can wait."])
                          )
             if self.c.hasMercenary(npc2):
                 self.text += ("\n%s: " % npc2 +
