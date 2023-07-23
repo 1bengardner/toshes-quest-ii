@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 12, 2023
+Revised: July 23, 2023
 """
 
 
@@ -105,6 +105,7 @@ class Sound:
                        "Bolster Defence": "FX-Morph",
                        "Unlock Secret": "FX-Gracious",
                        "Bloody Up": "FX-Haunt",
+                       "New Mercenary": "FX-Gracious",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)

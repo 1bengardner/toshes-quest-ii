@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: July 16, 2023
+Revised: July 23, 2023
 """
 
 
@@ -1109,6 +1109,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if 'mercenary' in interfaceActions:
             self.character.mercenaries.append(
                 self.mercenaries[interfaceActions['mercenary']])
+            self.sound.playSound(self.sound.sounds['New Mercenary'])
 
     def buy(self, itemIndex):
         self.character.euros -= self.store[itemIndex].PRICE
