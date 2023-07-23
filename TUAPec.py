@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: June 11, 2023
+Revised: July 23, 2023
 """
 
 
@@ -538,6 +538,7 @@ class Pec:
             
         elif ('Qendresa Intro' not in self.c.flags and selectionIndex == 0 and
               'Qendresa No' not in self.c.flags):
+            self.c.flags['New Song'] = "Buddha"
             self.text = ("%s: No, why?" % self.c.NAME +
                          "\n%s: I come from a family of great fighters:" % npc +
                          " the Osekus."+

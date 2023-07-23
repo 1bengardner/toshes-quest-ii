@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: June 11, 2023
+Revised: July 23, 2023
 """
 
 
@@ -489,6 +489,7 @@ class MojkovacValley:
                                  'coordinates': (X, Y)})
         
         if 'Dragan' not in self.c.flags and selectionIndex == None:
+            self.c.flags['New Song'] = "Buddha"
             self.text = (npc+": Ah, a visitor. I am Dragan. "+
                          "What is your name?"+
                          "\n{0}: {0}.".format(self.c.NAME)+

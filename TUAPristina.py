@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: June 11, 2023
+Revised: July 23, 2023
 """
 
 
@@ -954,6 +954,7 @@ class Pristina:
         elif ("Ferocious Fang" in self.c.flags['Kills'] and
               npc1 not in self.c.flags and
               "%s Talk" % npc1 not in self.c.flags):
+            self.c.flags['New Song'] = "Buddha"
             self.c.flags['Barrie Talk'] = True
             self.text = ("%s: Hey there, chap!" % npc1 +
                          " You seem a little outta breath." +
