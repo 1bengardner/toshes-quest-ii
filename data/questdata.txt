@@ -6,9 +6,9 @@ A Lovely Orcskin Jacket	Kill 1 Orc for Bartender Adam in Mojkovac Valley.	{'Kill
 A Cute Goblinhide Coat	Kill 5 Goblins for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	1	0
 Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	1	0
 Fresh or Fowl?	Kill 1 crow for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	1	0
-A Shocking Choice	Kill 3 jellyfish for Bartender Igor in Pec.	{'Kills': ('Toxic Jellyfish', 3)}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	1	0
+A Shocking Choice	Kill 3 Jellyfish for Bartender Igor in Pec.	{'Wildcard Kills': (('Toxic Jellyfish', 'Lion\'s Mane Jellyfish'), 6, "Jellyfish")}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	1	0
 "Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	1	0
-Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Border Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	1	0
+Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Rogue Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	1	0
 Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	1	0
 General Information	Kill General Octavius for Bartender Zhang in Pristina.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	1	0
 Homeland Bound	Continue your journey north through Black Mountain to reach Mojkovac.	{'No Criteria': True}	Daniel Quest 3 Complete	Mojkovac Summit	0	0

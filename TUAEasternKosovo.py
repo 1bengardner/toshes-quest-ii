@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: June 11, 2023
+Revised: July 23, 2023
 """
 
 
@@ -78,7 +78,7 @@ class EasternKosovo:
             ]
 
         e = {'Duelist': 4,
-             'Border Guard': 5,
+             'Rogue Guard': 5,
              'White Knight': 3,
              'Black Knight': 3,
              'Giant Salamander1': 5,
@@ -86,7 +86,7 @@ class EasternKosovo:
              }
 
         e2 = {'Duelist': 2,
-              'Border Guard': 5,
+              'Rogue Guard': 5,
               'White Knight': 5,
               'Black Knight': 5,
               'Giant Salamander1': 5,

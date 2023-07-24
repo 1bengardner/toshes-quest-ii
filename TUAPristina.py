@@ -503,15 +503,15 @@ class Pristina:
                                   " They are overrrunning Kosovo and harming"+
                                   " my business."+
                                   " Would you kill 5 guards?")
-                    if "Border Guard" in self.c.flags['Kills']:
+                    if "Rogue Guard" in self.c.flags['Kills']:
                         self.c.flags[npc+' Quest 1'] = \
-                                           self.c.flags['Kills']['Border Guard']
+                                           self.c.flags['Kills']['Rogue Guard']
                     else:
                         self.c.flags[npc+' Quest 1'] = 0
                 elif (npc+" Quest 1 Complete" not in self.c.flags and
                       npc+" Quest 1" in self.c.flags and
-                      "Border Guard" in self.c.flags['Kills'] and
-                      self.c.flags['Kills']['Border Guard']-5 >=
+                      "Rogue Guard" in self.c.flags['Kills'] and
+                      self.c.flags['Kills']['Rogue Guard']-5 >=
                       self.c.flags[npc+' Quest 1']):
                     self.text += (" Xiexie."+
                                   "\n%s gives you 250 euros." % npc)

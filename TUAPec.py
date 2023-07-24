@@ -193,17 +193,24 @@ class Pec:
                                   "sanitary it is to consume crow. I think "+
                                   "some fresh seafood would be nice. There's "+
                                   "a lake a ways away with an abundance of "+
-                                  "jellyfish. Get me a few of those, say 3, "+
+                                  "jellyfish. Get me a few of those, say 6, "+
                                   "and I can make a stew out of that.")
                     self.c.flags[npc+' Quest 2'] = 0
                     if "Toxic Jellyfish" in self.c.flags['Kills']:
                         self.c.flags[npc+' Quest 2'] += \
-                                        self.c.flags['Kills']['Toxic Jellyfish']
+                                     self.c.flags['Kills']['Toxic Jellyfish']
+                    if "Lion's Mane Jellyfish" in self.c.flags['Kills']:
+                        self.c.flags[npc+' Quest 2'] += \
+                                     self.c.flags['Kills']['Lion\'s Mane Jellyfish']
                 elif (npc+" Quest 2 Complete" not in self.c.flags and
-                      npc+" Quest 2" in self.c.flags and
-                      "Toxic Jellyfish" in self.c.flags['Kills'] and
-                      self.c.flags['Kills']['Toxic Jellyfish']-3 >=
-                      self.c.flags[npc+' Quest 2']):
+                      npc+" Quest 2" in self.c.flags):
+                    kills = 0
+                    if 'Toxic Jellyfish' in self.c.flags['Kills']:
+                        kills += self.c.flags['Kills']['Toxic Jellyfish']
+                    if 'Lion\'s Mane Jellyfish' in self.c.flags['Kills']:
+                        kills += self.c.flags['Kills']['Lion\'s Mane Jellyfish']
+
+                    if kills-6 >= self.c.flags[npc+' Quest 2']:
                         self.text += (" Those jellyfish stink. Thanks, though."+
                                       "\nIgor gives you 150 euros.")
                         self.c.euros += 150
