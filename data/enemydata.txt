@@ -151,15 +151,15 @@ Giacomo Gambino3	Giacomo Gambino	Giacomo Gambino3	23	12500	50000	70	40	10	200	0	
 Lesser Dragon	Lesser Dragon	Lesser Dragon	25	30000	30000	22	50	0.1	200	0	150	0	-50	75	0	{'Fireball': 40, 'Fire Claw': 30, 'Firestorm': 20, 'Immolation': 10}	{'Dragon Skin': 15}	7000	0	0	0	Important Battle	1	1	COMMON
 Marciano5	Marciano	Marciano	26	600	600	200	70	6	200	0	0	90	90	90	90	{'Deep Thrust': 15, 'Revitalize': 15, 'Reckless Rack': 15, 'Steel Twister': 1}	{}	10000	0	0	150	Rival Battle	0	1	RARE
 Greek Champion	Loukas	Greek Champion	30	25000	25000	75	80	10	200	0	400	75	50	50	25	{'Pummeler\'s Precision': 5, 'Bloodrush Crush': 5}	{'Mighty Flange': 15, 'Morning Star': 80}	20000	0	0	50	Canonical Battle	1	1	LEGENDARY
-Greek Hero1	Greek Hero1	Greek Hero1	30	22000	22000	50	50	10	200	10	300	0	0	0	10	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero2	Greek Hero2	Greek Hero2	30	20000	20000	60	60	4	200	3	250	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero3	Greek Hero3	Greek Hero3	30	25000	25000	70	20	8	300	1	270	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero4	Greek Hero4	Greek Hero4	30	18000	18000	40	50	10	200	5	250	25	25	25	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero5	Greek Hero5	Greek Hero5	30	30000	30000	60	40	10	200	5	260	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero6	Greek Hero6	Greek Hero6	30	19000	19000	80	30	20	300	1	200	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero7	Greek Hero7	Greek Hero7	30	16000	16000	60	70	4	200	7	220	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero8	Greek Hero8	Greek Hero8	30	21000	21000	55	50	4	200	2	150	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
-Greek Hero9	Greek Hero9	Greek Hero9	30	15000	15000	60	50	40	200	3	100	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero1	Greek Hero	Greek Hero1	30	22000	22000	50	50	10	200	10	300	0	0	0	10	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero2	Greek Hero	Greek Hero2	30	20000	20000	60	60	4	200	3	250	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero3	Greek Hero	Greek Hero3	30	25000	25000	70	20	8	300	1	270	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero4	Greek Hero	Greek Hero4	30	18000	18000	40	50	10	200	5	250	25	25	25	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero5	Greek Hero	Greek Hero5	30	30000	30000	60	40	10	200	5	260	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero6	Greek Hero	Greek Hero6	30	19000	19000	80	30	20	300	1	200	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero7	Greek Hero	Greek Hero7	30	16000	16000	60	70	4	200	7	220	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero8	Greek Hero	Greek Hero8	30	21000	21000	55	50	4	200	2	150	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
+Greek Hero9	Greek Hero	Greek Hero9	30	15000	15000	60	50	40	200	3	100	0	0	0	0	{'Deep Thrust': 30}	{}	3000	0	0	100	Important Battle	0	1	RARE
 Greek Duelist	Greek Duelist	Duelist	26	5000	5000	65	90	2	200	6	100	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 5, 'Deadly Stab': 5}	{}	1200	0	0	100	Coliseum Battle	0	1	COMMON
 Greek Swordsman	Greek Swordsman	Greek Swordsman	27	6000	6000	70	90	2	200	0	160	0	0	0	0	{'Deep Thrust': 10, 'Steadfast Slash': 10, 'Steel Twister': 10}	{}	1300	0	0	100	Coliseum Battle	0	1	COMMON
 Greek Fighter	Greek Fighter	Greek Fighter	27	7000	7000	65	80	10	200	0	180	0	0	0	0	{'Rumble Strike': 30, 'Aerial Assault': 10}	{}	1300	0	0	100	Coliseum Battle	0	1	COMMON
