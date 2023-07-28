@@ -2,7 +2,7 @@
 File: TUAWesternKosovo.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: June 11, 2023
+Revised: July 25, 2023
 """
 
 
@@ -364,8 +364,8 @@ class WesternKosovo:
             if "Secret Lab" not in self.c.flags:
                 self.text = ("You approach a large hoodoo with an "+
                              "entrance sealed by what could be either magic "+
-                             "or high technology. \"Tomas Tam\" is painted "+
-                             "across the front."+
+                             "or high technology. \"Tomas Tam\" is scrawled "+
+                             "above the entryway."+
                              "\n%s: This must be Tomas's headquarters...\n" % self.c.NAME)
                 self.c.flags['Secret Lab'] = True
             self.text += ("70-M45: 70-M45 requesting credentials. Enter the "+
@@ -375,6 +375,7 @@ class WesternKosovo:
                          for c in passcodeLetters[self.letterNumber]]
             
         if "Secret Lab Unlocked" in self.c.flags:
+            self.imageIndex = 20
             self.text += ("70-M45: User recognized. Proceed.")
             self.menu = ["Enter."]
         
@@ -403,12 +404,13 @@ class WesternKosovo:
               self.letterNumber == 9 and
               self.passcodeGuess == "swordfish" and
               "All Tomas Writings Found" in self.c.flags):
+            self.imageIndex = 20
             self.text += ("\n70-M45: Insert docu...mentsssseooorrbffff--" +
                           "\n70-M45 malfunctions and unlocks the seal to" +
                           " the entrance." +
                           "\n%s: I love technology." % self.c.NAME)
             self.c.flags['Secret Lab Unlocked'] = True
-            self.menu = ["Proceed."]
+            self.menu = ["Enter."]
 
         elif (selectionIndex is not None and
               self.letterNumber == 9):
