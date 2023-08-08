@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: July 23, 2023
+Revised: August 8, 2023
 """
 
 
@@ -2591,7 +2591,7 @@ def updateInterface(updates, skipQuests=False):
     if ('text' in updates) and (updates['text'] is not None):
         def eachWordIsCapitalized(string):
             for word in string.split(" "):
-                if not (word[0].isupper() or word[0].isdigit()):
+                if not (word[0].isupper() or word[0].isdigit() or word in ["the", "of"]):
                     return False
             return True
         def getTag(speaker):
