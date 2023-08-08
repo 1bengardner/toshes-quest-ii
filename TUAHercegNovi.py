@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: June 11, 2023
+Revised: August 8, 2023
 """
 
 
@@ -327,7 +327,7 @@ class HercegNovi:
             elif ('Ivana Talk 2' in self.c.flags and
                   'Necklace Fixed' not in self.c.flags and
                   self.c.flags['Ivana Level'] != self.c.level):
-                self.text = ("Ivana: Wow %s! You look taller than " % self.c.NAME+
+                self.text = ("Ivana: Wow %s! You look burlier than " % self.c.NAME+
                              "last time! Where have you been? "+
                              "Anyway, I don't normally do this, but I have a "+
                              "small favour to ask of you. My necklace is broken "+
@@ -338,7 +338,7 @@ class HercegNovi:
                              "gem and that happens to be aquamarine. If I had "+
                              "one it would be like brand-new. So, basically, "+
                              "could you get me a shard of aquamarine? I can "+
-                             "reward you handsomely.")
+                             "reward you nicely.")
                 self.c.flags['Ivana Talk 3'] = True
             elif 'Ivana Talk 1' in self.c.flags:
                 self.text = ("Ivana: Hello, %s! Have you gone to The Bluffs " % self.c.NAME+
