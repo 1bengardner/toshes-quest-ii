@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: July 23, 2023
+Revised: August 12, 2023
 """
 
 
@@ -228,8 +228,7 @@ class Pristina:
             ) + choice(
                 [
                     "",
-                    "\nThe cat rubs itself against your leg.",
-                    "\nThe cat rubs itself against your inner thigh.",
+                    "\nThe cat rubs itself against you.",
                     "\nThe cat purrs.",
                     "\nThe cat barfs up a hairball.",
                     "\nThe cat poops a little.",
