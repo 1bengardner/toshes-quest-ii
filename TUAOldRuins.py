@@ -2,7 +2,7 @@
 File: TUAOldRuins.py
 Author: Ben Gardner
 Created: June 28, 2015
-Revised: June 11, 2023
+Revised: August 12, 2023
 """
 
 
@@ -148,7 +148,7 @@ class OldRuins:
             self.c.flags['Barrie Old Ruins Remark'] = True
             self.text += ("\nBarrie: What a dark, gloomy place. Perfect" +
                           " for sleeping.")
-        self.menu = ["Ascend up to ground level."]
+        self.menu = ["Ascend to ground level."]
         return self.actions()
 
     def fork(self, selectionIndex=None):
