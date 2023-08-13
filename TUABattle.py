@@ -316,9 +316,10 @@ class Battle(object):
                 attacker.cRate /= 4
                 
             if skill.CATEGORY != "No Defence Damage" and damage:
-                if (hasattr(attacker, "equippedWeapon") and
-                    attacker.equippedWeapon.CATEGORY == "Wand"):
-                    damage -= defender.defence / 3
+                if ( skill.ELEMENT != "Physical" or
+                     hasattr(attacker, "equippedWeapon") and
+                     attacker.equippedWeapon.CATEGORY == "Wand"):
+                    damage -= defender.defence / 2
                 else:
                     damage -= defender.defence
 
