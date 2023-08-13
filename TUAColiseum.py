@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: June 11, 2023
+Revised: August 13, 2023
 """
 
 
@@ -130,13 +130,13 @@ class Coliseum:
             self.text = ("Champion: My fellow warrior, have you come to" +
                          " do battle? Have you come to win the hearts of" +
                          " fans and the gold of foes? Well, good!" +
-                         "\nYou shall duel, one by one, an array of" +
+                         "\nChampion: You shall duel, one by one, an array of" +
                          " fighters until you have demonstrated your might," +
                          " after which you shall face a formidable hero." +
                          " With each victory you shall accumulate more coin." +
                          " If you lose, you shall walk away with nothing but" +
                          " shame!" +
-                         " Those who" +
+                         "\nChampion: Those who" +
                          " prove their worth against the most valiant" +
                          " of knights shall be honoured with a visit to the" +
                          " Fortress of Greece! Are you ready, warrior?")
