@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: July 16, 2023
+Revised: August 13, 2023
 """
 
 
@@ -1311,7 +1311,7 @@ class Battle(object):
         """Check if any consumables should be consumed and take action."""
         if skill.NAME == "Attack":
             for item in self.consumableEffects:
-                while self.mainCharacter.hasItem(item):
+                if self.mainCharacter.hasItem(item):
                     for effects in self.consumableEffects[item]:
                         if effects['type'] == "Add":
                             setattr(self.mainCharacter,
@@ -1329,6 +1329,7 @@ class Battle(object):
                     self.text += ("%s consumes %s %s!\n" % (self.mainCharacter.NAME, aOrAn, item))
                     self.mainCharacter.removeItem(
                         self.mainCharacter.indexOfItem(item))
+                    break
         
 
     def endBattle(self):
