@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: July 23, 2023
+Revised: August 14, 2023
 """
 
 
@@ -16,7 +16,7 @@ from TUAPreferences import Preferences
 class Sound:
     """Plays music."""
     
-    MUSIC_VOLUME = 0.6
+    MUSIC_VOLUME = 0.5
     
     def __init__(self):
         self.path = "audio/%s.ogg"
