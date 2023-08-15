@@ -66,7 +66,7 @@ class Coliseum:
             for line in fileIn:
                 tokens = line.strip().split("\t")
                 self.foeText.append(tokens[0])
-                self.heroText.append(tokens[1])            
+                self.heroText.append(tokens[1])
         self.view = None
         self.imageIndex = None
         self.text = None
@@ -79,6 +79,15 @@ class Coliseum:
         self.heroesDefeated = 0
         self.CHARACTER_DEATH_HP = 1
         self.championDefeated = False
+        
+        if "Coliseum Complete" not in self.c.flags:
+            random.seed(self.c.rareSeed)
+        self.champion = random.choice(self.champions)
+        random.seed(self.c.normalSeed)
+        random.shuffle(self.heroBodies)
+        random.shuffle(self.heroSouls)
+        random.shuffle(self.heroText)
+        random.seed()
 
         coli = self.coliseum
         duel = self.duelArena
@@ -243,16 +252,14 @@ class Coliseum:
             return self.actions({'area': "Coliseum",
                                  'coordinates': (X, Y)})            
         elif selectionIndex == 0 or self.winnings == 0:
-            numberOfOpponents = random.randint(2 * (self.heroesDefeated + 1),
-                                               3 * (self.heroesDefeated + 1)
-                                               + 1)
+            numberOfOpponents = 2 * (self.heroesDefeated + 1)
             opponents = []
             for i in range(0, numberOfOpponents):
                 opponents.append(random.choice(self.foes))
             if self.heroesDefeated < 3:
-                opponents.append(random.choice(self.heroBodies))
+                opponents.append(self.heroBodies[self.heroesDefeated])
             elif self.heroesDefeated == 3:
-                opponents.append(random.choice(self.champions))
+                opponents.append(self.champion)
             self.c.flags['Coliseum Opponents'] = opponents
         elif selectionIndex == 1:
             del self.c.flags['Coliseum Opponents']
@@ -280,8 +287,8 @@ class Coliseum:
             elif enemy in self.heroBodies:
                 self.winnings += 1000 * (self.heroesDefeated + 1)
                 self.heroesDefeated += 1
-                soul = random.choice(self.heroSouls)
-                text = random.choice(self.heroText)
+                soul = self.heroSouls.pop()
+                text = self.heroText.pop()
                 self.text = soul['Stats']['NAME'] + ": " + text
                 if "*" in text:
                     self.text = (soul['Stats']['NAME'] + " " + text.strip("*"))
