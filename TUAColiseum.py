@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: August 13, 2023
+Revised: August 14, 2023
 """
 
 
@@ -77,7 +77,7 @@ class Coliseum:
         self.movementVerb = "walk"
         self.winnings = 0
         self.heroesDefeated = 0
-        self.CHARACTER_DEATH_HP = 100
+        self.CHARACTER_DEATH_HP = 1
         self.championDefeated = False
 
         coli = self.coliseum

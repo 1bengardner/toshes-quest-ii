@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: August 13, 2023
+Revised: August 14, 2023
 """
 
 
@@ -66,7 +66,7 @@ class Battle(object):
         self.CHARACTER_DEATH_HP = 0
         if coliseum:
             self.coliseumMode = True
-            self.CHARACTER_DEATH_HP = 100
+            self.CHARACTER_DEATH_HP = 1
 
         # Strings for variable name-to-English interpretation
         self.statStrings = {'hp': ["HP", "."],
