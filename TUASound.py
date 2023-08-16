@@ -108,6 +108,7 @@ class Sound:
                        "New Mercenary": "FX-Gracious",
                        "Encounter": "FX-Encounter",
                        "Halloween": "FX-Spooky",
+                       "Christmas": "FX-Winter",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)

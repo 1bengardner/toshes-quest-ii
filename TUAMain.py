@@ -646,6 +646,7 @@ class Main:
                     'text': itemText,
                     'italic text': rewardText,
                     'item': item})
+                self.sound.playSound(self.sound.sounds['Christmas'])
                 self.collectItem(interfaceActions)
             return interfaceActions
 
