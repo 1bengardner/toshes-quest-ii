@@ -25,7 +25,7 @@ Mountain Goblin	Mountain Goblin	Mountain Goblin	6	160	160	17	80	10	200	5	22	50	0
 Orc	Orc	Orc	6	210	210	20	70	6	200	0	18	0	0	0	0	{'Rumble Strike': 5, 'Helix Swing': 10, 'Shield Breaker': 3}	{'Great Axe': 5, 'Bone Vest': 5}	110	30	1	0	None	0	1	COMMON
 Mr. Pockins	Mr. Pockins	Mr Pockins	6	100	100	22	90	20	200	0	11	0	0	0	0	{'Helix Swing': 10, 'Restore': 20}	{'Javelin': 50, 'Velvet Doublet': 50}	120	30	1	0	Important Battle	1	1	RARE
 Giant Seal1	Giant Seal	Giant Seal1	7	300	300	17	90	10	200	0	20	0	50	-100	0	{}	{}	140	0	1	0	None	0	1	COMMON
-Moghi	Moghi	Moghi	7	380	380	14	90	10	200	0	20	50	0	-100	0	{'Rumble Strike': 25, 'Crush': 25}	{}	140	0	1	0	None	0	1	COMMON
+Moghi	Moghi	Moghi	7	380	380	14	90	10	200	0	20	50	0	-100	0	{'Rumble Strike': 25, 'Crush': 25}	{'Boulderwort': 20}	140	0	1	0	None	0	1	COMMON
 Divelk	Divelk	Divelk	7	180	180	26	999	0.1	200	0	0	25	25	25	0	{'Mudslide': 30, 'Healing Glow': 15}	{'Yew Wand': 1}	150	30	1	0	None	0	1	COMMON
 Giant Seal2	Frostflipper the Fierce	Giant Seal2	7	3000	3000	34	90	10	200	0	20	0	50	-100	0	{'Icicles': 20}	{}	1400	0	1	0	Important Battle	0	1	RARE
 Skeleton Soldier	Skeleton Soldier	Skeleton Soldier	8	280	280	34	60	8	200	8	45	25	0	-100	0	{'Deep Thrust': 8, 'Defend': 8}	{'Lancet': 4, 'Tower Shield': 2, 'Iron Hauberk': 3}	190	40	1	0	None	0	0	COMMON
@@ -59,7 +59,7 @@ Rogue Guard	Rogue Guard	Border Guard	14	1000	1000	45	90	2	200	5	80	0	0	0	0	{'Rum
 Warlock	Warlock	Warlock	14	1000	1000	22	999	0.1	200	0	40	25	25	25	0	{'Soul Drain': 5, 'Fireball': 25, 'Mudslide': 25, 'Icicles': 25, 'Poison Cloud': 5, 'Quicksand': 15}	{'Gilded Robe': 5}	500	80	1	0	None	0	1	COMMON
 Pot Apparition	Pot Apparition	Pot Apparition	14	1999	2000	20	90	33	200	0	0	50	-100	50	0	{'Reckless Rack': 2}	{}	500	0	1	0	Important Battle	0	0	RARE
 Drone Bee	Drone Bee	Drone Bee	14	60	60	40	90	10	200	0	0	25	100	-100	99	{'Sting': 5}	{'Syvre Leaf': 5}	500	0	1	0	None	0	1	COMMON
-Mirage	Mirage	Mirage	15	10	10	0	100	0	200	0	0	0	0	0	0	{'Drain': 25}	{}	0	0	1	0	None	0	0	COMMON
+Mirage	Mirage	Mirage	15	10	10	0	100	0	200	0	0	0	0	0	0	{'Drain': 25}	{'Prickly Pear': 20}	0	0	1	0	None	0	0	COMMON
 White Knight	White Knight	White Knight	15	1000	1000	45	90	10	300	0	85	10	10	10	25	{'Deep Thrust': 10}	{'Steel Cuirass': 4}	530	100	1	0	None	0	1	COMMON
 Gold Golem	Gold Golem	Gold Golem	15	1500	1500	22	90	10	200	7	150	0	0	0	50	{'Rumble Strike': 10, 'Duststorm': 5, 'Quicksand': 10}	{'Gold Ore': 3}	550	0	1	0	None	0	0	COMMON
 Black Knight	Black Knight	Black Knight	16	1500	1500	45	90	2	200	7	85	0	0	0	0	{'Carnivorous Blow': 20, 'Charge': 10}	{'Force Gauntlets': 4}	580	50	1	0	None	0	1	COMMON
@@ -254,3 +254,4 @@ Tortoise Beetle	Tortoise Beetle	Tortoise Beetle	13	1500	1500	35	90	10	200	6	25	0
 Chelonian Coleopteran	Chelonian Coleopteran	Chelonian Coleopteran	26	4500	4500	70	90	10	200	6	150	50	50	50	50	{'Scarab Stab': 15, 'Mudslide': 12, 'Avalanche': 6}	{'Shell Shield': 7, 'Garnet Fragment': 1, 'Jade Crystal': 1, 'Aquamarine Shard': 1}	1200	0	1	0	None	0	1	COMMON
 Gold Minotaur	Gold Minotaur	Minotaur Gold	110	2000000	2000000	100	70	10	200	1	1800	75	25	-75	35	{'Charge': 12, 'Aggression': 15, 'Sunder': 4, 'Home In': 10, 'Golden Fur': 1, 'Rage': 1, 'Intimidate': 1, 'Avalanche': 3, 'Defend': 10, 'Diamond Cutter': 5, 'Battery Cage': 3}	{'Golden Horn': 100}	1000000	0	0	10000	Minotaur Battle	0	1	RARE
 Green Minotaur	Green Minotaur	Minotaur Green	110	2000000	2000000	120	70	10	200	1	1500	100	75	50	25	{'Charge': 12, 'Lock Eyes': 4, 'Nimble Feet': 2, 'Wind Up': 3, 'Hide': 3, 'Soul Drain': 4, 'Healing Ray': 10, 'Soul Siphon': 1, 'Bolt': 8, 'Derecho': 2}	{'Green Horn': 100}	1000000	0	0	10000	Minotaur Battle	0	1	RARE
+Winter Babuni	Winter Babuni	Winter Babuni	22	1000	1000	30	70	5	400	0	30	80	95	-50	75	{'Cower': 30, 'Sunder': 12, 'Wind Up': 3}	{'Snowdrops': 20}	900	102	1	0	None	0	1	COMMON

@@ -3,7 +3,7 @@
 File: TUAGalijula.py
 Author: Ben Gardner
 Created: April 22, 2016
-Revised: June 11, 2023
+Revised: August 15, 2023
 """
 
 
@@ -74,9 +74,10 @@ class Galijula:
             [None, None, None, None, None, None, None, None]
             ]
         
-        e = {'Horn Dog': 20,
-             'Horn Beast': 10,
-             'Rockbear': 10}
+        e = {'Horn Dog': 16,
+             'Horn Beast': 8,
+             'Rockbear': 8,
+             'Winter Babuni': 8}
         e2 = {'Horn Beast': 20,
               'Rockbear': 10,
               'Frost Dragon': 10}
