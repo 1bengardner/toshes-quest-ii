@@ -9,7 +9,7 @@ Blood Carp	Blood Carp	Blood Carp	2	60	60	4	90	10	200	0	0	0	50	0	0	{'Bite': 20}	{
 Goblin	Goblin	Goblin	2	65	65	4	80	10	200	0	2	0	0	0	0	{}	{'Cudgel': 7}	15	5	1	0	None	0	1	COMMON
 Romadan Man	Romadan Man	Romadan Man	2	100	100	5	90	10	200	0	1	0	0	0	0	{'Fling Dung': 8}	{'Wool Gambeson': 8}	20	5	1	0	None	0	1	COMMON
 Kotor Crab	Kotor Crab	Kotor Crab	3	50	50	8	90	10	200	0	6	0	50	0	0	{}	{}	30	0	1	0	None	0	1	COMMON
-Romadan Warrior	Romadan Warrior	Romadan Warrior	3	100	100	11	90	4	200	0	2	0	0	0	0	{'Deep Thrust': 10}	{'Wool Doublet': 8, 'Long Sword': 3}	40	10	1	0	None	0	1	COMMON
+Romadan Warrior	Romadan Warrior	Romadan Warrior	3	100	100	11	90	4	200	0	2	0	0	0	0	{'Deep Thrust': 10}	{'Wool Doublet': 8, 'Buckler': 4, 'Long Sword': 3}	40	10	1	0	None	0	1	COMMON
 Entling	Entling	Entling	3	120	120	7	90	10	200	5	4	50	75	-100	0	{'Thorns': 15, 'Poison Ivy': 2}	{}	45	5	1	0	None	0	0	COMMON
 Lina1	Lina	Lina1	4	50	50	10	90	10	200	0	0	50	50	50	80	{'Bite': 75, 'Charge': 25}	{'Cassock': 25, 'Wool Gambeson': 20, 'Wool Doublet': 15, 'Leather Gambeson': 10, 'Leather Doublet': 8, 'Canvas Gambeson': 6, 'Canvas Doublet': 4, 'Magerobe': 2, 'Velvet Doublet': 1}	50	0	1	5	Important Battle	0	1	COMMON
 Lina2	Lina	Lina2	4	50	50	5	90	10	200	0	0	50	50	50	80	{'Quicksand': 45, 'Smoulder': 45, 'Bite': 10}	{'Cassock': 27, 'Wool Gambeson': 22, 'Wool Doublet': 17, 'Leather Gambeson': 11, 'Leather Doublet': 9, 'Canvas Gambeson': 7, 'Canvas Doublet': 4, 'Magerobe': 2, 'Velvet Doublet': 1}	50	0	1	5	Important Battle	0	1	COMMON
