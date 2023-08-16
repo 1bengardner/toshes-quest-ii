@@ -57,3 +57,5 @@ Hopalong Boots	1225	Water	1	12	25
 Debonairiest Nowell Gambeson	1225	Water	0	0	35
 Dark Mail	7000	Elemental	35	20	25
 Festive Tunic	1225	Elemental	25	12	25
+Brittle Cuirass	1031	Physical	55	31	-10
+Night Cloak	1031	Physical	13	6	10

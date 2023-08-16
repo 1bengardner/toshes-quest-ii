@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: July 23, 2023
+Revised: August 15, 2023
 """
 
 
@@ -577,6 +577,11 @@ class Main:
 
         def getHolidayActions():
             interfaceActions = {}
+            isHalloweenSeason = (
+                date.today().month == 10 and
+                date.today().day > 24 or
+                date.today().month == 11 and
+                date.today().day < 4)
             isChristmasSeason = (
                 date.today().month == 12 and
                 date.today().day > 10 or
@@ -585,9 +590,39 @@ class Main:
             year = date.today().year
             if date.today().month == 1:
                 year -= 1
-            if ( isChristmasSeason and
+            if ( isHalloweenSeason and
                  self.character.hasRoom() and
-                 "Christmas %i" % year not in self.character.flags):
+                 "Halloween %i" % year not in self.character.flags):
+                differentItems = 5
+                rewardText = "Happy Halloween!"
+                roll = (year + hash(self.fileName.lower())) % differentItems
+                if roll == 0:
+                    itemText = "A phantasm throws you an Aluminum Bat before vanishing in a puff of smoke."
+                    item = "Aluminum Bat"
+                elif roll == 1:
+                    itemText = "A phantasm thrusts a Brittle Cuirass upon you before vanishing in a puff of smoke."
+                    item = "Brittle Cuirass"
+                elif roll == 2:
+                    itemText = "A phantasm offers you a Pumpkin Crossbow before vanishing in a puff of smoke."
+                    item = "Pumpkin Crossbow"
+                elif roll == 3:
+                    itemText = "A phantasm rests a Night Cloak over your shoulder before vanishing in a puff of smoke."
+                    item = "Night Cloak"
+                elif roll == 4:
+                    itemText = "A phantasm stuffs a Witch's Wand in your pack before vanishing in a puff of smoke."
+                    item = "Witch's Wand"
+                self.character.flags["Halloween %i" % year] = True
+                interfaceActions.update({
+                    'text': itemText,
+                    'italic text': rewardText,
+                    'item': item,
+                    'flash': True,
+                    'halloween': True,})
+                self.sound.playSound(self.sound.sounds['Halloween'])
+                self.collectItem(interfaceActions)
+            elif (isChristmasSeason and
+                  self.character.hasRoom() and
+                  "Christmas %i" % year not in self.character.flags):
                 differentItems = 5
                 rewardText = "Thank you for playing during this holiday season!"
                 roll = (year + hash(self.fileName.lower())) % differentItems
@@ -606,12 +641,12 @@ class Main:
                 elif roll == 4:
                     itemText = "The King of Elves appears and presents you with a Festive Tunic."
                     item = "Festive Tunic"
+                self.character.flags["Christmas %i" % year] = True
                 interfaceActions.update({
                     'text': itemText,
                     'italic text': rewardText,
                     'item': item})
                 self.collectItem(interfaceActions)
-                self.character.flags["Christmas %i" % year] = True
             return interfaceActions
 
         interfaceActions = getDailyChallenge()

@@ -66,3 +66,6 @@ Jellybrand	4000	Lightning	75	50	Strength	Sword	5	250
 Infernotongue	6000	Fire	70	65	Strength	Sword	20	200
 Bow of Zeus	9000	Lightning	150	50	Dexterity	Bow	6	250
 Wand of Hecate	9000	Physical	170	90	Wisdom	Wand	5	250
+Aluminum Bat	1031	Physical	10	31	Strength	Bludgeon	10	200
+Pumpkin Crossbow	1031	Earth	10	31	Dexterity	Bow	3.1	310
+Witch's Wand	1031	Frostfire	10	31	Wisdom	Wand	0.1	200

@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 14, 2023
+Revised: August 15, 2023
 """
 
 
@@ -107,6 +107,7 @@ class Sound:
                        "Bloody Up": "FX-Haunt",
                        "New Mercenary": "FX-Gracious",
                        "Encounter": "FX-Encounter",
+                       "Halloween": "FX-Spooky",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)

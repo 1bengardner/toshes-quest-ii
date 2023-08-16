@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 13, 2023
+Revised: August 15, 2023
 """
 
 
@@ -1119,20 +1119,6 @@ class TopCenterFrame:
 
         window.topFrame.topLeftFrame.expandInventory(
             True if "Chasmic Rucksack" in main.character.flags else False)
-
-        interfaceActions = main.getInterfaceActions(justFought=True)
-        eventActions = main.getLoginEvents()
-        if eventActions is not None:
-            interfaceActions.update(eventActions)
-            stateChanged = True
-        updateInterface(interfaceActions, True)
-        window.rightFrame.clearMissions()
-        for quest in main.character.quests:
-            window.rightFrame.addMission(quest, pushToTop=False)
-            if quest.isCompletedBy(main.character):
-                window.rightFrame.markMission(quest)
-        
-        self.updateMap()
         
         window.topFrame.topLeftFrame.tosheLabel['image'] = portraitImages[main.character.portrait.replace(".", "")]
         if main.character.specialization is not None:
@@ -1153,6 +1139,20 @@ class TopCenterFrame:
             window.topFrame.topRightFrame.eurosLabel['bg'] = ENIGMATIC_COLOR
             window.topFrame.topRightFrame.eurosLabel['relief'] = GROOVE
             window.topFrame.topRightFrame.eurosLabel.grid(sticky=EW)
+
+        interfaceActions = main.getInterfaceActions(justFought=True)
+        eventActions = main.getLoginEvents()
+        if eventActions is not None:
+            interfaceActions.update(eventActions)
+            stateChanged = True
+        updateInterface(interfaceActions, True)
+        window.rightFrame.clearMissions()
+        for quest in main.character.quests:
+            window.rightFrame.addMission(quest, pushToTop=False)
+            if quest.isCompletedBy(main.character):
+                window.rightFrame.markMission(quest)
+        
+        self.updateMap()
 
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
         self.areaButton['command'] = self.saveFile
@@ -2695,7 +2695,10 @@ def updateInterface(updates, skipQuests=False):
         lastImage = topCenterFrame.areaButton['image']
         topCenterFrame.areaButton['state'] = NORMAL
         topCenterFrame.areaButton['command'] = None
-        topCenterFrame.areaButton['image'] = battleImage
+        if "halloween" in updates:
+            topCenterFrame.areaButton['image'] = phantasmImage            
+        else:
+            topCenterFrame.areaButton['image'] = battleImage
         flash(not areaButtonVisible)
         topCenterFrame.areaButton['image'] = lastImage
         topCenterFrame.areaButton['command'] = lastCommand
@@ -3483,6 +3486,7 @@ anvilImage = PhotoImage(file="images/other/anvil.gif")
 crucibleImage = PhotoImage(file="images/other/crucible.gif")
 
 battleImage = PhotoImage(file="images/other/battle.gif")
+phantasmImage = PhotoImage(file="images/other/phantasm.gif")
 
 xpBars = []
 hpBars = []
