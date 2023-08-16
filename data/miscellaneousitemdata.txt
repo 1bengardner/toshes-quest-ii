@@ -38,3 +38,6 @@ Wizardly Orb	0	Bestows 3% elemental damage reduction.
 Knightly Orb	0	Bestows 3% block chance.
 Feline Orb	0	Bestows 3% physical damage reduction.
 Gumball of Power	0	Bestows +3 to all stats.
+Boulderwort	100	Protects against grounding.*Crumbles after 200 steps.
+Prickly Pear	100	Protects against burning.*Dries up after 200 steps.
+Snowdrops	100	Protects against freezing.*Wilts after 200 steps.
