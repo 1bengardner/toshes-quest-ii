@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: August 14, 2023
+Revised: August 16, 2023
 """
 
 
@@ -646,8 +646,8 @@ class Battle(object):
             # Add potential status ailments along with corresponding text
             if ( damage is not None and int(damage) > 0 or
                  skill.CATEGORY == "Miscellaneous") and not (miss or blocked):
-                if skill.ELEMENT == "Earth" and ("Grounded" not in
-                                                 defenderFlags):
+                if not (defender == self.mainCharacter and defender.hasItem("Boulderwort")) and (
+                     skill.ELEMENT == "Earth" and ("Grounded" not in defenderFlags)):
                     if self.roll() <= 30:
                         self.text += defender.NAME+" was grounded!\n"
                         defenderFlags.add("Grounded")
@@ -709,10 +709,11 @@ class Battle(object):
                                 "Kind": "Drowned",
                                 "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
-                elif skill.ELEMENT == "Freezing" or (
-                     (skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
+                elif not (defender == self.mainCharacter and defender.hasItem("Snowdrops")) and (
+                     skill.ELEMENT == "Freezing" or (
+                      (skill.ELEMENT == "Ice" or skill.ELEMENT == "Frostfire")
                       and ("Frozen" not in defenderFlags)
-                      and self.roll() <= 15):
+                      and self.roll() <= 15)):
                         self.text += defender.NAME+" was frozen!\n"
                         defenderFlags.add("Frozen")
                         defenderFlags.discard("Burning")
@@ -756,8 +757,9 @@ class Battle(object):
                             "Kind": "Sundered",
                             "Skill": False if skill.NAME in basicSkills else True,
                             "Aux": attacker in self.auxiliaryCharacters,})
-                elif ((skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
-                      and ("Burning" not in defenderFlags)):
+                elif not (defender == self.mainCharacter and defender.hasItem("Prickly Pear")) and (
+                     skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
+                     and ("Burning" not in defenderFlags)):
                     if self.roll() <= 25:
                         self.text += defender.NAME+" caught on fire!\n"
                         defenderFlags.add("Burning")

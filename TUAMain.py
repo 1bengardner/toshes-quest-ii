@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 15, 2023
+Revised: August 17, 2023
 """
 
 
@@ -512,6 +512,25 @@ class Main:
                 self.allQuests.append(Quest(title, description,
                  completionCriteria, startFlag, endFlag, optional, repeatable))
 
+    def stepPlants(self):
+        wiltText = None
+        plantsExpiryVerbs = {
+            "Boulderwort": "crumbled",
+            "Snowdrops": "wilted",
+            "Prickly Pear": "dried up"
+        }
+        for i, item in enumerate(self.character.items):
+            if item.NAME in plantsExpiryVerbs:
+                if hasattr(item, "steps"):
+                    item.steps += 1
+                else:
+                    item.steps = 0
+                if item.steps >= 200:
+                    self.character.removeItem(i)
+                    wiltText += "\nYour %s has %s." % (
+                        item.NAME, plantsExpiryVerbs[item.NAME])
+        return wiltText.strip()
+
     def move(self, direction):
         """Move character in the specified direction in the area.
 
@@ -528,6 +547,9 @@ class Main:
         self.character.ep += self.character.maxEp / 100
         self.currentArea.movementActions()
         self.addFlags()
+        wiltText = self.stepPlants()
+        if wiltText:
+            return self.getInterfaceActions(extras={'text': wiltText})
         return self.getInterfaceActions()
 
     def select(self, selectionIndex):
@@ -654,7 +676,7 @@ class Main:
         interfaceActions.update(getHolidayActions())
         return interfaceActions if interfaceActions else None
         
-    def getInterfaceActions(self, selectionIndex=None, justFought=False):
+    def getInterfaceActions(self, selectionIndex=None, justFought=False, extras=None):
         """Retrieve the interface actions from the current spot.
 
         The spot is updated, then a check for an enemy encounter is made.
@@ -958,6 +980,9 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         self.view = interfaceActions['view']
 
         self.updateMusic(interfaceActions['view'])
+
+        if extras:
+            interfaceActions.update(extras)
 
         return interfaceActions
 
