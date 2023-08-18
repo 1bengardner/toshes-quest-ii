@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 15, 2023
+Revised: August 18, 2023
 """
 
 
@@ -109,6 +109,7 @@ class Sound:
                        "Encounter": "FX-Encounter",
                        "Halloween": "FX-Spooky",
                        "Christmas": "FX-Winter",
+                       "Unlock Area": "FX-Gracious",
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)

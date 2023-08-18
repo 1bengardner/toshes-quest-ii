@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: June 12, 2023
+Revised: August 18, 2023
 """
 
 
@@ -303,7 +303,8 @@ class AdriaticSea:
             X = 4
             Y = 17
             return self.actions({'area': "Adriatic Sea",
-                                 'coordinates': (X, Y)})
+                                 'coordinates': (X, Y),
+                                 'sound': "Unlock Area"})
         elif "Melted Ice" not in self.c.flags:
             self.c.flags['Aldreed Entrance Found'] = True
             self.text = ("There is a large passage in the sediment. The opening " +

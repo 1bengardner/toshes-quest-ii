@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 17, 2023
+Revised: August 18, 2023
 """
 
 
@@ -722,6 +722,9 @@ class Main:
 
         self.collectItem(interfaceActions)
 
+        if 'sound' in interfaceActions:
+            self.sound.playSound(self.sound.sounds[interfaceActions['sound']])
+
         if ('skill' in interfaceActions and
             interfaceActions['skill'] in
             [skill.NAME for skill in self.character.skills]):
@@ -969,9 +972,6 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         uncompletedQuests = self.checkForUnreadyQuests(self.character.quests, self.character)
         if uncompletedQuests:
             interfaceActions['uncompleted quests'] = uncompletedQuests
-
-        if 'sound' in interfaceActions:
-            self.sound.playSound(self.sound.sounds[interfaceActions['sound']])
 
         if self.updateUnlocks():
             interfaceActions['italic text'] = "You have unlocked a secret character!"

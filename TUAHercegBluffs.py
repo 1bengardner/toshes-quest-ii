@@ -2,7 +2,7 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: June 4, 2023
+Revised: August 18, 2023
 """
 
 
@@ -367,7 +367,6 @@ class HercegBluffs:
                          " the power of your magical energy.")
             if self.c.hasMercenary("Barrie"):
                 self.text += ("\nBarrie: Time to explore.")
-            self.c.flags['Moved Boulders Aftermath'] = True
         elif "Climbing Up" in self.c.flags:
             self.c.flags['Golem Cavern Complete'] = True
             del self.c.flags['Climbing Up']
@@ -388,6 +387,10 @@ class HercegBluffs:
             self.menu = ["Enter the cave."]
             if self.c.hasItem("Olympian Ointment"):
                 self.menu.append("Apply Olympian Ointment.")
+
+        if "Moved Boulders" in self.c.flags and "Moved Boulders Aftermath" not in self.c.flags:
+            self.c.flags['Moved Boulders Aftermath'] = True
+            return self.actions({'sound': "Unlock Area"})
 
         return self.actions()
 
