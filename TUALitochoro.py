@@ -2,7 +2,7 @@
 File: TUALitochoro.py
 Author: Ben Gardner
 Created: April 23, 2023
-Revised: June 17, 2023
+Revised: August 18, 2023
 """
 
 
@@ -162,7 +162,7 @@ class Litochoro:
                 ]
                 if npc+" Quest 1" not in self.c.flags:
                     self.c.flags['Ready for Mount Olympus'] = True
-                    self.text += (" Are you enjoying all the nice weather we're having? Well, I have a lovely soup I like to make from time to time. It has the flesh of Olympian beasts in it. Could you be a dear and fetch me a pile of mythical meat? Thank you so much, sweetheart.")
+                    self.text += (" Are you enjoying all the nice weather we're having? Well, I have a lovely soup I like to make from time to time. It has the flesh of Olympian beasts in it. Could you be a dear and fetch me a pile of mythical meat? Please. Thank you so much.")
                     self.c.flags[npc+' Quest 1'] = 0
                     for creature in mythicalCreatures:
                         if creature in self.c.flags['Kills']:
@@ -174,7 +174,7 @@ class Litochoro:
                         if creature in self.c.flags['Kills']:
                             kills += self.c.flags['Kills'][creature]
                     if kills >= self.c.flags[npc+' Quest 1'] + 10:
-                        self.text += (" Oh! This is just lovely. I would like you to have this."+
+                        self.text += (" Yes, please! This is just lovely. I would like you to have this."+
                                       "\n%s gives you a Scintillous Ring!" % npc)
                         moreActions = {'item': "Scintillous Ring"}
                         self.c.flags[npc+' Quest 1 Complete'] = True
@@ -182,7 +182,7 @@ class Litochoro:
                         self.text += (" How goes the hunt?")
                 elif (npc+" Quest 1 Complete" in self.c.flags and
                       npc+" Quest 2" not in self.c.flags):
-                    self.text += (" Oh, I wanted to tell you something. I still have my grandmother's famous sauce recipe. Now, guess what's inside? That's right, Skolopendra skin! That means you get to find me some!")
+                    self.text += (" Please, I wanted to tell you something. I still have my grandmother's famous sauce recipe. Now, guess what's inside? That's right, Skolopendra skin! That means you get to find me some!")
                     if "Skolopendra" in self.c.flags['Kills']:
                         self.c.flags[npc+' Quest 2'] = \
                                            self.c.flags['Kills']['Skolopendra']
@@ -192,7 +192,7 @@ class Litochoro:
                       npc+" Quest 2" in self.c.flags and
                       "Skolopendra" in self.c.flags['Kills'] and
                       self.c.flags['Kills']['Skolopendra'] >= self.c.flags[npc+' Quest 2'] + 3):
-                    self.text += (" Wonderful! Just one moment...here, taste!"+
+                    self.text += (" Wonderful! Just one moment...here, please!"+
                                   "\n%s gives you a taste of the thick sauce." % npc+
                                   "\nYou gain 10 stat points!")
                     self.c.statPoints += 10
@@ -244,7 +244,7 @@ class Litochoro:
                     self.text += "\n%s: %s, did you forget? You almost got us lost down there, you crazy fool!" % ("Barrie", self.c.NAME)
             elif "Mount Olympus Complete" in self.c.flags and "Ready for Labyrinth" not in self.c.flags:
                 self.c.flags['Ready for Labyrinth'] = True
-                self.text = (npc+": Ah, %s! Are you up for a challenge? Deep below Litochoro is a big labyrinth. Somewhere inside, there lives a minotaur, ready to swallow men. In fact, there are two minotaurs, rumour has it. Their horns are prized for their potency in blacksmithing. Now, these bull-men are tough, but I think they would be no match for the likes of you!" % self.c.NAME)
+                self.text = (npc+": Please, %s! Are you up for a challenge? Deep below Litochoro is a big labyrinth. Somewhere inside, there lives a minotaur, ready to swallow men. In fact, there are two minotaurs, rumour has it. Their horns are prized for their potency in blacksmithing. Now, these bull-men are tough, but I think they would be no match for the likes of you!" % self.c.NAME)
             elif "Rested" in self.c.flags:
                 self.text = ("You fall asleep."+
                              "\nWhen you wake up, you return to the front "+
@@ -262,11 +262,11 @@ class Litochoro:
             else:
                 self.text = (npc+": "+
                              random.choice([
-                                 "My dear! May I make you a cup of tea?",
+                                 "Yes, please! May I make you a cup of tea?",
                                  "We have a visitor!",
                                  "Please watch your step. I just mopped the floor.",
                                  "Long time, no see!",
-                                 "Stay as long as you like."
+                                 "Please stay as long as you like."
                                  ])
                              )
 
