@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: June 11, 2023
+Revised: August 18, 2023
 """
 
 import random
@@ -426,7 +426,7 @@ class YaouwVolcano:
             self.text += "\nYou leap into the volcano, landing on a pile of rubble and ash. A large draft cushions your fall."
             self.text += "\n%s: I got lucky." % self.c.NAME
             self.c.flags['Lava Jump'] = True
-        elif self.c.hasMercenary("Barrie") and self.roll() > 70:
+        elif self.c.hasMercenary("Barrie") and self.roll() > 85:
             self.text = ("%s: This place is real warm!" % "Barrie")
         self.text = self.text.strip()
         if self.text == "":
@@ -533,6 +533,10 @@ class YaouwVolcano:
                     "Bloody heck, I'm parched!",
                     "You red-dy for some Transylvanian transfusion?...Nah, didn't like that one.",
                 ])
+                if self.c.strength >= self.c.dexterity and self.c.strength >= self.c.wisdom:
+                    self.text += " If you go and learn Carnivorous Blow, you can come back and we'll do some skill fusion!"
+                elif self.c.dexterity >= self.c.strength and self.c.dexterity >= self.c.wisdom:
+                    self.text += " Come to me when you know Sap Shot and we can morph it up!"
 
             populateFusionsMenu()
 
