@@ -876,14 +876,14 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                         randomDialogue = random.choice([
                             "My wounds are too great to engage.",
                             "I must rest before I continue.",
-                            "I cannot fight. I have sustained an injury.",
+                            "I am not fit to fight. I have sustained an injury.",
                         ])
                         interfaceActions['text'] += "\n%s: %s" % (mercenary.NAME, randomDialogue)
                     elif mercenary.NAME == "Barrie":
                         randomDialogue = random.choice([
-                            "Yow. No more battles for me until I've healed.",
+                            "No more battles until I've had a good sleep.",
                             "Sorry, I'm gonna have to sit this one out.",
-                            "Nothing strenuous until I've had a good sleep.",
+                            "Go on without me. I'm not in fighting form.",
                         ])
                         interfaceActions['text'] += "\n%s: %s" % (mercenary.NAME, randomDialogue)
                     else:
