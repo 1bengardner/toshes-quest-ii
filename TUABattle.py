@@ -758,7 +758,7 @@ class Battle(object):
                             "Skill": False if skill.NAME in basicSkills else True,
                             "Aux": attacker in self.auxiliaryCharacters,})
                 elif not (defender == self.mainCharacter and defender.hasItem("Prickly Pear")) and (
-                     skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
+                     (skill.ELEMENT == "Fire" or skill.ELEMENT == "Frostfire")
                      and ("Burning" not in defenderFlags)):
                     if self.roll() <= 25:
                         self.text += defender.NAME+" caught on fire!\n"
