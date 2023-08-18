@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: June 11, 2023
+Revised: August 17, 2023
 """
 
 
@@ -395,7 +395,7 @@ class AlbanianDesert:
             self.text = ("\nYou spot a hidden passage up into the dune "+
                          "that appears to be accessible.")
             self.menu = ["Enter the dune."]
-        else:
+        elif "Oukkar" in self.c.flags['Kills']:
             self.text = ("\nYou spot a passage up into the dune "+
                          "that looks like it may be accessible, were you more "+
                          "dextrous.")
