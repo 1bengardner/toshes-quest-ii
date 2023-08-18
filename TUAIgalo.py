@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: June 11, 2023
+Revised: August 18, 2023
 """
 
 
@@ -183,7 +183,7 @@ class Igalo:
              'Identifiers': ["Giant Seal1", "Giant Shark1", "Giant Salamander1",
                              "Giant Scorpion1", "Giant Scarab1"],
              'Description': ("The various giant animals roaming across Europe" +
-                             " are a central topic of monstology. Legend says" +
+                             " are a central topic of monsterology. Legend says" +
                              " that these beasts have a sacred power that" +
                              " can be unleashed and absorbed into the body" +
                              " through the blood of their fallen leader." +
