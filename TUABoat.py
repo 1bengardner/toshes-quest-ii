@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: June 17, 2023
+Revised: August 18, 2023
 """
 
 
@@ -209,6 +209,11 @@ class Boat:
         self.menu = []
         if 'Boat Rests' not in self.c.flags:
             self.c.flags['Boat Rests'] = 2
+        if self.c.flags['Boat Rests'] > 0:
+            self.menu = ["Protect the boat.", "Rest."]
+        else:
+            self.menu = ["Protect the boat."]
+
         if 'Boat Hours' not in self.c.flags:
             self.c.flags['Boat Hours'] = 10
         elif self.c.flags['Boat Hours'] <= 5:
@@ -236,6 +241,9 @@ class Boat:
                 self.c.flags['Boat Rests'] -= 1
                 self.text = ("You rest for a while, feeling refreshed "+
                              "afterwards.")
+                if self.c.flags['Boat Rests'] == 0:
+                    self.menu = ["Protect the boat."]
+                return self.actions({'sound': "Sleep"})
             else:
                 if self.c.flags['Boat Hours'] == 1:
                     self.text = ("Bert: "+str(self.c.flags['Boat Hours'])+
@@ -250,8 +258,4 @@ class Boat:
                 else:
                     self.text = ("Bert: "+str(self.c.flags['Boat Hours'])+
                              " hours 'til we're there!")
-        if self.c.flags['Boat Rests'] > 0:
-            self.menu = ["Protect the boat.", "Rest."]
-        else:
-            self.menu = ["Protect the boat."]
         return self.actions()

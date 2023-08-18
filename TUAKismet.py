@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: June 17, 2023
+Revised: August 18, 2023
 """
 
 from random import choice
@@ -382,11 +382,13 @@ class Kismet:
         self.imageIndex = 7
         self.text = None
         self.helpText = None
-        self.menu = []
+        self.menu = ["Nap.",
+                     "Leave your room."]
         if selectionIndex == 0:
             self.c.hp = self.c.maxHp
             self.text = "You take a quick nap."
             self.c.flags['Kismet Nap'] = True
+            return self.actions({'sound': "Sleep"})
         elif selectionIndex == 1:
             X = 4
             Y = 1
@@ -394,8 +396,6 @@ class Kismet:
                                          'coordinates': (X, Y)})
         else:
             self.text = "%s: Sweet room." % self.c.NAME
-        self.menu = ["Nap.",
-                     "Leave your room."]
         return self.actions()
 
     def aboveFoodBar(self, selectionIndex=None):
