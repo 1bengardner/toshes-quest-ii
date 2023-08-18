@@ -513,7 +513,7 @@ class Main:
                  completionCriteria, startFlag, endFlag, optional, repeatable))
 
     def stepPlants(self):
-        wiltText = None
+        wiltText = ""
         plantsExpiryVerbs = {
             "Boulderwort": "crumbled",
             "Snowdrops": "wilted",
