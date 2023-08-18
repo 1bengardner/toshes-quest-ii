@@ -166,9 +166,9 @@ Greek Fighter	Greek Fighter	Greek Fighter	27	7000	7000	65	80	10	200	0	180	0	0	0	
 Greek Gladiator	Greek Gladiator	Albanian Gladiator	28	8000	8000	60	90	4	200	5	150	0	0	0	0	{'Deep Thrust': 30, 'Rumble Strike': 40, 'Reckless Rack': 3, 'Helix Swing': 20}	{}	1400	0	0	100	Coliseum Battle	0	1	COMMON
 Greek Knight	Greek Knight	Greek Knight	28	9000	9000	65	90	2	200	2	200	0	0	0	10	{'Defend': 20, 'Deep Thrust': 10, 'Steadfast Slash': 10, 'Helix Swing': 10}	{}	1400	0	0	100	Coliseum Battle	0	1	COMMON
 The Bladedriver	The Bladedriver	The Bladedriver	33	55000	55000	70	90	4	200	10	400	66	66	66	10	{'Bladedriver\'s Barbarity': 5, 'Steadfast Slash': 5, 'Deep Thrust': 5, 'Scarab Slice': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
-The Gashmaster	The Gashmaster	The Gashmaster	33	40000	40000	80	70	6	200	0	200	33	100	33	10	{'Gashmaster\'s Grace': 5, 'Shield Breaker': 20, 'Diamond Cutter': 20, 'Seal Sever': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
-The Impaler	The Impaler	The Impaler	33	60000	60000	75	60	8	200	3	500	33	33	100	10	{'Impaler\'s Impulse': 5, 'Expunging Lunge': 5, 'Deep Thrust': 25, 'Salamander Stab': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
-The Pummeler	The Pummeler	The Pummeler	33	45000	45000	90	80	10	200	0	300	100	33	33	10	{'Pummeler\'s Precision': 5, 'Bloodrush Crush': 10, 'Helix Swing': 10, 'Shark Smash': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
+The Gashmaster	The Gashmaster	The Gashmaster	33	40000	40000	80	70	6	200	0	200	33	100	33	10	{'Gashmaster\'s Grace': 5, 'Shield Breaker': 15, 'Diamond Cutter': 15, 'Seal Sever': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
+The Impaler	The Impaler	The Impaler	33	60000	60000	75	60	8	200	3	500	33	33	100	10	{'Impaler\'s Impulse': 5, 'Expunging Lunge': 5, 'Deep Thrust': 20, 'Salamander Stab': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
+The Pummeler	The Pummeler	The Pummeler	33	45000	45000	85	80	10	200	0	300	100	33	33	10	{'Pummeler\'s Precision': 5, 'Bloodrush Crush': 10, 'Helix Swing': 10, 'Shark Smash': 10}	{}	20000	0	0	100	Canonical Battle	0	1	LEGENDARY
 Vampire Bat Unfleeable	Vampire Bat	Vampire Bat	4	70	70	19	90	10	200	0	0	0	0	0	0	{'Bite': 50}	{}	55	0	0	0	Mob Battle	0	1	COMMON
 Goblin Unfleeable	Goblin	Goblin	2	65	65	4	80	10	200	0	2	0	0	0	0	{}	{'Cudgel': 7}	15	5	0	0	Mob Battle	0	1	COMMON
 Orc Unfleeable	Orc	Orc	6	210	210	20	70	6	200	0	18	0	0	0	0	{'Rumble Strike': 5, 'Helix Swing': 10, 'Shield Breaker': 3}	{'Great Axe': 5, 'Bone Vest': 5}	110	30	0	0	Mob Battle	0	1	COMMON
