@@ -520,7 +520,7 @@ class Main:
             "Prickly Pear": "dried up"
         }
         for i, item in enumerate(self.character.items):
-            if item.NAME in plantsExpiryVerbs:
+            if item is not None and item.NAME in plantsExpiryVerbs:
                 if hasattr(item, "steps"):
                     item.steps += 1
                 else:
@@ -529,7 +529,7 @@ class Main:
                     self.character.removeItem(i)
                     wiltText += "\nYour %s has %s." % (
                         item.NAME, plantsExpiryVerbs[item.NAME])
-        return wiltText.strip()
+        return wiltText.strip() if wiltText else None
 
     def move(self, direction):
         """Move character in the specified direction in the area.
@@ -549,7 +549,7 @@ class Main:
         self.addFlags()
         wiltText = self.stepPlants()
         if wiltText:
-            return self.getInterfaceActions(extras={'text': wiltText})
+            return self.getInterfaceActions(extraText=wiltText)
         return self.getInterfaceActions()
 
     def select(self, selectionIndex):
@@ -676,7 +676,7 @@ class Main:
         interfaceActions.update(getHolidayActions())
         return interfaceActions if interfaceActions else None
         
-    def getInterfaceActions(self, selectionIndex=None, justFought=False, extras=None):
+    def getInterfaceActions(self, selectionIndex=None, justFought=False, extraText=None):
         """Retrieve the interface actions from the current spot.
 
         The spot is updated, then a check for an enemy encounter is made.
@@ -981,8 +981,11 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
         self.updateMusic(interfaceActions['view'])
 
-        if extras:
-            interfaceActions.update(extras)
+        if extraText:
+            if 'text' not in interfaceActions or not interfaceActions['text']:
+                interfaceActions['text'] = "%s" % extraText.strip()
+            else:
+                interfaceActions['text'] += "\n%s" % extraText.strip()
 
         return interfaceActions
 
