@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: June 11, 2023
+Revised: August 18, 2023
 """
 
 
@@ -244,8 +244,8 @@ class Thessaloniki:
                 self.c.flags['Macedonian Gate Opened'] = True
                 self.imageIndex = 15
                 self.text = ("You insert the key in the keyhole and" +
-                             " slowly turn the key. The gate shoots up and" +
-                             " lets out a brilliant light.")
+                             " slowly turn the key. The gate doors open and" +
+                             " let out a brilliant light.")
                 self.helpText = ("Once you enter, you will not be able" +
                                  " to come back.")
                 self.menu = ["Enter the gate."]
