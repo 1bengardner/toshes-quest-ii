@@ -2,7 +2,7 @@
 File: TUAHiddenPassage.py
 Author: Ben Gardner
 Created: July 27, 2015
-Revised: June 11, 2023
+Revised: August 19, 2023
 """
 
 
@@ -144,16 +144,17 @@ class HiddenPassage:
         self.text = None
         self.helpText = None
         self.menu = []
+        innerZenText = ("Gan: Come closer." +
+                        "\nGan pulls you toward him and covers your mouth." +
+                        "\nThings go black for a moment." +
+                        "\nGan: You are learning well, pupil.")
         if selectionIndex == 0 and "Gan Passage" not in self.c.flags:
             self.text = ("You shine your flashlight on the man." +
                          "\nGan: Hello." +
                          "\n%s: Hey! It's you again!" % self.c.NAME +
                          "\nGan: Yes. I meditate in this cave." +
                          "\n%s: Well, it's actually a wall, but--" % self.c.NAME +
-                         "\nGan: Come closer." +
-                         "\nGan pulls you toward him and covers your mouth." +
-                         "\nThings go black for a moment." +
-                         "\nGan: You are learning well, pupil.")
+                         "\n" + innerZenText)
             self.c.flags['Gan Passage'] = True
             return self.actions({'skill': "Inner Zen",
                                  'cost': 0})
@@ -191,6 +192,11 @@ class HiddenPassage:
                              " one with nature and all its beasts, small and" +
                              " large. Giant too. Specifically giant. Speak to" +
                              " me when you have done this.")
+        elif selectionIndex == 1:
+            self.text = innerZenText
+            self.menu = ["Talk to Gan."]
+            return self.actions({'skill': "Inner Zen",
+                                 'cost': 0})            
         elif "Gan Passage" not in self.c.flags:
             self.imageIndex = 9
             self.text = ("You see someone holding their chest, who" +
@@ -217,6 +223,8 @@ class HiddenPassage:
                 " survive in this evolving world.",
                 "Gan: Are you still here, %s?" % self.c.NAME])
             self.menu = ["Talk to Gan."]
+            if "Inner Zen" not in [skill.NAME for skill in self.c.skills]:
+                self.menu.append("Learn Inner Zen.")
             
         return self.actions()
 
