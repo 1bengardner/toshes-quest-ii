@@ -533,10 +533,11 @@ class YaouwVolcano:
                     "Bloody heck, I'm parched!",
                     "You red-dy for some Transylvanian transfusion?...Nah, didn't like that one.",
                 ])
-                if self.c.strength >= self.c.dexterity and self.c.strength >= self.c.wisdom:
-                    self.text += " If you go and learn Carnivorous Blow, you can come back and we'll do some skill fusion!"
-                elif self.c.dexterity >= self.c.strength and self.c.dexterity >= self.c.wisdom:
-                    self.text += " Come to me when you know Sap Shot and we can morph it up!"
+                if not any(skill.NAME in fusions for skill in self.c.skills):
+                    if self.c.strength >= self.c.dexterity and self.c.strength >= self.c.wisdom:
+                        self.text += " If you go and learn Carnivorous Blow, you can come back and we'll do some skill fusion!"
+                    elif self.c.dexterity >= self.c.strength and self.c.dexterity >= self.c.wisdom:
+                        self.text += " Come to me when you know Sap Shot and we can morph it up!"
 
             populateFusionsMenu()
 
