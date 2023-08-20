@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 19, 2023
+Revised: August 20, 2023
 """
 
 
@@ -1410,7 +1410,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             return "%s-%s" % (cardinals[int(str(number)[0] + "0")], ordinals[int(str(number)[1])])
         def collectReward(ascension, c):
             def getSpecialReward(c):
-                for candidate in ["Moon Armour", "Macedonian Protector"]:
+                for candidate in ["Moon Armour", "Macedonian Protector", "Scintillous Ring"]:
                     if not c.hasItem(candidate) and ("Buyback Items" not in c.flags or all(item.NAME != candidate for item in c.flags['Buyback Items'] if item is not None)):
                         return candidate
                 return "Platinum Ball"
