@@ -3313,7 +3313,7 @@ def createHitBox(parent,
                      bd=0,
                      padx=2).grid()
     hitBoxMaxWidth = 64
-    pad = random.randint(0, min(boundaryWidget.winfo_width(), 190) - hitBoxMaxWidth)
+    pad = random.randint(0, max(0, min(boundaryWidget.winfo_width(), 190) - hitBoxMaxWidth))
     if random.randrange(100) < 50:
         padx = (pad, 0)
     else:
