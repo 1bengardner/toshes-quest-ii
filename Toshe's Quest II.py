@@ -2615,7 +2615,7 @@ def updateInterface(updates, skipQuests=False):
                 phrase = line.split(":")[1]
                 if ( len(phrase) > 0 and
                      not any([punc in possibleName for punc in ".!?"]) and
-                     any([punc in phrase for punc in ".!?"]) and
+                     any([punc in phrase for punc in ".!?-"]) and
                      (eachWordIsCapitalized(possibleName) or possibleName == main.character.NAME)):
                     bottomLeftFrame.insertOutput(line, getTag(possibleName))
                     continue
