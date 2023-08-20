@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: August 18, 2023
+Revised: August 20, 2023
 """
 
 
@@ -390,7 +390,7 @@ class AlbanianDesert:
         self.menu = []
             
         if selectionIndex == 0:
-            return Static.ICA_DATA['Zhaklina']
+            return Static.ICA_DATA['Ica 5']
         if "Oukkar" in self.c.flags['Kills'] and self.c.dexterity >= 75:
             self.text = ("\nYou spot a hidden passage up into the dune "+
                          "that appears to be accessible.")
