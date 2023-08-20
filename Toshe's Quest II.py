@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 15, 2023
+Revised: August 20, 2023
 """
 
 
@@ -1087,8 +1087,8 @@ class TopCenterFrame:
         main.loadGame(name)
         self.startGame(name)
         # TODO Remove this debugging code
-        self.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
-        self.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
+        # self.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
+        # self.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
 
     def restoreFile(self):
         window.bottomFrame.bottomRightFrame.okButton['command'] = \
