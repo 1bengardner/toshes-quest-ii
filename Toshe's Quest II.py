@@ -1186,14 +1186,14 @@ class TopRightFrame:
         self.makeNewsFrame(master)
 
     def makeNewsFrame(self, master):
-        news = LabelFrame(master, text="News", font=font3,
-                          width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
-                          bg=DEFAULT_BG)
-        news.grid()
-        news.grid_propagate(0)
-        news.columnconfigure(0, weight=1)
+        self.news = LabelFrame(master, text="News", font=font3,
+                               width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
+                               bg=DEFAULT_BG)
+        self.news.grid()
+        self.news.grid_propagate(0)
+        self.news.columnconfigure(0, weight=1)
 
-        newsContent = Text(news,
+        newsContent = Text(self.news,
             bg=DEFAULT_BG,
             height=28,
             font=font1,
@@ -1267,7 +1267,7 @@ Game over? Don't fret. You can now """)
         newsContent['state'] = DISABLED
         newsContent.grid(sticky=EW)
 
-        scrollbar = Scrollbar(news, bg=DEFAULT_BG, command=newsContent.yview)
+        scrollbar = Scrollbar(self.news, bg=DEFAULT_BG, command=newsContent.yview)
         scrollbar.grid(row=0, column=1, sticky=N+S)
         newsContent.config(yscrollcommand=scrollbar.set)
 
@@ -3023,6 +3023,7 @@ def hideSideIntroFrames():
     leftFrame = window.topFrame.topLeftFrame
     rightFrame = window.topFrame.topRightFrame
     leftFrame.recentGames.grid_remove()
+    rightFrame.news.grid_remove()
 
 
 def close(event=None):
