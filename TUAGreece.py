@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: August 19, 2023
+Revised: August 20, 2023
 """
 
 
@@ -451,6 +451,8 @@ class Greece:
             if "Medea Quest" in self.c.flags and "Ichor of Talos" not in [item.NAME for item in self.c.items if item is not None] and self.c.hasMercenary("Qendresa"):
                 self.text += "\nQendresa: We must procure the life fluid of that colossus for Medea."
             self.text = self.text.strip()
+            if not self.text:
+                self.text = None
         elif "Conclusion" in self.c.flags and "Medea Quest Complete" not in self.c.flags and "Ichor of Talos" not in [item.NAME for item in self.c.items if item is not None]:
             self.c.flags['In Battle'] = True
             self.view = "battle"
