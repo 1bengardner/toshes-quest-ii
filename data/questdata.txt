@@ -55,3 +55,4 @@ Skolopendra Sauce	Kill 3 Skolopendras for Melanippe in Litochoro.	{'Kills': ('Sk
 Hydra-tion	Kill 9 Hydras for Melanippe in Litochoro.	{'Kills': ('Hydra', 9)}	Melanippe Quest 3	Melanippe Quest 3 Complete	1	0
 Ain't No Mountain High Enough	Ascend Mount Olympus.	{'No Criteria': True}	Ready for Mount Olympus	Mount Olympus Complete	0	0
 Toro! Toro!	Defeat the minotaur in the Labyrinth of Daedalus.	{'No Criteria': True}	Ready for Labyrinth	Labyrinth Complete	0	0
+Might and Magic	Defeat Talos and bring his ichor to Medea.	{'Kills': ('Talos', 1), 'Items': {'Ichor of Talos': 1}}	Medea Quest	Medea Quest Complete	0	0

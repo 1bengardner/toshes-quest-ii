@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: June 17, 2023
+Revised: August 19, 2023
 """
 
 
@@ -602,11 +602,17 @@ class BlackMountain:
         skillPrice1 = 300 if self.c.mode != "Ultimate" else 0
         skillPrice2 = 300 if self.c.mode != "Ultimate" else 0
         skillPrice3 = 300 if self.c.mode != "Ultimate" else 0
-        items = ["Yew Wand"]+[None]*8
         self.menu = ["Learn %s (%s euros)." % (skill1, skillPrice1),
                      "Learn %s (%s euros)." % (skill2, skillPrice2),
                      "Learn %s (%s euros)." % (skill3, skillPrice3),
                      "Leave."]
+        if "Medea Quest Complete" in self.c.flags:
+            items = ["Heroic Weapon Enchantment",
+                     "Heroic Armour Enchantment",
+                     "Heroic Shield Enchantment"
+                    ]+[None]*6
+        else:
+            items = ["Yew Wand"]+[None]*8
         if selectionIndex == 0:
             return self.actions({'skill': skill1,
                                  'cost': skillPrice1,
@@ -630,6 +636,28 @@ class BlackMountain:
                 self.text = (npc+": Have I seen you before? Let me see what you already know." % npc)
             else:
                 self.text = (npc+": My name is %s. Does magic interest you?" % npc)
+        elif "Conclusion" in self.c.flags and "Medea Quest" not in self.c.flags:
+            self.text = "{0}: Talos roams Earth once again. He has been sighted near the southern coastline of the Greek continent, according to my crow scouts. I must send you on the quest to slay the bronze monstrosity and collect his immortal blood.".format(npc)
+            if self.c.hasMercenary("Barrie"):
+                self.text += "\nBarrie: Wait, if he's immortal..."
+            if self.c.hasMercenary("Qendresa"):
+                self.text += "\nQendresa: It will be a challenge, but it is within our capabilities."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: Don't you know what immortal means?"
+            self.c.flags['Medea Quest'] = True
+        elif "Medea Quest" in self.c.flags and "Medea Quest Complete" not in self.c.flags:
+            if "Ichor of Talos" in [item.NAME for item in self.c.items if item is not None]:
+                self.c.removeItem(self.c.indexOfItem("Ichor of Talos"))
+                self.text = "{0}: Thank you, {1}. Your commendable efforts were not in vain. We shall drink together!".format(npc, "heroes" if self.c.mercenaries else "hero")
+                self.text += "\n{0}: Here goes nothing.".format(self.c.NAME)
+                self.text += "\nYou drink from the vial of ichor and gain 100 maximum EP."
+                self.c.maxEp += 100
+                self.text += "\n{0}: Ah...my magic has been fortified! Return to me at any time to imbue a heroic enchantment upon you.".format(npc)
+                self.c.flags['Medea Quest Complete'] = True
+            else:
+                self.text = "{0}: Have you seen Talos? He has been sighted guarding the Athenian coastline.".format(npc)
+        elif "Medea Quest Complete" in self.c.flags:
+            self.text = "{0}: What incantation do you desire, hero?".format(npc)
         else:
             self.text = (npc+": Does magic interest you?")
         return self.actions({'items for sale': items})

@@ -41,3 +41,7 @@ Gumball of Power	0	Bestows +3 to all stats.
 Boulderwort	100	Protects against grounding.*Crumbles after 200 steps.
 Prickly Pear	100	Protects against burning.*Dries up after 200 steps.
 Snowdrops	100	Protects against freezing.*Wilts after 200 steps.
+Ichor of Talos	0	The blood of an "immortal".
+Heroic Weapon Enchantment	100000	Instantly upgrades your equipped weapon.
+Heroic Armour Enchantment	100000	Instantly upgrades your equipped armour.
+Heroic Shield Enchantment	100000	Instantly upgrades your equipped shield.

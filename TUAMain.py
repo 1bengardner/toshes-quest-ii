@@ -1182,6 +1182,21 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
             self.character.flags['Chasmic Rucksack'] = True
             while len(self.character.items) < 16:
                 self.character.items.append(None)
+        elif "Enchantment" in self.store[itemIndex].NAME:
+            if self.store[itemIndex].NAME == "Heroic Weapon Enchantment":
+                upgradeIndex = self.character.equippedItemIndices['Weapon']
+            elif self.store[itemIndex].NAME == "Heroic Armour Enchantment":
+                upgradeIndex = self.character.equippedItemIndices['Armour']
+            elif self.store[itemIndex].NAME == "Heroic Shield Enchantment":
+                upgradeIndex = self.character.equippedItemIndices['Shield']
+            if upgradeIndex is None or self.character.items[itemIndex] >= 10:
+                self.character.euros += self.store[itemIndex].PRICE
+                self.sound.playSound(self.sound.sounds['Error'])
+                return
+            while self.character.items[upgradeIndex].upgradeCount < 10:
+                self.character.items[upgradeIndex].upgrade()
+                self.sound.playSound(self.sound.sounds['Forge Upgrade'])
+            self.character.updateStats()
         else:
             self.character.addItem(self.store[itemIndex])
         if self.buyback:

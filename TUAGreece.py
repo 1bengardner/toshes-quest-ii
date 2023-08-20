@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: June 11, 2023
+Revised: August 19, 2023
 """
 
 
@@ -443,6 +443,20 @@ class Greece:
         if ( "Coliseum Complete" in self.c.flags and
              "Greek Fortress" not in self.c.flags):
             self.text = ("Escort: We shall continue to march left, sir.")
+        elif "In Battle" in self.c.flags:
+            del self.c.flags['In Battle']
+            self.text = ""
+            if "Talos" not in self.c.flags['Kills'] and self.c.hasMercenary("Barrie"):
+                self.text += "\nBarrie: Close call."
+            if "Medea Quest" in self.c.flags and "Ichor of Talos" not in [item.NAME for item in self.c.items if item is not None] and self.c.hasMercenary("Qendresa"):
+                self.text += "\nQendresa: We must procure the life fluid of that colossus for Medea."
+            self.text = self.text.strip()
+        elif "Conclusion" in self.c.flags and "Medea Quest Complete" not in self.c.flags and "Ichor of Talos" not in [item.NAME for item in self.c.items if item is not None]:
+            self.c.flags['In Battle'] = True
+            self.view = "battle"
+            self.text = "You are ambushed by Talos!"
+            return self.actions({'enemy': "Talos",
+                                 'mercenaries': self.c.mercenaries})
         else:
             self.text = "You see a lighthouse on the peninsula."
             if self.c.hasMercenary("Qendresa"):
