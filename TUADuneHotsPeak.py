@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: June 11, 2023
+Revised: August 20, 2023
 """
 
 import random
@@ -302,7 +302,7 @@ class DuneHotsPeak:
             
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 5']
-        if self.c.dexterity >= 75:
+        if self.c.dexterity >= 75 or "All Access Pass" in self.c.flags:
             self.text += ("\nYou encounter a shiftsand that "+
                           "you can sink into.")
             self.menu = ["Enter the shiftsand."]

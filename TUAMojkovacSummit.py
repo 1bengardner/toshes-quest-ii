@@ -2,7 +2,7 @@
 File: TUAMojkovacSummit.py
 Author: Ben Gardner
 Created: June 8, 2013
-Revised: June 11, 2023
+Revised: August 20, 2023
 """
 
 
@@ -161,7 +161,7 @@ class MojkovacSummit:
         self.menu = []
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 2']
-        if self.c.dexterity >= 30:
+        if self.c.dexterity >= 30 or "All Access Pass" in self.c.flags:
             self.text = ("You notice a small passage between the rocks where "+
                          "you could fit through.")
             self.menu = ["Enter the passage."]

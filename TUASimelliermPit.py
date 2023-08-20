@@ -2,7 +2,7 @@
 File: TUASimelliermPit.py
 Author: Ben Gardner
 Created: May 28, 2020
-Revised: June 11, 2023
+Revised: August 20, 2023
 """
 
 
@@ -230,7 +230,7 @@ class SimelliermPit:
         self.menu = []
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 7']
-        if self.c.dexterity >= 75:
+        if self.c.dexterity >= 75 or "All Access Pass" in self.c.flags:
             self.text = ("You notice a disturbance in the leaves that "+
                          "you could pry into.")
             self.menu = ["Enter the disturbance."]

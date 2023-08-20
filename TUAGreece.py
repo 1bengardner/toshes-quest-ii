@@ -413,7 +413,7 @@ class Greece:
         self.menu = []
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 4']
-        if self.c.dexterity >= 60:
+        if self.c.dexterity >= 60 or "All Access Pass" in self.c.flags:
             self.text = ("You see a tiny hole in the wall that "+
                          "you could crawl through.")
             self.menu = ["Enter the hole."]

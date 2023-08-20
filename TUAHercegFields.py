@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: June 11, 2023
+Revised: August 20, 2023
 """
 
 
@@ -302,7 +302,7 @@ class HercegFields:
         self.menu = []
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 1']
-        if self.c.dexterity >= 15:
+        if self.c.dexterity >= 15 or "All Access Pass" in self.c.flags:
             self.text = ("You notice a small opening in the tree roots that "+
                          "you could squeeze through.")
             self.menu = ["Enter the tree."]

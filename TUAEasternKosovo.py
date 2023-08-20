@@ -2,7 +2,7 @@
 File: TUAEasternKosovo.py
 Author: Ben Gardner
 Created: April 1, 2014
-Revised: July 23, 2023
+Revised: August 20, 2023
 """
 
 
@@ -287,7 +287,7 @@ class EasternKosovo:
         self.menu = []
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 3']
-        if self.c.dexterity >= 45:
+        if self.c.dexterity >= 45 or "All Access Pass" in self.c.flags:
             self.text = ("You see a tiny opening in the bushes that "+
                          "you could sneak into.")
             self.menu = ["Enter the opening."]

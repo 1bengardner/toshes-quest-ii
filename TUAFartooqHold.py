@@ -2,7 +2,7 @@
 File: TUAFartooqHold.py
 Author: Ben Gardner
 Created: May 1, 2017
-Revised: June 11, 2023
+Revised: August 20, 2023
 """
 
 
@@ -174,7 +174,7 @@ class FartooqHold:
         self.menu = []
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 6']
-        if self.c.dexterity >= 75:
+        if self.c.dexterity >= 75 or "All Access Pass" in self.c.flags:
             self.text = ("You come across a gap in the wall that "+
                          "you could crouch into.")
             self.menu = ["Enter the gap."]

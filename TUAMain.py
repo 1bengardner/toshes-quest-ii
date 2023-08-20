@@ -24,6 +24,7 @@ from TUABattle import Battle
 from TUAQuest import Quest
 from TUAForge import Forge
 from TUAModifiers import Modifiers
+from TUAStatics import Static
 
 from TUASound import Sound
 from TUAPreferences import Preferences
@@ -203,6 +204,8 @@ class Main:
         self.readyQuests = set()
         self.initializeQuests()
         self.initializeUnlocks()
+        if "Icas" in self.unlocks:
+            self.character.flags['All Access Pass'] = True
 
     def saveLocation(self):
         self.character.area = self.currentArea.__class__
@@ -975,6 +978,11 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
 
         if self.updateUnlocks():
             interfaceActions['italic text'] = "You have unlocked a secret character!"
+            self.sound.playSound(self.sound.sounds['Unlock Secret'])
+        if "Icas" not in self.unlocks and all(ica in self.character.flags for ica in Static.ICAS):
+            self.unlocks["Icas"] = True
+            self.writeUnlocksToPreferences()
+            interfaceActions['italic text'] = "You have discovered all the nymph nodes! The dexterity requirement has been lifted!"
             self.sound.playSound(self.sound.sounds['Unlock Secret'])
 
         self.view = interfaceActions['view']
