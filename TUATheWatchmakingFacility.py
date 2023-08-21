@@ -2,7 +2,7 @@
 File: TUATheWatchmakingFacility.py
 Author: Ben Gardner
 Created: August 24, 2013
-Revised: June 11, 2023
+Revised: August 21, 2023
 """
 
 
@@ -296,9 +296,13 @@ class TheWatchmakingFacility:
         elif "Pespozeor 5" not in self.c.flags:
             self.text = ""
             if selectionIndex == 0:
+                if self.c.isPolite:
+                    dammit = "dangit"
+                else:
+                    dammit = "dammit"
                 self.text = ("%s: What? I don't care about your sick " % self.c.NAME+
                              "satanic ritual. I just want to find the "+
-                             "owner of this facility, dammit!"+
+                             "owner of this facility, %s!" % dammit+
                              "\nDragan: Yes, my father was left here and "+
                              "we must save him!\n")
             elif selectionIndex == 1:
