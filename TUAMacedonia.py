@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: June 11, 2023
+Revised: August 21, 2023
 """
 
 
@@ -224,8 +224,10 @@ class Macedonia(object):
                 self.tempFlag = "Mythical Monster Spawn"
                 if self.c.isPolite:
                     labLine = " science lab and crap. Fix the Stone!"
+                    damnLine = "\n%s: You're goshdarn useless." % self.c.NAME
                 else:
                     labLine = " science lab and shit. Fix the Stone!"
+                    damnLine = "\n%s: You're goddamn useless." % self.c.NAME
                 self.text = ("%s: These monsters won't stop me!" % self.c.NAME +
                              "\nTomas Tam: These monsters won't stop, that's" +
                              " for sure." +
@@ -235,7 +237,7 @@ class Macedonia(object):
                              " hands are tied at the moment." +
                              "\nTomas holds out two fiery appendages held" +
                              " together by a flow of lava." +
-                             "\n%s: You're goddamn useless." % self.c.NAME +
+                             damnLine +
                              "\nA blinding ray of blue and white light from" +
                              " high above shoots" +
                              " through the fog down to Earth." +
@@ -456,8 +458,12 @@ class Macedonia(object):
                   "Post Stone Banter 3" not in self.c.flags):
                 self.c.flags['New Song'] = "Drat"
                 self.tempFlag = "Post Stone Banter 3"
+                if self.c.isPolite:
+                    damn = "Darn"
+                else:
+                    damn = "Damn"
                 self.text = ("%s: How is this possible? How are there" % self.c.NAME +
-                             " still monsters being created? Damn it!" +
+                             " still monsters being created? %s it!" % damn +
                              "\nYou kick the rubble pile." +
                              "\nPebbles and dust fly into your face." +
                              "\n%s: Ptoo! Ptoo! Did I just destroy you" % self.c.NAME +
@@ -884,6 +890,10 @@ class Macedonia(object):
         elif (flagNames[0] in self.c.flags and
               flagNames[1] not in self.c.flags):
             self.tempFlag = flagNames[1]
+            if self.c.isPolite:
+                damnLine = "\n%s: Drat. He knows there's no way I can get up" % self.c.NAME
+            else:
+                damnLine = "\n%s: Damn. He knows there's no way I can get up" % self.c.NAME
             self.text = ("As you get closer, you plainly spot" +
                          " a second summoner atop the" +
                          " pillar, preparing a ray of magic." +
@@ -891,7 +901,7 @@ class Macedonia(object):
                          "\nThe summoner pauses, then after three seconds of" +
                          " contemplation returns to concentrating his" +
                          " energy beam." +
-                         "\n%s: Damn. He knows there's no way I can get up" % self.c.NAME +
+                         damnLine +
                          " there. Guess I'll just have to do this the old" +
                          " fashioned way.")
             self.menu = ["Strike the pillar."]
@@ -981,10 +991,14 @@ class Macedonia(object):
             self.menu = ["Let the summoner finish.",
                          "Kill the summoner."]
         elif selectionIndex == 0:
+            if self.c.isPolite:
+                damnLine = "\n%s: Darn it..." % self.c.NAME
+            else:
+                damnLine = "\n%s: Damn it..." % self.c.NAME
             self.text = (npc+": ...If two of them are dead." +
                          "\nThe summoner goes still as the last ounce" +
                          " of blood leaks from his chest wound." +
-                         "\n%s: Damn it..." % self.c.NAME)
+                         damnLine)
             self.text += ("\nYou collect a hearty vial of life fluid.")
             self.c.potions += 1
         elif selectionIndex == 1:

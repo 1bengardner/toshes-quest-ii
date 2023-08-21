@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: August 8, 2023
+Revised: August 21, 2023
 """
 
 
@@ -537,9 +537,13 @@ class HercegNovi:
         self.text = None
         self.helpText = None
         self.menu = []
+        if self.c.isPolite:
+            damnLine = "\n%s: Dang it! I hate that sound!" % self.c.NAME
+        else:
+            damnLine = "\n%s: Damn it! I hate that sound!" % self.c.NAME
         self.text = choice(
             ["You hear someone playing the lute."+
-             "\n%s: Damn it! I hate that sound!" % self.c.NAME,
+             damnLine,
              "You hear very clearly, with almost one hundred percent "+
              "certainty, the mayor "+
              "arguing about the price of "+choice(["onions",

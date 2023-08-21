@@ -3,7 +3,7 @@
 File: TUAGalijula.py
 Author: Ben Gardner
 Created: April 22, 2016
-Revised: August 15, 2023
+Revised: August 21, 2023
 """
 
 
@@ -290,12 +290,16 @@ class Galijula:
                                  'coordinates': (X, Y)})
         elif ("Avalanche Wait" not in self.c.flags and
               "Avalanche Aftermath" not in self.c.flags):
+            if self.c.isPolite:
+                damnLine = "\n%s: Dang it!" % self.c.NAME
+            else:
+                damnLine = "\n%s: Damn it!" % self.c.NAME
             hpLoss = random.randint(200, 300)
             self.text = ("You trudge through heavy snow for" +
                          " a few minutes until a loud noise is heard" +
                          " up ahead. Snow crashes down on you, dealing" +
                          " %s damage." % hpLoss +
-                         "\n%s: Damn it!" % self.c.NAME)
+                         damnLine)
             self.c.hp -= hpLoss
             self.c.flags['Avalanche Aftermath'] = True
         elif "Avalanche Aftermath" not in self.c.flags:

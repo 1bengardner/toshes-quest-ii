@@ -2,7 +2,7 @@
 File: TUARomadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: June 11, 2023
+Revised: August 21, 2023
 """
 
 
@@ -116,8 +116,12 @@ class RomadanVillage:
             return self.actions({'area': "Romadan Village",
                                  'coordinates': (X, Y)})
         elif "Marciano Coward 3" not in self.c.flags:
+            if self.c.isPolite:
+                goddamnLine = "\n%s: You goshdarn coward!" % self.c.NAME
+            else:
+                goddamnLine = "\n%s: You goddamn coward!" % self.c.NAME
             self.text = ("Marciano escapes into a sand dune."+
-                         "\n%s: You goddamn coward!" % self.c.NAME)
+                         goddamnLine)
             self.c.flags['Marciano Coward 3'] = True
             return self.actions()
         return False
