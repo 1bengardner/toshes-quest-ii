@@ -15,8 +15,8 @@ Expunging Lunge	No Defence Damage	{"Spear", "Sword"}	25	300	Physical	{}	{}	deftl
 Reckless Rack	Reduced Accuracy Damage	{"Melee"}	40	500	Physical	{'cDamage': 10}	{}	recklessly demolishes	Recovering
 Battery Cage	Multi-Hit Damage	{"Melee"}	50	7	Physical	{}	{}	batters	None
 Bladedriver's Barbarity	Miscellaneous	{"Sword"}	30	0	Physical	{'cDamage': 50}	{}	unleashes the savagery of the sword	None
-Pummeler's Precision	Miscellaneous	{"Bludgeon"}	30	0	Physical	{'cRate': 2, 'accuracy': 3}	{}	channels the mastery of the mace	None
-Gashmaster's Grace	Miscellaneous	{"Axe"}	30	0	Physical	{'accuracy': 5, 'cDamage': 25}	{}	embraces the artfulness of the axe	None
+Pummeler's Precision	Miscellaneous	{"Bludgeon"}	30	0	Physical	{'cRate': 3, 'accuracy': 3}	{}	channels the mastery of the mace	None
+Gashmaster's Grace	Miscellaneous	{"Axe"}	30	0	Physical	{'accuracy': 5, 'cDamage': 30}	{}	embraces the artfulness of the axe	None
 Impaler's Impulse	Miscellaneous	{"Spear"}	30	0	Physical	{'cRate': 2, 'cDamage': 25}	{}	harnesses the swiftness of the spear	None
 Seal Smash	Damage	{"Bludgeon"}	10	100	Ice	{'cDamage': 5}	{}	smashes	None
 Seal Sever	Damage	{"Axe"}	10	100	Ice	{'cDamage': 5}	{}	severs	None
@@ -84,7 +84,7 @@ Reinvigorate	Percent Heal	{"All"}	125	50	Physical	{}	{}	reinvigorates	Recovering
 Revitalize	Percent Heal	{"All"}	250	100	Physical	{}	{}	revitalizes	Recovering
 Equip Item	Miscellaneous	{"All"}	0	0	Physical	{}	{}	swaps gear	None
 Drink Potion	Miscellaneous	{"All"}	0	0	Physical	{}	{}	consumes a vial of life fluid	None
-Inner Zen	Miscellaneous	{"All"}	25	0	Physical	{'accuracy': 4, 'cRate': 2, 'cDamage': 20}	{}	focuses deeply	None
+Inner Zen	Miscellaneous	{"All"}	30	0	Physical	{'accuracy': 2, 'cRate': 1, 'cDamage': 20}	{}	focuses deeply	None
 Healing Glow	Magic Heal	{"Wand"}	20	500	Physical	{}	{}	casts Healing Glow	None
 Healing Light	Magic Heal	{"Wand"}	40	2000	Physical	{}	{}	casts a Healing Light	None
 Healing Ray	Magic Heal	{"Wand"}	80	5000	Physical	{}	{}	casts a Healing Ray	None
