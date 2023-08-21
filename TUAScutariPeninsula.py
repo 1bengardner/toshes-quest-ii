@@ -2,7 +2,7 @@
 File: TUAScutariPeninsula.py
 Author: Ben Gardner
 Created: August 30, 2013
-Revised: June 11, 2023
+Revised: August 20, 2023
 """
 
 
@@ -250,12 +250,12 @@ class ScutariPeninsula:
                          "\n%s: Yow!" % self.c.NAME)
             self.c.hp -= 20
             self.menu = ["Crawl through the hole."]
-        elif "Sliding" in self.c.flags:
-            del self.c.flags['Sliding']
-            self.text = ("You slide down the sandy slope.")
-            self.menu = ["Crawl through the hole."]
         elif "Desert Passage" in self.c.flags:
-            self.text = ("There is a small hole in the mountain.")
+            if "Sliding" in self.c.flags:
+                del self.c.flags['Sliding']
+                self.text = ("You slide down the sandy slope.")
+            else:
+                self.text = ("There is a small hole in the mountain.")
             self.menu = ["Crawl through the hole."]
             if self.c.hasItem("Olympian Ointment"):
                 self.menu.append("Apply Olympian Ointment.")

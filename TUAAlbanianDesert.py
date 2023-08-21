@@ -737,7 +737,7 @@ class AlbanianDesert:
         
         if selectionIndex == 0:
             self.c.flags['Plugged Geyser'] = True
-            if "Niplin" in self.c.flags['Kills']:
+            if "Oukkar" in self.c.flags['Kills']:
                 self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
                 self.c.flags['Volcano Ointment'] = True
             X = 2
@@ -750,31 +750,24 @@ class AlbanianDesert:
             self.text = ("There is a large geyser blocking the way." +
                          " The pressure" +
                          " is too strong to be stopped by physical means.")
+            if "Hailstorm" in [skill.NAME for skill in self.c.skills]:
+                self.menu = ["Cast Hailstorm."]
         elif "Plugged Geyser Aftermath" not in self.c.flags:
             self.imageIndex = 31
             self.text = ("You form a layer of ice atop the geyser.")
-            if self.c.hasMercenary("Barrie"):
-                self.text += ("\nBarrie: Way to stay coolheaded...in a" +
-                              " heated situation.")
             if self.c.hasMercenary("Qendresa"):
                 self.text += ("\nQendresa: Yaouw!")
                 if self.c.hasMercenary("Barrie"):
                     self.text += ("\nBarrie: That's a funny noise.")
                     self.text += ("\nQendresa: No, look to the horizon." +
                                   "\nQendresa points to a volcano in the distance.")
+            elif self.c.hasMercenary("Barrie"):
+                self.text += ("\nBarrie: Way to stay coolheaded...in a" +
+                              " heated situation.")
             self.c.flags['Plugged Geyser Aftermath'] = True
         elif "Oukkar" not in self.c.flags['Kills']:
             self.imageIndex = 31
             self.text = ("There is a magical force far ahead.")
-        elif "Niplin" not in self.c.flags['Kills']:
-            self.imageIndex = 32
-            if "Volcano Aftermath" not in self.c.flags:
-                self.c.flags['Volcano Aftermath'] = True
-                self.text = ("You slide down the mountain. The volcano collapses behind you.")
-            else:
-                self.text = ("The hot sun still shines mightily.")
-                if self.c.hasMercenary("Qendresa"):
-                    self.text += ("\nQendresa: Come, let us continue our quest.")
         elif "Volcano Ointment" in self.c.flags:
             self.imageIndex = 31
             if "Volcano Ointment Aftermath" in self.c.flags:
@@ -789,6 +782,17 @@ class AlbanianDesert:
                     self.text += ("\nQendresa: Yaouw!")
                 if self.c.hasMercenary("Barrie"):
                     self.text += "\nBarrie: Wow. Really didn't expect that to work."
+        elif "Niplin" not in self.c.flags['Kills']:
+            self.imageIndex = 32
+            if "Volcano Aftermath" not in self.c.flags:
+                self.c.flags['Volcano Aftermath'] = True
+                self.text = ("You slide down the mountain. The volcano collapses behind you.")
+            else:
+                self.text = ("The hot sun still shines mightily.")
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += ("\nQendresa: Come, let us continue our quest.")
+                if self.c.hasItem("Olympian Ointment") and "Volcano Ointment" not in self.c.flags:
+                    self.menu = ["Apply Olympian Ointment."]
         else:
             self.imageIndex = 33
             self.text = ("You stare into the horizon in wonder.")
@@ -801,10 +805,6 @@ class AlbanianDesert:
                      "\nQendresa: Yaouw once stood here."]
                 )
 
-        if ( "Hailstorm" in [skill.NAME for skill in self.c.skills] and
-             "Plugged Geyser" not in self.c.flags):
-            self.menu = ["Cast Hailstorm."]
-            
         return self.actions()
         
     def alpaca(self, selectionIndex=None):
