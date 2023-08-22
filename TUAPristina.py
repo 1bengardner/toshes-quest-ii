@@ -2,7 +2,7 @@
 File: TUAPristina.py
 Author: Ben Gardner
 Created: April 6, 2014
-Revised: August 12, 2023
+Revised: August 22, 2023
 """
 
 
@@ -340,18 +340,18 @@ class Pristina:
         self.helpText = None
         self.menu = []
         self.c.flags['Pristina'] = True
+        if selectionIndex == 0:
+            X = 1
+            Y = 8
+            return self.actions({'area': "Pristina",
+                                 'coordinates': (X, Y)})
         if "Hot Air Balloon Price" in self.c.flags:
             self.c.euros -= self.c.flags['Hot Air Balloon Price']
             self.text = ("You pay the Hot Air Balloon Mafia "+
                          "%s " % (self.c.flags['Hot Air Balloon Price'])+
                          "euros and they fly you to Pristina.")
             del self.c.flags['Hot Air Balloon Price']
-        elif selectionIndex == 0:
-            X = 1
-            Y = 8
-            return self.actions({'area': "Pristina",
-                                 'coordinates': (X, Y)})
-        if "Asian Architecture" not in self.c.flags:
+        elif "Asian Architecture" not in self.c.flags:
             self.text = ("%s: This building looks Oriental." % self.c.NAME)
             self.c.flags['Asian Architecture'] = True
         self.menu = ["Enter the inn."]

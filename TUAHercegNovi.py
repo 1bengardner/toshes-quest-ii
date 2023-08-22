@@ -2,7 +2,7 @@
 File: TUAHercegNovi.py
 Author: Ben Gardner
 Created: May 19, 2013
-Revised: August 21, 2023
+Revised: August 22, 2023
 """
 
 
@@ -261,12 +261,6 @@ class HercegNovi:
         self.text = ""
         self.helpText = None
         self.menu = []
-        if "Hot Air Balloon Price" in self.c.flags:
-            self.c.euros -= self.c.flags['Hot Air Balloon Price']
-            self.text = ("You pay the Hot Air Balloon Mafia "+
-                         "%s " % (self.c.flags['Hot Air Balloon Price'])+
-                         "euros and they fly you to Herceg Novi.")
-            del self.c.flags['Hot Air Balloon Price']
         if selectionIndex == 0:
             X = 1
             Y = 5
@@ -280,7 +274,13 @@ class HercegNovi:
             special = "Grilled Aubergine Musaka"
         else:
             special = "Mystery Goulash"
-        if "Tipsy Tuesday" not in self.c.flags:
+        if "Hot Air Balloon Price" in self.c.flags:
+            self.c.euros -= self.c.flags['Hot Air Balloon Price']
+            self.text = ("You pay the Hot Air Balloon Mafia "+
+                         "%s " % (self.c.flags['Hot Air Balloon Price'])+
+                         "euros and they fly you to Herceg Novi.")
+            del self.c.flags['Hot Air Balloon Price']
+        elif "Tipsy Tuesday" not in self.c.flags:
             self.text += ("You read a sign:"+
                           "\n\"Vojo's Inn and Tavern"+
                           "\nToday's Special - "+special+"\"")

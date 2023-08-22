@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: July 23, 2023
+Revised: August 22, 2023
 """
 
 
@@ -131,17 +131,17 @@ class MojkovacValley:
         self.text = None
         self.helpText = None
         self.menu = []
+        if selectionIndex == 0:
+            X = 6
+            Y = 1
+            return self.actions({'area': "Mojkovac Valley",
+                                 'coordinates': (X, Y)})
         if "Hot Air Balloon Price" in self.c.flags:
             self.c.euros -= self.c.flags['Hot Air Balloon Price']
             self.text = ("You pay the Hot Air Balloon Mafia "+
                          "%s " % (self.c.flags['Hot Air Balloon Price'])+
                          "euros and they fly you to Mojkovac Valley.")
             del self.c.flags['Hot Air Balloon Price']
-        if selectionIndex == 0:
-            X = 6
-            Y = 1
-            return self.actions({'area': "Mojkovac Valley",
-                                 'coordinates': (X, Y)})
         self.menu = ["Enter the inn."]
         return self.actions()
     

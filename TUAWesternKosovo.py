@@ -2,7 +2,7 @@
 File: TUAWesternKosovo.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: July 25, 2023
+Revised: August 22, 2023
 """
 
 
@@ -540,9 +540,9 @@ class WesternKosovo:
         self.imageIndex = 19
         self.text = None
         self.helpText = None
-        flightPrice1 = 300
-        flightPrice2 = 150
-        flightPrice3 = 100
+        flightPrice1 = 0 if self.c.mode == "Ultimate" else 300
+        flightPrice2 = 0 if self.c.mode == "Ultimate" else 150
+        flightPrice3 = 0 if self.c.mode == "Ultimate" else 100
         npc = "Balloon Man"
         self.menu = ["Leave.",
                      "Fly to Herceg Novi (%s euros)." % flightPrice1,
@@ -573,10 +573,16 @@ class WesternKosovo:
             return self.actions({'area': "Pristina",
                                  'coordinates': (X, Y)})
         if npc not in self.c.flags:
-            self.text = (npc+": Yo, we're the Hot Air Balloon Mafia. We run "+
-                         "these skies. If ya wanna ride, ya gotta gimme the "+
-                         "dough. Let's see the euro.")
+            if self.c.mode == "Ultimate":
+                self.text = npc+": Hey, boss, we don't wanna cause no problems. W-We don't want no trouble. No beef, no money, no nothing. We don't want none of it. Haha. Come take a ride any time ya want.\nThe man seems intimidated by your mere presence."
+            else:
+                self.text = (npc+": Yo, we're the Hot Air Balloon Mafia. We run "+
+                             "these skies. If ya wanna ride, ya gotta gimme the "+
+                             "dough. Let's see the euro.")
             self.c.flags[npc] = True
         else:
-            self.text = (npc+": Where ya wanna go, buddy?")
+            if self.c.mode == "Ultimate":
+                self.text = (npc+": Where to, chief?")
+            else:
+                self.text = (npc+": Where ya wanna go, buddy?")
         return self.actions()
