@@ -1048,6 +1048,7 @@ class TopCenterFrame:
         self.tryToLoadFile(fileName)
 
     def tryToLoadFile(self, name):
+        main.sound.playSound(main.sound.sounds['Select Game'])
         try:
             self.loadFile(name)
         except AttributeError as e:
@@ -1114,8 +1115,8 @@ class TopCenterFrame:
 
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
         window.topFrame.topRightFrame.logButton['state'] = NORMAL
-        if main.character.flags['Config']['Mission Log Open'] != window.topFrame.topRightFrame.showMissionLog.get():
-            window.topFrame.topRightFrame.logButton.invoke()
+        window.topFrame.topRightFrame.showMissionLog.set(main.character.flags['Config']['Mission Log Open'])
+        window.topFrame.topRightFrame.updateMissionLog(main.character.flags['Config']['Mission Log Open'])
 
         window.topFrame.topLeftFrame.expandInventory(
             True if "Chasmic Rucksack" in main.character.flags else False)
