@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: August 19, 2023
+Revised: August 21, 2023
 """
 
 
@@ -633,7 +633,7 @@ class BlackMountain:
         elif npc not in self.c.flags:
             self.c.flags[npc] = True
             if self.c.mode == "Ultimate":
-                self.text = (npc+": Have I seen you before? Let me see what you already know." % npc)
+                self.text = (npc+": Have I seen you before? Let me see what you already know.")
             else:
                 self.text = (npc+": My name is %s. Does magic interest you?" % npc)
         elif "Conclusion" in self.c.flags and "Medea Quest" not in self.c.flags:
