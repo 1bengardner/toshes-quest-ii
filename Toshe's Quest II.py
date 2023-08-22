@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 21, 2023
+Revised: August 22, 2023
 """
 
 
@@ -1728,6 +1728,12 @@ Game over? Don't fret. You can now """)
         else:
             self.enemySubNameLabel.grid_remove()
             self.enemyNameLabel.grid(pady=0)
+            
+        def fetchEnemyImage(enemy):
+            if enemy not in enemyImages:
+                enemyImages[enemy] = (PhotoImage(file="images/enemies/"+
+                    main.enemies[enemy].IMAGE+".gif"))
+        fetchEnemyImage(e.IDENTIFIER)
         self.enemyImageLabel['image'] = enemyImages[e.IDENTIFIER]
         borderColours = {
             "COMMON": COMMON_BD,
@@ -3098,14 +3104,30 @@ def loadAssets():
         else:
             loadProgress += float(FULL_PROGRESS) / assetsToLoad
         root.update()
+
+    portraits = [
+        "Apoc",
+        "Toshe",
+        "Toshette",
+        "Pyroshe",
+        "Toady",
+        "M Wizzard",
+        "Gumball Machine",
+        "Nome",
+        "Reese",
+        "Chris",
+        "Foxy",
+        "Lily",
+    ]
     
     assetsToLoad = NUMBER_OF_BARS
     assetsToLoad += len(main.weapons)
     assetsToLoad += len(main.armour)
     assetsToLoad += len(main.shields)
     assetsToLoad += len(main.miscellaneousItems)
-    assetsToLoad += len(main.enemies)
+    # assetsToLoad += len(main.enemies)
     # assetsToLoad += len(main.areas)
+    assetsToLoad += len(portraits)
     
     for i in range(1, NUMBER_OF_BARS):
         xpBars.append(PhotoImage(file="images/bars/xpbar"+
@@ -3121,9 +3143,14 @@ def loadAssets():
     for area in main.areas.itervalues():
         areaImages[area.name] = {}
 
-    for enemyId in main.enemies:
-        enemyImages[enemyId] = (PhotoImage(file="images/enemies/"+
-                                           main.enemies[enemyId].IMAGE+".gif"))
+    # for enemyId in main.enemies:
+        # enemyImages[enemyId] = (PhotoImage(file="images/enemies/"+
+                                           # main.enemies[enemyId].IMAGE+".gif"))
+        # incrementProgress()
+
+    for portrait in portraits:
+        portraitImages[portrait] = PhotoImage(file="images/other/%s.gif"
+            % portrait)
         incrementProgress()
 
     for weaponName in main.weapons:
@@ -3150,22 +3177,6 @@ def loadAssets():
             PhotoImage(file="images/miscellaneous/"+itemName+".gif"))
         scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
-    for portrait in [
-        "Apoc",
-        "Toshe",
-        "Toshette",
-        "Pyroshe",
-        "Toady",
-        "M Wizzard",
-        "Gumball Machine",
-        "Nome",
-        "Reese",
-        "Chris",
-        "Foxy",
-        "Lily",
-    ]:
-        portraitImages[portrait] = PhotoImage(file="images/other/%s.gif"
-            % portrait)
         
     incrementProgress(True)
     
