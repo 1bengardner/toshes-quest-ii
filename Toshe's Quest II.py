@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 20, 2023
+Revised: August 21, 2023
 """
 
 
@@ -2611,8 +2611,8 @@ def updateInterface(updates, skipQuests=False):
                 return "dialogue"
         for line in updates['text'].split("\n"):
             if len(line.split(":")) > 1:
-                possibleName = line.split(":")[0]
-                phrase = line.split(":")[1]
+                possibleName = line.split(":", 1)[0]
+                phrase = line.split(":", 1)[1]
                 if ( len(phrase) > 0 and
                      not any([punc in possibleName for punc in ".!?"]) and
                      any([punc in phrase for punc in ".!?-"]) and
