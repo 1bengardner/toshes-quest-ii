@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 20, 2023
+Revised: August 22, 2023
 """
 
 
@@ -979,7 +979,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if self.updateUnlocks():
             interfaceActions['italic text'] = "You have unlocked a secret character!"
             self.sound.playSound(self.sound.sounds['Unlock Secret'])
-        if "Icas" not in self.unlocks and all(ica in self.character.flags for ica in Static.ICAS):
+        elif "Icas" not in self.unlocks and all(ica in self.character.flags for ica in Static.ICAS):
             self.unlocks["Icas"] = True
             self.writeUnlocksToPreferences()
             interfaceActions['italic text'] = "You have discovered all the nymph nodes! The dexterity requirement has been lifted!"
