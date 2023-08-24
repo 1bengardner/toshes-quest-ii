@@ -2,7 +2,7 @@
 File: TUARomadanVillage.py
 Author: Ben Gardner
 Created: January 9, 2014
-Revised: August 21, 2023
+Revised: August 23, 2023
 """
 
 
@@ -427,13 +427,13 @@ class RomadanVillage:
         self.menu = []
         npc = "Sword Man"
         skill = "Aerial Assault"
-        skillPrice = 5000
+        skillPrice = 0 if self.c.mode == "Ultimate" else 5000
         rawMaterial1 = "Garnet Fragment"
         rawMaterial2 = "Aquamarine Shard"
         product = "Bloodmoon Blade"
-        craftPrice = 1000
+        craftPrice = 0 if self.c.mode == "Ultimate" else 1000
         self.menu = ["Learn %s (%s euros)." % (skill, skillPrice),
-                     "Craft a sword (1000 euros, 1 fragment, 1 shard).",
+                     "Craft a sword (%s euros, 1 fragment, 1 shard)." % craftPrice,
                      "Leave."]
         if selectionIndex == 0:
             return self.actions({'skill': skill,
@@ -441,7 +441,7 @@ class RomadanVillage:
         elif selectionIndex == 1:
             if  (self.c.hasItem(rawMaterial1) and
                  self.c.hasItem(rawMaterial2) and
-                 (self.c.euros >= craftPrice or self.c.euros == 0) and
+                 (self.c.euros >= craftPrice) and
                  not self.c.itemIsEquipped(rawMaterial1) and
                  not self.c.itemIsEquipped(rawMaterial2)):
                 self.c.removeItem(self.c.indexOfItem(rawMaterial1))
@@ -469,11 +469,14 @@ class RomadanVillage:
             return self.actions({'area': "Romadan Village",
                                  'coordinates': (X, Y)})
         elif "Sword Man" not in self.c.flags:
-            self.text = (npc+": Hello. Let me introduce myself." +
-                         " I am he who is known as \"Sword Man,\"" +
-                         " and I am the most masterful swordsman in this" +
-                         " land. If you seek to become more skilful," +
-                         " I am the one to learn from.")
+            if self.c.mode == "Ultimate":
+                self.text = npc+": I feel like we have already met."
+            else:
+                self.text = (npc+": Hello. Let me introduce myself." +
+                             " I am he who is known as \"Sword Man,\"" +
+                             " and I am the most masterful swordsman in this" +
+                             " land. If you seek to become more skilful," +
+                             " I am the one to learn from.")
             self.c.flags['Sword Man'] = True
         else:
             self.text = npc+": "+random.choice(
