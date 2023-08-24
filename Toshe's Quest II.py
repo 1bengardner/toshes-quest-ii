@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 22, 2023
+Revised: August 23, 2023
 """
 
 
@@ -660,6 +660,7 @@ class TopLeftFrame:
         main.character.removeItem(self.v1.get())
         main.character.addItem(main.tempItem)
         window.bottomFrame.bottomRightFrame.clickCancelDropButton()
+        window.topFrame.topRightFrame.updateOtherStats()
 
     def clickPlaceButton(self):
         def updateWidgets():
