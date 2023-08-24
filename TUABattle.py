@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: August 16, 2023
+Revised: August 23, 2023
 """
 
 
@@ -696,7 +696,7 @@ class Battle(object):
                                 "Skill": False if skill.NAME in basicSkills else True,
                                 "Aux": attacker in self.auxiliaryCharacters,})
                 elif skill.ELEMENT == "Water":
-                    if self.roll() <= 50 and damage >= defender.maxHp/2:
+                    if self.roll() <= 50 and damage >= defender.maxHp/2 and (defender == self.enemy and defender.DEATH_HP == 0 or defender == self.mainCharacter and CHARACTER_DEATH_HP == 0):
                         self.text += defender.NAME+" drowned!\n"
                         defender.hp = 0
                         if self.mainCharacter in (attacker, defender):
