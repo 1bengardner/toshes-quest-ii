@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: August 18, 2023
+Revised: August 25, 2023
 """
 
 from random import choice
@@ -269,7 +269,7 @@ class Kismet:
                                 "\nKid: Hey! Are you %s? %s from "+
                                 "%s's Quest?!"+
                                 "\n%s: What the hell is that?" % self.c.NAME,
-                                "Gentleman: Sir, I must ask, from where "+
+                                "Gentleman: %s, I must ask, from where " % ("Miss" if self.c.isFemale else "Sir")+
                                 "did you obtain such a fine cotton shirt?"+
                                 chrisLine,
                                 "Young Lady: Hey, what's that scar from?"+

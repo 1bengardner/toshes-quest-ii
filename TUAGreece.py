@@ -392,9 +392,9 @@ class Greece:
             self.menu = ["Enter the fortress."]
         elif "Coliseum Complete" not in self.c.flags:
             if self.c.isFemale:
-                sirText = "madam"
+                sirText = "young lady"
             else:
-                sirText = "sir"
+                sirText = "young man"
             self.text = ("%s: I'm sorry, %s. No visitors are allowed" % (npc1, sirText) +
                          " inside the fortress without an escort.")
         else:

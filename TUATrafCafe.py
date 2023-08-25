@@ -2,7 +2,7 @@
 File: TUATrafCafe.py
 Author: Ben Gardner
 Created: June 24, 2015
-Revised: June 11, 2023
+Revised: August 25, 2023
 """
 
 
@@ -150,7 +150,11 @@ class TrafCafe:
                 return self.actions({'area': "Pristina",
                                      'coordinates': (X, Y)})                
             self.bet = 0
-            self.text = ("%s: Hello, sir. How much would you like" % npc +
+            if self.c.isFemale:
+                sirText = "ma'am"
+            else:
+                sirText = "sir"
+            self.text = ("%s: Hello, %s. How much would you like" % (npc, sirText) +
                          " to bet?")
             self.menu = ["Bet " + bet + "." for bet in self.bets] + ["Leave."]
         elif self.game.rouge is not None:
@@ -255,7 +259,11 @@ class TrafCafe:
                 return self.actions({'area': "Pristina",
                                      'coordinates': (X, Y)}) 
             self.bet = 0
-            self.text = ("%s: Welcome, sir. How much would you like" % npc +
+            if self.c.isFemale:
+                sirText = "miss"
+            else:
+                sirText = "sir"
+            self.text = ("%s: Welcome, %s. How much would you like" % (npc, sirText) +
                          " to bet?")
             self.menu = ["Bet " + bet + "." for bet in self.bets] + ["Leave."]
         elif self.game.outcome is not None:

@@ -2,7 +2,7 @@
 File: TUAHercegFields.py
 Author: Ben Gardner
 Created: May 26, 2013
-Revised: August 20, 2023
+Revised: August 25, 2023
 """
 
 
@@ -407,7 +407,7 @@ class HercegFields:
                                  'coordinates': (X, Y)})
         else:
             if self.c.mode == "Ultimate":
-                self.text = (npc+": Sir, welcome. It is an honour to serve you. For free, of course.")
+                self.text = (npc+": %s, welcome. It is an honour to serve you. For free, of course." % ("High maiden" if self.c.isFemale else "Sir"))
             else:
                 self.text = (npc+": Welcome to the Knights' Outpost. We are a "+
                          "branch of the Knights of Igalo. We offer training for "+
