@@ -2,7 +2,7 @@
 File: TUABayOfKotor.py
 Author: Ben Gardner
 Created: May 17, 2013
-Revised: June 11, 2023
+Revised: August 25, 2023
 """
 
 
@@ -99,9 +99,10 @@ class BayOfKotor:
         self.text = ""
         self.helpText = None
         self.menu = []
+        fee = 40
         if selectionIndex == 0:
             self.c.flags['On Ferry'] = True
-            self.c.euros -= 40
+            self.c.euros -= fee
             X = 4
             Y = 3
             return self.actions({'area': "Scutari Peninsula",
@@ -146,11 +147,14 @@ class BayOfKotor:
                      "ride for just 40 euros. Let me know next time.")
             self.c.flags['Matsamot Ride Offering'] = True
         else:
-            self.text = ("You arrive at the dock."+
-                         "\nMatsamot: I'll let you know when the next ship's "+
-                         "setting sail.")
+            if self.c.mode == "Ultimate":
+                matsamotText = "\nMatsamot: I'm feeling awfully generous. Let me waive the ferry fee for you."
+                fee = 0
+            else:
+                matsamotText = "\nMatsamot: I'll let you know when the next ship's setting sail."
+            self.text = ("You arrive at the dock."+matsamotText)
         if "Matsamot Ride Offering" in self.c.flags:
-            self.menu = ["Take a ferry to the peninsula (40 euros)."]
+            self.menu = ["Take a ferry to the peninsula (%s euros)." % fee]
         return self.actions()
 
     def shore1(self):
