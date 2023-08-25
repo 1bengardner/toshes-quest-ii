@@ -2,7 +2,7 @@
 File: TUAAthens.py
 Author: Ben Gardner
 Created: August 5, 2015
-Revised: June 11, 2023
+Revised: August 25, 2023
 """
 
 
@@ -183,7 +183,7 @@ class Athens:
         self.text = self.getRandomText()
         if ( "Greek Fortress" not in self.c.flags and
              "Coliseum Complete" in self.c.flags):
-            self.text = ("Escort: Sir, let us continue westward to the" +
+            self.text = ("Escort: %s, let us continue westward to the" % ("Madam" if self.c.isFemale else "Sir") +
                          " fortress, yes?" +
                          "\n%s: That sounds great." % self.c.NAME)
         return self.actions()

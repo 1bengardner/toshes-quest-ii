@@ -2,7 +2,7 @@
 File: TUAGreekFortress.py
 Author: Ben Gardner
 Created: August 22, 2015
-Revised: June 11, 2023
+Revised: August 25, 2023
 """
 
 
@@ -270,8 +270,12 @@ class GreekFortress:
         self.helpText = None
         self.menu = []
         if "Church Room" not in self.c.flags:
+            if self.c.isFemale:
+                sirText = "madam"
+            else:
+                sirText = "sir"
             self.text = ("Escort: Here we stand directly below the altar. Are" +
-                         " you religious, sir?" +
+                         " you religious, %s?" % sirText +
                          "\n%s: Not really. But I do go to church now and" % self.c.NAME +
                          " then."
                          "\nEscort: That's fine.")
@@ -307,7 +311,11 @@ class GreekFortress:
             if "Altar Rendezvous" in self.c.flags:
                 self.text = ("The escort returns from the room upstairs" +
                              " with the guard.\n")
-            self.text += ("Escort: Now, sir, come upstairs and join me in" +
+            if self.c.isFemale:
+                sirText = "madam"
+            else:
+                sirText = "sir"
+            self.text += ("Escort: Now, %s, come upstairs and join me in" % sirText +
                           " this moment of glory!" +
                           "\nThe escort seems peculiarly excited.")
             self.menu = ["Go upstairs."]
@@ -320,7 +328,11 @@ class GreekFortress:
         self.helpText = None
         self.menu = []
         if "Conversion 1" not in self.c.flags:
-            self.text = ("Escort: Sir..." +
+            if self.c.isFemale:
+                sirText = "Madam"
+            else:
+                sirText = "Sir"
+            self.text = ("Escort: %s..." % sirText +
                          "\nThe escort ushers the guard out from behind the" +
                          " pews." +
                          "\nEscort: ...we've brought you here for a" +

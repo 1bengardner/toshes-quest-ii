@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: August 20, 2023
+Revised: August 25, 2023
 """
 
 
@@ -343,7 +343,11 @@ class Greece:
                     npc+": You need to take that ward off before I" +
                     " can crush that.")
         elif npc not in self.c.flags:
-            self.text = (npc + ": Heheheh...how are you today, sir?" +
+            if self.c.isFemale:
+                sirText = "lady"
+            else:
+                sirText = "sir"
+            self.text = (npc + ": Heheheh...how are you today, %s?" % sirText +
                          " Do you have wards? I'm trying to practice my" +
                          " crushing. I can crush three" +
                          " coloured wards into a diamond ward." +
@@ -387,16 +391,24 @@ class Greece:
             self.text = ("%s: I don't really wanna go back in there." % self.c.NAME)
             self.menu = ["Enter the fortress."]
         elif "Coliseum Complete" not in self.c.flags:
-            self.text = ("%s: I'm sorry, sir. No visitors are allowed" % npc1 +
+            if self.c.isFemale:
+                sirText = "madam"
+            else:
+                sirText = "sir"
+            self.text = ("%s: I'm sorry, %s. No visitors are allowed" % (npc1, sirText) +
                          " inside the fortress without an escort.")
         else:
             self.imageIndex = 15
             if "Greek Fortress" not in self.c.flags:
+                if self.c.isFemale:
+                    sirText = "champion"
+                else:
+                    sirText = "sir"
                 self.text = ("%s: Wow, I've always wanted to see" % self.c.NAME +
                              " what it's like inside." +
-                             "\n%s: Today, sir, you will." % npc2)
+                             "\n%s: Today, %s, you will." % (npc2, sirText))
                 if self.c.hasMercenary("Qendresa"):
-                    self.text += (" Please, madam, follow behind.")
+                    self.text += (" All other fighters, please, follow behind.")
                 if self.c.hasMercenary("Barrie"):
                     self.text += ("\nThe escort turns to Barrie and pauses." +
                                   "\n%s: ...You as well, hairy-sir." % npc2)
@@ -442,7 +454,11 @@ class Greece:
             return encounter
         if ( "Coliseum Complete" in self.c.flags and
              "Greek Fortress" not in self.c.flags):
-            self.text = ("Escort: We shall continue to march left, sir.")
+            if self.c.isFemale:
+                sirText = "madam"
+            else:
+                sirText = "sir"
+            self.text = ("Escort: We shall continue to march left, %s." % sirText)
         elif "In Battle" in self.c.flags:
             del self.c.flags['In Battle']
             self.text = ""

@@ -123,11 +123,16 @@ class Coliseum:
 
         entryFee = 0 if self.c.mode == "Ultimate" else 1000
 
+        if self.c.isFemale:
+            sirText = "madam"
+        else:
+            sirText = "sir"
+
         if ( selectionIndex == 0 and self.c.hp <= self.CHARACTER_DEATH_HP):
-            self.text = ("Guard: Sir, you are not fit to fight. Take a" +
+            self.text = ("Guard: %s, you are not fit to fight. Take a" % sirText.capitalize() +
                          " rest and come back.")
         elif (selectionIndex == 0 and self.c.euros < entryFee):
-            self.text = "Guard: One thousand euros to enter, sir."
+            self.text = "Guard: One thousand euros to enter, %s." % sirText
         elif selectionIndex == 0:
             self.c.euros -= entryFee
             X = 6
