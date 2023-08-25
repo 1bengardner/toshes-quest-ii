@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: August 14, 2023
+Revised: August 25, 2023
 """
 
 
@@ -121,34 +121,36 @@ class Coliseum:
         self.helpText = None
         self.menu = []
 
-        entryFee = 1000
+        entryFee = 0 if self.c.mode == "Ultimate" else 1000
 
         if ( selectionIndex == 0 and self.c.hp <= self.CHARACTER_DEATH_HP):
             self.text = ("Guard: Sir, you are not fit to fight. Take a" +
                          " rest and come back.")
-        elif (selectionIndex == 0 and self.c.euros > 0 and self.c.euros < entryFee):
+        elif (selectionIndex == 0 and self.c.euros < entryFee):
             self.text = "Guard: One thousand euros to enter, sir."
         elif selectionIndex == 0:
-            if self.c.euros > 0:
-                self.c.euros -= entryFee
+            self.c.euros -= entryFee
             X = 6
             Y = 2
             return self.actions({'area': "Coliseum",
                                  'coordinates': (X, Y)})            
         elif "Coliseum" not in self.c.flags or selectionIndex == 1:
-            self.text = ("Champion: My fellow warrior, have you come to" +
-                         " do battle? Have you come to win the hearts of" +
-                         " fans and the gold of foes? Well, good!" +
-                         "\nChampion: You shall duel, one by one, an array of" +
-                         " fighters until you have demonstrated your might," +
-                         " after which you shall face a formidable hero." +
-                         " With each victory you shall accumulate more coin." +
-                         " If you lose, you shall walk away with nothing but" +
-                         " shame!" +
-                         "\nChampion: Those who" +
-                         " prove their worth against the most valiant" +
-                         " of knights shall be honoured with a visit to the" +
-                         " Fortress of Greece! Are you ready, warrior?")
+            if self.c.mode == "Ultimate":
+                self.text = "Champion: I am honoured to be graced by a fighter such as you. Come, into the arena!"
+            else:
+                self.text = ("Champion: My fellow warrior, have you come to" +
+                             " do battle? Have you come to win the hearts of" +
+                             " fans and the gold of foes? Well, good!" +
+                             "\nChampion: You shall duel, one by one, an array of" +
+                             " fighters until you have demonstrated your might," +
+                             " after which you shall face a formidable hero." +
+                             " With each victory you shall accumulate more coin." +
+                             " If you lose, you shall walk away with nothing but" +
+                             " shame!" +
+                             "\nChampion: Those who" +
+                             " prove their worth against the most valiant" +
+                             " of knights shall be honoured with a visit to the" +
+                             " Fortress of Greece! Are you ready, warrior?")
             self.c.flags['Coliseum'] = True
         elif selectionIndex == 2:
             X = 3
