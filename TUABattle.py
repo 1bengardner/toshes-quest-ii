@@ -1185,6 +1185,30 @@ class Battle(object):
             flags.add("Sleeping Active")
             flags.add("Regenerating")
 
+        if "Stone Skin" in flags:
+            pass
+        elif "Stone Skin Active" in flags:
+            self.text += target.NAME+"'s Stone Skin is rock-solid.\n"
+        elif "Stone Skin 2" in flags:
+            self.text += target.NAME+"'s Stone Skin is fading.\n"
+        elif "Stone Skin 3" in flags:
+            self.text += target.NAME+"'s skin returned to normal.\n"
+        if "Stone Skin 3" in flags:
+            target.physicalReduction -= 25
+            flags.remove("Stone Skin 3")
+        if "Stone Skin 2" in flags:
+            flags.add("Stone Skin 3")
+            flags.remove("Stone Skin 2")
+        if "Stone Skin Active" in flags:
+            flags.add("Stone Skin 2")
+            flags.remove("Stone Skin Active")
+        if "Stone Skin" in flags:
+            flags.remove("Stone Skin")
+            flags.add("Stone Skin Active")
+            self.sounds.append({
+                "Name": "Bolster Defence",
+                "Panning": self.getPanning(target)})
+
         # Affinity group
         if "Earth Affinity" in flags:
             pass

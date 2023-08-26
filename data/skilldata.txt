@@ -68,7 +68,7 @@ Firestorm	Multi-Hit Damage	{"Wand"}	45	6	Fire	{}	{'defence': -1}	casts a ball of
 Burning Mind	Miscellaneous	{"Wand"}	50	0	Physical	{'cRate': 2, 'defence': -5}	{'fireReduction': -20}	casts burning mind	None
 Asteroid	Damage	{"Wand"}	55	550	Earth	{}	{}	casts Asteroid on	None
 Torrent Funnel	Damage	{"Wand"}	55	575	Water	{}	{}	casts Torrent Funnel on	None
-Stone Skin	Miscellaneous	{"Wand"}	65	0	Physical	{'physicalReduction': 25}	{}	casts stone skin	Stone Skin3
+Stone Skin	Miscellaneous	{"Wand"}	65	0	Physical	{'physicalReduction': 25}	{}	casts Stone Skin	Stone Skin
 Immolation	Damage	{"Wand"}	65	650	Fire	{}	{}	casts Immolation on	None
 Venomblast	Damage	{"Wand"}	70	600	Poison	{}	{'cDamage': -5}	casts Venomblast on	None
 Blizzard	Multi-Hit Damage	{"Wand"}	70	8	Ice	{}	{}	casts a blast of icy wind at	None
