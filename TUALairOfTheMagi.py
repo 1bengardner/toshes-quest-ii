@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: June 11, 2023
+Revised: August 26, 2023
 """
 
 
@@ -607,7 +607,7 @@ class LairOfTheMagi:
             self.text = "%s: There's gotta be some clue about the right order." % self.c.NAME
         elif "Get A Clue 2" in self.c.flags:
             del self.c.flags['Get A Clue 2']
-            self.text = "%s: I bet I can discover something from those engravings downstairs." % self.c.NAME
+            self.text = "%s: These colours must have something to do with those engravings downstairs." % self.c.NAME
         elif "Get A Clue 3" in self.c.flags:
             del self.c.flags['Get A Clue 3']
             if self.c.isPolite:
