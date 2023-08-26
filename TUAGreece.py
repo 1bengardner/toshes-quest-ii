@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: August 25, 2023
+Revised: August 26, 2023
 """
 
 
@@ -474,6 +474,7 @@ class Greece:
             self.view = "battle"
             self.text = "You are ambushed by Talos!"
             return self.actions({'enemy': "Talos",
+                                 'flash': True,
                                  'mercenaries': self.c.mercenaries})
         else:
             self.text = "You see a lighthouse on the peninsula."
