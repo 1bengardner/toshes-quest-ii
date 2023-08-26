@@ -400,7 +400,7 @@ class AdriaticSea:
             self.imageIndex = 8
             self.c.hp -= 2
             self.text = ("As you near the boat, you feel something sharp "+
-                         "puncture your leg. It's a swordfish!")
+                         "puncture your %s. It's a swordfish!" % ("leg" if self.c.isHumanoid else "limb"))
             self.helpText = ("Click the sword to attack, "+
                              "the shield to defend, or the fleeing man to try "+
                              "running away.")

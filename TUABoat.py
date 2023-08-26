@@ -55,12 +55,11 @@ class Boat:
                 del self.c.flags['Swimming HP Loss']
                 self.c.flags['Boat Recovery'] = True
             if self.c.isHumanoid:
-                nostrilLine = "your nostrils. You land on something solid with a "
+                line = "your arm. You are pulled upwards and air enters your nostrils. You land on something solid with a "
             else:
-                nostrilLine = "your system. You land on something solid with a "
+                line = "you. You are pulled upwards and the sea air rushes over you. You land on something solid with a "
             self.text = ("About to pass out, you feel a hand tugging on "+
-                         "your arm. You are pulled upwards and air enters "+
-                         nostrilLine+
+                         line+
                          "thud.\n")
             self.menu = ["Open your eyes."]
             self.tempFlag = "Boat Awakening"

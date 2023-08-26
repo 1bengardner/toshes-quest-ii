@@ -1478,8 +1478,8 @@ class Battle(object):
                 self.mainCharacter.flags['Labyrinth Size'] -= 1
             if self.mainCharacter.hasItem("The good stuff!") and self.roll(20) == 1:
                 event = random.choice([
-                    "Your heart starts beating increasingly faster until it explodes.",
-                    "You haven't drank water in over 72 hours.",
+                    "Your heart starts beating increasingly faster until it explodes." if self.mainCharacter.isHumanoid else "You stay in the sun too long and overheat, causing you to perish.",
+                    "You haven't drank water in over 72 hours." if self.mainCharacter.isHumanoid else "You forget how to move and black out.",
                     "You trip over a pebble and forget to catch yourself, landing head-first.",
                 ])
                 self.text += ("Unfortunately, %s\n" % event.lower())
