@@ -2,7 +2,7 @@
 File: TUADuneHotsPeak.py
 Author: Ben Gardner
 Created: April 20, 2021
-Revised: August 20, 2023
+Revised: August 26, 2023
 """
 
 import random
@@ -409,17 +409,21 @@ class DuneHotsPeak:
             self.menu = ["Take in the view."]
         elif "Spire Descent" not in self.c.flags:
             self.imageIndex = 5
-            self.text = "Oukkar forcefully collapses into the spire, creating a burning fissure."
-            if self.c.hasMercenary("Barrie"):
-                self.text += "\nBarrie: This ain't lookin' good."
-            if self.c.hasMercenary("Qendresa"):
-                self.text += "\nQendresa: We must leave at once!"
-            if not self.c.hasMercenary("Barrie") and not self.c.hasMercenary("Qendresa"):
-                if self.c.isPolite:
-                    gtgLine = "\n%s: I gotta get the heck outta here!" % self.c.NAME
-                else:
-                    gtgLine = "\n%s: I gotta get the fuck out of here." % self.c.NAME
-                self.text += gtgLine
+            if "Oukkar Collapse" not in self.c.flags:
+                self.c.flags["Oukkar Collapse"] = True
+                self.text = "Oukkar forcefully collapses into the spire, creating a burning fissure."
+                if self.c.hasMercenary("Barrie"):
+                    self.text += "\nBarrie: This ain't lookin' good."
+                if self.c.hasMercenary("Qendresa"):
+                    self.text += "\nQendresa: We must leave at once!"
+                if not self.c.hasMercenary("Barrie") and not self.c.hasMercenary("Qendresa"):
+                    if self.c.isPolite:
+                        gtgLine = "\n%s: I gotta get the heck outta here!" % self.c.NAME
+                    else:
+                        gtgLine = "\n%s: I gotta get the fuck out of here." % self.c.NAME
+                    self.text += gtgLine
+            else:
+                self.text = "You stand before a crater of magma."
             self.menu = ["Descend the spire."]
         else:
             self.imageIndex = 6

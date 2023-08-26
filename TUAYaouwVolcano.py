@@ -2,7 +2,7 @@
 File: TUAYaouwVolcano.py
 Author: Ben Gardner
 Created: June 1, 2020
-Revised: August 18, 2023
+Revised: August 26, 2023
 """
 
 import random
@@ -236,9 +236,11 @@ class YaouwVolcano:
         elif "In Battle" in self.c.flags:
             del self.c.flags['In Battle']
             if boss in self.c.flags['Kills']:
-                self.text = "%s: That dude was massive." % self.c.NAME
                 if self.c.hasMercenary("Barrie"):
-                    self.text += ("\n%s: What the heck was that?" % "Barrie")
+                    self.text = ("%s: What the heck was that?" % "Barrie")
+                    self.text += "\n%s: A massive rock guy." % self.c.NAME
+                else:
+                    self.text = "%s: That dude was massive." % self.c.NAME
                 if self.c.hasMercenary("Qendresa"):
                     self.text += ("\n%s: That magical being was a magma golem...with earthshifting abilities. The volcanic labyrinth appears to have changed." % "Qendresa")
                     if self.c.hasMercenary("Barrie"):
@@ -385,6 +387,7 @@ class YaouwVolcano:
         self.helpText = None
         self.menu = []
         if selectionIndex == 0:
+            self.c.flags["Can't Turn Back"] = True
             X = 4
             Y = 25
             return self.actions({'area': "Albanian Desert",
