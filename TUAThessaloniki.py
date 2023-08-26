@@ -2,7 +2,7 @@
 File: TUAThessaloniki.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: August 18, 2023
+Revised: August 25, 2023
 """
 
 
@@ -313,7 +313,7 @@ class Thessaloniki:
                     self.text += ("\n%s: Barrie, we've been through a" % self.c.NAME +
                                   " lot together, but I'm gonna have to leave" +
                                   " you behind on this one." +
-                                  "\nBarrie: Do your thing, chappy %s." % ("gal" if self.isFemale else "boy"))
+                                  "\nBarrie: Do your thing, chappy %s." % ("gal" if self.c.isFemale else "boy"))
                 self.menu = ["Open the gate."]
                 
         else:
