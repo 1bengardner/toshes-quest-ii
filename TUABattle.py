@@ -430,7 +430,7 @@ class Battle(object):
             bruhMoment = False
             if ( self.mainCharacter.hasItem("Brummo Mint") and
                  attacker == self.mainCharacter and
-                 critical and
+                 (critical or self.roll() == 1) and
                  damage and
                  skill.NAME == "Attack" and
                  not self.enemy.UNIQUE):
