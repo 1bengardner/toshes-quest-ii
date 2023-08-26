@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: August 22, 2023
+Revised: August 26, 2023
 """
 
 
@@ -259,7 +259,7 @@ class Main:
                     "Hot Coals",
                 ]),
             "Gumball Machine": lambda c:
-                "Gigantic Crayons" in c.flags['Kills'],
+                "Gigantic Crayons" in c.flags['Kills'] or c.mode == "Ultimate" and "Medea Quest Complete" in c.flags or c.level > 99,
             "Lily": lambda c:
                 "Queen Bee" in c.flags['Kills'] or "Pot Apparition" in c.flags['Kills'],
             "Ultimate Mode": lambda c:
