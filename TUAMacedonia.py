@@ -3,7 +3,7 @@
 File: TUAMacedonia.py
 Author: Ben Gardner
 Created: December 4, 2015
-Revised: August 21, 2023
+Revised: August 26, 2023
 """
 
 
@@ -426,9 +426,9 @@ class Macedonia(object):
                 elif (self.c.hasMercenary("Qendresa") or
                       self.c.hasMercenary("Barrie")):
                     self.text += (" I should probably tell %s."
-                                  % "Qendresa" if
+                                  % ("Qendresa" if
                                   self.c.hasMercenary("Qendresa") else
-                                  "Barrie")
+                                  "Barrie"))
                 self.text += ("\nThe Stone of Macedonia almost appears to be" +
                               " crying in agony." +
                               "\nYou look up to see the fog clearing as the" +
