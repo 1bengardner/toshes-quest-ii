@@ -943,13 +943,17 @@ class Battle(object):
                     "Name": "Break Free",
                     "Panning": self.getPanning(target)})
         if "Poisoned" in flags:
-            poisonDamage = int(target.maxHp/50*self.randomChance())
-            target.hp -= poisonDamage
-            self.text += ("Venom seeps into "+target.NAME+"'s blood, dealing "
-                     +str(poisonDamage)+" damage.\n")
-            if hasattr(target, "RARITY") and target.RARITY != "COMMON" and self.roll() <= 20:
+            if hasattr(target, "RARITY") and target.RARITY != "COMMON" and (self.roll() <= 20 or target.hp < target.maxHp / 10):
                 flags.remove("Poisoned")
                 self.text += (target.NAME+" shook off the poison.\n")
+                self.sounds.append({
+                    "Name": "Break Free",
+                    "Panning": self.getPanning(target)})
+            else:
+                poisonDamage = int(target.maxHp/50*self.randomChance())
+                target.hp -= poisonDamage
+                self.text += ("Venom seeps into "+target.NAME+"'s blood, dealing "
+                         +str(poisonDamage)+" damage.\n")
         elif "Burning" in flags:
             if self.roll() <= 25:
                 flags.remove("Burning")
