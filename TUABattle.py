@@ -947,6 +947,9 @@ class Battle(object):
             target.hp -= poisonDamage
             self.text += ("Venom seeps into "+target.NAME+"'s blood, dealing "
                      +str(poisonDamage)+" damage.\n")
+            if hasattr(target, "RARITY") and target.RARITY != "COMMON" and self.roll() <= 20:
+                flags.remove("Poisoned")
+                self.text += (target.NAME+" shook off the poison.\n")
         elif "Burning" in flags:
             if self.roll() <= 25:
                 flags.remove("Burning")
