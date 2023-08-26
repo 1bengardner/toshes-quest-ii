@@ -60,7 +60,7 @@ Hot Coals	Multi-Hit Damage	{"Wand"}	30	4	Fire	{}	{'hp': -5}	conjures a hot coal 
 Poison Cloud	Miscellaneous	{"Wand"}	30	0	Poison	{}	{}	casts Poison Cloud	None
 Melting Touch	Damage	{"Wand"}	30	300	Fire	{}	{'defence': -15}	casts Melting Touch on	None
 Floodtide	Damage	{"Wand"}	35	400	Water	{}	{}	casts Floodtide on	None
-Mist	Miscellaneous	{"Wand"}	35	0	Physical	{}	{'waterReduction': -20, 'accuracy': -5}	conjures a veil of mist	None
+Mist	Miscellaneous	{"Wand"}	35	0	Physical	{}	{'waterReduction': -5, 'accuracy': -5}	conjures a veil of mist	None
 Scorch	Damage	{"Wand"}	35	350	Fire	{}	{'hp': -25}	scorches	None
 Duststorm	Multi-Hit Damage	{"Wand"}	40	5	Earth	{}	{'accuracy': -1}	casts a gust of dust at	None
 Hailstorm	Multi-Hit Damage	{"Wand"}	45	6	Ice	{}	{'bRate': -1}	casts a shard of hail at	None

@@ -2,7 +2,7 @@
 File: TUABattle.py
 Author: Ben Gardner
 Created: March 24, 2013
-Revised: August 23, 2023
+Revised: August 26, 2023
 """
 
 
@@ -628,6 +628,10 @@ class Battle(object):
                         setattr(attacker, "hp", getattr(
                             attacker, "hp")+skill.USER_EFFECTS['hp'])
                 for stat, value in skill.TARGET_EFFECTS.iteritems():
+                    if stat == "accuracy" and defender.accuracy <= 50:
+                        self.text += (defender.NAME+"'s "+self.mapStat(stat)[0]+
+                                      " is already low.\n")
+                        continue
                     if value >= 0:
                         self.text += (defender.NAME+"'s "+self.mapStat(stat)[0]+
                                       " increased by "+str(value)+
