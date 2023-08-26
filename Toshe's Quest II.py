@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 23, 2023
+Revised: August 26, 2023
 """
 
 
@@ -3006,6 +3006,10 @@ def enableForgeView():
     leftFrame.updateInventory()
     leftFrame.placeButton.grid()
     leftFrame.placeButton['state'] = DISABLED
+
+    bottomFrame = window.bottomFrame.bottomRightFrame
+    bottomFrame.centerButton.bind_all('i', bottomFrame.clickInventoryButton)
+    bottomFrame.centerButton.bind_all('I', bottomFrame.clickInventoryButton)
 
     rightFrame = window.topFrame.topRightFrame
     rightFrame.forge.grid()
