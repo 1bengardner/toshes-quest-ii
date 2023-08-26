@@ -2,7 +2,7 @@
 File: TUAAlbanianDesert.py
 Author: Ben Gardner
 Created: December 25, 2013
-Revised: August 20, 2023
+Revised: August 26, 2023
 """
 
 
@@ -391,7 +391,7 @@ class AlbanianDesert:
             
         if selectionIndex == 0:
             return Static.ICA_DATA['Ica 5']
-        if "Oukkar" in self.c.flags['Kills'] and self.c.dexterity >= 75:
+        if "Oukkar" in self.c.flags['Kills'] and (self.c.dexterity >= 75 or "All Access Pass" in self.c.flags):
             self.text = ("\nYou spot a hidden passage up into the dune "+
                          "that appears to be accessible.")
             self.menu = ["Enter the dune."]
@@ -577,11 +577,18 @@ class AlbanianDesert:
         self.menu = []
         npc = "Mysterious Red Wizard"
         skill = "Hot Coals"
-        if selectionIndex == 0:
+        if skill+" Learned" in self.c.flags:
+            if selectionIndex == 0:
+                return self.actions({'skill': "Hot Coals",
+                                     'cost': 0})
+            self.text = "You feel the remnants of a magical presence in this area."
+            self.menu = ["Absorb some magical remnants."]
+        elif selectionIndex == 0:
             self.text = ("%s: I'm not a big cowboy, but ok." % self.c.NAME+
                          "\n"+npc+": Hserf tae!"+
                          "\nThe wizard flicks his wand and teleports away.")
             self.c.flags[skill] = True
+            self.c.flags[skill+" Learned"] = True
             return self.actions({'skill': skill,
                                  'cost': 0})
         elif selectionIndex == 1:

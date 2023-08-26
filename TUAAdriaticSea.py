@@ -2,7 +2,7 @@
 File: TUAAdriaticSea.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: August 18, 2023
+Revised: August 26, 2023
 """
 
 
@@ -533,11 +533,18 @@ class AdriaticSea:
         self.helpText = None
         self.menu = []
         npc = "Mysterious Blue Wizard"
-        if selectionIndex == 0:
+        if "Floodtide Learned" in self.c.flags:
+            if selectionIndex == 0:
+                return self.actions({'skill': "Floodtide",
+                                     'cost': 0})
+            self.text = "You feel the remnants of a magical presence in this area."
+            self.menu = ["Absorb some magical remnants."]
+        elif selectionIndex == 0:
             self.text = ("%s: I'm not a small sir, but ok." % self.c.NAME+
                          "\n"+npc+": Doog nikcil regnif!"+
                          "\nThe wizard flicks his wand and teleports away.")
             self.c.flags['Floodtide'] = True
+            self.c.flags['Floodtide Learned'] = True
             return self.actions({'skill': "Floodtide",
                                  'cost': 0})
         elif selectionIndex == 1:

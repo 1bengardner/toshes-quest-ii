@@ -2,7 +2,7 @@
 File: TUABlackMountain.py
 Author: Ben Gardner
 Created: June 2, 2013
-Revised: August 21, 2023
+Revised: August 26, 2023
 """
 
 
@@ -401,11 +401,18 @@ class BlackMountain:
         self.helpText = None
         self.menu = []
         npc = "Mysterious Brown Wizard"
-        if selectionIndex == 0:
+        if "Mudslide Learned" in self.c.flags:
+            if selectionIndex == 0:
+                return self.actions({'skill': "Mudslide",
+                                     'cost': 0})
+            self.text = "You feel the remnants of a magical presence in this area."
+            self.menu = ["Absorb some magical remnants."]
+        elif selectionIndex == 0:
             self.text = ("%s: I'm not a little boy, but ok." % self.c.NAME+
                          "\n"+npc+": Ti nivol mi!"+
                          "\nThe wizard flicks his wand and teleports away.")
             self.c.flags['Mudslide'] = True
+            self.c.flags['Mudslide Learned'] = True
             return self.actions({'skill': "Mudslide",
                                  'cost': 0})
         elif selectionIndex == 1:
