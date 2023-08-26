@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: August 18, 2023
+Revised: August 25, 2023
 """
 
 
@@ -819,14 +819,27 @@ class Igalo:
                 self.text = (npc+": I can't make it for you without the bars.")
                 
         elif self.c.hasItem("Gold Bar") and "Gold Man" not in self.c.flags:
-            self.text = ("The shield man sniffs the air and scurries "+
+            self.c.flags[npc] = True
+            self.text = ("The Shield Man sniffs the air and scurries "+
                          "toward you.\n"+
                          npc+": Wowee! Is that gold? I'm a goldsmith "+
                          "don'cha know? It's just that nobody ever brings "+
                          "me a hunk of gold to hammer away at! Let me make "+
                          "you something special!")
             self.c.flags['Gold Man'] = True
-        elif self.c.hasItem("Key Mold") and self.c.hasItem("Gold Bar"):
+            if self.c.hasItem("Key Mold") and self.c.hasItem("Gold Bar"):
+                self.c.flags['Got Key'] = True
+                rawMaterial = "Gold Bar"
+                product = "The Key to Macedonia"
+                self.c.removeItem(self.c.indexOfItem(rawMaterial))
+                self.text += ("\n%s: %s. Make this key for me." % (self.c.NAME, npc) +
+                             "\nYou hand the Shield Man your mold and gold bar."+
+                             "\n%s: Well then, just let me tinker for a moment." % npc +
+                             "\nThe Shield Man returns with a key."+
+                             "\nYou receive The Key to Macedonia!")
+                smithed = True
+        elif self.c.hasItem("Key Mold") and self.c.hasItem("Gold Bar") and not self.c.hasItem("The Key to Macedonia"):
+            self.c.flags[npc] = True
             self.c.flags['Got Key'] = True
             rawMaterial = "Gold Bar"
             product = "The Key to Macedonia"
@@ -837,17 +850,20 @@ class Igalo:
                          "\nThe Shield Man returns with a key."+
                          "\nYou receive The Key to Macedonia!")
             smithed = True
-        elif self.c.hasItem("Key Mold") and not self.c.hasItem("Gold Bar"):
+        elif self.c.hasItem("Key Mold") and not self.c.hasItem("Gold Bar") and not self.c.hasItem("The Key to Macedonia"):
+            self.c.flags[npc] = True
             self.text = ("%s: %s, make this key for me." % (self.c.NAME, npc)+
                          "\n%s: I most certainly can do that as soon" % npc+
                          " as you get me a bar of metal to smith it with.")
+        elif self.c.hasItem("The Key to Macedonia") and "Conclusion" not in self.c.flags:
+            self.text = (npc+": Hey, I was wondering...what's the key for? Oh, never mind. Don't tell me! A good mystery will keep me on my toes.")
         elif npc not in self.c.flags:
+            self.c.flags[npc] = True
             self.text = (npc+": Sorry for all the loudness. "+
                          "I'm probably disturbing the neighbourhood. They "+
                          "call me %s. I'm sort of a traveling " % npc+
                          "merchant, because shields are a bit of a "+
                          "fad, you see. I'm at the back if you need me.")
-            self.c.flags[npc] = True
         else:
             self.text = choice([npc+": Get your designer shields here.",
                                 npc+": I just got up and left my old shop "+
