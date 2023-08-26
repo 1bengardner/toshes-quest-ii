@@ -2,7 +2,7 @@
 File: TUABoat.py
 Author: Ben Gardner
 Created: March 2, 2013
-Revised: August 18, 2023
+Revised: August 26, 2023
 """
 
 
@@ -93,7 +93,11 @@ class Boat:
                              "fishing and falling in."+
                              "\nBert: I don't know, Heinz. You'd have to be "+
                              "pretty crazy to go fishing in these waters.\n")
-            if self.c.isPolite:
+            if self.c.portrait == "Lily":
+                shitLine = "\n%s: Oh dear, I think I've soiled myself." % self.c.NAME
+            elif self.c.portrait == "Gumball Machine":
+                shitLine = "\n%s: Balls." % self.c.NAME
+            elif self.c.isPolite:
                 shitLine = "\n%s: Wait, do I have time to poop my pants?" % self.c.NAME
             else:
                 shitLine = "\n%s: Wait, do I have time to take a shit?" % self.c.NAME
