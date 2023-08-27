@@ -2,7 +2,7 @@
 File: TUAColiseum.py
 Author: Ben Gardner
 Created: August 10, 2015
-Revised: August 25, 2023
+Revised: August 26, 2023
 """
 
 
@@ -186,7 +186,7 @@ class Coliseum:
                              " mine. I have not had a duel of that caliber" +
                              " in over a decade. You have earned the" +
                              " privilege of a grand tour!" +
-                             " Guards, lead this %s to the fortress!" % ("woman" if self.c.isFemale else "man") +
+                             " Guards, lead this%sto the fortress!" % ("...being..." if not self.c.isHumanoid else (" woman " if self.c.isFemale else " man ")) +
                              "\nThree escorts assemble around you and" +
                              " point you westward in the direction of the" +
                              " fortress.")
