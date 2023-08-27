@@ -1419,7 +1419,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         def collectReward(ascension, c):
             def getSpecialReward(c):
                 for candidate in ["Moon Armour", "Macedonian Protector", "Scintillous Ring"]:
-                    if not c.hasItem(candidate) and ("Buyback Items" not in c.flags or all(item.NAME != candidate for item in c.flags['Buyback Items'] if item is not None)):
+                    if not c.hasItem(candidate) and ("Buyback Items" not in c.flags or all(item.NAME != candidate for item in c.flags['Buyback Items'] if item is not None and type(item) != str)):
                         return candidate
                 return "Platinum Ball"
             if ascension == 10:
