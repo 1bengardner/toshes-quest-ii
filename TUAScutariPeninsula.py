@@ -2,7 +2,7 @@
 File: TUAScutariPeninsula.py
 Author: Ben Gardner
 Created: August 30, 2013
-Revised: August 20, 2023
+Revised: August 26, 2023
 """
 
 
@@ -223,7 +223,7 @@ class ScutariPeninsula:
                                  'coordinates': (X, Y)})
         elif selectionIndex == 1:
             self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
-            self.text = "You apply a jar of Olympian Ointment to the hole."
+            self.text = "You apply a vial of Olympian Ointment to the hole."
             if randint(1, 10) == 1:
                 self.text += "\nA Diggler crawls out!"
                 self.view = "battle"

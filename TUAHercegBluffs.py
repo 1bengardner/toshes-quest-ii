@@ -2,7 +2,7 @@
 File: TUAHercegBluffs.py
 Author: Ben Gardner
 Created: May 20, 2013
-Revised: August 18, 2023
+Revised: August 26, 2023
 """
 
 
@@ -350,7 +350,7 @@ class HercegBluffs:
         elif selectionIndex == 1:
             self.imageIndex = 34
             self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
-            self.text = "You apply a jar of Olympian Ointment to the cave."
+            self.text = "You apply a vial of Olympian Ointment to the cave."
             self.text += "\nThe nearby earth begins to shake and morphs into a Psionic Beast!"
             self.view = "battle"
             return self.actions({'enemy': "Psionic Beast",

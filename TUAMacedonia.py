@@ -735,7 +735,7 @@ class Macedonia(object):
                 if selectionIndex == 1:
                     self.c.flags['Macedonia Ointment'] = True
                     self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
-                    self.text = "You apply a jar of Olympian Ointment to the Stone of Macedonia."
+                    self.text = "You apply a vial of Olympian Ointment to the Stone of Macedonia."
                     self.text += "\nIt returns to its original vibrant hue. It begins to shake, pulling itself apart to reveal what appears to be an inner sanctum."
                     if "Inner Sanctum" not in self.c.flags:
                         self.c.flags['Inner Sanctum'] = True

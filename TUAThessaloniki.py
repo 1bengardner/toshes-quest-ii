@@ -373,7 +373,7 @@ class Thessaloniki:
             else:
                 self.c.flags['Palace Ointment'] = True
                 self.c.removeItem(self.c.indexOfItem("Olympian Ointment"))
-                self.text = "You pour a jar of Olympian Ointment into the river."
+                self.text = "You pour a vial of Olympian Ointment into the river."
                 if self.c.hasMercenary("Barrie"):
                     self.text += "\nBarrie: %s, what are you thinking, man?" % self.c.NAME
                 self.text += "\nThe bridge to Niplin's Lair rises from the water!"

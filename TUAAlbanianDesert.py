@@ -781,7 +781,7 @@ class AlbanianDesert:
                 self.text = "You see Yaouw Volcano in the distance."
             else:
                 self.c.flags['Volcano Ointment Aftermath'] = True
-                self.text = "You apply a jar of Olympian Ointment to the area."
+                self.text = "You apply a vial of Olympian Ointment to the area."
                 if self.c.hasMercenary("Barrie"):
                     self.text += "\nBarrie: And what do you think that's gonna do?"
                 self.text += "\nYaouw Volcano re-emerges!"
