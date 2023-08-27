@@ -1067,13 +1067,13 @@ class TopCenterFrame:
                 self.tryToLoadFile(name)
             else:
                 raise e
-        # except (EOFError, ValueError, KeyError, IndexError):
-            # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # name +
-                # ", your file is completely garbled! This is quite unfortunate.")
-        # except ImportError:
-            # window.bottomFrame.bottomLeftFrame.insertOutput(
-                # "I cannot read this file at all! What language is this?")
+        except (EOFError, ValueError, KeyError, IndexError):
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                name +
+                ", your file is completely garbled! This is quite unfortunate.")
+        except ImportError:
+            window.bottomFrame.bottomLeftFrame.insertOutput(
+                "I cannot read this file at all! What language is this?")
         except IOError:
             window.bottomFrame.bottomLeftFrame.insertOutput(
                 name +
@@ -1088,9 +1088,6 @@ class TopCenterFrame:
             name = main.fileName
         main.loadGame(name)
         self.startGame(name)
-        # TODO Remove this debugging code
-        # self.areaButton.bind_all("<Control-r>", lambda _: self.loadFile())
-        # self.areaButton.bind_all("<Control-R>", lambda _: self.loadFile())
 
     def restoreFile(self):
         window.bottomFrame.bottomRightFrame.okButton['command'] = \
