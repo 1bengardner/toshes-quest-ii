@@ -954,6 +954,14 @@ class Battle(object):
                 target.hp -= poisonDamage
                 self.text += ("Venom seeps into "+target.NAME+"'s blood, dealing "
                          +str(poisonDamage)+" damage.\n")
+                self.hits.append({
+                    "Target": "Enemy" if target is self.enemy else target.NAME,
+                    "Kind": "Earth",
+                    "Number": int(poisonDamage),
+                    "Skill": False,
+                    "Critical": False,
+                    "Aux": target in self.auxiliaryCharacters,
+                })
         elif "Burning" in flags:
             if self.roll() <= 25:
                 flags.remove("Burning")
@@ -967,6 +975,14 @@ class Battle(object):
                 target.hp -= burnDamage
                 self.text += ("Fire continues to singe "+target.NAME+", dealing "
                               +str(burnDamage)+" damage.\n")
+                self.hits.append({
+                    "Target": "Enemy" if target is self.enemy else target.NAME,
+                    "Kind": "Fire",
+                    "Number": int(burnDamage),
+                    "Skill": False,
+                    "Critical": False,
+                    "Aux": target in self.auxiliaryCharacters,
+                })
                 
         if "Recovering Active" in flags:
             self.text += target.NAME+" is regaining composure.\n"
