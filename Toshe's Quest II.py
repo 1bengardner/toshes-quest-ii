@@ -3010,6 +3010,8 @@ def enableForgeView():
     bottomFrame = window.bottomFrame.bottomRightFrame
     bottomFrame.centerButton.bind_all('i', bottomFrame.clickInventoryButton)
     bottomFrame.centerButton.bind_all('I', bottomFrame.clickInventoryButton)
+    bottomFrame.centerButton.unbind_all('x')
+    bottomFrame.centerButton.unbind_all('X')
 
     rightFrame = window.topFrame.topRightFrame
     rightFrame.forge.grid()
