@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Toshe's Underwater Adventures 3.0
+# Toshe's Underwater Adventures 3.0 - itch.io release
 
 """
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 26, 2023
+Revised: August 31, 2023
 """
 
 
@@ -1202,73 +1202,13 @@ class TopRightFrame:
         newsContent.tag_config("section", font=italicFont2, spacing3=2)
         newsContent.tag_config("emphasis", font=boldFont1)
 
-        newsContent.insert(END, "Content Updates", ("section"))
-        newsContent.insert(END,
-"""
-The remaining """)
-        newsContent.insert(END, "Guardian Beasts", ("emphasis"))
-        newsContent.insert(END,
-""" have been unleashed! Find all three—Earth, Ice and Sky—and navigate their labyrithine abodes to challenge them. Prepare yourself for some tough battles!
-
-The lair of the dark commander """)
-        newsContent.insert(END, "Niplin", ("emphasis"))
-        newsContent.insert(END,
-""" has been spotted. Scope him out to score some sweet loot, if you can take him on. However, you may have to solve a little puzzle first.
-
-The """)
-        newsContent.insert(END, "endgame", ("emphasis"))
-        newsContent.insert(END,
-""" is nigh! Completing the main game will unlock a new town with two new areas to test your might and upgrade your arsenal to its ultimate form.
-
-""")
-        newsContent.insert(END, "Feature Updates", ("section"))
-        newsContent.insert(END,
-"""
-Too much Toshe? Choose from """)
-        newsContent.insert(END, "seven new characters", ("emphasis"))
-        newsContent.insert(END,
-""" to spice up your new game.
-
-Select a character with the """)
-        newsContent.insert(END, "Recent Games", ("emphasis"))
-        newsContent.insert(END,
-""" list. Hit the ground running with a single click: no more typing your name in!
-
-Find your way around with the new """)
-        newsContent.insert(END, "Map", ("emphasis"))
-        newsContent.insert(END,
-""", replacing those boring images. Click to mark important tiles to remember them later.
-
-Are you thirsty? Quench that craving with a """)
-        newsContent.insert(END, "potion", ("emphasis"))
-        newsContent.insert(END,
-""", and heal some HP! All blood-bearing enemies now drop life fluid potions. Suck on that, Vampire Bat!
-
-It's 2023 and people's screens are getting wider...that means it's time for a """)
-        newsContent.insert(END, "Mission Log", ("emphasis"))
-        newsContent.insert(END,
-"""! That's right, you can now view your current missions in your very own log, at your leisure.
-
-Zounds, we have """)
-        newsContent.insert(END, "sounds", ("emphasis"))
-        newsContent.insert(END,
-"""! You can now control sound effects, as well as music.
-
-Check your hits and heals at a glance with """)
-        newsContent.insert(END, "damage numbers", ("emphasis"))
-        newsContent.insert(END,
-""". They're animated!
-
-Game over? Don't fret. You can now """)
-        newsContent.insert(END, "resume from town", ("emphasis"))
-        newsContent.insert(END,
-""".""")
+        newsContent.insert(END, "For guides and help, visit: https://toshesquest.com")
         newsContent['state'] = DISABLED
-        newsContent.grid(sticky=EW)
+        newsContent.grid(sticky=EW, padx=4, pady=4)
 
-        scrollbar = Scrollbar(self.news, bg=DEFAULT_BG, command=newsContent.yview)
-        scrollbar.grid(row=0, column=1, sticky=N+S)
-        newsContent.config(yscrollcommand=scrollbar.set)
+        # scrollbar = Scrollbar(self.news, bg=DEFAULT_BG, command=newsContent.yview)
+        # scrollbar.grid(row=0, column=1, sticky=N+S)
+        # newsContent.config(yscrollcommand=scrollbar.set)
 
     def makeFrameElements(self, master):
         """Create labelframes for other stats, enemy stats and store items.
