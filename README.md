@@ -2,45 +2,27 @@
 
 **Toshe's Quest II: Toshe's Underwater Adventures**
 
-The smash hit sequel: An expansive, old-school RPG with a picture-and-text interface, including an original musical score by [me](https://github.com/1bengardner).
+The sequel! An expansive, old-school RPG with a picture-and-text interface and an original musical score by [me](https://github.com/1bengardner).
 
 ## Getting Started
 
 ### Prerequisites
 
-- Install ``Python 2`` and ``Pygame``, available for download from the latest [release](https://github.com/1bengardner/toshes-quest-ii/releases).
+- Download and extract [toshes-quest-ii.zip](https://github.com/1bengardner/toshes-quest-ii/releases/download/v3.0.0/toshes-quest-ii.zip) from the latest [release](https://github.com/1bengardner/toshes-quest-ii/releases).
 - Install ``Garamond`` font
 
 ### Running the game
 
-- Clone the repo
-- Run ``Toshe's Quest II.py`` to start the game
+- Run ``Toshe's Quest II.exe`` to start the game
 
-## Game Information
+## How to Play
 
-For help with playing the game, you can view the [help document](https://docs.google.com/document/d/1i8sh05-yBGtLG8fPGUD-89xMbrgquwiMfgpMYeLJGaE/edit).
+For help with playing the game, you can view the [How to Play page](https://toshesquest.com/how-to-play) on the [Toshe's Quest II website](https://toshesquest.com/).
 
-### Story
+### Screenshots
 
-The tale begins with the aftermath of a seaborne battle between good and evil. Catastrophic shipwreck has left Toshe underwater. And, in the depths of the Adriatic Sea, the anemonies aren't friendly.
+![Exploring](https://github.com/1bengardner/toshes-quest-ii/assets/6226898/e8e378a5-4f52-42d3-acd0-24585ab72d28)
 
-Having a distinct preference for brawn over wit, Toshe won't go down without a fight. Sworn defender, Toshe dedicates his life to honour. It might sound like Toshe's trying to save the world, but he's really just trying to save his own butt. To do that, he needs some help. That's where you come in!
+![Battling](https://github.com/1bengardner/toshes-quest-ii/assets/6226898/70990a34-5f11-4d53-abf8-4d5eaf0ead63)
 
-***
-
-You take on the role of Toshe: Macedonia's unlikely, yet nonetheless heroic saviour-to-be.
-
-Evil monsters have infested southern Europe and some dastardly villains have cropped up. As a warrior, you have volunteered yourself for cleanup duty. It is your oathbound obligation to protect your homeland from impending doom.
-
-The gates of Macedonia can't hold forever, and as beasts attack the abandoned nation, its defences begin to crumble. As Macedonia's sole protector, you must act swiftly, for your actions determine its fate.
-
-However, once the truth is revealed, it may be too late...
-
-### Features
-
-- A quirky plotline
-- Dozens of regions to venture through
-- Over 100 items to equip
-- Over 200 unique foes to challenge
-- 3 different allies to join you in battle
-- Loot, levelups and laughs
+![Shopping](https://github.com/1bengardner/toshes-quest-ii/assets/6226898/568fe2c4-f40d-4f8f-be7e-f5c54bb1095b)
