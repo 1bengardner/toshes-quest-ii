@@ -19,7 +19,7 @@ The sequel! An expansive, old-school RPG with a picture-and-text interface and a
 
 For help with playing the game, you can view the [How to Play page](https://toshesquest.com/how-to-play) on the [Toshe's Quest II website](https://toshesquest.com/).
 
-### Screenshots
+## Screenshots
 
 ![Exploring](https://github.com/1bengardner/toshes-quest-ii/assets/6226898/e8e378a5-4f52-42d3-acd0-24585ab72d28)
 
