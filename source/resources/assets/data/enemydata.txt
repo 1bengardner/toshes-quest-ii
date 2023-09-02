@@ -26,7 +26,7 @@ Orc	Orc	Orc	6	210	210	20	70	6	200	0	18	0	0	0	0	{'Rumble Strike': 5, 'Helix Swing
 Mr. Pockins	Mr. Pockins	Mr Pockins	6	100	100	22	90	20	200	0	11	0	0	0	0	{'Helix Swing': 10, 'Restore': 20}	{'Javelin': 50, 'Velvet Doublet': 50}	120	30	1	0	Important Battle	1	1	RARE
 Giant Seal1	Giant Seal	Giant Seal1	7	300	300	17	90	10	200	0	20	0	50	-100	0	{}	{}	140	0	1	0	None	0	1	COMMON
 Moghi	Moghi	Moghi	7	380	380	14	90	10	200	0	20	50	0	-100	0	{'Rumble Strike': 25, 'Crush': 25}	{'Boulderwort': 20}	140	0	1	0	None	0	1	COMMON
-Divelk	Divelk	Divelk	7	180	180	26	999	0.1	200	0	0	25	25	25	0	{'Mudslide': 30, 'Healing Glow': 15}	{'Yew Wand': 1}	150	30	1	0	None	0	1	COMMON
+Divelk	Divelk	Divelk	7	180	180	26	999	0.1	200	0	0	25	25	25	0	{'Mudslide': 30, 'Healing Glow': 15}	{'Yew Wand': 5}	150	30	1	0	None	0	1	COMMON
 Giant Seal2	Frostflipper the Fierce	Giant Seal2	7	3000	3000	34	90	10	200	0	20	0	50	-100	0	{'Icicles': 20}	{}	1400	0	1	0	Important Battle	0	1	RARE
 Skeleton Soldier	Skeleton Soldier	Skeleton Soldier	8	280	280	34	60	8	200	8	45	25	0	-100	0	{'Deep Thrust': 8, 'Defend': 8}	{'Lancet': 4, 'Tower Shield': 2, 'Iron Hauberk': 3}	190	40	1	0	None	0	0	COMMON
 Skeleton Archer	Skeleton Archer	Skeleton Archer	8	280	280	29	90	8	200	0	30	25	0	-100	0	{'Sap Shot': 10, 'Piercing Quad': 15}	{'Birch Bow': 6, 'Iron Hauberk': 3}	190	40	1	0	None	0	0	COMMON

@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: August 22, 2023
+Revised: September 2, 2023
 """
 
 
@@ -19,7 +19,7 @@ class Sound:
     MUSIC_VOLUME = 0.5
     
     def __init__(self):
-        self.path = "audio/%s.ogg"
+        self.path = "resources/assets/audio/%s.ogg"
         self.songs = {"Intro Theme": "Daring Feat",
                       "Menu Theme": "Sacred Dream",
                       "Game Over Theme": "Overcast",
@@ -200,5 +200,5 @@ class Sound:
         preferences.musicOn = not self.musicMuted
         preferences.sfxOn = not self.sfxMuted
         preferences.volume = self.currentVolume
-        with open("settings/preferences.tqp", "w") as preferencesFile:
+        with open("resources/settings/preferences.tqp", "w") as preferencesFile:
             pickle.dump(preferences, preferencesFile)
