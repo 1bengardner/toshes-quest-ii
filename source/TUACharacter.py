@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: July 16, 2023
+Revised: September 2, 2023
 """
 
 
@@ -197,11 +197,12 @@ class Character(object):
         self.addOrbStats()
 
     def addOrbStats(self):
-        self.waterReduction += 3 * self.countItem("Wizardly Orb") + 5 * self.countItem("Ranine Orb")
-        self.earthReduction += 3 * self.countItem("Wizardly Orb") + 5 * self.countItem("Bulbous Orb")
-        self.fireReduction += 3 * self.countItem("Wizardly Orb") + 5 * self.countItem("Fiery Orb")
-        self.bRate += 3 * self.countItem("Knightly Orb")
-        self.physicalReduction += 3 * self.countItem("Feline Orb")
+        wizardlyOrbReduction = 5 * self.countItem("Wizardly Orb")
+        self.waterReduction += wizardlyOrbReduction + 10 * self.countItem("Ranine Orb")
+        self.earthReduction += wizardlyOrbReduction + 10 * self.countItem("Bulbous Orb")
+        self.fireReduction += wizardlyOrbReduction + 10 * self.countItem("Fiery Orb")
+        self.bRate += 5 * self.countItem("Knightly Orb")
+        self.physicalReduction += 5 * self.countItem("Feline Orb")
 
     @property
     def ep(self):
@@ -239,7 +240,7 @@ class Character(object):
             return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
             return value + 1 * (self.mastery - 1)
-        return value + 3 * self.countItem("Gumball of Power")
+        return value + 5 * self.countItem("Gumball of Power")
 
     @strength.setter
     def strength(self, value):
@@ -262,7 +263,7 @@ class Character(object):
             return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
             return value + 1 * (self.mastery - 1)
-        return value + 3 * self.countItem("Gumball of Power")
+        return value + 5 * self.countItem("Gumball of Power")
 
     @dexterity.setter
     def dexterity(self, value):
@@ -287,7 +288,7 @@ class Character(object):
             return value + 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
             return value + 1 * (self.mastery - 1)
-        return value + 3 * self.countItem("Gumball of Power")
+        return value + 5 * self.countItem("Gumball of Power")
 
     @wisdom.setter
     def wisdom(self, value):
