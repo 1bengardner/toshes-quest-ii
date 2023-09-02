@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: August 26, 2023
+Revised: September 2, 2023
 """
 
 
@@ -362,7 +362,7 @@ class TopLeftFrame:
                 "\nClick the turtle to start one."))
 
         try:
-            with open("settings/recent_games.tqp", "r") as preferencesFile:
+            with open("resources/settings/recent_games.tqp", "r") as preferencesFile:
                 recentCharacters = pickle.load(preferencesFile).recentCharacters
 
             if len(recentCharacters) == 0:
@@ -685,7 +685,7 @@ class TopLeftFrame:
                 forgeFrame.forgeSuccess.grid()
                 forgeFrame.anvilButton['state'] = NORMAL
                 forgeFrame.anvilButton['relief'] = RAISED
-                forgeFrame.anvilButton['cursor'] = "@hammer.cur"
+                forgeFrame.anvilButton['cursor'] = "@resources/assets/images/icons/hammer.cur"
             else:
                 forgeFrame.forgeSuccess.grid_remove()
                 forgeFrame.anvilButton['state'] = DISABLED
@@ -798,12 +798,12 @@ class TopCenterFrame:
     def makeFrameElements(self, master):
         def writeAnimationsPrefs(on):
             try:
-                with open("settings/preferences.tqp", "r") as existingPreferences:
+                with open("resources/settings/preferences.tqp", "r") as existingPreferences:
                     preferences = pickle.load(existingPreferences)
             except IOError:
                 preferences = Preferences()
             preferences.animationsOn = on
-            with open("settings/preferences.tqp", "w") as preferencesFile:
+            with open("resources/settings/preferences.tqp", "w") as preferencesFile:
                 pickle.dump(preferences, preferencesFile)
 
         cogLabel = Label(master, bg=DEFAULT_BG, image=settingsImage)
@@ -845,7 +845,7 @@ class TopCenterFrame:
                              )
         volumeSlider.grid(row=0, padx=21, pady=(52, 0), sticky=W)
         try:
-            with open("settings/preferences.tqp", "r") as preferencesFile:
+            with open("resources/settings/preferences.tqp", "r") as preferencesFile:
                 preferences = pickle.load(preferencesFile)
                 if not preferences.animationsOn:
                     animationsButton.invoke()
@@ -1033,7 +1033,7 @@ class TopCenterFrame:
             return
         fileName = d.fileName
         try:
-            open("saves/"+fileName+".tq")
+            open("resources/saves/"+fileName+".tq")
         except IOError:
             main.sound.playSound(main.sound.sounds['Open Dialog'])
             main.sound.playMusic(main.sound.songs['Menu Theme'])
@@ -1057,7 +1057,7 @@ class TopCenterFrame:
                 name +
                 ", some vital information is missing from your file." +
                 " Perhaps this can be remedied with a conversion...")
-            path = "saves/"+name+".tq"
+            path = "resources/saves/"+name+".tq"
             with open(path, "r") as gameFile:
                 changed = converter.update(gameFile, path)
             if changed:
@@ -1730,7 +1730,7 @@ Game over? Don't fret. You can now """)
             
         def fetchEnemyImage(enemy):
             if enemy not in enemyImages:
-                enemyImages[enemy] = (PhotoImage(file="images/enemies/"+
+                enemyImages[enemy] = (PhotoImage(file="resources/assets/images/enemies/"+
                     main.enemies[enemy].IMAGE+".gif"))
         fetchEnemyImage(e.IDENTIFIER)
         self.enemyImageLabel['image'] = enemyImages[e.IDENTIFIER]
@@ -2497,7 +2497,7 @@ def updateInterface(updates, skipQuests=False):
         def fetchAreaImage(image):
             if image not in areaImages[areaName]:
                 areaImages[areaName][image] = PhotoImage(
-                    file="images/areas/"+areaName+"/"+str(image)+".gif"
+                    file="resources/assets/images/areas/"+areaName+"/"+str(image)+".gif"
                 )
         try:
             fetchAreaImage(updates['image index'])
@@ -3135,13 +3135,13 @@ def loadAssets():
     assetsToLoad += len(portraits)
     
     for i in range(1, NUMBER_OF_BARS):
-        xpBars.append(PhotoImage(file="images/bars/xpbar"+
+        xpBars.append(PhotoImage(file="resources/assets/images/bars/xpbar"+
                                  str(i)+".gif"))
-        hpBars.append(PhotoImage(file="images/bars/hpbar"+
+        hpBars.append(PhotoImage(file="resources/assets/images/bars/hpbar"+
                                  str(NUMBER_OF_BARS - i - 1)+".gif"))
-        epBars.append(PhotoImage(file="images/bars/epbar"+
+        epBars.append(PhotoImage(file="resources/assets/images/bars/epbar"+
                                  str(NUMBER_OF_BARS - i - 1)+".gif"))
-        spBars.append(PhotoImage(file="images/bars/spbar"+
+        spBars.append(PhotoImage(file="resources/assets/images/bars/spbar"+
                                  str(i)+".gif"))
         incrementProgress()
     
@@ -3149,37 +3149,37 @@ def loadAssets():
         areaImages[area.name] = {}
 
     # for enemyId in main.enemies:
-        # enemyImages[enemyId] = (PhotoImage(file="images/enemies/"+
+        # enemyImages[enemyId] = (PhotoImage(file="resources/assets/images/enemies/"+
                                            # main.enemies[enemyId].IMAGE+".gif"))
         # incrementProgress()
 
     for portrait in portraits:
-        portraitImages[portrait] = PhotoImage(file="images/other/%s.gif"
+        portraitImages[portrait] = PhotoImage(file="resources/assets/images/other/%s.gif"
             % portrait)
         incrementProgress()
 
     for weaponName in main.weapons:
         imageName = main.weapons[weaponName].IMAGE_NAME
         itemImages[imageName] = (
-            PhotoImage(file="images/weapons/"+weaponName+".gif"))
+            PhotoImage(file="resources/assets/images/weapons/"+weaponName+".gif"))
         scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
     for armourName in main.armour:
         imageName = main.armour[armourName].IMAGE_NAME
         itemImages[imageName] = (
-            PhotoImage(file="images/armour/"+armourName+".gif"))
+            PhotoImage(file="resources/assets/images/armour/"+armourName+".gif"))
         scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
     for shieldName in main.shields:
         imageName = main.shields[shieldName].IMAGE_NAME
         itemImages[imageName] = (
-            PhotoImage(file="images/shields/"+shieldName+".gif"))
+            PhotoImage(file="resources/assets/images/shields/"+shieldName+".gif"))
         scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
     for itemName in main.miscellaneousItems:
         imageName = main.miscellaneousItems[itemName].IMAGE_NAME
         itemImages[imageName] = (
-            PhotoImage(file="images/miscellaneous/"+itemName+".gif"))
+            PhotoImage(file="resources/assets/images/miscellaneous/"+itemName+".gif"))
         scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
         
@@ -3443,7 +3443,7 @@ LEVEL_BG = LIGHTCYAN
 root = Tk()
 root['bg'] = MEDIUMBEIGE
 root.protocol('WM_DELETE_WINDOW', close)
-root.iconbitmap("images/icons/tq.ico")
+root.iconbitmap("resources/assets/images/icons/tq.ico")
 root.title("Loading...")
 
 # Initialize variables
@@ -3465,45 +3465,45 @@ font7 = tkFont.Font(family=fontFamily, size=66, weight="bold")
 font8 = tkFont.Font(family=fontFamily, size=16, weight="bold")
 lightFont8 = tkFont.Font(family=fontFamily, size=16)
 
-welcomeImage = PhotoImage(file="images/other/turtle.gif")
-bloodDropImages = [PhotoImage(file="images/other/blood_drop%s.gif" % (i+1))
+welcomeImage = PhotoImage(file="resources/assets/images/other/turtle.gif")
+bloodDropImages = [PhotoImage(file="resources/assets/images/other/blood_drop%s.gif" % (i+1))
     for i in range(3)]
-bloodSlashImages = [PhotoImage(file="images/other/blood_slash%s.gif" % (i+1))
+bloodSlashImages = [PhotoImage(file="resources/assets/images/other/blood_slash%s.gif" % (i+1))
     for i in range(4)]
-gameOverImage = PhotoImage(file="images/other/gameover.gif")
+gameOverImage = PhotoImage(file="resources/assets/images/other/gameover.gif")
 
-euroImage = PhotoImage(file="images/icons/euro.gif")
-potionImage = PhotoImage(file="images/icons/potion.gif")
-logImage = PhotoImage(file="images/icons/mission log.gif")
-sfxImage = PhotoImage(file="images/icons/sfx.gif")
-musicImage = PhotoImage(file="images/icons/music.gif")
-animationsImage = PhotoImage(file="images/icons/animations.gif")
-settingsImage = PhotoImage(file="images/icons/settings.gif")
-saveImage = PhotoImage(file="images/icons/save.gif")
-vBorderImage1 = PhotoImage(file="images/other/border21.gif")
-vBorderImage2 = PhotoImage(file="images/other/border22.gif")
-hBorderImage = PhotoImage(file="images/other/border3.gif")
-waveBorderImage = PhotoImage(file="images/other/border1.gif")
+euroImage = PhotoImage(file="resources/assets/images/icons/euro.gif")
+potionImage = PhotoImage(file="resources/assets/images/icons/potion.gif")
+logImage = PhotoImage(file="resources/assets/images/icons/mission log.gif")
+sfxImage = PhotoImage(file="resources/assets/images/icons/sfx.gif")
+musicImage = PhotoImage(file="resources/assets/images/icons/music.gif")
+animationsImage = PhotoImage(file="resources/assets/images/icons/animations.gif")
+settingsImage = PhotoImage(file="resources/assets/images/icons/settings.gif")
+saveImage = PhotoImage(file="resources/assets/images/icons/save.gif")
+vBorderImage1 = PhotoImage(file="resources/assets/images/other/border21.gif")
+vBorderImage2 = PhotoImage(file="resources/assets/images/other/border22.gif")
+hBorderImage = PhotoImage(file="resources/assets/images/other/border3.gif")
+waveBorderImage = PhotoImage(file="resources/assets/images/other/border1.gif")
 
-upImage = PhotoImage(file="images/icons/up.gif")
-leftImage = PhotoImage(file="images/icons/left.gif")
-rightImage = PhotoImage(file="images/icons/right.gif")
-downImage = PhotoImage(file="images/icons/down.gif")
-inventoryImage = PhotoImage(file="images/icons/inventory.gif")
-backImage = PhotoImage(file="images/icons/back.gif")
-cancelImage = PhotoImage(file="images/icons/cancel.gif")
-attackImage = PhotoImage(file="images/icons/attack.gif")
-defendImage = PhotoImage(file="images/icons/defend.gif")
-fleeImage = PhotoImage(file="images/icons/flee.gif")
+upImage = PhotoImage(file="resources/assets/images/icons/up.gif")
+leftImage = PhotoImage(file="resources/assets/images/icons/left.gif")
+rightImage = PhotoImage(file="resources/assets/images/icons/right.gif")
+downImage = PhotoImage(file="resources/assets/images/icons/down.gif")
+inventoryImage = PhotoImage(file="resources/assets/images/icons/inventory.gif")
+backImage = PhotoImage(file="resources/assets/images/icons/back.gif")
+cancelImage = PhotoImage(file="resources/assets/images/icons/cancel.gif")
+attackImage = PhotoImage(file="resources/assets/images/icons/attack.gif")
+defendImage = PhotoImage(file="resources/assets/images/icons/defend.gif")
+fleeImage = PhotoImage(file="resources/assets/images/icons/flee.gif")
 
-noItemImage = PhotoImage(file="images/other/empty.gif")
-defaultImage = PhotoImage(file="images/other/default.gif")
+noItemImage = PhotoImage(file="resources/assets/images/other/empty.gif")
+defaultImage = PhotoImage(file="resources/assets/images/other/default.gif")
 
-anvilImage = PhotoImage(file="images/other/anvil.gif")
-crucibleImage = PhotoImage(file="images/other/crucible.gif")
+anvilImage = PhotoImage(file="resources/assets/images/other/anvil.gif")
+crucibleImage = PhotoImage(file="resources/assets/images/other/crucible.gif")
 
-battleImage = PhotoImage(file="images/other/battle.gif")
-phantasmImage = PhotoImage(file="images/other/phantasm.gif")
+battleImage = PhotoImage(file="resources/assets/images/other/battle.gif")
+phantasmImage = PhotoImage(file="resources/assets/images/other/phantasm.gif")
 
 xpBars = []
 hpBars = []
@@ -3516,13 +3516,13 @@ scaledItems = {}
 enemyImages = {}
 FULL_PROGRESS = 100
 
-xpBars.append(PhotoImage(file="images/bars/xpbar"+
+xpBars.append(PhotoImage(file="resources/assets/images/bars/xpbar"+
                          str(0)+".gif"))
-hpBars.append(PhotoImage(file="images/bars/hpbar"+
+hpBars.append(PhotoImage(file="resources/assets/images/bars/hpbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
-epBars.append(PhotoImage(file="images/bars/epbar"+
+epBars.append(PhotoImage(file="resources/assets/images/bars/epbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
-spBars.append(PhotoImage(file="images/bars/spbar"+
+spBars.append(PhotoImage(file="resources/assets/images/bars/spbar"+
                          str(0)+".gif"))
         
 views = {'travel': enableTravelView,

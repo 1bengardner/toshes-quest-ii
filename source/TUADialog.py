@@ -2,7 +2,7 @@
 File: TUADialog.py
 Author: Ben Gardner
 Created: February 3, 2013
-Revised: July 15, 2023
+Revised: September 2, 2023
 """
 
 import pickle
@@ -18,7 +18,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
     """
 
     def body(self, master):
-        self.iconbitmap("images/icons/tq.ico")
+        self.iconbitmap("resources/assets/images/icons/tq.ico")
         Label(master, text=("Enter the name of the character you want to load/create."+
                             "\nA new character will be created if it does not exist.")
               ).grid()
@@ -68,7 +68,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
 class NewGameDialog(tkSimpleDialog.Dialog):
 
     def body(self, master):
-        self.iconbitmap("images/icons/tq.ico")
+        self.iconbitmap("resources/assets/images/icons/tq.ico")
         import tkFont
 
         for fontFamily in ["Garamond", "Times"]:
@@ -136,7 +136,7 @@ class NewGameDialog(tkSimpleDialog.Dialog):
         if not hasattr(NewGameDialog, "images"):
             NewGameDialog.images = {}
             for character in characters:
-                NewGameDialog.images[character] = PhotoImage(file=("images/other/%s.gif" % character.replace(".", "")))
+                NewGameDialog.images[character] = PhotoImage(file=("resources/assets/images/other/%s.gif" % character.replace(".", "")))
         width = 126
         height = 158
         rows = 2
@@ -161,14 +161,14 @@ class NewGameDialog(tkSimpleDialog.Dialog):
                 characterButtons[portraitName].grid(row=i, column=j)
         def readUnlocks():
             try:
-                with open("settings/unlocks.tqp", "r") as unlocksFile:
+                with open("resources/settings/unlocks.tqp", "r") as unlocksFile:
                     return pickle.load(unlocksFile).unlocks
             except IOError:
                 return {}
         def writeUnlocks():
             preferences = Preferences()
             preferences.unlocks = unlocks
-            with open("settings/unlocks.tqp", "w") as preferencesFile:
+            with open("resources/settings/unlocks.tqp", "w") as preferencesFile:
                 pickle.dump(preferences, preferencesFile)
         def revealCharacter():
             character = self.portraitVar.get()
