@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: September 2, 2023
+Revised: September 3, 2023
 """
 
 
@@ -642,6 +642,7 @@ class TopLeftFrame:
         else:
             main.character.equip(self.v1.get())
             main.sound.playSound(main.sound.sounds['Equip'])
+            requireExitConfirmation(True)
         window.topFrame.topRightFrame.updateOtherStats()
         self.equipButton['state'] = DISABLED
         self.updateInventory()
@@ -653,6 +654,7 @@ class TopLeftFrame:
         window.topFrame.topRightFrame.buyButton['state'] = DISABLED
         window.topFrame.topRightFrame.updateStore()
         window.topFrame.topRightFrame.updateOtherStats()
+        requireExitConfirmation(True)
 
     def clickDropButton(self):
         if self.v1.get() in main.character.equippedItemIndices.values():
@@ -661,6 +663,7 @@ class TopLeftFrame:
         main.character.addItem(main.tempItem)
         window.bottomFrame.bottomRightFrame.clickCancelDropButton()
         window.topFrame.topRightFrame.updateOtherStats()
+        requireExitConfirmation(True)
 
     def clickPlaceButton(self):
         def updateWidgets():
@@ -1626,6 +1629,7 @@ Game over? Don't fret. You can now """)
                 self.updateOtherStats()
                 window.topFrame.topLeftFrame.updateVitalStats()
                 window.bottomFrame.bottomLeftFrame.insertOutput(message)
+                requireExitConfirmation(True)
 
     def clickBuyButton(self):
         main.buy(self.v2.get())
@@ -1634,6 +1638,7 @@ Game over? Don't fret. You can now """)
         self.buyButton['state'] = DISABLED
         self.updateStore()
         self.updateOtherStats()
+        requireExitConfirmation(True)
 
     def updateOtherStats(self):
         """Change the Other Stats frame so its values reflect the character's
