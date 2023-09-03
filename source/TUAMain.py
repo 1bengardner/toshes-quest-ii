@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: September 2, 2023
+Revised: September 3, 2023
 """
 
 
@@ -819,7 +819,7 @@ class Main:
                     if type(mercenary) == str:
                         mercenary = deepcopy(self.mercenaries[mercenary])
                     mercenaries.append(mercenary)
-            if ("Giant" in interfaceActions['enemy'] and self.roll() == 1 and
+            if ("Giant" in interfaceActions['enemy'] and self.roll() <= 2 and
                 interfaceActions['enemy'].replace("1", "2") not in
                 self.character.flags['Kills']):
                 interfaceActions['enemy'] = interfaceActions['enemy'].replace(
