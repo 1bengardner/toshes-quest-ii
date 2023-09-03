@@ -237,10 +237,11 @@ class Character(object):
         elif self.portrait == "Gumball Machine":
             value += 3
         if self.specialization == "Stalwart Slayer":
-            return value + 2 * (self.mastery - 1)
+            value += 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return value + 1 * (self.mastery - 1)
-        return value + 5 * self.countItem("Gumball of Power")
+            value += 1 * (self.mastery - 1)
+        value += 5 * self.countItem("Gumball of Power")
+        return value 
 
     @strength.setter
     def strength(self, value):
@@ -260,10 +261,11 @@ class Character(object):
         elif self.portrait == "Gumball Machine":
             value += 3
         if self.specialization == "Executioner":
-            return value + 2 * (self.mastery - 1)
+            value += 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return value + 1 * (self.mastery - 1)
-        return value + 5 * self.countItem("Gumball of Power")
+            value += 1 * (self.mastery - 1)
+        value += 5 * self.countItem("Gumball of Power")
+        return value
 
     @dexterity.setter
     def dexterity(self, value):
@@ -285,10 +287,11 @@ class Character(object):
         elif self.portrait == "Gumball Machine":
             value += 3
         if self.specialization == "Snow Sorcerer":
-            return value + 2 * (self.mastery - 1)
+            value += 2 * (self.mastery - 1)
         elif self.specialization == "Squad Leader":
-            return value + 1 * (self.mastery - 1)
-        return value + 5 * self.countItem("Gumball of Power")
+            value += 1 * (self.mastery - 1)
+        value += 5 * self.countItem("Gumball of Power")
+        return value
 
     @wisdom.setter
     def wisdom(self, value):
