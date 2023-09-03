@@ -2,7 +2,7 @@
 File: TUACharacter.py
 Author: Ben Gardner
 Created: January 25, 2013
-Revised: September 2, 2023
+Revised: September 3, 2023
 """
 
 
@@ -510,8 +510,8 @@ class Character(object):
             if index is not None]]
 
     def indexOfItem(self, itemName):
-        return [(item != None and itemName in item.NAME)
-                for item in self.items].index(True)
+        return [(item != None and itemName in item.NAME and i not in self.equippedItemIndices.values())
+                for i, item in enumerate(self.items)].index(True)
 
     def canLearn(self):
         return len(self.skills) < 4
