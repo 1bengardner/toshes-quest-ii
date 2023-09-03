@@ -1062,7 +1062,7 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
         if self.currentArea.encounters:
             enemyProbabilities = self.currentArea.encounters[self.currentSpot]
             if enemyProbabilities:
-                if self.roll(3500) == 1:
+                if self.roll(4000) == 1:
                     return "Gigantic Crayons"
                 if "Conclusion" in self.character.flags and self.roll(500) == 1:
                     return "Will o Wisp"
