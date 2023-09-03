@@ -3,7 +3,7 @@
 File: TUAQuest.py
 Author: Ben Gardner
 Created: November 17, 2022
-Revised: May 29, 2023
+Revised: September 3, 2023
 """
 
 class Quest:
@@ -43,10 +43,11 @@ class Quest:
             currentKills = character.flags['Kills'][targetName] if targetName in character.flags['Kills'] else 0
             if currentKills > startingKills:
                 details.append("%s: %s" % (targetName.strip("123456789"), "✗" * min(currentKills - startingKills, 10)))
-            
-        if 'Items' in self.COMPLETION_CRITERIA:
-            items = self.COMPLETION_CRITERIA['Items']
-            details += filter(lambda detail: detail, ["%s: %s" % (itemName, "✗" * len(filter(lambda item: item and itemName in item.NAME, character.items))) if character.hasItem(itemName) else "" for itemName in items])
+
+        for key in ['Items', 'Wildcard Items']:
+            if key in self.COMPLETION_CRITERIA:
+                items = self.COMPLETION_CRITERIA[key]
+                details += filter(lambda detail: detail, ["%s: %s" % (itemName, "✗" * len(filter(lambda item: item and itemName in item.NAME, character.items))) if character.hasItem(itemName) else "" for itemName in items])
             
         return "\n".join(details)
         
@@ -73,6 +74,10 @@ class Quest:
             startingKills = character.flags[self.START_FLAG] if type(character.flags[self.START_FLAG]) is int else 0
             currentKills = character.flags['Kills'][targetName] if targetName in character.flags['Kills'] else 0
             completed = completed and currentKills - startingKills >= targetKills
+            
+        if 'Wildcard Items' in self.COMPLETION_CRITERIA:
+            items = self.COMPLETION_CRITERIA['Wildcard Items']
+            completed = completed and any(character.hasItem(itemName, items[itemName]) for itemName in items)
             
         if 'Items' in self.COMPLETION_CRITERIA:
             items = self.COMPLETION_CRITERIA['Items']

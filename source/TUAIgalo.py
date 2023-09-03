@@ -3,7 +3,7 @@
 File: TUAIgalo.py
 Author: Ben Gardner
 Created: May 21, 2013
-Revised: August 25, 2023
+Revised: September 3, 2023
 """
 
 
@@ -762,7 +762,7 @@ class Igalo:
             numberOfMaterials = 2
             if  (self.c.hasItem(rawMaterial, numberOfMaterials) and
                  self.c.hasItem(rawProduct) and
-                 not self.c.itemIsEquipped(rawProduct)):
+                 (not self.c.itemIsEquipped(rawProduct) or self.c.hasItem(rawProduct, 2))):
                 for i in range(0, numberOfMaterials):
                     self.c.removeItem(self.c.indexOfItem(rawMaterial))
                 self.c.removeItem(self.c.indexOfItem(rawProduct))
@@ -771,7 +771,7 @@ class Igalo:
                              " a %s." % product)
                 smithed = True
             elif (not self.c.hasItem(rawProduct) or
-                  self.c.itemIsEquipped(rawProduct)):
+                  self.c.itemIsEquipped(rawProduct) and not self.c.hasItem(rawProduct, 2)):
                 self.text = (
                     npc+": Sorry, I'll need a %s first." % rawProduct)
             elif not self.c.hasItem(rawMaterial, numberOfMaterials):
@@ -783,7 +783,7 @@ class Igalo:
             numberOfMaterials = 2
             if  (self.c.hasItem(rawMaterial, numberOfMaterials) and
                  self.c.hasItem(rawProduct) and
-                 not self.c.itemIsEquipped(rawProduct)):
+                 (not self.c.itemIsEquipped(rawProduct) or self.c.hasItem(rawProduct, 2))):
                 for i in range(0, numberOfMaterials):
                     self.c.removeItem(self.c.indexOfItem(rawMaterial))
                 self.c.removeItem(self.c.indexOfItem(rawProduct))
@@ -792,7 +792,7 @@ class Igalo:
                              " a %s." % product)
                 smithed = True
             elif (not self.c.hasItem(rawProduct) or
-                  self.c.itemIsEquipped(rawProduct)):
+                  self.c.itemIsEquipped(rawProduct) and not self.c.hasItem(rawProduct, 2)):
                 self.text = (
                     npc+": Sorry, I'll need a %s first." % rawProduct)
             elif not self.c.hasItem(rawMaterial, numberOfMaterials):
