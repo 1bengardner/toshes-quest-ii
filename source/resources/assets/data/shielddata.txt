@@ -25,7 +25,7 @@ Magical Barrier	1000	Elemental	0	0	20	0
 Pulsing Barrier	2000	Elemental	0	0	30	0
 Radiant Barrier	4000	Elemental	0	0	35	0
 Luminescent Barrier	8000	Elemental	0	0	40	0
-Gold Shield	10000	Elemental	20	30	25	10
+Gold Shield	10000	Elemental	20	30	20	10
 Titanium Shield	8000	Physical	100	40	10	10
 Rusty Titanium Shield	7999	Physical	120	35	0	10
 Jade Ward	800	Earth	0	0	70	0
