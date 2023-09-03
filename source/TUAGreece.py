@@ -2,7 +2,7 @@
 File: TUAGreece.py
 Author: Ben Gardner
 Created: August 3, 2015
-Revised: August 26, 2023
+Revised: September 3, 2023
 """
 
 
@@ -321,9 +321,9 @@ class Greece:
             if  (self.c.hasItem(rm1) and
                  self.c.hasItem(rm2) and
                  self.c.hasItem(rm3) and
-                 not self.c.itemIsEquipped(rm1) and
-                 not self.c.itemIsEquipped(rm2) and
-                 not self.c.itemIsEquipped(rm3)):
+                 (not self.c.itemIsEquipped(rm1) or self.c.hasItem(rm1, 2)) and
+                 (not self.c.itemIsEquipped(rm2) or self.c.hasItem(rm2, 2)) and
+                 (not self.c.itemIsEquipped(rm3) or self.c.hasItem(rm3, 2))):
                 self.c.removeItem(self.c.indexOfItem(rm1))
                 self.c.removeItem(self.c.indexOfItem(rm2))
                 self.c.removeItem(self.c.indexOfItem(rm3))
@@ -336,9 +336,9 @@ class Greece:
                   not self.c.hasItem(rm3)):
                 self.text = (npc + ": I will need three different coloured" +
                              " wards.")
-            elif (self.c.itemIsEquipped(rm1) or
-                  self.c.itemIsEquipped(rm2) or
-                  self.c.itemIsEquipped(rm3)):
+            elif (self.c.itemIsEquipped(rm1) and not self.c.hasItem(rm1, 2) or
+                  self.c.itemIsEquipped(rm2) and not self.c.hasItem(rm2, 2) or
+                  self.c.itemIsEquipped(rm3) and not self.c.hasItem(rm3, 2)):
                 self.text = (
                     npc+": You need to take that ward off before I" +
                     " can crush that.")
