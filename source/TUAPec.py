@@ -2,7 +2,7 @@
 File: TUAPec.py
 Author: Ben Gardner
 Created: September 14, 2013
-Revised: July 23, 2023
+Revised: September 2, 2023
 """
 
 
@@ -613,8 +613,9 @@ class Pec:
             self.menu = ["Leave."]
 
         elif ('Qendresa Espadon' not in self.c.flags and
-              self.c.hasItem("Espadon") and
-              not self.c.itemIsEquipped("Espadon")):
+              (self.c.hasItem("Espadon") and
+               not self.c.itemIsEquipped("Espadon")
+               or self.c.hasItem("Espadon", 2))):
             self.c.removeItem(self.c.indexOfItem("Espadon"))
             self.text = ("%s: Thank you." % npc +
                          " I will need some protection as well. I would"+
@@ -630,8 +631,9 @@ class Pec:
             self.menu = ["Leave."]
 
         elif ('Qendresa Cuirass' not in self.c.flags and
-              self.c.hasItem("Steel Cuirass") and
-              not self.c.itemIsEquipped("Steel Cuirass")):
+              (self.c.hasItem("Steel Cuirass") and
+               not self.c.itemIsEquipped("Steel Cuirass")
+               or self.c.hasItem("Steel Cuirass", 2))):
             self.c.removeItem(self.c.indexOfItem("Steel Cuirass"))
             self.text = ("%s: Great. I am beginning to feel like" % npc+
                          " an Oseku."+
