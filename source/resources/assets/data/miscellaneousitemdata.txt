@@ -35,7 +35,7 @@ Bulbous Orb	0	Bestows 10% earth damage reduction.
 Fiery Orb	0	Bestows 10% fire damage reduction.
 Platinum Ball	100000	This is worth a lot of money.
 Wizardly Orb	0	Bestows 5% elemental damage reduction.
-Knightly Orb	0	Bestows 5% block chance.
+Knightly Orb	0	Bestows 3% block chance.
 Feline Orb	0	Bestows 5% physical damage reduction.
 Gumball of Power	0	Bestows +5 to all stats.
 Boulderwort	100	Protects against grounding.*Crumbles after 200 steps.
