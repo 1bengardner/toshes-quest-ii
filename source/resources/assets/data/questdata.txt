@@ -21,10 +21,12 @@ Something Fishy	Decrypt the anagram on Tomas Tam's tombstone and uncover what he
 Paper Trail	Collect parchment from swordfish scattered throughout the Adriatic Sea.	{'Items': {'Mysterious Parchment': 1}}	Writings	All Tomas Writings Found	0	0
 Codebreaker	Decrypt the Mysterious Parchment and use it to discover a secret in Western Kosovo.	{'No Criteria': True}	All Tomas Writings Found	Secret Lab Unlocked	0	0
 Top Secret	Find what Tomas Tam has hidden in The Secret Laboratory.	{'No Criteria': True}	Secret Lab Entrance	Secret Lab Lever	0	0
+Presidential Pursuit	Find the President of Macedonia.	{'No Criteria': True}	Secret Lab Lever	Tipsy Tuesday	0	0
 Gated Content	Get a letter bearing the signature of Mayor Mirko in Herceg Novi for the guards in Pristina.	{'Items': {'Letter from the Mayor': 1}}	Tipsy Tuesday	Unguarded Gate	0	0
 The President	Speak to the President of Macedonia.	{'Items': {'Presidential Map': 1}}	Unguarded Gate	Finding President	0	0
 The Key to Macedonia?	Follow the Presidential Map to see where it leads.	{'No Criteria': True}	Took Map	Old Ruins	0	0
 The Quest for Truth	Explore the Old Ruins.	{'Items': {'Macedonian Protector': 1}}	Old Ruins	Old Ruins Complete	0	0
+Get to the Greeks	Retrieve the Key to Macedonia from the Greeks.	{'No Criteria': True}	Old Ruins Complete	Coliseum	0	0
 The Italian Job	Find and defeat Giacomo Gambino in his castle.	{'Kills': ('Giacomo Gambino3', 1)}	Giacomo Coward 1	Blueprint	0	0
 Alternate Plans	Find a way beyond the Greek border.	{'Items': {'Greek Wall Blueprint': 1}}	Greek Wall	Greek Wall Hole	0	0
 Act like you belong	Sneak into the Coliseum.	{'Wildcard Items': {'Greek Armour': 1, 'Greek Robe': 1}}	Not Disguised	Coliseum	0	0
@@ -47,12 +49,10 @@ Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward t
 Delivery to an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	1	0
 Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	1	0
 Coat of Arms	Find the lost Oseku Shield somewhere in Albania and return it to the woman in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	1	0
-Rocky Road	Remove the boulders blocking the cave in the Billowing Bluffs.	{'No Criteria': True}	IGNORE Vismurg Entrance Found	Moved Boulders	1	0
-Block of Ice	Melt the frozen passage in the Adriatic Sea.	{'No Criteria': True}	IGNORE Aldreed Entrance Found	Melted Ice	1	0
-Under Pressure	Stop the active geyser in the Albanian Desert.	{'No Criteria': True}	IGNORE Oukkar Entrance Found	Plugged Geyser	1	0
 Mythical Medley	Kill 10 mythical creatures for Melanippe in Litochoro.	{'Wildcard Kills': (('Nemean Lion', 'Teumessian Fox', 'Stymphalian Bird', 'Hydra', 'Chimera', 'Cerberus', 'Cychreides', 'Skolopendra', 'Pterripus', 'Gorgon', 'Harpy', 'Minotaur', 'Centaur', 'Satyr', 'Siren'), 10, "Mythical Creatures")}	Melanippe Quest 1	Melanippe Quest 1 Complete	1	0
 Skolopendra Sauce	Kill 3 Skolopendras for Melanippe in Litochoro.	{'Kills': ('Skolopendra', 3)}	Melanippe Quest 2	Melanippe Quest 2 Complete	1	0
 Hydra-tion	Kill 9 Hydras for Melanippe in Litochoro.	{'Kills': ('Hydra', 9)}	Melanippe Quest 3	Melanippe Quest 3 Complete	1	0
 Ain't No Mountain High Enough	Ascend Mount Olympus.	{'No Criteria': True}	Ready for Mount Olympus	Mount Olympus Complete	0	0
 Toro! Toro!	Defeat the minotaur in the Labyrinth of Daedalus.	{'No Criteria': True}	Ready for Labyrinth	Labyrinth Complete	0	0
 Might and Magic	Defeat Talos and bring his ichor to Medea.	{'Kills': ('Talos', 1), 'Items': {'Ichor of Talos': 1}}	Medea Quest	Medea Quest Complete	0	0
+Storm the Desert	Confront the Italian president in the Albanian Desert.	{'Kills': ('Giacomo Gambino1', 1)}	Qendresa	Giacomo Coward 1	0	0
