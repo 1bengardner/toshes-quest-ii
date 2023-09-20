@@ -21,9 +21,8 @@ Something Fishy	Decrypt the anagram on Tomas Tam's tombstone and uncover what he
 Paper Trail	Collect parchment from swordfish scattered throughout the Adriatic Sea.	{'Items': {'Mysterious Parchment': 1}}	Writings	All Tomas Writings Found	0	0
 Codebreaker	Decrypt the Mysterious Parchment and use it to discover a secret in Western Kosovo.	{'No Criteria': True}	All Tomas Writings Found	Secret Lab Unlocked	0	0
 Top Secret	Find what Tomas Tam has hidden in The Secret Laboratory.	{'No Criteria': True}	Secret Lab Entrance	Secret Lab Lever	0	0
-Presidential Pursuit	Find the President of Macedonia.	{'No Criteria': True}	Secret Lab Lever	Tipsy Tuesday	0	0
 Gated Content	Get a letter bearing the signature of Mayor Mirko in Herceg Novi for the guards in Pristina.	{'Items': {'Letter from the Mayor': 1}}	Tipsy Tuesday	Unguarded Gate	0	0
-The President	Speak to the President of Macedonia.	{'Items': {'Presidential Map': 1}}	Unguarded Gate	Finding President	0	0
+Presidential Pursuit	Find the President of Macedonia.	{'Items': {'Presidential Map': 1}}	Secret Lab Lever	Finding President	0	0
 The Key to Macedonia?	Follow the Presidential Map to see where it leads.	{'No Criteria': True}	Took Map	Old Ruins	0	0
 The Quest for Truth	Explore the Old Ruins.	{'Items': {'Macedonian Protector': 1}}	Old Ruins	Old Ruins Complete	0	0
 Get to the Greeks	Retrieve the Key to Macedonia from the Greeks.	{'No Criteria': True}	Old Ruins Complete	Coliseum	0	0
