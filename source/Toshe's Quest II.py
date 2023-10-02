@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: September 25, 2023
+Revised: October 2, 2023
 """
 
 
@@ -1712,7 +1712,7 @@ Game over? Don't fret. You can now """)
                                           bg=DEFAULT_BG, fg=BLACK)
         
         state = NORMAL if c.potions > 0 and (
-            main.view in ("travel", "inventory", "battle")) else DISABLED
+            main.view in ("travel", "inventory", "battle", "store")) else DISABLED
         text = c.potions if c.potions > 0 else ""
         self.potionButton.config(state=state, text=text)
 
@@ -2949,6 +2949,7 @@ def enableStoreView():
 
 def enableDropItemView():
     enableInventoryView()
+    window.topFrame.topCenterFrame.toggleSaving(False)
     leftFrame = window.topFrame.topLeftFrame
     leftFrame.equipButton.grid_remove()
     leftFrame.sellButton.grid_remove()
@@ -2982,6 +2983,7 @@ def enableDropItemView():
 
 def enableForgetSkillView():
     enableTravelView()
+    window.topFrame.topCenterFrame.toggleSaving(False)
     bottomFrame = window.bottomFrame.bottomRightFrame
     bottomFrame.okButton.config(state=DISABLED,
                                 command=bottomFrame.clickForgetButton)
