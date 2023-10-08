@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: September 3, 2023
+Revised: October 2, 2023
 """
 
 
@@ -1560,7 +1560,7 @@ class TopRightFrame:
         requireExitConfirmation(True)
 
     def clickPotionButton(self, event=None):
-        if (self.potionButton['state'] == NORMAL):
+        if (self.potionButton['state'] != DISABLED):
             if main.view == "battle":
                 interfaceActions = main.drinkPotion()
                 updateInterface(interfaceActions)
@@ -1652,7 +1652,7 @@ class TopRightFrame:
                                           bg=DEFAULT_BG, fg=BLACK)
         
         state = NORMAL if c.potions > 0 and (
-            main.view in ("travel", "inventory", "battle")) else DISABLED
+            main.view in ("travel", "inventory", "battle", "store")) else DISABLED
         text = c.potions if c.potions > 0 else ""
         self.potionButton.config(state=state, text=text)
 
@@ -1862,13 +1862,17 @@ class BottomRightFrame:
     def makeFrameElements(self, master):
         self.upButton = Button(master, image=upImage, relief=FLAT, bd=0,
                                bg=DEFAULT_BG, activebackground=DEFAULT_BG,
-                               state=DISABLED, command=self.clickUpButton)
+                               state=DISABLED, command=self.clickUpButton,
+                               repeatdelay=250,
+                               repeatinterval=50,)
         self.upButton.bind_all('w', self.clickUpButton)
         self.upButton.bind_all('W', self.clickUpButton)
         self.upButton.grid(column=1)
         self.leftButton = Button(master, image=leftImage, relief=FLAT, bd=0,
                                  bg=DEFAULT_BG, activebackground=DEFAULT_BG,
-                                 state=DISABLED, command=self.clickLeftButton)
+                                 state=DISABLED, command=self.clickLeftButton,
+                                 repeatdelay=250,
+                                 repeatinterval=50,)
         self.leftButton.bind_all('a', self.clickLeftButton)
         self.leftButton.bind_all('A', self.clickLeftButton)
         self.leftButton.grid(column=0, sticky=E)
@@ -1879,20 +1883,26 @@ class BottomRightFrame:
         self.centerButton.grid(row=1, column=1, pady=0)
         self.rightButton = Button(master, image=rightImage, relief=FLAT, bd=0,
                                   bg=DEFAULT_BG, activebackground=DEFAULT_BG,
-                                  state=DISABLED, command=self.clickRightButton)
+                                  state=DISABLED, command=self.clickRightButton,
+                                  repeatdelay=250,
+                                  repeatinterval=50,)
         self.rightButton.bind_all('d', self.clickRightButton)
         self.rightButton.bind_all('D', self.clickRightButton)
         self.rightButton.grid(row=1, column=2, sticky=W)
         self.downButton = Button(master, image=downImage, relief=FLAT, bd=0,
                                  bg=DEFAULT_BG, activebackground=DEFAULT_BG,
-                                 state=DISABLED, command=self.clickDownButton)
+                                 state=DISABLED, command=self.clickDownButton,
+                                 repeatdelay=250,
+                                 repeatinterval=50,)
         self.downButton.bind_all('s', self.clickDownButton)
         self.downButton.bind_all('S', self.clickDownButton)
         self.downButton.grid(column=1)
         self.defendButton = Button(master, image=defendImage, relief=FLAT,
                                    bd=0, bg=DEFAULT_BG,
                                    activebackground=DEFAULT_BG, state=DISABLED,
-                                   command=self.clickDefendButton)
+                                   command=self.clickDefendButton,
+                                   repeatdelay=250,
+                                   repeatinterval=50,)
         self.defendButton.bind_all('j', self.clickDefendButton)
         self.defendButton.bind_all('J', self.clickDefendButton)
         self.defendButton.grid(row=1, column=0, sticky=E)
@@ -1900,7 +1910,9 @@ class BottomRightFrame:
         self.attackButton = Button(master, image=attackImage, relief=FLAT,
                                    bd=0, bg=DEFAULT_BG,
                                    activebackground=DEFAULT_BG, state=DISABLED,
-                                   command=self.clickAttackButton)
+                                   command=self.clickAttackButton,
+                                   repeatdelay=250,
+                                   repeatinterval=50,)
         self.attackButton.bind_all('k', self.clickAttackButton)
         self.attackButton.bind_all('K', self.clickAttackButton)
         self.attackButton.grid(row=0, column=1)
@@ -1908,7 +1920,9 @@ class BottomRightFrame:
         self.fleeButton = Button(master, image=fleeImage, relief=FLAT,
                                  bd=0, bg=DEFAULT_BG,
                                  activebackground=DEFAULT_BG, state=DISABLED,
-                                 command=self.clickFleeButton)
+                                 command=self.clickFleeButton,
+                                 repeatdelay=500,
+                                 repeatinterval=50,)
         self.fleeButton.bind_all('l', self.clickFleeButton)
         self.fleeButton.bind_all('L', self.clickFleeButton)
         self.fleeButton.grid(row=1, column=2, sticky=W)
@@ -1927,7 +1941,9 @@ class BottomRightFrame:
         self.okButton.grid(columnspan=3, sticky=E+W)
         self.skillButton = Button(master, text="Use Skill", font=font2,
                                   fg=BUTTON_FG, bg=BUTTON_BG, state=DISABLED,
-                                  command=self.clickSkillButton)
+                                  command=self.clickSkillButton,
+                                  repeatdelay=250,
+                                  repeatinterval=50,)
         self.skillButton.grid(row=4, columnspan=3, sticky=E+W)
         self.skillButton.grid_remove()
         
@@ -1938,23 +1954,23 @@ class BottomRightFrame:
         updateInterface(interfaceActions)
 
     def clickUpButton(self, event=None):
-        if self.upButton['state'] == NORMAL:
+        if self.upButton['state'] != DISABLED:
             self.move("up", "forward")
 
     def clickLeftButton(self, event=None):
-        if self.leftButton['state'] == NORMAL:
+        if self.leftButton['state'] != DISABLED:
             self.move("left", "left")
             
     def clickRightButton(self, event=None):
-        if self.rightButton['state'] == NORMAL:
+        if self.rightButton['state'] != DISABLED:
             self.move("right", "right")
 
     def clickDownButton(self, event=None):
-        if self.downButton['state'] == NORMAL:
+        if self.downButton['state'] != DISABLED:
             self.move("down", "backward")
 
     def clickInventoryButton(self, event=None):
-        if self.centerButton['state'] == NORMAL:
+        if self.centerButton['state'] != DISABLED:
             # Save OK Button state for when the Back Button is pressed
             self.lastOkButtonState = self.okButton['state']
             
@@ -1972,7 +1988,7 @@ class BottomRightFrame:
             main.sound.playSound(main.sound.sounds['Inventory'])
 
     def clickBackButton(self, event=None):
-        if self.centerButton['state'] == NORMAL:
+        if self.centerButton['state'] != DISABLED:
             self.centerButton.config(image=inventoryImage,
                                      command=self.clickInventoryButton)
             self.centerButton.bind_all('i', self.clickInventoryButton)
@@ -2012,35 +2028,35 @@ class BottomRightFrame:
         main.sound.playSound(main.sound.sounds['Cancel'])
 
     def clickAttackButton(self, event=None):
-        if self.attackButton['state'] == NORMAL:
+        if self.attackButton['state'] != DISABLED:
             interfaceActions = main.attack()
             updateInterface(interfaceActions)
 
     def clickDefendButton(self, event=None):
-        if self.defendButton['state'] == NORMAL:
+        if self.defendButton['state'] != DISABLED:
             interfaceActions = main.defend()
             updateInterface(interfaceActions)
 
     def clickFleeButton(self, event=None):
-        if self.fleeButton['state'] == NORMAL:
+        if self.fleeButton['state'] != DISABLED:
             interfaceActions = main.flee()
             updateInterface(interfaceActions)
 
     def clickOkButton(self):
-        if self.okButton['state'] == NORMAL:
+        if self.okButton['state'] != DISABLED:
             selection = int(self.menuBox.curselection()[0])
             interfaceActions = main.select(selection)
             interfaceActions['map'] = True
             updateInterface(interfaceActions)
 
     def clickSkillButton(self):
-        if self.skillButton['state'] == NORMAL:
+        if self.skillButton['state'] != DISABLED:
             selection = int(self.menuBox.curselection()[0])
             interfaceActions = main.useSkill(main.character.skills[selection])
             updateInterface(interfaceActions)
 
     def clickForgetButton(self):
-        if self.okButton['state'] == NORMAL:
+        if self.okButton['state'] != DISABLED:
             selection = int(self.menuBox.curselection()[0])
             main.character.forgetSkill(main.character.skills[selection])
             main.character.learnSkill(main.tempSkill)
@@ -2873,6 +2889,7 @@ def enableStoreView():
 
 def enableDropItemView():
     enableInventoryView()
+    window.topFrame.topCenterFrame.toggleSaving(False)
     leftFrame = window.topFrame.topLeftFrame
     leftFrame.equipButton.grid_remove()
     leftFrame.sellButton.grid_remove()
@@ -2906,6 +2923,7 @@ def enableDropItemView():
 
 def enableForgetSkillView():
     enableTravelView()
+    window.topFrame.topCenterFrame.toggleSaving(False)
     bottomFrame = window.bottomFrame.bottomRightFrame
     bottomFrame.okButton.config(state=DISABLED,
                                 command=bottomFrame.clickForgetButton)
@@ -2984,7 +3002,7 @@ def hideSideIntroFrames():
 
 def close(event=None):
     if requireExitConfirmation():
-        canSave = (window.topFrame.topCenterFrame.saveButton['state'] == NORMAL
+        canSave = (window.topFrame.topCenterFrame.saveButton['state'] != DISABLED
                    and main.view != "game over")
         main.sound.playSound(main.sound.sounds['Open Dialog'])
         if canSave:
