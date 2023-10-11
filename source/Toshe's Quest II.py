@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: October 2, 2023
+Revised: October 10, 2023
 """
 
 
@@ -3064,8 +3064,8 @@ def close(event=None):
     if requireExitConfirmation():
         canSave = (window.topFrame.topCenterFrame.saveButton['state'] != DISABLED
                    and main.view != "game over")
-        main.sound.playSound(main.sound.sounds['Open Dialog'])
         if canSave:
+            main.sound.playSound(main.sound.sounds['Open Dialog'])
             answer = tkMessageBox.askyesnocancel(
                 "Save and exit",
                 "Do you want to save the game?",
@@ -3075,6 +3075,7 @@ def close(event=None):
             elif answer:
                 main.saveGame(True)
         elif main.view != "game over":
+            main.sound.playSound(main.sound.sounds['Open Dialog'])
             if "no" == tkMessageBox.askquestion(
                  "Exit without saving?",
                  "You can't save right now. Are you sure you want to quit?",
