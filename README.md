@@ -8,7 +8,7 @@ The sequel! An expansive, old-school RPG with a picture-and-text interface and a
 
 ### Prerequisites
 
-- Download and extract [toshes-quest-ii.zip](https://github.com/1bengardner/toshes-quest-ii/releases/download/v3.0.0/toshes-quest-ii.zip) from the latest [release](https://github.com/1bengardner/toshes-quest-ii/releases).
+- Download and extract [toshes-quest-ii.zip](https://github.com/1bengardner/toshes-quest-ii/releases/download/v3.0.0/toshes-quest-ii.zip) from the [latest release](https://github.com/1bengardner/toshes-quest-ii/releases/latest).
 - Install ``Garamond`` font
 
 ### Running the game
