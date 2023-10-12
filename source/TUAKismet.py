@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: August 25, 2023
+Revised: October 12, 2023
 """
 
 from random import choice
@@ -292,7 +292,7 @@ class Kismet:
                                 "Dog: Woof!"+
                                 fLine])
         else:
-            self.text = ("The food bar is bustling. You see Bart and Heinz "+
+            self.text = ("The food bar is bustling. You see Bert and Heinz "+
                          "chowing down in a corner.")
         self.menu = ["Eat.",
                      "Chit-chat."]
