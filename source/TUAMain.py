@@ -2,7 +2,7 @@
 File: TUAMain.py
 Author: Ben Gardner
 Created: January 14, 2013
-Revised: September 3, 2023
+Revised: October 16, 2023
 """
 
 
@@ -1222,8 +1222,11 @@ interfaceActions['enemy modifiers']['Stats'][stat][skillName]
                 self.character.flags['Buyback Items'].remove(None)
                 self.store.remove(None)
             else:
-                del self.character.flags['Buyback Items'][-1]
-                del self.store[-1]
+                idx = -1
+                if self.store[-1].NAME == "Chasmic Rucksack":
+                    idx = -2
+                del self.character.flags['Buyback Items'][idx]
+                del self.store[idx]
             self.character.flags['Buyback Items'].insert(
                 0,
                 self.character.items[itemIndex])
