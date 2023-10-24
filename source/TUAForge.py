@@ -2,7 +2,7 @@
 File: TUAForge.py
 Author: Ben Gardner
 Created: March 31, 2023
-Revised: August 26, 2023
+Revised: October 23, 2023
 """
 
 import random
@@ -56,7 +56,7 @@ class Forge:
             return 0
         chance = 100 * (
                  (a.SELL_PRICE**0.5 * (1 + 0.5 * a.upgradeCount * 1.2 ** min(4, a.upgradeCount // 10)) +
-                  b.SELL_PRICE**0.5 * (1 + 0.5 * b.upgradeCount * 1.2 ** min(4, a.upgradeCount // 10))) / 2.0 /
+                  b.SELL_PRICE**0.5 * (1 + 0.5 * b.upgradeCount * 1.2 ** min(4, b.upgradeCount // 10))) / 2.0 /
                  (u.SELL_PRICE**0.5 * (1 + 0.1 * u.upgradeCount))) + self.fiddle
         if chance < 0:
             return 0
