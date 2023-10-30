@@ -2,7 +2,7 @@
 File: TUALairOfTheMagi.py
 Author: Ben Gardner
 Created: October 27, 2022
-Revised: August 26, 2023
+Revised: October 29, 2023
 """
 
 
@@ -1019,7 +1019,7 @@ class LairOfTheMagi:
         if "Lair Tower" not in self.c.flags:
             self.c.flags['Lair Tower'] = True
             if self.c.hasMercenary("Qendresa"):
-                self.text = "Qendresa: T-%s!" % self.c.NAME
+                self.text = "Qendresa: %s-%s!" % (self.c.NAME[0], self.c.NAME)
             else:
                 if self.c.isPolite:
                     shitLine = "%s: Whoa!" % self.c.NAME
