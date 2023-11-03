@@ -2,7 +2,7 @@
 File: TUASound.py
 Author: Ben Gardner
 Created: September 6, 2013
-Revised: September 2, 2023
+Revised: November 2, 2023
 """
 
 
@@ -112,6 +112,7 @@ class Sound:
                        "Unlock Area": "FX-Gracious",
                        "Error": "FX-Ground",
                        "Select Game": "FX-Touch",
+                       "Open Map": "FX-Touch"
                       }
         
         mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)

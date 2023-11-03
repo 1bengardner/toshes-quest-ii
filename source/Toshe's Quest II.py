@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: October 31, 2023
+Revised: November 3, 2023
 """
 
 
@@ -31,6 +31,8 @@ class Window:
         
         self.sideFrame = Frame(master, bg=DEFAULT_BG)
         self.sideFrame.grid(row=0, column=1)
+        
+        self.mapFrame = Frame(master, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=DEFAULT_BG, bd=4, relief=SUNKEN)
         
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
@@ -114,12 +116,13 @@ class Window:
         self.upgradeLabel.bind("<Button-1>", self.removeUpgradeFrame)
         self.upgradeCallback = None
         
-        self.makeChildren(self.gameFrame, self.sideFrame)
+        self.makeChildren(self.gameFrame, self.sideFrame, self.mapFrame)
 
-    def makeChildren(self, leftMaster, rightMaster):
+    def makeChildren(self, leftMaster, rightMaster, overlayMaster):
         self.topFrame = TopFrame(leftMaster)
         self.bottomFrame = BottomFrame(leftMaster)
         self.rightFrame = RightFrame(rightMaster)
+        self.overlayFrame = OverlayFrame(overlayMaster)
         
     def gridLevelUpFrame(self):
         if self.levelUpCallback:
@@ -221,6 +224,82 @@ class BottomFrame:
     def makeChildren(self, master):
         self.bottomLeftFrame = BottomLeftFrame(master)
         self.bottomRightFrame = BottomRightFrame(master)
+    
+
+class OverlayFrame:
+    def __init__(self, master):
+        self.makeChildren(master)
+
+    def makeChildren(self, master):
+        innerMapFrame = Frame(master, width=WINDOW_WIDTH-8, height=WINDOW_HEIGHT-8, bg=DEFAULT_BG)
+        innerMapFrame.grid_propagate(0)
+        innerMapFrame.columnconfigure(0, weight=1)
+        innerMapFrame.grid()
+        mapReturnButton = Button(innerMapFrame, text="Return", font=font4, fg=BUTTON_FG, bg=BUTTON_BG, command=lambda: window.topFrame.topRightFrame.mapButton.invoke())
+        mapReturnButton.grid(row=0, sticky=EW)
+        
+        dragger = Canvas(innerMapFrame, width=WINDOW_WIDTH-8, height=WINDOW_HEIGHT-8, bg=DEFAULT_BG, cursor="hand2", highlightthickness=0)
+        dragger.grid(sticky=NSEW)
+        worldMap = dragger.create_image(0, 0, anchor=NW)
+
+        def init(event):
+            if not hasattr(dragger, "currentMapImage"):
+                dragger.worldMapImage = PhotoImage(file="resources/assets/images/other/world_map.gif")
+                dragger.currentMapImage = dragger.worldMapImage
+                dragger.itemconfig(worldMap, image=dragger.currentMapImage)
+            dragger.bind_all("<MouseWheel>", zoom)
+
+        def checkBounds(x, y, event=None):
+            if x < WINDOW_WIDTH-8 - dragger.currentMapImage.width():
+                x = WINDOW_WIDTH-8 - dragger.currentMapImage.width()
+                if event:
+                    dragger.startX = event.x - dragger.coords(worldMap)[0]
+            if y < WINDOW_HEIGHT-8 - dragger.currentMapImage.height() - mapReturnButton.winfo_height():
+                y = WINDOW_HEIGHT-8 - dragger.currentMapImage.height() - mapReturnButton.winfo_height()
+                if event:
+                    dragger.startY = event.y - dragger.coords(worldMap)[1]
+            if x > 0:
+                x = 0
+                if event:
+                    dragger.startX = event.x
+            if y > 0:
+                y = 0
+                if event:
+                    dragger.startY = event.y
+            return x, y
+
+        def startMove(event):
+            dragger['cursor'] = "fleur"
+            dragger.startX = event.x - dragger.coords(worldMap)[0]
+            dragger.startY = event.y - dragger.coords(worldMap)[1]
+
+        def move(event):
+            targetX = event.x - dragger.startX
+            targetY = event.y - dragger.startY
+            targetX, targetY = checkBounds(targetX, targetY, event)
+            dragger.coords(worldMap, targetX, targetY)
+
+        def stopMove(event):
+            dragger['cursor'] = "hand2"
+
+        def zoom(event):
+            if event.delta > 0 and dragger.currentMapImage != dragger.worldMapImage:
+                dragger.scale(worldMap, event.x, event.y, 5./3, 5./3)
+                dragger.currentMapImage = dragger.worldMapImage
+            elif event.delta < 0 and dragger.currentMapImage == dragger.worldMapImage:
+                dragger.scale(worldMap, event.x, event.y, 3./5, 3./5)
+                if not hasattr(dragger, "smallWorldMapImage"):
+                    dragger.smallWorldMapImage = dragger.worldMapImage.zoom(3).subsample(5)
+                dragger.currentMapImage = dragger.smallWorldMapImage
+            dragger.itemconfig(worldMap, image=dragger.currentMapImage)
+            x, y = checkBounds(*dragger.coords(worldMap))
+            dragger.coords(worldMap, x, y)
+
+        dragger.bind("<ButtonPress-1>", startMove)
+        dragger.bind("<B1-Motion>", move)
+        dragger.bind("<ButtonRelease-1>", stopMove)
+        dragger.bind("<Enter>", init)
+        dragger.bind("<Leave>", lambda _: dragger.unbind_all("<MouseWheel>"))
 
 
 class RightFrame:
@@ -1115,6 +1194,7 @@ class TopCenterFrame:
         hideSideIntroFrames()
 
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
+        window.topFrame.topRightFrame.mapButton['state'] = NORMAL
         window.topFrame.topRightFrame.logButton['state'] = NORMAL
         window.topFrame.topRightFrame.showMissionLog.set(main.character.flags['Config']['Mission Log Open'])
         window.topFrame.topRightFrame.updateMissionLog(main.character.flags['Config']['Mission Log Open'])
@@ -1357,7 +1437,20 @@ class TopRightFrame:
                                         font=font2, bg=WATER_COLOR,
                                         relief=GROOVE)
         self.weaponElementLabel.grid(row=9, columnspan=5, sticky=E+W,
-            ipady=3, padx=6, pady=(10, 26))
+            ipady=3, padx=6, pady=(8, 22))
+
+        self.showMap = BooleanVar()
+        self.mapButton = Checkbutton(self.otherStats,
+            image=mapImage,
+            fg=BUTTON_FG,
+            bg=BUTTON_BG,
+            variable=self.showMap,
+            command=self.clickMap,
+            indicatoron=0,
+            state=DISABLED)
+        self.mapButton.grid(row=10, sticky=SW, padx=6)
+        self.mapButton.bind_all("m", lambda _: self.mapButton.invoke())
+        self.mapButton.bind_all("M", lambda _: self.mapButton.invoke())
 
         self.showMissionLog = BooleanVar()
         self.logButton = Checkbutton(self.otherStats,
@@ -1765,6 +1858,30 @@ class TopRightFrame:
             button.config(image=noItemImage)
         self.forgeSuccess.grid_remove()
         window.topFrame.topLeftFrame.placeButton['state'] = DISABLED
+
+    def clickMap(self):
+        movementFrame = window.bottomFrame.bottomRightFrame
+        if self.showMap.get():
+            main.sound.playSound(main.sound.sounds['Open Map'])
+            window.gameFrame.grid_remove()
+            window.mapFrame.grid(row=0)
+            movementFrame.lastOkButtonState = movementFrame.okButton['state']
+            movementFrame.lastUpButtonState = movementFrame.upButton['state']
+            movementFrame.lastLeftButtonState = movementFrame.leftButton['state']
+            movementFrame.lastRightButtonState = movementFrame.rightButton['state']
+            movementFrame.lastDownButtonState = movementFrame.downButton['state']
+            enableMapView()
+        else:
+            main.sound.playSound(main.sound.sounds['Return'])
+            window.mapFrame.grid_remove()
+            window.gameFrame.grid()
+            views[main.view]()
+            movementFrame.enableMenuBox()
+            movementFrame.okButton['state'] = movementFrame.lastOkButtonState
+            movementFrame.upButton['state'] = movementFrame.lastUpButtonState
+            movementFrame.leftButton['state'] = movementFrame.lastLeftButtonState
+            movementFrame.rightButton['state'] = movementFrame.lastRightButtonState
+            movementFrame.downButton['state'] = movementFrame.lastDownButtonState
 
     def clickMissionLog(self):
         main.sound.playSound(main.sound.sounds['Open Log'])
@@ -2812,6 +2929,7 @@ def enableGameOverView():
     bottomFrame.menuBox.unbind_all('2')
     bottomFrame.menuBox.unbind_all('3')
     bottomFrame.menuBox.unbind_all('4')
+    window.topFrame.topRightFrame.mapButton['state'] = DISABLED
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
     window.topFrame.topCenterFrame.areaButton.grid()
     window.topFrame.topCenterFrame.map.grid_remove()
@@ -2820,6 +2938,23 @@ def enableGameOverView():
     window.topFrame.topLeftFrame.inventory.grid_remove()
     window.topFrame.topLeftFrame.updateVitalStats()
     window.topFrame.topRightFrame.updateEnemyStats()
+
+
+def enableMapView():
+    window.gameFrame.grid_remove()
+    bottomFrame = window.bottomFrame.bottomRightFrame
+    bottomFrame.upButton['state'] = DISABLED
+    bottomFrame.leftButton['state'] = DISABLED
+    bottomFrame.rightButton['state'] = DISABLED
+    bottomFrame.downButton['state'] = DISABLED
+    bottomFrame.centerButton['state'] = DISABLED
+    bottomFrame.attackButton['state'] = DISABLED
+    bottomFrame.defendButton['state'] = DISABLED
+    bottomFrame.fleeButton['state'] = DISABLED
+    bottomFrame.skillButton['state'] = DISABLED
+    bottomFrame.okButton['state'] = DISABLED
+    bottomFrame.centerButton['state'] = DISABLED
+    bottomFrame.disableMenuBox()
 
 
 def enableLoadingView():
@@ -3454,6 +3589,7 @@ gameOverImage = PhotoImage(file="resources/assets/images/other/gameover.gif")
 euroImage = PhotoImage(file="resources/assets/images/icons/euro.gif")
 potionImage = PhotoImage(file="resources/assets/images/icons/potion.gif")
 logImage = PhotoImage(file="resources/assets/images/icons/mission log.gif")
+mapImage = PhotoImage(file="resources/assets/images/icons/map.gif")
 sfxImage = PhotoImage(file="resources/assets/images/icons/sfx.gif")
 musicImage = PhotoImage(file="resources/assets/images/icons/music.gif")
 animationsImage = PhotoImage(file="resources/assets/images/icons/animations.gif")
