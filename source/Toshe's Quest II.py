@@ -243,8 +243,8 @@ class OverlayFrame:
         worldMap = dragger.create_image(0, 0, anchor=NW)
 
         def init(event):
-            if not hasattr(dragger, "currentMapImage"):
-                dragger.worldMapImage = PhotoImage(file="resources/assets/images/other/world_map.gif")
+            if not hasattr(dragger, "worldMapImage"):
+                dragger.worldMapImage = PhotoImage(file="resources/assets/images/other/world_map_small.gif")
                 dragger.currentMapImage = dragger.worldMapImage
                 dragger.itemconfig(worldMap, image=dragger.currentMapImage)
             dragger.bind_all("<MouseWheel>", zoom)
@@ -283,14 +283,14 @@ class OverlayFrame:
             dragger['cursor'] = "hand2"
 
         def zoom(event):
-            if event.delta > 0 and dragger.currentMapImage != dragger.worldMapImage:
-                dragger.scale(worldMap, event.x, event.y, 5./3, 5./3)
+            if event.delta > 0 and dragger.currentMapImage == dragger.worldMapImage:
+                dragger.scale(worldMap, event.x, event.y, 1428./814, 1428./814)
+                if not hasattr(dragger, "zoomedWorldMapImage"):
+                    dragger.zoomedWorldMapImage = PhotoImage(file="resources/assets/images/other/world_map_large.gif")
+                dragger.currentMapImage = dragger.zoomedWorldMapImage
+            elif event.delta < 0 and dragger.currentMapImage != dragger.worldMapImage:
+                dragger.scale(worldMap, event.x, event.y, 814./1428, 814./1428)
                 dragger.currentMapImage = dragger.worldMapImage
-            elif event.delta < 0 and dragger.currentMapImage == dragger.worldMapImage:
-                dragger.scale(worldMap, event.x, event.y, 3./5, 3./5)
-                if not hasattr(dragger, "smallWorldMapImage"):
-                    dragger.smallWorldMapImage = dragger.worldMapImage.zoom(3).subsample(5)
-                dragger.currentMapImage = dragger.smallWorldMapImage
             dragger.itemconfig(worldMap, image=dragger.currentMapImage)
             x, y = checkBounds(*dragger.coords(worldMap))
             dragger.coords(worldMap, x, y)
