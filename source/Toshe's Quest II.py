@@ -284,13 +284,13 @@ class OverlayFrame:
 
         def zoom(event):
             if event.delta > 0 and dragger.currentMapImage == dragger.worldMapImage:
-                dragger.scale(worldMap, event.x, event.y, 1428./814, 1428./814)
                 if not hasattr(dragger, "zoomedWorldMapImage"):
                     dragger.zoomedWorldMapImage = PhotoImage(file="resources/assets/images/other/world_map_large.gif")
                 dragger.currentMapImage = dragger.zoomedWorldMapImage
+                dragger.scale(worldMap, event.x, event.y, 1428./814, 1428./814)
             elif event.delta < 0 and dragger.currentMapImage != dragger.worldMapImage:
-                dragger.scale(worldMap, event.x, event.y, 814./1428, 814./1428)
                 dragger.currentMapImage = dragger.worldMapImage
+                dragger.scale(worldMap, event.x, event.y, 814./1428, 814./1428)
             dragger.itemconfig(worldMap, image=dragger.currentMapImage)
             x, y = checkBounds(*dragger.coords(worldMap))
             dragger.coords(worldMap, x, y)
@@ -2132,6 +2132,7 @@ class BottomRightFrame:
             main.sound.playSound(main.sound.sounds['Return'])
 
     def clickCancelDropButton(self, event=None):
+        window.topFrame.topRightFrame.mapButton['state'] = NORMAL
         self.centerButton.config(image=inventoryImage,
                                  command=self.clickInventoryButton)
         self.centerButton.bind_all('i', self.clickInventoryButton)
@@ -2146,6 +2147,7 @@ class BottomRightFrame:
         main.sound.playSound(main.sound.sounds['Cancel'])
 
     def clickCancelForgetButton(self, event=None):
+        window.topFrame.topRightFrame.mapButton['state'] = NORMAL
         self.centerButton.config(image=inventoryImage,
                                  command=self.clickInventoryButton)  
         self.okButton['command'] = self.clickOkButton
@@ -3040,6 +3042,7 @@ def enableStoreView():
 def enableDropItemView():
     enableInventoryView()
     window.topFrame.topCenterFrame.toggleSaving(False)
+    window.topFrame.topRightFrame.mapButton['state'] = DISABLED
     leftFrame = window.topFrame.topLeftFrame
     leftFrame.equipButton.grid_remove()
     leftFrame.sellButton.grid_remove()
@@ -3074,6 +3077,7 @@ def enableDropItemView():
 def enableForgetSkillView():
     enableTravelView()
     window.topFrame.topCenterFrame.toggleSaving(False)
+    window.topFrame.topRightFrame.mapButton['state'] = DISABLED
     bottomFrame = window.bottomFrame.bottomRightFrame
     bottomFrame.okButton.config(state=DISABLED,
                                 command=bottomFrame.clickForgetButton)
