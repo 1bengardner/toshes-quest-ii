@@ -1,16 +1,16 @@
 TITLE	DESCRIPTION	COMPLETION_CRITERIA	START_FLAG	END_FLAG	OPTIONAL	REPEATABLE
 Manhunt	Kill 2 Romadan men for Bartender Daniel in Herceg Novi. They can be found in the Frolicking Fields nearby.	{'Kills': ('Romadan Man', 2)}	Daniel Quest 1	Daniel Quest 1 Complete	1	0
 Feeling Crabby	Kill 1 Kotor Crab for Bartender Daniel in Herceg Novi. They can be found in the Bay of Kotor to the south.	{'Kills': ('Kotor Crab', 1)}	Daniel Quest 2	Daniel Quest 2 Complete	1	0
-Stalkin' Mr. Pockins	Find and kill Mr. Pockins for Bartender Daniel in Herceg Novi.	{'Kills': ('Mr. Pockins', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	1	0
-A Lovely Orcskin Jacket	Kill 1 Orc for Bartender Adam in Mojkovac Valley.	{'Kills': ('Orc', 1)}	Adam Quest 1	Adam Quest 1 Complete	1	0
-A Cute Goblinhide Coat	Kill 5 Goblins for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	1	0
-Sealing the Deal	Kill 5 Giant Seals for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	1	0
-Fresh or Fowl?	Kill 1 crow for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	1	0
-A Shocking Choice	Kill 6 Jellyfish for Bartender Igor in Pec.	{'Wildcard Kills': (('Toxic Jellyfish', 'Lion\'s Mane Jellyfish'), 6, "Jellyfish")}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	1	0
-"Ate" Legged	Kill 3 octopi for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	1	0
-Business as Usual	Kill 5 Rogue Guards for Bartender Zhang in Pristina.	{'Kills': ('Rogue Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	1	0
-Getting Medieval	Kill 10 Black Knights for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	1	0
-General Information	Kill General Octavius for Bartender Zhang in Pristina.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	1	0
+Stalkin' Mr. Pockins	Find and kill Mr. Pockins in the Frolicking Fields for Bartender Daniel in Herceg Novi.	{'Kills': ('Mr. Pockins', 1)}	Daniel Quest 3	Daniel Quest 3 Complete	1	0
+A Lovely Orcskin Jacket	Kill 1 Orc near Mojkovac for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Orc', 'Cave Orc'), 1, "Orc")}	Adam Quest 1	Adam Quest 1 Complete	1	0
+A Cute Goblinhide Coat	Kill 5 Goblins around Mojkovac for Bartender Adam in Mojkovac Valley.	{'Wildcard Kills': (('Goblin', 'Mountain Goblin', 'Goblin Ranger', 'Goblin Thug', 'Sea Goblin'), 5, "Goblin")}	Adam Quest 2	Adam Quest 2 Complete	1	0
+Sealing the Deal	Kill 5 Giant Seals on the Summit of Presage for Bartender Adam in Mojkovac Valley.	{'Kills': ('Giant Seal1', 5)}	Adam Quest 3	Adam Quest 3 Complete	1	0
+Fresh or Fowl?	Kill 1 crow in Western Kosovo for Bartender Igor in Pec.	{'Kills': ('Unholy Crow', 1)}	Bartender Igor Quest 1	Bartender Igor Quest 1 Complete	1	0
+A Shocking Choice	Kill 6 Jellyfish around the Scutari lake for Bartender Igor in Pec.	{'Wildcard Kills': (('Toxic Jellyfish', 'Lion\'s Mane Jellyfish'), 6, "Jellyfish")}	Bartender Igor Quest 2	Bartender Igor Quest 2 Complete	1	0
+"Ate" Legged	Kill 3 octopi in the Adriatic Sea for Bartender Igor in Pec.	{'Kills': ('Mystical Octopus', 3)}	Bartender Igor Quest 3	Bartender Igor Quest 3 Complete	1	0
+Business as Usual	Kill 5 Rogue Guards in Eastern Kosovo for Bartender Zhang in Pristina.	{'Kills': ('Rogue Guard', 5)}	Bartender Zhang Quest 1	Bartender Zhang Quest 1 Complete	1	0
+Getting Medieval	Kill 10 Black Knights in Eastern Kosovo for Bartender Zhang in Pristina.	{'Kills': ('Black Knight', 10)}	Bartender Zhang Quest 2	Bartender Zhang Quest 2 Complete	1	0
+General Information	Kill General Octavius in Eastern Kosovo for Bartender Zhang in Pristina.	{'Kills': ('General Octavius', 1)}	Bartender Zhang Quest 3	Bartender Zhang Quest 3 Complete	1	0
 Homeland Bound	Continue your journey north through Black Mountain to reach Mojkovac.	{'No Criteria': True}	Daniel Quest 3 Complete	Mojkovac Summit	0	0
 Father Time	Rescue Dragan's father from inside The Watchmaking Facility.	{'No Criteria': True}	Dragan	The Watchmaking Facility Complete	0	0
 Mystery of the Mages	Gather information about the disappearance of the archmages for Mayor Radoman in Igalo.	{'Kills': ('Maximilian', 1)}	Radoman	Radoman Information 1	0	0
@@ -48,9 +48,9 @@ Punched to Perfection	Bring a Jade Ward, an Aquamarine Ward, and a Garnet Ward t
 Delivery to an Oseku	Bring an Espadon to the woman in Pec.	{'Items': {'Espadon': 1}}	Qendresa Story	Qendresa Espadon	1	0
 Suited in Steel	Bring a Steel Cuirass to the woman in Pec.	{'Items': {'Steel Cuirass': 1}}	Qendresa Espadon	Qendresa Cuirass	1	0
 Coat of Arms	Find the lost Oseku Shield somewhere in Albania and return it to the woman in Pec.	{'Items': {'Oseku Shield': 1}}	Qendresa Cuirass	Qendresa Crest	1	0
-Mythical Medley	Kill 10 mythical creatures for Melanippe in Litochoro.	{'Wildcard Kills': (('Nemean Lion', 'Teumessian Fox', 'Stymphalian Bird', 'Hydra', 'Chimera', 'Cerberus', 'Cychreides', 'Skolopendra', 'Pterripus', 'Gorgon', 'Harpy', 'Minotaur', 'Centaur', 'Satyr', 'Siren'), 10, "Mythical Creatures")}	Melanippe Quest 1	Melanippe Quest 1 Complete	1	0
-Skolopendra Sauce	Kill 3 Skolopendras for Melanippe in Litochoro.	{'Kills': ('Skolopendra', 3)}	Melanippe Quest 2	Melanippe Quest 2 Complete	1	0
-Hydra-tion	Kill 9 Hydras for Melanippe in Litochoro.	{'Kills': ('Hydra', 9)}	Melanippe Quest 3	Melanippe Quest 3 Complete	1	0
+Mythical Medley	Kill 10 mythical creatures on Mount Olympus for Melanippe in Litochoro.	{'Wildcard Kills': (('Nemean Lion', 'Teumessian Fox', 'Stymphalian Bird', 'Hydra', 'Chimera', 'Cerberus', 'Cychreides', 'Skolopendra', 'Pterripus', 'Gorgon', 'Harpy', 'Minotaur', 'Centaur', 'Satyr', 'Siren'), 10, "Mythical Creatures")}	Melanippe Quest 1	Melanippe Quest 1 Complete	1	0
+Skolopendra Sauce	Kill 3 Skolopendras on Mount Olympus for Melanippe in Litochoro.	{'Kills': ('Skolopendra', 3)}	Melanippe Quest 2	Melanippe Quest 2 Complete	1	0
+Hydra-tion	Kill 9 Hydras on Mount Olympus for Melanippe in Litochoro.	{'Kills': ('Hydra', 9)}	Melanippe Quest 3	Melanippe Quest 3 Complete	1	0
 Ain't No Mountain High Enough	Ascend Mount Olympus.	{'No Criteria': True}	Ready for Mount Olympus	Mount Olympus Complete	0	0
 Toro! Toro!	Defeat the minotaur in the Labyrinth of Daedalus.	{'No Criteria': True}	Ready for Labyrinth	Labyrinth Complete	0	0
 Might and Magic	Defeat Talos and bring his ichor to Medea.	{'Kills': ('Talos', 1), 'Items': {'Ichor of Talos': 1}}	Medea Quest	Medea Quest Complete	0	0
