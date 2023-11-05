@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-# Toshe's Underwater Adventures 3.0
+# Toshe's Underwater Adventures
 
 """
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 3, 2023
+Revised: November 5, 2023
 """
 
 
@@ -283,19 +283,23 @@ class OverlayFrame:
             dragger['cursor'] = "hand2"
 
         def zoom(event):
+            def fixPosition():
+                dragger.itemconfig(worldMap, image=dragger.currentMapImage)
+                dragger.startX = event.x - dragger.coords(worldMap)[0]
+                dragger.startY = event.y - dragger.coords(worldMap)[1]
+                x, y = checkBounds(*dragger.coords(worldMap))
+                dragger.coords(worldMap, x, y)
+
             if event.delta > 0 and dragger.currentMapImage == dragger.worldMapImage:
                 if not hasattr(dragger, "zoomedWorldMapImage"):
                     dragger.zoomedWorldMapImage = PhotoImage(file="resources/assets/images/other/world_map_large.gif")
                 dragger.currentMapImage = dragger.zoomedWorldMapImage
                 dragger.scale(worldMap, event.x, event.y, 1428./814, 1428./814)
+                fixPosition()
             elif event.delta < 0 and dragger.currentMapImage != dragger.worldMapImage:
                 dragger.currentMapImage = dragger.worldMapImage
                 dragger.scale(worldMap, event.x, event.y, 814./1428, 814./1428)
-            dragger.itemconfig(worldMap, image=dragger.currentMapImage)
-            dragger.startX = event.x - dragger.coords(worldMap)[0]
-            dragger.startY = event.y - dragger.coords(worldMap)[1]
-            x, y = checkBounds(*dragger.coords(worldMap))
-            dragger.coords(worldMap, x, y)
+                fixPosition()
 
         dragger.bind("<ButtonPress-1>", startMove)
         dragger.bind("<B1-Motion>", move)
