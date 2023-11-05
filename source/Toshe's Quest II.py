@@ -292,6 +292,8 @@ class OverlayFrame:
                 dragger.currentMapImage = dragger.worldMapImage
                 dragger.scale(worldMap, event.x, event.y, 814./1428, 814./1428)
             dragger.itemconfig(worldMap, image=dragger.currentMapImage)
+            dragger.startX = event.x - dragger.coords(worldMap)[0]
+            dragger.startY = event.y - dragger.coords(worldMap)[1]
             x, y = checkBounds(*dragger.coords(worldMap))
             dragger.coords(worldMap, x, y)
 
