@@ -2,7 +2,7 @@
 File: TUAMojkovacValley.py
 Author: Ben Gardner
 Created: August 18, 2013
-Revised: August 22, 2023
+Revised: November 4, 2023
 """
 
 
@@ -232,20 +232,25 @@ class MojkovacValley:
                                   "need a nice gift for my fiance and I think "+
                                   "a handcrafted orcskin jacket would do the "+
                                   "trick. Could you grab an orc skin for me?")
+                    self.c.flags['Adam Quest 1'] = 0
                     if 'Orc' in self.c.flags['Kills']:
-                        self.c.flags['Adam Quest 1'] = \
+                        self.c.flags['Adam Quest 1'] += \
                                             self.c.flags['Kills']['Orc']
-                    else:
-                        self.c.flags['Adam Quest 1'] = 0
+                    if 'Cave Orc' in self.c.flags['Kills']:
+                        self.c.flags['Adam Quest 1'] += \
+                                            self.c.flags['Kills']['Cave Orc']
                 elif ('Adam Quest 1 Complete' not in self.c.flags and
-                      'Adam Quest 1' in self.c.flags and
-                      'Orc' in self.c.flags['Kills'] and
-                      self.c.flags['Kills']['Orc']-1 >=
-                      self.c.flags['Adam Quest 1']):
-                    self.text += (" And thanks for your help."+
-                                  "\nAdam gives you 30 euros.")
-                    self.c.euros += 30
-                    self.c.flags['Adam Quest 1 Complete'] = True
+                      'Adam Quest 1' in self.c.flags):
+                    orcKills = 0
+                    if 'Orc' in self.c.flags['Kills']:
+                        orcKills += self.c.flags['Kills']['Orc']
+                    if 'Cave Orc' in self.c.flags['Kills']:
+                        orcKills += self.c.flags['Kills']['Cave Orc']
+                    if orcKills-1 >= self.c.flags['Adam Quest 1']:
+                        self.text += (" And thanks for your help."+
+                                      "\nAdam gives you 30 euros.")
+                        self.c.euros += 30
+                        self.c.flags['Adam Quest 1 Complete'] = True
                 elif ('Adam Quest 1 Complete' in self.c.flags and
                       'Adam Quest 2' not in self.c.flags):
                     self.text += ("..I have another request, though. "+
@@ -266,6 +271,9 @@ class MojkovacValley:
                     if 'Goblin Thug' in self.c.flags['Kills']:
                         self.c.flags['Adam Quest 2'] += \
                                     self.c.flags['Kills']['Goblin Thug']
+                    if 'Sea Goblin' in self.c.flags['Kills']:
+                        self.c.flags['Adam Quest 2'] += \
+                                    self.c.flags['Kills']['Sea Goblin']
                 elif ('Adam Quest 2 Complete' not in self.c.flags and
                       'Adam Quest 2' in self.c.flags):
                     goblinKills = 0
@@ -277,6 +285,8 @@ class MojkovacValley:
                         goblinKills += self.c.flags['Kills']['Goblin Ranger']
                     if 'Goblin Thug' in self.c.flags['Kills']:
                         goblinKills += self.c.flags['Kills']['Goblin Thug']
+                    if 'Sea Goblin' in self.c.flags['Kills']:
+                        goblinKills += self.c.flags['Kills']['Sea Goblin']
                         
                     if goblinKills-5 >= self.c.flags['Adam Quest 2']:
                         self.text += (" You've done well."+
