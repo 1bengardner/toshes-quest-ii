@@ -5,7 +5,7 @@
 File: Toshe's Quest II.py
 Author: Ben Gardner
 Created: December 25, 2012
-Revised: November 5, 2023
+Revised: November 20, 2023
 """
 
 
@@ -1304,7 +1304,7 @@ class TopRightFrame:
         if isHalloweenSeason:
             newsContent.insert(END, "Happy Halloween!")
         elif isChristmasSeason:
-            newsContent.insert(END, "Merry Christmas!")
+            newsContent.insert(END, "Happy Holidays!")
         else:
             newsContent.insert(END, "For guides and help, visit: https://toshesquest.com")
         newsContent['state'] = DISABLED
