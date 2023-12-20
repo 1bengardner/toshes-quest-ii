@@ -4,16 +4,16 @@
 
 The sequel! An expansive, old-school RPG with a picture-and-text interface and an original musical score by [me](https://github.com/1bengardner).
 
-## Getting Started
+## Getting Started (on Windows)
 
 ### Prerequisites
 
 - Download and extract `toshes-quest-ii.zip` from the [latest release](https://github.com/1bengardner/toshes-quest-ii/releases/latest).
-- Install ``Garamond`` font
+- Install ``Garamond`` font if not already installed.
 
 ### Running the game
 
-- Run ``Toshe's Quest II.exe`` to start the game
+- Run ``Toshe's Quest II.exe`` to start the game.
 
 ## How to Play
 
