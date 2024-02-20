@@ -6,20 +6,20 @@ Revised: September 2, 2023
 """
 
 import pickle
-from Tkinter import *
-import tkMessageBox
-import tkSimpleDialog
+from tkinter import *
+from tkinter import messagebox
+from tkinter import simpledialog
+from tkinter import font as tkFont
 from TUAPreferences import Preferences
 
-
-class OpenFileDialog(tkSimpleDialog.Dialog):
+class OpenFileDialog(simpledialog.Dialog):
     """A dialog window asking the user the name of the file they want to create
     or open.
     """
 
     def body(self, master):
         self.iconbitmap("resources/assets/images/icons/tq.ico")
-        Label(master, text=("Enter the name of the character you want to load/create."+
+        Label(master, text=("Enter the name of the character you want to load/create." +
                             "\nA new character will be created if it does not exist.")
               ).grid()
         validateInput = self.parent.register(self.isValid), '%d', '%s', '%S'
@@ -30,7 +30,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
 
     def showErrorModal(self, msg):
         self.withdraw()
-        tkMessageBox.showerror(self.title(), msg)
+        messagebox.showerror(self.title(), msg)
         self.deiconify()
 
     def validate(self):
@@ -52,7 +52,7 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
             self.showErrorModal("Kind of awkward, but someone already has this name.\n\nTry a different one.")
             return 0
         return 1
-        
+
     def apply(self):
         self.fileName = self.entry.get().strip()
 
@@ -65,11 +65,10 @@ class OpenFileDialog(tkSimpleDialog.Dialog):
                 return False
         return True
 
-class NewGameDialog(tkSimpleDialog.Dialog):
+class NewGameDialog(simpledialog.Dialog):
 
     def body(self, master):
         self.iconbitmap("resources/assets/images/icons/tq.ico")
-        import tkFont
 
         for fontFamily in ["Garamond", "Times"]:
             if fontFamily in tkFont.families():

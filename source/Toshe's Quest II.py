@@ -9,9 +9,9 @@ Revised: November 20, 2023
 """
 
 
-from Tkinter import *
-import tkFont
-import tkMessageBox
+from tkinter import *
+from tkinter import font as tkFont
+from tkinter import messagebox as tkMessageBox
 from TUAPreferences import Preferences
 from TUAMain import Main
 from TUADialog import OpenFileDialog, NewGameDialog
@@ -28,12 +28,12 @@ class Window:
     def __init__(self, master):
         self.gameFrame = Frame(master, bg=DEFAULT_BG, relief=SUNKEN, bd=4)
         self.gameFrame.grid(row=0, column=0)
-        
+
         self.sideFrame = Frame(master, bg=DEFAULT_BG)
         self.sideFrame.grid(row=0, column=1)
-        
+
         self.mapFrame = Frame(master, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=DEFAULT_BG, bd=4, relief=SUNKEN)
-        
+
         self.levelUpFrame = Frame(master, bg=LEVEL_UP_BG, relief=RIDGE, bd=10)
         self.levelUpFrame.grid(row=0)
         self.levelUpFrame.grid_remove()
@@ -42,33 +42,33 @@ class Window:
                                       relief=RIDGE, bd=10)
         self.mercenaryUpFrame.grid(row=0)
         self.mercenaryUpFrame.grid_remove()
-        
+
         self.upgradeFrame = Frame(master, bg=UPGRADE_BG, relief=RIDGE, bd=10)
         self.upgradeFrame.grid(row=0)
         self.upgradeFrame.grid_remove()
-        
+
         self.lootFrame = Frame(master, bg=LOOT_BG, relief=RIDGE, bd=10)
         self.lootFrame.grid(row=0)
         self.lootFrame.grid_remove()
-        
+
         self.questFrame = Frame(master, bg=QUEST_BG, relief=RIDGE, bd=10)
         self.questFrame.grid(row=0)
         self.questFrame.grid_remove()
-        
+
         self.powerUpFrame = Frame(master, bg=MYSTIC_BG, relief=RIDGE, bd=10)
         self.powerUpFrame.grid(row=0)
         self.powerUpFrame.grid_remove()
-        
+
         self.newSkillFrame = Frame(master, bg=SKILL_BG, relief=RIDGE, bd=10)
         self.newSkillFrame.grid(row=0)
         self.newSkillFrame.grid_remove()
-        
+
         self.levelUpLabel = Label(self.levelUpFrame, text="LEVEL UP!",
                                   font=font5, bg=LEVEL_UP_BG, fg=LEVEL_UP_FG)
         self.levelUpLabel.grid()
         self.levelUpLabel.bind("<Button-1>", self.removeLevelUpFrame)
         self.levelUpCallback = None
-        
+
         self.mercenaryUpLabel = Label(self.mercenaryUpFrame,
                                  text="MERC. UP!",
                                  font=font7,
@@ -76,25 +76,25 @@ class Window:
         self.mercenaryUpLabel.grid()
         self.mercenaryUpLabel.bind("<Button-1>", self.removeMercenaryUpFrame)
         self.mercenaryCallback = None
-        
+
         lootLabel = Label(self.lootFrame, text="LOOT!", font=font5,
                           bg=LOOT_BG, fg=LOOT_FG)
         lootLabel.grid()
         lootLabel.bind("<Button-1>", self.removeLootFrame)
         self.lootCallback = None
-        
+
         self.questLabel = Label(self.questFrame, text="QUEST!", font=font7,
                            bg=QUEST_BG, fg=QUEST_FG)
         self.questLabel.grid()
         self.questLabel.bind("<Button-1>", self.removeQuestFrame)
         self.questCallback = None
-        
+
         powerUpLabel = Label(self.powerUpFrame, text="RANK UP!",
                                   font=font5, bg=MYSTIC_BG, fg=MYSTIC_FG2)
         powerUpLabel.grid()
         powerUpLabel.bind("<Button-1>", self.removePowerUpFrame)
         self.powerUpCallback = None
-        
+
         self.newSkillLabelBottom = Label(self.newSkillFrame,
                                          text="PUMMELER'S PRECISION!",
                                          wraplength=WINDOW_WIDTH-20,
@@ -109,13 +109,13 @@ class Window:
         self.newSkillLabelTop.grid(row=0, sticky=N)
         self.newSkillLabelTop.bind("<Button-1>", self.removeNewSkillFrame)
         self.newSkillCallback = None
-        
+
         self.upgradeLabel = Label(self.upgradeFrame, font=font5,
                              text="UPGRADE!", bg=UPGRADE_BG, fg=UPGRADE_FG)
         self.upgradeLabel.grid()
         self.upgradeLabel.bind("<Button-1>", self.removeUpgradeFrame)
         self.upgradeCallback = None
-        
+
         self.makeChildren(self.gameFrame, self.sideFrame, self.mapFrame)
 
     def makeChildren(self, leftMaster, rightMaster, overlayMaster):
@@ -123,7 +123,7 @@ class Window:
         self.bottomFrame = BottomFrame(leftMaster)
         self.rightFrame = RightFrame(rightMaster)
         self.overlayFrame = OverlayFrame(overlayMaster)
-        
+
     def gridLevelUpFrame(self):
         if self.levelUpCallback:
             root.after_cancel(self.levelUpCallback)
@@ -142,7 +142,7 @@ class Window:
 
     def removeMercenaryUpFrame(self, event=None):
         self.mercenaryUpFrame.grid_remove()
-        
+
     def gridLootFrame(self):
         if self.lootCallback:
             root.after_cancel(self.lootCallback)
@@ -151,7 +151,7 @@ class Window:
 
     def removeLootFrame(self, event=None):
         self.lootFrame.grid_remove()
-        
+
     def gridQuestFrame(self, phrase):
         if self.questCallback:
             root.after_cancel(self.questCallback)
@@ -161,7 +161,7 @@ class Window:
 
     def removeQuestFrame(self, event=None):
         self.questFrame.grid_remove()
-        
+
     def gridPowerUpFrame(self):
         if self.powerUpCallback:
             root.after_cancel(self.powerUpCallback)
@@ -170,17 +170,17 @@ class Window:
 
     def removePowerUpFrame(self, event=None):
         self.powerUpFrame.grid_remove()
-        
+
     def gridnewSkillFrame(self, skillName):
         if self.newSkillCallback:
             root.after_cancel(self.newSkillCallback)
         self.newSkillLabelBottom.config(text="%s!" % skillName.upper())
         self.newSkillFrame.grid()
         self.newSkillCallback = root.after(3000, window.removeNewSkillFrame)
-        
+
     def removeNewSkillFrame(self, event=None):
         self.newSkillFrame.grid_remove()
-        
+
     def gridUpgradeFrame(self, success):
         if self.upgradeCallback:
             root.after_cancel(self.upgradeCallback)
@@ -194,7 +194,7 @@ class Window:
             self.upgradeFrame.config(bg=FAILURE_BG)
         self.upgradeFrame.grid()
         self.upgradeCallback = root.after(3000, window.removeUpgradeFrame)
-        
+
     def removeUpgradeFrame(self, event=None):
         self.upgradeFrame.grid_remove()
 
@@ -207,11 +207,11 @@ class TopFrame:
         frameA.grid()
         self.makeChildren(frameA)
 
-    def makeChildren(self, master):        
+    def makeChildren(self, master):
         self.topLeftFrame = TopLeftFrame(master)
         self.topCenterFrame = TopCenterFrame(master)
         self.topRightFrame = TopRightFrame(master)
-    
+
 
 class BottomFrame:
     """Contains the lower portion of the game window."""
@@ -224,7 +224,7 @@ class BottomFrame:
     def makeChildren(self, master):
         self.bottomLeftFrame = BottomLeftFrame(master)
         self.bottomRightFrame = BottomRightFrame(master)
-    
+
 
 class OverlayFrame:
     def __init__(self, master):
@@ -237,7 +237,7 @@ class OverlayFrame:
         innerMapFrame.grid()
         mapReturnButton = Button(innerMapFrame, text="Return", font=font4, fg=BUTTON_FG, bg=BUTTON_BG, command=lambda: window.topFrame.topRightFrame.mapButton.invoke())
         mapReturnButton.grid(row=0, sticky=EW)
-        
+
         dragger = Canvas(innerMapFrame, width=WINDOW_WIDTH-8, height=WINDOW_HEIGHT-8, bg=DEFAULT_BG, cursor="hand2", highlightthickness=0)
         dragger.grid(sticky=NSEW)
         worldMap = dragger.create_image(0, 0, anchor=NW)
@@ -319,7 +319,7 @@ class RightFrame:
         self.missions.grid()
         self.missions.grid_propagate(0)
         self.missions.columnconfigure(0, weight=1)
-        
+
         self.noMissions = Label(self.missions,
             bg=MEDIUMBEIGE,
             font=font2,
@@ -329,7 +329,7 @@ class RightFrame:
             justify=LEFT,
             anchor=W,)
         self.noMissions.grid(sticky=EW)
-        
+
         self.missionLog = {}
 
     def updateMissions(self):
@@ -337,8 +337,8 @@ class RightFrame:
             mission.missionDetails['text'] = quest.getDetailsFor(main.character)
             if quest.getDetailsFor(main.character):
                 mission.missionDetails.grid(sticky=W)
-                
-            
+
+
     def pushDownMissions(self):
         for mission in self.missionLog:
             element = self.missionLog[mission]
@@ -346,7 +346,7 @@ class RightFrame:
 
     def addMission(self, quest, pushToTop=True):
         self.noMissions.grid_remove()
-        
+
         missionFrame = Frame(self.missions,
             bg=MEDIUMBEIGE,
             pady=2,
@@ -356,7 +356,7 @@ class RightFrame:
             self.pushDownMissions()
             missionFrame.grid(row=0)
         missionFrame.columnconfigure(0, weight=1)
-        
+
         missionTitle = Label(missionFrame,
             bg=MEDIUMBEIGE,
             text=quest.TITLE + (" (Repeatable)" if quest.REPEATABLE else ""),
@@ -381,7 +381,7 @@ class RightFrame:
             justify=LEFT,)
         if quest.getDetailsFor(main.character):
             missionFrame.missionDetails.grid(sticky=W)
-        
+
         self.missionLog[quest] = missionFrame
 
     def clearMissions(self):
@@ -731,7 +731,7 @@ class TopLeftFrame:
         window.topFrame.topRightFrame.updateOtherStats()
         self.equipButton['state'] = DISABLED
         self.updateInventory()
-        
+
     def clickSellButton(self):
         main.sell(self.v1.get())
         self.sellButton['state'] = DISABLED
@@ -779,7 +779,7 @@ class TopLeftFrame:
                 forgeFrame.anvilButton['state'] = DISABLED
                 forgeFrame.anvilButton['relief'] = FLAT
                 forgeFrame.anvilButton['cursor'] = ""
-            
+
         forgeFrame = window.topFrame.topRightFrame
         if forgeFrame.v3.get() == 0:
             replacementIndex = main.setForgeItem(self.v1.get())
@@ -806,7 +806,7 @@ class TopLeftFrame:
         these stats.
         """
         c = main.character
-        
+
         self.levelLabel['text'] = c.level
         self.levelLabel['width'] = max(2, len(str(c.level)))
         self.xpBarLabel['text'] = "%d%%" % (100 * c.xp / c.xpTnl)
@@ -870,7 +870,7 @@ class TopLeftFrame:
                                                       bg=ITEM_BG)
         self.equipButton['text'] = "Equip"
 
-        
+
 class TopCenterFrame:
     """Displays title, area image and map."""
 
@@ -954,13 +954,13 @@ class TopCenterFrame:
         self.areaButton = Button(master, image=welcomeImage, bg=BUTTON_BG,
                                  relief=RAISED, bd=6, command=self.openFile)
         self.areaButton.grid(row=1, sticky=N)
-        
+
         MAP_PIXEL_LENGTH = 300
         MAP_LENGTH = 15
         CELL_OFFSET = 4
         self.CENTER_CELL = (MAP_LENGTH / 2, MAP_LENGTH / 2)
         self.cells = []
-        
+
         self.map = Canvas(master, width=MAP_PIXEL_LENGTH,
                           height=MAP_PIXEL_LENGTH,
                           bg=MAP_BG,
@@ -970,7 +970,7 @@ class TopCenterFrame:
         self.map.bind("<Button-1>", self.markMap)
         self.map.grid(row=1, sticky=N, pady=3)
         self.map.grid_remove()
-        
+
         for row in range(MAP_LENGTH):
             self.cells.append([])
             for col in range(MAP_LENGTH):
@@ -980,9 +980,9 @@ class TopCenterFrame:
                 y1 = CELL_OFFSET + y0 + MAP_PIXEL_LENGTH / MAP_LENGTH
                 newCell = self.map.create_rectangle(x0, y0, x1, y1)
                 self.cells[-1].append(newCell)
-        
+
         self.clearMap()
-        
+
     def clearMap(self, baseColor=None):
         if baseColor is None:
             baseColor = MAP_BG
@@ -992,7 +992,7 @@ class TopCenterFrame:
                                     fill=baseColor, outline=BLACK, width=0,
                                     dash=(), stipple='', activedash=(),
                                     activeoutline=BLACK)
-            
+
     def updateMap(self):
         def updateCell(row, col, y, x):
             if (x < 0 or
@@ -1005,9 +1005,9 @@ class TopCenterFrame:
                 col >= len(self.cells[row]) or
                 "dirty" not in self.map.gettags(self.cells[row][col])):
                 return False
-            
+
             self.map.dtag(self.cells[row][col], "dirty")
-            
+
             if (x, y) in spots and (
                 0 <= x-1 < len(areaSpots[0]) and areaSpots[y][x-1] or
                 0 <= y-1 < len(areaSpots) and areaSpots[y-1][x] or
@@ -1039,12 +1039,12 @@ class TopCenterFrame:
                     config(self.cells[row][col], fill=RED)
                 else:
                     config(self.cells[row][col], fill=LIGHTRED)
-                
+
             updateCell(row-1, col, y-1, x)
             updateCell(row+1, col, y+1, x)
             updateCell(row, col-1, y, x-1)
             updateCell(row, col+1, y, x+1)
-        
+
         # Set up var nicknames
         areaSpots = main.currentArea.spots
         spots = main.character.flags['Discovered Areas'][main.currentArea.name]
@@ -1060,7 +1060,7 @@ class TopCenterFrame:
             self.areaButton.grid()
             self.map.grid_remove()
             return
-        
+
         # Set up colors
         markValue = -32
         spotColor = MAP_BG
@@ -1081,7 +1081,7 @@ class TopCenterFrame:
         updateCell(self.CENTER_CELL[0], self.CENTER_CELL[1], main.y, main.x)
         for item in self.map.find_withtag("dirty"):
             self.map.dtag(item, "dirty")
-            
+
     def markMap(self, event=None):
         if len(self.map.find_withtag(CURRENT)) != 1:
             return
@@ -1188,15 +1188,15 @@ class TopCenterFrame:
     def createFile(self, name, portrait, mode):
         main.startNewGame(name, portrait, mode)
         self.startGame(name)
-        
+
     def startGame(self, name):
         stateChanged = False
-        
+
         nameOnLabel = name
         if len(nameOnLabel) > 20:
             nameOnLabel = nameOnLabel[:19] + "..."
         window.topFrame.topLeftFrame.nameLabel['text'] = nameOnLabel
-        
+
         hideSideIntroFrames()
 
         window.bottomFrame.bottomLeftFrame.insertTimestamp(True)
@@ -1207,7 +1207,7 @@ class TopCenterFrame:
 
         window.topFrame.topLeftFrame.expandInventory(
             True if "Chasmic Rucksack" in main.character.flags else False)
-        
+
         window.topFrame.topLeftFrame.tosheLabel['image'] = portraitImages[main.character.portrait.replace(".", "")]
         if main.character.specialization is not None:
             window.topFrame.topLeftFrame.spWord.grid()
@@ -1239,7 +1239,7 @@ class TopCenterFrame:
             window.rightFrame.addMission(quest, pushToTop=False)
             if quest.isCompletedBy(main.character):
                 window.rightFrame.markMission(quest)
-        
+
         self.updateMap()
 
         window.bottomFrame.bottomRightFrame.centerButton['state'] = NORMAL
@@ -1247,15 +1247,15 @@ class TopCenterFrame:
         self.areaButton.bind_all("<Control-s>", lambda _: self.areaButton.invoke())
         self.areaButton.bind_all("<Control-S>", lambda _: self.areaButton.invoke())
         self.saveButton.grid()
-        
+
         root.title("Toshe's Quest II | "+name)
-        
+
         requireExitConfirmation(stateChanged)
 
     def toggleSaving(self, on):
         self.areaButton['state'] = (NORMAL if on else DISABLED)
         self.saveButton['state'] = (NORMAL if on else DISABLED)
-        
+
 class TopRightFrame:
     """Contains frames for other stats, enemy stats and store items
 
@@ -1290,7 +1290,7 @@ class TopRightFrame:
         newsContent.tag_config("title", font=font3)
         newsContent.tag_config("section", font=italicFont2, spacing3=2)
         newsContent.tag_config("emphasis", font=boldFont1)
-        
+
         isHalloweenSeason = (
             date.today().month == 10 and
             date.today().day > 24 or
@@ -1320,13 +1320,13 @@ class TopRightFrame:
         Other stats displays: various character information
         Enemy stats displays: enemy name, image, HP
         Store displays: items for sale, selected item stats, buy button
-        """        
+        """
         self.otherStats = LabelFrame(master, text="Other Stats", font=font3,
                                      width=FRAME_C_WIDTH, height=FRAME_C_HEIGHT,
                                      bg=DEFAULT_BG)
         self.otherStats.grid()
         self.otherStats.grid_propagate(0)
-        
+
         self.strengthLabel = Label(self.otherStats, text="Strength", font=font2,
                                    bg=DEFAULT_BG)
         self.strengthLabel.grid(sticky=W)
@@ -1344,7 +1344,7 @@ class TopRightFrame:
         self.powerValueLabel = Label(self.otherStats, text="10", font=font1,
                                 bg=DEFAULT_BG)
         self.powerValueLabel.grid(row=1, column=4, sticky=E)
-        
+
         self.dexterityLabel = Label(self.otherStats, text="Dexterity",
                                     font=font2, bg=DEFAULT_BG)
         self.dexterityLabel.grid(row=1, column=0, sticky=W)
@@ -1362,7 +1362,7 @@ class TopRightFrame:
         self.damageValueLabel = Label(self.otherStats, text="50", font=font1,
                                       bg=DEFAULT_BG)
         self.damageValueLabel.grid(row=2, column=4, sticky=E)
-        
+
         self.wisdomLabel = Label(self.otherStats, text="Wisdom",
                                        font=font2, bg=DEFAULT_BG)
         self.wisdomLabel.grid(row=2, column=0, sticky=W)
@@ -1380,21 +1380,21 @@ class TopRightFrame:
         self.accuracyValueLabel = Label(self.otherStats, text="85%", font=font1,
                                         bg=DEFAULT_BG)
         self.accuracyValueLabel.grid(row=0, column=4, sticky=E)
-        
+
 
         self.statPointsLabel = Label(self.otherStats,
                                      text="5\nStat Points",
                                      font=font2, bg=DEFAULT_BG, relief=FLAT)
         self.statPointsLabel.grid(rowspan=2, columnspan=2, padx=6,
                                      sticky=N+S+E+W)
-        
+
         self.critChanceLabel = Label(self.otherStats, text="Crit Chance",
                                      font=font2, bg=DEFAULT_BG)
         self.critChanceLabel.grid(row=3, column=3, sticky=W)
         self.critChanceValueLabel = Label(self.otherStats, text="5%",
                                           font=font1, bg=DEFAULT_BG)
         self.critChanceValueLabel.grid(row=3, column=4, sticky=E)
-        
+
         self.critDamageLabel = Label(self.otherStats, text="Crit Damage",
                                      font=font2, bg=DEFAULT_BG)
         self.critDamageLabel.grid(row=4, column=3, sticky=W)
@@ -1590,7 +1590,7 @@ class TopRightFrame:
                                   command=self.strikeAnvil)
         self.strikeAnvilCallback = None
         self.anvilButton.grid(columnspan=2, pady=(64, 0))
-        
+
         def enablePlaceButton():
             frame = window.topFrame.topLeftFrame
             itemIndex = frame.v1.get()
@@ -1714,7 +1714,7 @@ class TopRightFrame:
             self.accuracyValueLabel['text'] = "100%"
         else:
             self.accuracyValueLabel['text'] = str(c.accuracy) + "%"
-        
+
         if c.equippedWeapon.ELEMENT == "Physical":
             self.weaponElementLabel['bg'] = DEFAULT_BG
             self.weaponElementLabel['relief'] = FLAT
@@ -1764,7 +1764,7 @@ class TopRightFrame:
                                              bg=DEFAULT_BG, fg=BLACK)
             self.wisdomValueButton.config(state=DISABLED, relief=FLAT,
                                           bg=DEFAULT_BG, fg=BLACK)
-        
+
         state = NORMAL if c.potions > 0 and (
             main.view in ("travel", "inventory", "battle", "store")) else DISABLED
         text = c.potions if c.potions > 0 else ""
@@ -1775,7 +1775,7 @@ class TopRightFrame:
         enemy frame.
         """
         e = main.battle.enemy
-        
+
         self.enemyLevelLabel['text'] = e.LEVEL
         self.enemyLevelLabel['width'] = max(2, len(str(e.LEVEL)))
         self.enemyNameLabel['text'] = e.NAME
@@ -1786,7 +1786,7 @@ class TopRightFrame:
         else:
             self.enemySubNameLabel.grid_remove()
             self.enemyNameLabel.grid(pady=0)
-            
+
         def fetchEnemyImage(enemy):
             if enemy not in enemyImages:
                 enemyImages[enemy] = (PhotoImage(file="resources/assets/images/enemies/"+
@@ -1932,18 +1932,18 @@ class BottomLeftFrame:
             "Welcome. Click on me to embark on a quest.",
             ("grey", "highlight"))
         self.outputBox['state'] = DISABLED
-        
+
         self.outputScrollbar = Scrollbar(master, bg=DEFAULT_BG,
                                          command=self.outputBox.yview)
         self.outputScrollbar.grid(row=0, column=1, sticky=N+S)
-        
+
         self.outputBox.config(yscrollcommand=self.outputScrollbar.set)
 
         self.borderButton = Button(master, image=waveBorderImage, bg=DEFAULT_BG,
                                    relief=FLAT, bd=0,
                                    command=self.clearOutputBox)
         self.borderButton.grid(row=0, column=2)
-        
+
     def insertTimestamp(self, addSpacing=False):
         self.outputBox['state'] = NORMAL
         timestamp = "{dt:%I}:{dt.minute:02d} {dt:%p} on {dt:%B} {dt.day}, {dt.year}".format(dt = datetime.now())
@@ -2065,7 +2065,7 @@ class BottomRightFrame:
         self.fleeButton.bind_all('L', self.clickFleeButton)
         self.fleeButton.grid(row=1, column=2, sticky=W)
         self.fleeButton.grid_remove()
-        
+
         self.menuBox = Listbox(master, font=font2, width=40, height=4,
                                fg=BLACK, bg=TEXTBOX_BG, relief=GROOVE,
                                selectmode=SINGLE, exportselection=0)
@@ -2084,7 +2084,7 @@ class BottomRightFrame:
                                   repeatinterval=50,)
         self.skillButton.grid(row=4, columnspan=3, sticky=E+W)
         self.skillButton.grid_remove()
-        
+
     def move(self, arrowDirection, movementDirection):
         interfaceActions = main.move(arrowDirection)
         interfaceActions['map'] = True
@@ -2098,7 +2098,7 @@ class BottomRightFrame:
     def clickLeftButton(self, event=None):
         if self.leftButton['state'] != DISABLED:
             self.move("left", "left")
-            
+
     def clickRightButton(self, event=None):
         if self.rightButton['state'] != DISABLED:
             self.move("right", "right")
@@ -2111,7 +2111,7 @@ class BottomRightFrame:
         if self.centerButton['state'] != DISABLED:
             # Save OK Button state for when the Back Button is pressed
             self.lastOkButtonState = self.okButton['state']
-            
+
             self.centerButton.config(image=backImage,
                                      command=self.clickBackButton)
             self.centerButton.bind_all('i', self.clickBackButton)
@@ -2155,7 +2155,7 @@ class BottomRightFrame:
     def clickCancelForgetButton(self, event=None):
         window.topFrame.topRightFrame.mapButton['state'] = NORMAL
         self.centerButton.config(image=inventoryImage,
-                                 command=self.clickInventoryButton)  
+                                 command=self.clickInventoryButton)
         self.okButton['command'] = self.clickOkButton
         self.okButton['state'] = DISABLED
         self.upButton['state'] = self.lastUpButtonState
@@ -2266,7 +2266,7 @@ class BottomRightFrame:
             main.sound.playSound(main.sound.sounds['Select Option'])
 
     def enableDirectionButtons(self, enabledDirections):
-        """Set the state of specified direction buttons to NORMAL."""        
+        """Set the state of specified direction buttons to NORMAL."""
         if "up" in enabledDirections:
             self.upButton['state'] = NORMAL
         else:
@@ -2324,7 +2324,7 @@ def displayItemStats():
     """Display the stats of the selected item in the Inventory frame."""
     frame = window.topFrame.topLeftFrame
     item = main.character.items[frame.v1.get()]
-    
+
     remainingWords = item.displayName.split(" ")
     abbreviatedPortion = ""
     truncatedName = abbreviatedPortion + " ".join(remainingWords)
@@ -2334,11 +2334,11 @@ def displayItemStats():
         remainingWords = remainingWords[1:]
         truncatedName = abbreviatedPortion + " ".join(remainingWords)
     frame.itemNameLabel.config(text=truncatedName, font=italicFont2)
-    
+
     frame.itemCategoryLabel['text'] = item.CATEGORY
-    
+
     frame.itemValueLabel['text'] = "Worth "+str(item.SELL_PRICE)+" Euros"
-    
+
     if item.CATEGORY == "Miscellaneous":
         frame.itemRequirementLabel['font'] = italicFont1
         if "*" not in item.INFORMATION:
@@ -2361,14 +2361,14 @@ def displayItemStats():
         frame.itemQualityLabel['text'] = item.INFORMATION.split("*")[1]
     else:
         frame.itemQualityLabel['text'] = item.POWER, "Power"
-        
+
     if item.CATEGORY == "Shield":
         frame.itemCBRateLabel['text'] = str(item.B_RATE)+"% Block Chance"
     elif item.CATEGORY in ("Armour", "Miscellaneous"):
         frame.itemCBRateLabel['text'] = ""
     else:
         frame.itemCBRateLabel['text'] = str(item.C_RATE)+"% Critical Chance"
-        
+
     if ((item.CATEGORY == "Shield" or item.CATEGORY == "Armour") and
         item.REDUCTION != 0):
         frame.itemElementLabel['text'] = ("Reduces", item.ELEMENT, "Damage",
@@ -2387,7 +2387,7 @@ def displayItemStats():
 
     if main.character.specialization != "Scallywag" and (
         (item.CATEGORY == "Bow" and
-         main.character.equippedWeapon is not item and 
+         main.character.equippedWeapon is not item and
          main.character.equippedShield.NAME != "Nothing") or
         (item.CATEGORY == "Shield" and
          main.character.equippedShield is not item and
@@ -2395,7 +2395,7 @@ def displayItemStats():
         frame.itemCategoryLabel['fg'] = RED
     else:
         frame.itemCategoryLabel['fg'] = BLACK
-        
+
     if (item.CATEGORY == "Miscellaneous" or
         (item.REQUIREMENT_TYPE == "Strength" and
          main.character.strength >= item.REQUIREMENT_VALUE) or
@@ -2425,7 +2425,7 @@ def displayItemStats():
          main.character.wisdom < item.REQUIREMENT_VALUE) or
         main.character.specialization != "Scallywag" and
         (item.CATEGORY == "Bow" and
-         main.character.equippedWeapon is not item and 
+         main.character.equippedWeapon is not item and
          main.character.equippedShield.NAME != "Nothing" or
          item.CATEGORY == "Shield" and
          main.character.equippedShield is not item and
@@ -2459,12 +2459,12 @@ def displayStoreItemStats():
         remainingWords = remainingWords[1:]
         truncatedName = abbreviatedPortion + " ".join(remainingWords)
     frame.itemNameLabel.config(text=truncatedName, font=italicFont2)
-    
+
     frame.itemCategoryLabel['text'] = item.CATEGORY
-    
+
     frame.itemValueLabel['text'] = "Costs %d Euros (You have %d)" % (item.PRICE,
                                                       main.character.euros)
-    
+
     if item.CATEGORY == "Miscellaneous":
         frame.itemRequirementLabel['font'] = italicFont1
         if "*" not in item.INFORMATION:
@@ -2476,7 +2476,7 @@ def displayStoreItemStats():
         frame.itemRequirementLabel['text'] = ("Requires",
                                               item.REQUIREMENT_VALUE,
                                               item.REQUIREMENT_TYPE)
-    
+
     frame.itemQualityLabel['font'] = font1
     if item.CATEGORY == "Armour" or item.CATEGORY == "Shield":
         frame.itemQualityLabel['text'] = item.DEFENCE, "Defence"
@@ -2487,14 +2487,14 @@ def displayStoreItemStats():
         frame.itemQualityLabel['text'] = item.INFORMATION.split("*")[1]
     else:
         frame.itemQualityLabel['text'] = item.POWER, "Power"
-        
+
     if item.CATEGORY == "Shield":
         frame.itemCBRateLabel['text'] = str(item.B_RATE)+"% Block Chance"
     elif item.CATEGORY in ("Armour", "Miscellaneous"):
         frame.itemCBRateLabel['text'] = ""
     else:
         frame.itemCBRateLabel['text'] = str(item.C_RATE)+"% Critical Chance"
-        
+
     if ((item.CATEGORY == "Shield" or item.CATEGORY == "Armour") and
         item.REDUCTION != 0):
         frame.itemElementLabel['text'] = ("Reduces", item.ELEMENT, "Damage",
@@ -2521,7 +2521,7 @@ def displayStoreItemStats():
         frame.itemValueLabel['fg'] = RED
     else:
         frame.itemValueLabel['fg'] = BLACK
-            
+
     if (item.CATEGORY == "Miscellaneous" or
         (item.REQUIREMENT_TYPE == "Strength" and
          main.character.strength >= item.REQUIREMENT_VALUE) or
@@ -2579,7 +2579,7 @@ def updateInterface(updates, skipQuests=False):
 
     actions is a dictionary that may contain updates to the textbox, menu,
     center image, or current view.
-    
+
     skipQuests is a hacky workaround for updating the interface before quests
     are loaded in.
     """
@@ -2591,7 +2591,7 @@ def updateInterface(updates, skipQuests=False):
     topRightFrame = window.topFrame.topRightFrame
     topCenterFrame = window.topFrame.topCenterFrame
     bottomLeftFrame = window.bottomFrame.bottomLeftFrame
-    
+
     areaButtonVisible = False
     if ('image index' in updates) and (updates['image index'] is not None):
         areaName = main.currentArea.name
@@ -2660,7 +2660,7 @@ def updateInterface(updates, skipQuests=False):
                                                                mercenary.level)
             window.gridMercenaryUpFrame(mercenary.NAME)
             main.sound.playSound(main.sound.sounds['Mercenary Up'])
-            
+
     if ('game over' == updates['view']):
         if not updates['text']:
             updates['text'] = ""
@@ -2802,14 +2802,14 @@ def updateInterface(updates, skipQuests=False):
         topCenterFrame.areaButton['state'] = NORMAL
         topCenterFrame.areaButton['command'] = None
         if "halloween" in updates:
-            topCenterFrame.areaButton['image'] = phantasmImage            
+            topCenterFrame.areaButton['image'] = phantasmImage
         else:
             topCenterFrame.areaButton['image'] = battleImage
         flash(not areaButtonVisible)
         topCenterFrame.areaButton['image'] = lastImage
         topCenterFrame.areaButton['command'] = lastCommand
         topCenterFrame.areaButton['state'] = lastState
-        
+
 
 def enableTravelView():
     window.topFrame.topCenterFrame.toggleSaving(True)
@@ -2881,10 +2881,10 @@ def enableBattleView():
     bottomFrame.defendButton.grid()
     bottomFrame.fleeButton.grid()
     bottomFrame.skillButton.grid()
-    
+
     bottomFrame.enableMenuBox()
     bottomFrame.bindSkills()
-    
+
     skills = []
     for skill in main.character.skills:
         skills.append(skill.NAME)
@@ -2941,7 +2941,7 @@ def enableGameOverView():
     window.topFrame.topRightFrame.potionButton['state'] = DISABLED
     window.topFrame.topCenterFrame.areaButton.grid()
     window.topFrame.topCenterFrame.map.grid_remove()
-    
+
     window.topFrame.topLeftFrame.vitalStats.grid()
     window.topFrame.topLeftFrame.inventory.grid_remove()
     window.topFrame.topLeftFrame.updateVitalStats()
@@ -3223,8 +3223,8 @@ def updateLoadingScreen(frame, loadingBar):
         frame.destroy()
     else:
         root.after(30, updateLoadingScreen, frame, loadingBar)
-        
-        
+
+
 def loadAssets():
     def incrementProgress(complete=False):
         global loadProgress
@@ -3248,7 +3248,7 @@ def loadAssets():
         "Foxy",
         "Lily",
     ]
-    
+
     assetsToLoad = NUMBER_OF_BARS
     assetsToLoad += len(main.weapons)
     assetsToLoad += len(main.armour)
@@ -3257,7 +3257,7 @@ def loadAssets():
     # assetsToLoad += len(main.enemies)
     # assetsToLoad += len(main.areas)
     assetsToLoad += len(portraits)
-    
+
     for i in range(1, NUMBER_OF_BARS):
         xpBars.append(PhotoImage(file="resources/assets/images/bars/xpbar"+
                                  str(i)+".gif"))
@@ -3268,7 +3268,7 @@ def loadAssets():
         spBars.append(PhotoImage(file="resources/assets/images/bars/spbar"+
                                  str(i)+".gif"))
         incrementProgress()
-    
+
     for area in main.areas.itervalues():
         areaImages[area.name] = {}
 
@@ -3306,20 +3306,20 @@ def loadAssets():
             PhotoImage(file="resources/assets/images/miscellaneous/"+itemName+".gif"))
         scaledItems[imageName] = itemImages[imageName].subsample(4, 4)
         incrementProgress()
-        
+
     incrementProgress(True)
-    
-    
+
+
 def loadGame(event=None):
     updateLoadingScreen(*displayLoadingScreen())
     loadAssets()
-    
+
     global window
     window = Window(root)
     hideSideGameFrames()
     main.sound.playMusic(main.sound.songs['Intro Theme'])
-    
-    
+
+
 def requireExitConfirmation(yes=None):
     global askToSave
     if yes is None:
@@ -3397,7 +3397,7 @@ def createHitBox(parent,
         "Petrified": PETRIFICATION_COLOR,
         "Sundered": SUNDERED_BG,
         "Burning": FIRE_COLOR,
-        
+
         "Money": BROWN,
     }
     misses = set([
@@ -3649,7 +3649,7 @@ epBars.append(PhotoImage(file="resources/assets/images/bars/epbar"+
                          str(NUMBER_OF_BARS - 1)+".gif"))
 spBars.append(PhotoImage(file="resources/assets/images/bars/spbar"+
                          str(0)+".gif"))
-        
+
 views = {'travel': enableTravelView,
          'battle': enableBattleView,
          'inventory': enableInventoryView,
