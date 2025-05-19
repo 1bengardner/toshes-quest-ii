@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: October 12, 2023
+Revised: May 18, 2025
 """
 
 from random import choice
@@ -266,8 +266,8 @@ class Kismet:
                                 "\nThe businessman walks away."+
                                 "\n%s: That's some good banter." % self.c.NAME,
                                 "%s: Yo." % self.c.NAME+
-                                "\nKid: Hey! Are you %s? %s from "+
-                                "%s's Quest?!"+
+                                "\nKid: Hey! Are you %s? %s from " % (self.c.NAME, self.c.NAME)+
+                                "%s's Quest?!" % self.c.NAME+
                                 "\n%s: What the hell is that?" % self.c.NAME,
                                 "Gentleman: %s, I must ask, from where " % ("Miss" if self.c.isFemale else "Sir")+
                                 "did you obtain such a fine cotton shirt?"+
