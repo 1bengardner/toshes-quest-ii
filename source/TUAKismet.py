@@ -2,7 +2,7 @@
 File: TUAKismet.py
 Author: Ben Gardner
 Created: May 5, 2013
-Revised: May 19, 2025
+Revised: May 20, 2025
 """
 
 from random import choice
@@ -280,7 +280,7 @@ class Kismet:
                                 "\n%s: Nope." % self.c.NAME+
                                 "\nMan: Ay, tough luck, buddy.",
                                 "%s: Hey. How's the ride?" % self.c.NAME+
-                                "\nDrunk man: Uhgug. Pretty damn goo--"+
+                                "\nDrunk Man: Uhgug. Pretty damn goo--"+
                                 "\nThe man falls over."+
                                 shitLine,
                                 "%s: Hello." % self.c.NAME+
